@@ -315,6 +315,7 @@ export function initializePortfolio(
     if (sectionTransition.targetAmount === 0) {
       return;
     }
+    workGallery.pauseMedia();
     cancelNavigationHover();
     resetLotusPointer();
     sectionTransition.startAsideAmount = sectionTransition.asideAmount;

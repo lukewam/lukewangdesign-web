@@ -7,8 +7,8 @@
         "zh": "西西弗神话"
       },
       "subtitle": {
-        "en": "An Alternate Reality Game",
-        "zh": "一场另类实境游戏"
+        "en": "An alternate reality game",
+        "zh": "另类实境游戏"
       },
       "date_range": {
         "start": "2025-10",
@@ -24,12 +24,12 @@
       },
       "collaborators": [],
       "overview": {
-        "en": "The Myth of Sisyphus explores Albert Camus’ absurdism through a multi-platform alternate reality game. A physical poster leads players into a simulated university, where automated emails, coding assignments, and a fictional school website form an unfolding narrative. Web systems, Python puzzles, and an AI chatbot turn familiar digital infrastructure into an experience about searching for meaning within an indifferent system.",
-        "zh": "《西西弗神话》通过跨平台的另类实境游戏，探索阿尔贝·加缪的荒诞主义。玩家从一张实体海报出发，进入由自动邮件、编程作业与虚构学校网站组成的大学环境。网页系统、Python 谜题和 AI 聊天机器人将熟悉的数字设施变成叙事的一部分，让玩家体验在一个漠然的系统中寻找意义的过程。"
+        "en": "An alternate reality game about our desire for answers. A university recruitment poster leads into emails, Python assignments, and a fictional school portal, where the familiar promise of progress slowly begins to fail.",
+        "zh": "一场关于寻找答案的另类实境游戏。一张大学招生海报，将玩家引向邮件、Python 作业和虚构的学校门户。在这些熟悉的系统里，付出努力就能取得进展的承诺，开始慢慢失效。"
       },
       "design_question": {
-        "en": "Can a digital system simulate the experience of absurdity?",
-        "zh": "数字系统能否让人亲身感受到荒诞？"
+        "en": "Can a digital system make absurdity something we experience?",
+        "zh": "数字系统能否让荒诞成为一种亲身经验？"
       },
       "skills": [
         {
@@ -62,70 +62,17 @@
           "url": "https://lukewam.github.io/MS1/"
         }
       ],
-      "cover_captions": [
-        {
-          "id": "sisyphus-poster",
-          "text": {
-            "en": "Project poster, digital collage and drawing",
-            "zh": "项目海报，数字拼贴与绘画"
-          }
-        }
-      ],
       "sections": [
         {
-          "id": "narrative-structure",
+          "id": "an-ordinary-invitation",
           "title": {
-            "en": "Narrative Structure",
-            "zh": "叙事结构"
+            "en": "An ordinary invitation",
+            "zh": "一封普通的邀请"
           },
-          "paragraphs": [],
-          "captions": [],
-          "steps": [
+          "paragraphs": [
             {
-              "id": "entry-point",
-              "number": 1,
-              "title": {
-                "en": "Entry Point",
-                "zh": "入口"
-              },
-              "paragraphs": [
-                {
-                  "en": "I created a poster for a fictional academic institution as the game’s entry point. Sending an email to its contact address triggers an automated reply. The aim is to establish a believable academic setting so that players initially approach the experience as a real programming challenge.",
-                  "zh": "我为一个虚构的学术机构制作海报，作为游戏的入口。玩家向海报上的联系地址发送邮件后，会收到自动回复。我希望先建立一个可信的学术环境，让玩家起初把这段体验当作真实的编程挑战。"
-                }
-              ]
-            },
-            {
-              "id": "automated-email",
-              "number": 2,
-              "title": {
-                "en": "Automated Email System",
-                "zh": "自动邮件系统"
-              },
-              "paragraphs": [
-                {
-                  "en": "In the reply, a professor explains that he is out of town and leaves the player a programming assignment. Its tone and format closely resemble a real professor’s email.",
-                  "zh": "回复邮件中的教授解释自己暂时不在学校，并给玩家留下一份编程作业。邮件的语气与格式都尽量贴近真实的教授来信。"
-                }
-              ]
-            },
-            {
-              "id": "impossible-assignment",
-              "number": 3,
-              "title": {
-                "en": "The Impossible Assignment",
-                "zh": "不可能完成的作业"
-              },
-              "paragraphs": [
-                {
-                  "en": "The assignment is a Python file asking the player to fix a bug in a simple weighted-average function. It initially looks like an ordinary beginner exercise, but the autograder compares random floating-point values with the function’s output, making the test impossible to pass.",
-                  "zh": "作业是一份 Python 文件，要求玩家修复一个简单加权平均函数中的错误。它看起来像普通的入门练习，但自动评分程序会将随机浮点数与函数输出进行比较，使测试始终无法通过。"
-                },
-                {
-                  "en": "This mechanic echoes Sisyphus: however hard the player tries, the stone rolls back to the beginning. Progress requires recognizing that the system itself is flawed. A clue hidden in the autograder’s comments points toward the next puzzle, outside the usual programming workflow.",
-                  "zh": "这一机制呼应了西西弗的处境：无论玩家多么努力，石头都会滚回起点。玩家需要意识到，问题出在系统本身。自动评分程序注释中的线索指向下一道谜题，也暗示答案在常规编程流程之外。"
-                }
-              ]
+              "en": "I began with the language of an academic institution: a recruitment poster, a contact address, and an automatic reply from an absent professor. The email leaves a programming assignment. These ordinary details make the invitation credible before anything seems wrong.",
+              "zh": "我从学术机构熟悉的语言入手：招生海报、联系邮箱，以及一位暂时离校的教授发来的自动回复。邮件留下一份编程作业。在任何异常出现之前，这些日常细节先让邀请显得可信。"
             }
           ],
           "images": [
@@ -147,18 +94,31 @@
                 "en": "Fictional instructor email",
                 "zh": "虚构教师的邮件"
               },
-              "small": false
-            },
+              "small": false,
+              "crop": {
+                "x": 475,
+                "y": 492,
+                "width": 2285,
+                "height": 860
+              }
+            }
+          ],
+          "layout": "paired",
+          "gallery_layout": "invitation"
+        },
+        {
+          "id": "the-impossible-assignment",
+          "title": {
+            "en": "The impossible assignment",
+            "zh": "不可能完成的作业"
+          },
+          "paragraphs": [
             {
-              "src": "assets/portfolio/page-04-image-03.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Programming assignment in Jupyter Notebook",
-                "zh": "Jupyter Notebook 中的编程作业"
-              },
-              "small": false
-            },
+              "en": "The player is asked to repair a weighted-average function in Python. Its hidden grader tests random inputs against the arbitrary answer 42, so even a correct function can fail. Inspired by Camus, I made repetition part of the experience: progress begins when the player questions the test itself. A comment inside the grader points beyond the assignment.",
+              "zh": "玩家需要修复一个 Python 加权平均函数，但隐藏的评分程序对随机输入都预设了答案 42，因此函数即使正确，也可能无法通过。受到加缪的启发，我把重复受挫写进体验：真正的进展，始于玩家对测试本身的怀疑。评分程序里的一条注释，将线索引向作业之外。"
+            }
+          ],
+          "images": [
             {
               "src": "assets/portfolio/page-04-image-04.png",
               "width": 652,
@@ -169,39 +129,19 @@
               },
               "small": false
             }
-          ]
+          ],
+          "layout": "paired"
         },
         {
-          "id": "fictional-school",
+          "id": "clues-inside-the-school",
           "title": {
-            "en": "Fictional School Website",
-            "zh": "虚构学校网站"
+            "en": "Clues inside the school",
+            "zh": "学校里的线索"
           },
           "paragraphs": [
             {
-              "en": "The final stage takes place on a fictional school website. Its student portal hides the ending, which players reach by gathering clues to the correct username and password. I designed the interface to resemble an outdated university portal, bringing the earlier email and programming clues together in a believable academic environment.",
-              "zh": "游戏的最后阶段发生在虚构的学校网站上。结局藏在学生门户后，玩家需要收集线索，找到正确的用户名与密码才能进入。我将界面设计成老旧大学网站的样子，把邮件与编程作业中的线索汇集到一个可信的学术环境中。"
-            },
-            {
-              "en": "An AI assistant in the bottom-right corner serves as both a hint system and a philosophical conversation partner. It asks questions such as “How do you define meaning in your daily experiences?” If players repeatedly request the login credentials, it eventually reveals them.",
-              "zh": "页面右下角的 AI 助手既提供提示，也与玩家进行哲学对话，例如询问：“你如何定义日常经历中的意义？”如果玩家反复追问登录信息，它最终会给出答案。"
-            },
-            {
-              "en": "Puzzles are spread across the site. CSE 1A, the class mentioned in the email, is absent from the course catalog. Searching for it returns “no class found,” with the letter “n” in bold. Bold letters scattered across other pages form “meaning.” Its ASCII conversion becomes the password; the username, “lukewam,” is hidden in the website URL.",
-              "zh": "谜题分散在整个网站中。邮件提到的 CSE 1A 并不存在于课程目录里，搜索后会出现“no class found”，其中字母“n”被加粗。其他页面上零散的粗体字母最终组成“meaning”。将这个词转换为 ASCII 编码即可得到密码；用户名“lukewam”则藏在网站地址中。"
-            },
-            {
-              "en": "The fragmented clues and bureaucratic structure extend the project’s central question: how do we search for meaning in systems that may never offer a clear answer?",
-              "zh": "碎片化的线索和官僚式的网站结构延续了作品的核心问题：当一个系统可能永远不会给出明确答案时，我们如何在其中寻找意义？"
-            }
-          ],
-          "captions": [
-            {
-              "id": "sisyphus-website",
-              "text": {
-                "en": "The website acts as the central hub of the ARG, where earlier clues from emails and assignments converge into a final puzzle.",
-                "zh": "网站是游戏的中心，邮件与作业中的线索在这里汇集成最后的谜题。"
-              }
+              "en": "I designed the website to resemble an outdated university portal. Missing courses and scattered bold letters turn its bureaucracy into a puzzle, bringing the email and assignment together. An AI assistant offers hints and asks questions about meaning; players who keep requesting the login details can also reach the ending through conversation.",
+              "zh": "我把网站设计成老旧的大学门户。查不到的课程、散落在各页的粗体字母，让官僚式的界面成为谜题，也把邮件和作业连接起来。AI 助手一边提供提示，一边询问意义是什么；持续追问登录信息的玩家，也能通过对话抵达结尾。"
             }
           ],
           "images": [
@@ -213,87 +153,48 @@
                 "en": "Leet Code Academy homepage and helper chatbot",
                 "zh": "Leet Code Academy 首页与聊天助手"
               },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-05-image-02.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Fictional school course catalog",
-                "zh": "虚构学校的课程目录"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-05-image-03.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Introduction to Absurdism course page",
-                "zh": "荒诞主义导论课程页面"
-              },
-              "small": false
-            }
-          ]
-        },
-        {
-          "id": "final-scene",
-          "title": {
-            "en": "Final Scene & Conceptual Reflection",
-            "zh": "最终场景与概念反思"
-          },
-          "paragraphs": [
-            {
-              "en": "After entering the student portal, players meet an AI chatbot named John Smith, the fictional instructor behind the earlier email. It begins a conversation about absurdity and the search for meaning rather than supplying a final answer.",
-              "zh": "进入学生门户后，玩家会遇见名为 John Smith 的 AI 聊天机器人，也就是此前发送邮件的虚构教师。他没有给出最终答案，而是与玩家谈论荒诞和对意义的寻找。"
-            },
-            {
-              "en": "The experience shifts from solving puzzles to reflection. Emails, programming assignments, and academic portals appear logical, yet gradually fail to provide a clear resolution. The chatbot suggests that this lack of closure is intentional. Inspired by Camus, the work explores the tension between our desire for clear answers and the ambiguity of lived experience. It ends by inviting players to interpret what happened for themselves.",
-              "zh": "体验由解谜转向反思。邮件、编程作业与学术门户看似遵循逻辑，却始终无法带来明确的结论。聊天机器人提出，这种无法收束的状态正是设计的一部分。受到加缪的启发，作品探索人对明确答案的渴望与现实经验中的含混之间的张力，并邀请玩家自行理解这段经历。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "sisyphus-final-code",
-              "text": {
-                "en": "Code snippet for the final scene and integrated AI chatbot",
-                "zh": "最终场景与集成 AI 聊天机器人的代码片段"
+              "small": false,
+              "crop": {
+                "x": 476,
+                "y": 182,
+                "width": 2374,
+                "height": 1455
               }
             }
           ],
-          "images": [
+          "layout": "wide"
+        },
+        {
+          "id": "an-open-ending",
+          "title": {
+            "en": "An ending that stays open",
+            "zh": "没有收束的结尾"
+          },
+          "paragraphs": [
             {
-              "src": "assets/portfolio/page-06-image-01.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Student portal login",
-                "zh": "学生门户登录界面"
-              },
-              "small": false
-            },
+              "en": "Behind the student login is John Smith, the fictional professor, now speaking through an AI chatbot. The final encounter opens a conversation about absurdity instead of resolving the puzzles into one answer. I wanted the tension between our need for clarity and an indifferent system to remain with the player after the game ends.",
+              "zh": "学生门户之后，是以 AI 聊天机器人身份出现的虚构教授 John Smith。最后的相遇带来一场关于荒诞的对话，而没有把所有谜题收束成一个答案。我希望人对清晰答案的渴望与系统的漠然之间，那股张力能够延续到游戏结束之后。"
+            }
+          ],
+          "images": [
             {
               "src": "assets/portfolio/page-06-image-02.png",
               "width": 2880,
               "height": 1800,
               "caption": {
-                "en": "John Smith chatbot final scene",
-                "zh": "John Smith 聊天机器人的最终场景"
+                "en": "An excerpt from the final conversation with John Smith",
+                "zh": "与 John Smith 的最后一段对话节选"
               },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-06-image-03.png",
-              "width": 646,
-              "height": 377,
-              "caption": {
-                "en": "Student portal login implementation",
-                "zh": "学生门户登录功能的实现"
-              },
-              "small": false
+              "small": false,
+              "crop": {
+                "x": 468,
+                "y": 518,
+                "width": 1288,
+                "height": 840
+              }
             }
-          ]
+          ],
+          "layout": "paired"
         }
       ],
       "cover_images": [
@@ -307,7 +208,88 @@
           },
           "small": false
         }
-      ]
+      ],
+      "hero_layout": "poster",
+      "process_images": [
+        {
+          "src": "assets/portfolio/page-04-image-03.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Programming assignment in Jupyter Notebook",
+            "zh": "Jupyter Notebook 中的编程作业"
+          },
+          "small": false,
+          "crop": {
+            "x": 425,
+            "y": 405,
+            "width": 2115,
+            "height": 1210
+          }
+        },
+        {
+          "src": "assets/portfolio/page-05-image-02.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Fictional school course catalog",
+            "zh": "虚构学校的课程目录"
+          },
+          "small": false,
+          "crop": {
+            "x": 510,
+            "y": 210,
+            "width": 1180,
+            "height": 630
+          }
+        },
+        {
+          "src": "assets/portfolio/page-05-image-03.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Introduction to Absurdism course page",
+            "zh": "荒诞主义导论课程页面"
+          },
+          "small": false,
+          "crop": {
+            "x": 505,
+            "y": 220,
+            "width": 1170,
+            "height": 480
+          }
+        },
+        {
+          "src": "assets/portfolio/page-06-image-01.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Student portal login",
+            "zh": "学生门户登录界面"
+          },
+          "small": false,
+          "crop": {
+            "x": 548,
+            "y": 380,
+            "width": 1128,
+            "height": 568
+          }
+        },
+        {
+          "src": "assets/portfolio/page-06-image-03.png",
+          "width": 646,
+          "height": 377,
+          "caption": {
+            "en": "Student portal login implementation",
+            "zh": "学生门户登录功能的实现"
+          },
+          "small": false
+        }
+      ],
+      "process_note": {
+        "en": "The missing course is CSE 1A. Bold letters across the site spell “meaning”; encoding it in Base64 gives the password. The username, “lukewam,” is hidden in the URL.",
+        "zh": "消失的课程是 CSE 1A。各页的粗体字母组成“meaning”，将其转换为 Base64 编码即可得到密码。用户名“lukewam”则藏在网址里。"
+      }
     },
     {
       "id": "polar-bear",
@@ -341,61 +323,24 @@
         "Irene Liao"
       ],
       "overview": {
-        "en": "My Beloved Polar Bear is a Tamagotchi-inspired mobile game prototype designed to encourage Gen Z players to take climate action. Completing real-world eco-friendly tasks earns coins to feed and customize a virtual polar bear. Players can also share progress and connect with others. The concept brings care, personalization, and community into everyday sustainable actions.",
-        "zh": "《我心爱的北极熊》是一款受到 Tamagotchi 电子宠物启发的手机游戏原型，旨在鼓励 Z 世代玩家参与气候行动。玩家通过完成现实中的环保任务获得金币，用来喂养和装扮虚拟北极熊，也可以分享进度、与其他玩家互动。这个概念将照料、个性化与社交融入日常的可持续行动。"
+        "en": "Care for a virtual polar bear by completing small climate-friendly actions in daily life. Our Tamagotchi-inspired prototype turns those actions into coins for food and clothing, giving players a companion to return to.",
+        "zh": "通过日常的小小环保行动，照顾一只虚拟北极熊。这款受到 Tamagotchi 启发的原型，把行动转换成购买食物和服装的金币，让玩家有一个想要回来探望的伙伴。"
       },
       "links": [],
       "sections": [
         {
-          "id": "research-ideation",
+          "id": "why-a-digital-pet",
           "title": {
-            "en": "Research & Ideation",
-            "zh": "调研与构思"
+            "en": "Why a digital pet?",
+            "zh": "为什么是一只电子宠物？"
           },
           "paragraphs": [
             {
-              "en": "We surveyed more than 100 participants through Google Forms, primarily Gen Z students. Most were already taking small climate-friendly actions but needed more encouragement to act consistently. Many found educational games unappealing or boring, which led us toward familiar mobile-game formats.",
-              "zh": "我们通过 Google Forms 调研了 100 多名参与者，主要面向 Z 世代学生。多数人已经在日常生活中采取一些环保行动，但仍需要更多动力来持续行动。许多人认为教育游戏缺乏吸引力或显得无聊，因此我们转向更接近流行手机游戏的形式。"
-            },
-            {
-              "en": "We explored three concepts: clean-energy racing, an RPG in which collecting trash earns levels, and a digital pet fed through completing tasks. We chose My Beloved Polar Bear because its incentives were easy to understand and the concept was feasible as a small-scale game.",
-              "zh": "我们探索了三个概念：清洁能源赛车游戏、通过捡拾垃圾升级的 RPG，以及通过完成任务来喂养的电子宠物。最终选择《我心爱的北极熊》，因为它的激励方式容易理解，也适合做成规模较小的游戏。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "polar-bear-concept",
-              "text": {
-                "en": "My Beloved Polar Bear — Design by Luke Wang",
-                "zh": "My Beloved Polar Bear — Luke Wang 设计"
-              }
-            },
-            {
-              "id": "recycler-ranger-concept",
-              "text": {
-                "en": "Recycler Ranger Ricky — Design by Luke Wang",
-                "zh": "Recycler Ranger Ricky — Luke Wang 设计"
-              }
-            },
-            {
-              "id": "green-revolution-concept",
-              "text": {
-                "en": "Green Revolution Racing — Design by Quynh-My Pham",
-                "zh": "Green Revolution Racing — Quynh-My Pham 设计"
-              }
+              "en": "Our survey reached more than 100 people, primarily Gen Z students. Many already took small climate-friendly actions but wanted encouragement to keep going; educational games often felt unappealing. We considered racing, a recycling RPG, and a digital pet. The pet offered a clear connection between everyday action and care, within a scope our team could prototype.",
+              "zh": "我们的问卷收集了 100 多人的反馈，主要是 Z 世代学生。许多人已经在做小规模环保行动，却需要持续行动的动力，也觉得教育游戏缺乏吸引力。团队比较了赛车、回收主题 RPG 和电子宠物三个方向。宠物把日常行动与照料直接联系起来，也适合团队当时能够完成的原型规模。"
             }
           ],
           "images": [
-            {
-              "src": "assets/portfolio/page-08-image-01.png",
-              "width": 979,
-              "height": 1221,
-              "caption": {
-                "en": "Team PlanetFlip research survey",
-                "zh": "PlanetFlip 团队的调研问卷"
-              },
-              "small": false
-            },
             {
               "src": "assets/portfolio/page-08-image-02.png",
               "width": 1437,
@@ -405,69 +350,20 @@
                 "zh": "大规模与小规模气候行动的调查结果"
               },
               "small": false
-            },
-            {
-              "src": "assets/portfolio/page-08-image-03.png",
-              "width": 739,
-              "height": 1600,
-              "caption": {
-                "en": "Initial game concept sketch",
-                "zh": "早期游戏概念草图"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-08-image-04.png",
-              "width": 390,
-              "height": 844,
-              "caption": {
-                "en": "Virtual bear care game concept screen",
-                "zh": "虚拟北极熊养成游戏的概念界面"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-08-image-05.png",
-              "width": 739,
-              "height": 1600,
-              "caption": {
-                "en": "Driving game concept screen",
-                "zh": "驾驶游戏的概念界面"
-              },
-              "small": false
             }
-          ]
+          ],
+          "layout": "paired"
         },
         {
-          "id": "low-fi-prototype",
+          "id": "testing-two-ways-through",
           "title": {
-            "en": "Low Fi Prototype",
-            "zh": "低保真原型"
+            "en": "Testing two ways through",
+            "zh": "比较两种操作方式"
           },
           "paragraphs": [
             {
-              "en": "Using Figma, we mapped the key interactions and tested two screen variations, A and B, for customization, task progress, and task history. I designed Flow B.",
-              "zh": "我们使用 Figma 梳理关键交互，为自定义装扮、任务进度和任务历史设计并测试了 A、B 两种界面方案。我负责 Flow B 的设计。"
-            },
-            {
-              "en": "Testing combined demographic questions, tasks, and follow-up questions. We recorded completion time, participants’ self-ratings, and qualitative feedback. The results indicated that version B was more intuitive, informing the next design iteration.",
-              "zh": "测试包括背景问题、操作任务与追问，并记录任务完成时间、参与者自评和定性反馈。结果显示 B 版更直观，为后续设计迭代提供了方向。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "polar-flow-a",
-              "text": {
-                "en": "Flow A",
-                "zh": "流程 A"
-              }
-            },
-            {
-              "id": "polar-flow-b",
-              "text": {
-                "en": "Flow B",
-                "zh": "流程 B"
-              }
+              "en": "In Figma, we tested two versions of customization, task progress, and task history. I designed Flow B. We recorded completion times, self-ratings, and comments during task-based sessions. The feedback favored B as the more intuitive option, helping us choose which flow to develop further.",
+              "zh": "我们在 Figma 中为装扮、任务进度与任务历史设计了两种流程，我负责 Flow B。任务测试记录了完成时间、自评和参与者的意见，反馈更倾向于 B 版，也帮助我们确定了下一步继续完善的方向。"
             }
           ],
           "images": [
@@ -490,100 +386,21 @@
                 "zh": "任务历史与日历的低保真线框图"
               },
               "small": false
-            },
-            {
-              "src": "assets/portfolio/page-09-image-03.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Figma bear customization prototype overview",
-                "zh": "Figma 中的北极熊装扮原型概览"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-09-image-04.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Figma customization variants and task prototypes",
-                "zh": "Figma 中的装扮方案与任务原型"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-09-image-05.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Figma task browsing variants",
-                "zh": "Figma 中的任务浏览方案"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-09-image-06.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Figma task history and profile prototypes",
-                "zh": "Figma 中的任务历史与个人资料原型"
-              },
-              "small": false
             }
-          ]
+          ],
+          "layout": "wide",
+          "gallery_layout": "pair"
         },
         {
-          "id": "final-product",
+          "id": "bringing-care-into-the-interface",
           "title": {
-            "en": "Final Product",
-            "zh": "最终原型"
+            "en": "Bringing care into the interface",
+            "zh": "把照料放进界面"
           },
           "paragraphs": [
             {
-              "en": "User research informed a home screen that brings tasks, progress, and streaks together. Players can select a task icon to view its details, making everyday climate-friendly actions easier to follow.",
-              "zh": "根据用户调研，我们将任务、进度与连续完成记录集中在主界面。玩家可以点击任务图标查看详情，方便跟进日常环保行动。"
-            },
-            {
-              "en": "I designed the customization and feeding systems, including inventories, icons, items, and tasks. The prototype also includes a food shop, social page, and user profile.",
-              "zh": "我设计了装扮与喂养系统，包括物品栏、图标、道具和任务。原型还包含食物商店、社交页面与个人资料页。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "polar-task-detail",
-              "text": {
-                "en": "Users can click the icon to view task details",
-                "zh": "点击图标可查看任务详情"
-              }
-            },
-            {
-              "id": "polar-customization",
-              "text": {
-                "en": "Customization",
-                "zh": "自定义装扮"
-              }
-            },
-            {
-              "id": "polar-food-shop",
-              "text": {
-                "en": "Food shop",
-                "zh": "食物商店"
-              }
-            },
-            {
-              "id": "polar-social",
-              "text": {
-                "en": "Social page",
-                "zh": "社交页面"
-              }
-            },
-            {
-              "id": "polar-profile",
-              "text": {
-                "en": "User profile",
-                "zh": "个人资料"
-              }
+              "en": "The resulting home screen brings tasks, progress, and streaks together. I designed the feeding and customization systems, including the inventory, icons, items, and tasks. A food shop, friends page, and profile extend the same daily loop: choose an action, earn coins, and spend time with the bear.",
+              "zh": "迭代后的主界面把任务、进度和连续完成记录放在一起。我设计了喂养与装扮系统，包括物品栏、图标、道具和任务。食物商店、好友页和个人资料，围绕同一个日常循环展开：选择行动、获得金币，再回来陪伴北极熊。"
             }
           ],
           "images": [
@@ -592,40 +409,16 @@
               "width": 234,
               "height": 981,
               "caption": {
-                "en": "Final home screen and climate task list",
-                "zh": "最终原型的主界面与气候行动任务列表"
+                "en": "Home: the bear, streaks, and task progress",
+                "zh": "首页：北极熊、连续记录与任务进度"
               },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-10-image-02.png",
-              "width": 453,
-              "height": 362,
-              "caption": {
-                "en": "Reusable shopping bag task detail",
-                "zh": "使用可重复利用购物袋的任务详情"
-              },
-              "small": true
-            },
-            {
-              "src": "assets/portfolio/page-10-image-03.png",
-              "width": 480,
-              "height": 854,
-              "caption": {
-                "en": "Final user profile screen",
-                "zh": "最终原型的个人资料界面"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-10-image-04.png",
-              "width": 471,
-              "height": 842,
-              "caption": {
-                "en": "Final friends and invitations screen",
-                "zh": "最终原型的好友与邀请界面"
-              },
-              "small": false
+              "small": false,
+              "crop": {
+                "x": 0,
+                "y": 0,
+                "width": 234,
+                "height": 507
+              }
             },
             {
               "src": "assets/portfolio/page-10-image-05.png",
@@ -646,18 +439,10 @@
                 "zh": "最终原型的北极熊装扮界面"
               },
               "small": false
-            },
-            {
-              "src": "assets/portfolio/page-10-image-07.png",
-              "width": 172,
-              "height": 205,
-              "caption": {
-                "en": "Polar bear avatar detail",
-                "zh": "北极熊头像细节"
-              },
-              "small": true
             }
-          ]
+          ],
+          "layout": "wide",
+          "gallery_layout": "phones"
         }
       ],
       "cover_images": [
@@ -670,16 +455,157 @@
             "zh": "《我心爱的北极熊》双手机展示图"
           },
           "small": false
+        }
+      ],
+      "design_question": {
+        "en": "What might make someone want to return to a small good habit?",
+        "zh": "是什么，让人愿意一次次回到一个小小的好习惯？"
+      },
+      "hero_layout": "object",
+      "process_images": [
+        {
+          "src": "assets/portfolio/page-08-image-01.png",
+          "width": 979,
+          "height": 1221,
+          "caption": {
+            "en": "Team PlanetFlip research survey",
+            "zh": "PlanetFlip 团队的调研问卷"
+          },
+          "small": false
         },
         {
-          "src": "assets/portfolio/page-07-image-02.png",
-          "width": 582,
-          "height": 510,
+          "src": "assets/portfolio/page-08-image-03.png",
+          "width": 739,
+          "height": 1600,
           "caption": {
-            "en": "Polar bear face brand illustration",
-            "zh": "北极熊头像品牌插画"
+            "en": "Recycler Ranger Ricky — concept by Luke Wang",
+            "zh": "Recycler Ranger Ricky — 概念设计：Luke Wang"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-08-image-04.png",
+          "width": 390,
+          "height": 844,
+          "caption": {
+            "en": "My Beloved Polar Bear — concept by Luke Wang",
+            "zh": "My Beloved Polar Bear — 概念设计：Luke Wang"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-08-image-05.png",
+          "width": 739,
+          "height": 1600,
+          "caption": {
+            "en": "Green Revolution Racing — concept by Quynh-My Pham",
+            "zh": "Green Revolution Racing — 概念设计：Quynh-My Pham"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-09-image-03.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Figma bear customization prototype overview",
+            "zh": "Figma 中的北极熊装扮原型概览"
+          },
+          "small": false,
+          "crop": {
+            "x": 726,
+            "y": 452,
+            "width": 1004,
+            "height": 478
+          }
+        },
+        {
+          "src": "assets/portfolio/page-09-image-04.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Figma customization variants and task prototypes",
+            "zh": "Figma 中的装扮方案与任务原型"
+          },
+          "small": false,
+          "crop": {
+            "x": 695,
+            "y": 645,
+            "width": 1510,
+            "height": 480
+          }
+        },
+        {
+          "src": "assets/portfolio/page-09-image-05.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Figma task browsing variants",
+            "zh": "Figma 中的任务浏览方案"
+          },
+          "small": false,
+          "crop": {
+            "x": 936,
+            "y": 440,
+            "width": 1296,
+            "height": 426
+          }
+        },
+        {
+          "src": "assets/portfolio/page-09-image-06.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Figma task history and profile prototypes",
+            "zh": "Figma 中的任务历史与个人资料原型"
+          },
+          "small": false,
+          "crop": {
+            "x": 822,
+            "y": 516,
+            "width": 652,
+            "height": 432
+          }
+        },
+        {
+          "src": "assets/portfolio/page-10-image-02.png",
+          "width": 453,
+          "height": 362,
+          "caption": {
+            "en": "Reusable shopping bag task detail",
+            "zh": "使用可重复利用购物袋的任务详情"
           },
           "small": true
+        },
+        {
+          "src": "assets/portfolio/page-10-image-03.png",
+          "width": 480,
+          "height": 854,
+          "caption": {
+            "en": "Final user profile screen",
+            "zh": "最终原型的个人资料界面"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-10-image-04.png",
+          "width": 471,
+          "height": 842,
+          "caption": {
+            "en": "Final friends and invitations screen",
+            "zh": "最终原型的好友与邀请界面"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-10-image-01.png",
+          "width": 234,
+          "height": 981,
+          "caption": {
+            "en": "The complete home screen and daily task list",
+            "zh": "完整首页与每日任务清单"
+          },
+          "small": false
         }
       ]
     },
@@ -705,62 +631,34 @@
         "en": "User interaction and testing lead",
         "zh": "用户交互与测试负责人"
       },
-      "collaborators": [
-        "Matthew Mizumoto",
-        "Jack Barkes",
-        "Bran Zhang"
-      ],
+      "collaborators": ["Matthew Mizumoto", "Jack Barkes", "Bran Zhang"],
       "overview": {
-        "en": "Disaster Defender is a Meta Quest 2 VR game designed to let players practice responding to emergencies in a simulated urban disaster scene. Players find injured people, assess their injuries, spawn first-aid items, and follow guided steps within a time limit.",
-        "zh": "《灾难守护者》是一款面向 Meta Quest 2 的 VR 游戏，让玩家在模拟的城市灾后环境中练习应急响应。玩家需要寻找伤者、判断伤情、生成所需的急救物品，并在限定时间内依照指引完成救援步骤。"
+        "en": "A Meta Quest 2 game set in an urban disaster scene. Players locate injured people, select first-aid items, and follow guided actions against the clock. I led interaction design and testing, from controller input to hand tracking.",
+        "zh": "一款发生在城市灾后场景中的 Meta Quest 2 游戏。玩家需要在限定时间内找到伤者、选择急救物品，并依照指引操作。我负责交互与测试，从手柄输入逐步探索到手部追踪。"
       },
-      "tools": [
-        "Unity",
-        "C#",
-        "Meta Quest 2",
-        "Meta Interaction SDK"
-      ],
+      "tools": ["Unity", "C#", "Meta Quest 2", "Meta Interaction SDK"],
       "links": [],
       "sections": [
         {
-          "id": "prototype",
+          "id": "building-the-first-interactions",
           "title": {
-            "en": "Prototype",
-            "zh": "原型"
+            "en": "Building the first interactions",
+            "zh": "先建立基本操作"
           },
           "paragraphs": [
             {
-              "en": "We initially built the game in Unity and C# around controller input. I created a sample medical room and developed selection, manipulation, and movement. A ray from the controller lets players select and manipulate items with buttons; aiming at the ground and pressing another button enables teleportation.",
-              "zh": "游戏最初使用 Unity 和 C# 开发，通过手柄交互。我搭建了用于原型测试的医疗室，并开发了选择、操作与移动功能。玩家通过手柄射线和按键选择、操作物品，也可以将射线指向地面并按下另一按键进行传送。"
-            },
-            {
-              "en": "An arrow guides players toward injured people. A button opens a menu, where the controller ray supports text selection and choosing items to spawn. The prototype also supports text input.",
-              "zh": "方向箭头引导玩家找到伤者。按键可以打开菜单，玩家通过手柄射线选择文字与需要生成的物品，原型也支持文本输入。"
-            },
-            {
-              "en": "During testing, I attached the menu to the player model so it would follow the player, adjusted its height dynamically, and hid it when not in use.",
-              "zh": "测试时，我将菜单绑定到玩家模型，让它随玩家移动，同时动态调整高度，并在不用时隐藏。"
+              "en": "I built a medical-room prototype in Unity and C# to develop selection, object manipulation, and movement. A controller ray selects items and points to teleport destinations. Directional arrows lead toward injured people, while a menu lets players choose equipment and enter text.",
+              "zh": "我用 Unity 和 C# 搭建医疗室原型，开发选择、物体操作与移动。手柄射线用于选取物品和指定传送位置；方向箭头引导玩家接近伤者，菜单则用于选择器材和输入文字。"
             }
           ],
-          "captions": [],
           "images": [
             {
-              "src": "assets/portfolio/page-12-image-01.png",
-              "width": 1433,
-              "height": 687,
+              "src": "assets/portfolio/page-12-image-04.png",
+              "width": 1002,
+              "height": 911,
               "caption": {
-                "en": "Patient and medical equipment input flow",
-                "zh": "伤者与医疗器材的输入流程"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-12-image-02.jpg",
-              "width": 1210,
-              "height": 1613,
-              "caption": {
-                "en": "Meta Quest controller reference photo",
-                "zh": "Meta Quest 手柄参考照片"
+                "en": "Medical room interaction prototype",
+                "zh": "医疗室交互原型"
               },
               "small": false
             },
@@ -773,47 +671,50 @@
                 "zh": "手柄选择与交互流程"
               },
               "small": false
-            },
-            {
-              "src": "assets/portfolio/page-12-image-04.png",
-              "width": 1002,
-              "height": 911,
-              "caption": {
-                "en": "Medical room interaction prototype",
-                "zh": "医疗室交互原型"
-              },
-              "small": false
             }
-          ]
+          ],
+          "layout": "wide",
+          "gallery_layout": "pair"
         },
         {
-          "id": "hand-tracking",
+          "id": "keeping-the-menu-with-the-player",
           "title": {
-            "en": "Hand Tracking",
-            "zh": "手部追踪"
+            "en": "Keeping the menu with the player",
+            "zh": "让菜单跟上玩家"
           },
           "paragraphs": [
             {
-              "en": "We implemented hand tracking with the Meta Interaction SDK in Unity, defining gestures the headset could detect and connecting them to the prototype’s button interactions. This made it possible to interact without handheld controllers.",
-              "zh": "我们使用 Unity 中的 Meta Interaction SDK 实现手部追踪，定义头显能够识别的手势，并将它们对应到原型中的按键交互，使玩家能够脱离手持控制器进行操作。"
-            },
-            {
-              "en": "Some gestures were difficult to recognize reliably. I was responsible for designing simple, distinct, and intuitive gestures to improve tracking reliability and the flow of play.",
-              "zh": "部分手势难以稳定识别。我负责设计简单、彼此区分清晰且容易理解的手势，以改善识别的可靠性与游戏操作体验。"
+              "en": "Testing exposed a practical issue: the menu needed to stay usable as the player moved. I attached it to the player model, adjusted its height dynamically, and hid it when unused. That kept the same tools available throughout the scene without leaving the menu permanently in view.",
+              "zh": "测试中出现了一个实际问题：玩家移动后，菜单仍然需要便于使用。我将它绑定到玩家模型，动态调整高度，并在不用时隐藏。这样玩家在场景中移动时仍能调用同一组工具，菜单也不必一直挡在眼前。"
             }
           ],
-          "captions": [],
           "images": [
             {
-              "src": "assets/portfolio/page-13-image-01.png",
-              "width": 1927,
-              "height": 1669,
+              "src": "assets/portfolio/page-12-image-01.png",
+              "width": 1433,
+              "height": 687,
               "caption": {
-                "en": "Hand tracking gesture implementation",
-                "zh": "手部追踪与手势识别的实现"
+                "en": "Patient and medical equipment input flow",
+                "zh": "伤者与医疗器材的输入流程"
               },
               "small": false
-            },
+            }
+          ],
+          "layout": "paired"
+        },
+        {
+          "id": "making-gestures-distinct",
+          "title": {
+            "en": "Making gestures distinct",
+            "zh": "让手势容易区分"
+          },
+          "paragraphs": [
+            {
+              "en": "We then mapped hand gestures to the existing controls with the Meta Interaction SDK. Some gestures were difficult for the headset to recognize, so I focused on simple, distinct movements. The work became a balance between what felt understandable to the player and what the tracking system could reliably distinguish.",
+              "zh": "随后，我们通过 Meta Interaction SDK 将手势映射到已有操作。部分手势难以被头显识别，因此我重点设计简单、彼此差异清晰的动作。这个过程需要在玩家能否理解动作，以及追踪系统能否稳定区分动作之间，找到平衡。"
+            }
+          ],
+          "images": [
             {
               "src": "assets/portfolio/page-13-image-02.png",
               "width": 1578,
@@ -834,7 +735,9 @@
               },
               "small": false
             }
-          ]
+          ],
+          "layout": "wide",
+          "gallery_layout": "pair"
         }
       ],
       "cover_images": [
@@ -847,7 +750,14 @@
             "zh": "《灾难守护者》的城市救援游戏场景"
           },
           "small": false
-        },
+        }
+      ],
+      "design_question": {
+        "en": "How can selecting, moving, and finding help feel clear inside VR?",
+        "zh": "在 VR 里，如何让选择、移动和寻找救援目标变得清楚？"
+      },
+      "hero_layout": "landscape",
+      "process_images": [
         {
           "src": "assets/portfolio/page-11-image-02.png",
           "width": 1600,
@@ -855,6 +765,22 @@
           "caption": {
             "en": "Unity virtual keyboard implementation",
             "zh": "Unity 中的虚拟键盘实现"
+          },
+          "small": false,
+          "crop": {
+            "x": 464,
+            "y": 123,
+            "width": 589,
+            "height": 305
+          }
+        },
+        {
+          "src": "assets/portfolio/page-13-image-01.png",
+          "width": 1927,
+          "height": 1669,
+          "caption": {
+            "en": "Hand tracking gesture implementation",
+            "zh": "手部追踪与手势识别的实现"
           },
           "small": false
         }
@@ -867,8 +793,8 @@
         "zh": "自动驾驶小车"
       },
       "subtitle": {
-        "en": "An autonomous vehicle with object detection",
-        "zh": "具备目标识别能力的自动驾驶小车"
+        "en": "A small vehicle learning to read a track",
+        "zh": "学习辨认赛道的自动驾驶小车"
       },
       "date_range": {
         "start": "2022-09",
@@ -882,13 +808,10 @@
         "en": "Hardware design and tracking software development lead",
         "zh": "硬件设计与循迹软件开发负责人"
       },
-      "collaborators": [
-        "Jerry Hung",
-        "Michael Baluja"
-      ],
+      "collaborators": ["Jerry Hung", "Michael Baluja"],
       "overview": {
-        "en": "An AI-driven autonomous vehicle built with NVIDIA onboard hardware, designed to follow track lines and respond to stop, park, accelerate, and decelerate signs. A top-mounted camera observes the road, while front-mounted radar provides depth sensing. A remote laptop connection also allows manual control.",
-        "zh": "这辆基于 NVIDIA 车载硬件的 AI 自动驾驶小车能够沿赛道行驶，并响应停止、停车、加速和减速标志。顶部摄像头观察路面，前置雷达用于深度感知。小车也可以远程连接笔记本电脑，进行手动控制。"
+        "en": "A camera-equipped vehicle built to follow a track and respond to signs. I constructed its hardware and developed the tracking software, moving from recorded driving demonstrations toward explicit color-based responses in OpenCV.",
+        "zh": "一辆装有摄像头的小车，尝试沿赛道行驶并响应路标。我负责硬件搭建与循迹软件，先用驾驶示范训练模型，再通过 OpenCV 为颜色设置明确的响应规则。"
       },
       "tools": [
         "LightBurn",
@@ -900,65 +823,18 @@
       "links": [],
       "sections": [
         {
-          "id": "design",
+          "id": "building-a-platform-to-test",
           "title": {
-            "en": "Design",
-            "zh": "设计"
+            "en": "Building a platform to test",
+            "zh": "搭建可以测试的小车"
           },
           "paragraphs": [
             {
-              "en": "I constructed and wired the car, using LightBurn to design the main board and Blender to model a protective case for 3D printing. The assembly combines a laser-cut acrylic board, a 3D-printed case for the NVIDIA computer and camera, and a centrally placed VESC motor controller.",
-              "zh": "我负责小车的组装与接线，使用 LightBurn 设计主板结构，用 Blender 制作保护外壳的模型并进行 3D 打印。车身采用激光切割的亚克力板，NVIDIA 计算硬件与摄像头装在 3D 打印外壳中，VESC 电机控制器位于中央。"
-            },
-            {
-              "en": "A remote connection to a laptop supports live video streaming and manual control through the arrow keys.",
-              "zh": "通过远程连接笔记本电脑，可以查看实时视频，并用方向键手动驾驶。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "vehicle-wiring",
-              "text": {
-                "en": "Wiring Design Diagram",
-                "zh": "接线设计图"
-              }
-            },
-            {
-              "id": "vehicle-remote-control",
-              "text": {
-                "en": "Remotely connected to a laptop for video streaming and arrow key control",
-                "zh": "远程连接笔记本电脑，进行视频传输与方向键控制"
-              }
-            },
-            {
-              "id": "vehicle-construction",
-              "text": {
-                "en": "Work in progress: laser-cut custom acrylic board, 3D-printed case for the NVIDIA CPU and camera, with a VESC motor control chip centrally placed.",
-                "zh": "制作过程：激光切割的定制亚克力板、用于 NVIDIA 计算硬件和摄像头的 3D 打印外壳，以及中央的 VESC 电机控制器。"
-              }
+              "en": "I assembled and wired the vehicle, designed its laser-cut acrylic chassis in LightBurn, and modeled protective housings in Blender for 3D printing. NVIDIA hardware, a camera, front depth sensing, and a central VESC motor controller formed the platform. A laptop connection provided live video and manual driving with arrow keys.",
+              "zh": "我负责组装与接线，用 LightBurn 设计激光切割的亚克力底盘，并在 Blender 中建模、3D 打印保护外壳。车上装有 NVIDIA 硬件、摄像头、前置深度传感器与位于中央的 VESC 电机控制器。连接笔记本后，可以查看实时画面，并用方向键手动驾驶。"
             }
           ],
           "images": [
-            {
-              "src": "assets/portfolio/page-15-image-01.png",
-              "width": 608,
-              "height": 457,
-              "caption": {
-                "en": "Autonomous vehicle wiring diagram",
-                "zh": "自动驾驶小车接线图"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-15-image-02.jpg",
-              "width": 984,
-              "height": 1758,
-              "caption": {
-                "en": "Laptop remote control and video streaming test",
-                "zh": "笔记本远程控制与视频传输测试"
-              },
-              "small": false
-            },
             {
               "src": "assets/portfolio/page-15-image-03.jpg",
               "width": 2420,
@@ -970,142 +846,78 @@
               "small": false
             },
             {
-              "src": "assets/portfolio/page-15-image-04-display-orientation.png",
-              "width": 2823,
-              "height": 2117,
+              "src": "assets/portfolio/page-15-image-01.png",
+              "width": 608,
+              "height": 457,
               "caption": {
-                "en": "Vehicle acrylic chassis and printed component housings",
-                "zh": "小车的亚克力底盘与打印的部件外壳"
+                "en": "Autonomous vehicle wiring diagram",
+                "zh": "自动驾驶小车接线图"
               },
               "small": false
+            }
+          ],
+          "layout": "paired"
+        },
+        {
+          "id": "learning-from-thirty-laps",
+          "title": {
+            "en": "Learning from 30 laps",
+            "zh": "从 30 圈驾驶中学习"
+          },
+          "paragraphs": [
+            {
+              "en": "I collected 30 laps of manual driving under different lighting conditions, trained the model on a remote server, and deployed it to the vehicle. Track reflections disrupted its performance, so I repeated the training process. Lighting became a practical part of the problem, not just a background condition.",
+              "zh": "我在不同光照下手动驾驶了 30 圈，用收集的数据在远程服务器上训练模型，再部署到小车上。赛道反光影响了表现，因此我多次重复训练。光照也从背景条件，变成了需要认真处理的实际问题。"
+            }
+          ],
+          "images": [],
+          "layout": "wide",
+          "videos": [
+            {
+              "src": "assets/films/autonomous-vehicle-road-mat.mp4",
+              "poster": "assets/films/autonomous-vehicle-road-mat-poster.jpg",
+              "title": {
+                "en": "Road-mat course",
+                "zh": "道路垫场地"
+              },
+              "caption": {
+                "en": "Onboard training footage from the marked track, with curves and strong window light.",
+                "zh": "车载视角下的训练片段：标记道路上的弯道，以及窗边强光带来的明暗变化。"
+              },
+              "duration": 24,
+              "width": 1920,
+              "height": 1080
+            },
+            {
+              "src": "assets/films/autonomous-vehicle-tape-course.mp4",
+              "poster": "assets/films/autonomous-vehicle-tape-course-poster.jpg",
+              "title": {
+                "en": "Tape-line course",
+                "zh": "胶带路线场地"
+              },
+              "caption": {
+                "en": "A second training recording on tiled flooring, using blue tape to mark the route.",
+                "zh": "另一段训练记录：在瓷砖地面上，以蓝色胶带标记行驶路线。"
+              },
+              "duration": 22,
+              "width": 1920,
+              "height": 1080
             }
           ]
         },
         {
-          "id": "lane-detection",
+          "id": "giving-colors-a-response",
           "title": {
-            "en": "Lane Detection",
-            "zh": "赛道循迹"
+            "en": "Giving colors a response",
+            "zh": "为颜色设置响应"
           },
           "paragraphs": [
             {
-              "en": "I manually drove the vehicle under different lighting conditions and collected driving data from 30 laps. I trained an AI model on a remote server, then uploaded it to the NVIDIA hardware so the car could imitate the manual driving patterns.",
-              "zh": "我在不同光照条件下手动驾驶小车，收集了 30 圈的驾驶数据。随后在远程服务器上训练 AI 模型，并将其上传到 NVIDIA 硬件，让小车学习手动驾驶的模式。"
-            },
-            {
-              "en": "Reflections on the track caused poor performance, so I repeated the training process several times while working to improve the result.",
-              "zh": "赛道反光影响了识别与驾驶表现，因此我多次重复训练，尝试改善效果。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "vehicle-camera",
-              "text": {
-                "en": "Camera View",
-                "zh": "摄像头视角"
-              }
+              "en": "We reworked the approach in OpenCV so responses could be programmed more directly. I wrote the color detection: white marked track edges, black the driving surface, light blue the boundary, and red a stop cue. This gave the team more control over behaviors such as stopping, parking, speeding up, and slowing down.",
+              "zh": "团队随后用 OpenCV 调整方案，让车辆行为能够被更直接地编程。我负责编写颜色检测：白色表示赛道边缘，黑色表示行驶区域，浅蓝色表示边界，红色表示停止信号。这样，我们能更明确地设置停止、停车、加速与减速等响应。"
             }
           ],
           "images": [
-            {
-              "src": "assets/portfolio/page-16-image-01.png",
-              "width": 1045,
-              "height": 943,
-              "caption": {
-                "en": "Lane-following model training output",
-                "zh": "循迹模型的训练输出"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-16-image-02.jpg",
-              "width": 1005,
-              "height": 1786,
-              "caption": {
-                "en": "Vehicle on lane detection test track",
-                "zh": "赛道识别测试中的小车"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-16-image-03.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Driving data and demonstration video on desktop",
-                "zh": "桌面上的驾驶数据与演示视频"
-              },
-              "small": false
-            }
-          ]
-        },
-        {
-          "id": "road-sign-detection",
-          "title": {
-            "en": "Road Sign Detection",
-            "zh": "路标识别"
-          },
-          "paragraphs": [
-            {
-              "en": "We reworked the algorithm in OpenCV so the car could recognize and react to colors rather than only imitate the driver. I wrote the color detection: white identified track edges, red meant stop, black represented the track, and light blue marked out-of-bounds areas.",
-              "zh": "我们使用 OpenCV 调整算法，让小车识别颜色并作出响应，而不只是模仿驾驶者。我负责编写颜色检测：白色代表赛道边缘，红色代表停止，黑色代表赛道，浅蓝色代表越界区域。"
-            },
-            {
-              "en": "This gave us more flexibility to program the vehicle’s responses, including its reactions to road signs.",
-              "zh": "这让我们能够更灵活地设置小车的行为，包括对路标的响应。"
-            }
-          ],
-          "captions": [
-            {
-              "id": "vehicle-slow-down",
-              "text": {
-                "en": "Slow down",
-                "zh": "减速"
-              }
-            },
-            {
-              "id": "vehicle-stop",
-              "text": {
-                "en": "Stop",
-                "zh": "停止"
-              }
-            },
-            {
-              "id": "vehicle-side-park",
-              "text": {
-                "en": "Side park",
-                "zh": "侧方停车"
-              }
-            },
-            {
-              "id": "vehicle-speed-up",
-              "text": {
-                "en": "Speed up",
-                "zh": "加速"
-              }
-            }
-          ],
-          "images": [
-            {
-              "src": "assets/portfolio/page-17-image-01.jpg",
-              "width": 2048,
-              "height": 1536,
-              "caption": {
-                "en": "OpenCV color detection implementation",
-                "zh": "OpenCV 颜色检测的实现"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-17-image-02.png",
-              "width": 842,
-              "height": 776,
-              "caption": {
-                "en": "Vehicle passing speed limit 50 sign",
-                "zh": "经过限速 50 标志的小车"
-              },
-              "small": false
-            },
             {
               "src": "assets/portfolio/page-17-image-03.png",
               "width": 1100,
@@ -1127,6 +939,16 @@
               "small": false
             },
             {
+              "src": "assets/portfolio/page-17-image-02.png",
+              "width": 842,
+              "height": 776,
+              "caption": {
+                "en": "Vehicle passing speed limit 50 sign",
+                "zh": "经过限速 50 标志的小车"
+              },
+              "small": false
+            },
+            {
               "src": "assets/portfolio/page-17-image-05.png",
               "width": 731,
               "height": 699,
@@ -1136,17 +958,66 @@
               },
               "small": false
             }
-          ]
+          ],
+          "layout": "wide",
+          "gallery_layout": "quad"
         }
       ],
       "cover_images": [
         {
-          "src": "assets/portfolio/page-14-image-01.jpg",
-          "width": 1536,
-          "height": 2048,
+          "src": "assets/portfolio/page-15-image-04-display-orientation.png",
+          "width": 2823,
+          "height": 2117,
           "caption": {
-            "en": "Autonomous vehicle sensor and camera assembly",
-            "zh": "自动驾驶小车的传感器与摄像头组件"
+            "en": "Vehicle acrylic chassis and printed component housings",
+            "zh": "小车的亚克力底盘与打印的部件外壳"
+          },
+          "small": false
+        }
+      ],
+      "design_question": {
+        "en": "What changes when a driving model meets a reflective, unevenly lit track?",
+        "zh": "当驾驶模型遇到反光与变化的光照，会发生什么？"
+      },
+      "hero_layout": "object",
+      "process_images": [
+        {
+          "src": "assets/portfolio/page-16-image-01.png",
+          "width": 1045,
+          "height": 943,
+          "caption": {
+            "en": "Lane-following model training output",
+            "zh": "循迹模型的训练输出"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-15-image-02.jpg",
+          "width": 984,
+          "height": 1758,
+          "caption": {
+            "en": "Laptop remote control and video streaming test",
+            "zh": "笔记本远程控制与视频传输测试"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-16-image-02.jpg",
+          "width": 1005,
+          "height": 1786,
+          "caption": {
+            "en": "Vehicle on lane detection test track",
+            "zh": "赛道识别测试中的小车"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-17-image-01.jpg",
+          "width": 2048,
+          "height": 1536,
+          "caption": {
+            "en": "OpenCV color detection implementation",
+            "zh": "OpenCV 颜色检测的实现"
           },
           "small": false
         }
@@ -1159,8 +1030,8 @@
         "zh": "动物园导航"
       },
       "subtitle": {
-        "en": "An Android app for the San Diego Zoo",
-        "zh": "圣地亚哥动物园 Android 导航应用"
+        "en": "An Android app for planning a zoo visit",
+        "zh": "规划动物园行程的 Android 应用"
       },
       "date_range": {
         "start": "2022-03",
@@ -1182,45 +1053,37 @@
         "Galen Ng"
       ],
       "overview": {
-        "en": "Zoo Navigator is an Android app for planning a visit to the San Diego Zoo. Visitors can search for animals using partial words, add places they want to see, and calculate a route through their selected stops. The app offers detailed navigation and a simpler guide mode.",
-        "zh": "Zoo Navigator 是一款帮助游客规划圣地亚哥动物园行程的 Android 应用。游客可以输入部分名称搜索动物，添加想去的地点，并计算串联这些地点的路线。应用同时提供详细导航和简洁导览模式。"
+        "en": "Choose the animals you want to see, then find a route through the San Diego Zoo. I led the search and navigation backend for an Android app that turns a list of favorite exhibits into a visit plan.",
+        "zh": "选出想看的动物，再找到穿行圣地亚哥动物园的路线。我负责这款 Android 应用的搜索与导航后端，将一份想去的展区清单转化为游览计划。"
       },
-      "tools": [
-        "Android Studio",
-        "Dijkstra’s algorithm"
-      ],
+      "tools": ["Android Studio", "Dijkstra’s algorithm"],
       "links": [],
       "sections": [
         {
-          "id": "implementation",
+          "id": "from-search-to-a-visit-list",
           "title": {
-            "en": "Implementation",
-            "zh": "实现"
+            "en": "From search to a visit list",
+            "zh": "从搜索到行程清单"
           },
           "paragraphs": [
             {
-              "en": "I was responsible for the navigation and search systems. I used Dijkstra’s algorithm to calculate shortest paths, treating each road as an edge with a specific distance. Beginning at the visitor’s location, the algorithm calculates and updates paths to the selected destinations.",
-              "zh": "我负责导航与搜索系统，使用 Dijkstra 算法计算最短路径，将每条道路视为带有距离权重的边。算法从游客当前位置出发，计算并更新前往所选目的地的路径。"
-            },
-            {
-              "en": "We manually imported the San Diego Zoo map data and developed the app in Android Studio. Its modular structure separates each function into its own files. I conducted unit tests for individual features and integration tests that simulated the overall user experience.",
-              "zh": "我们手动导入圣地亚哥动物园的地图数据，并在 Android Studio 中开发应用。程序采用模块化结构，将不同功能拆分到独立文件中。我负责对各项功能进行单元测试，并通过集成测试模拟完整的使用流程。"
+              "en": "The search accepts partial animal names, so visitors can find exhibits without typing a complete name. They add the places they want to visit, then choose between detailed navigation and a simpler guide. I was responsible for the search and navigation systems behind this flow.",
+              "zh": "搜索支持输入部分动物名称，游客不必打完完整名称就能找到展区。选好想去的地点后，可以使用详细导航或更简洁的导览。我负责实现这段流程背后的搜索与导航系统。"
             }
           ],
-          "captions": [
+          "images": [],
+          "layout": "text"
+        },
+        {
+          "id": "turning-the-map-into-a-graph",
+          "title": {
+            "en": "Turning the map into a graph",
+            "zh": "把地图变成路径图"
+          },
+          "paragraphs": [
             {
-              "id": "zoo-map-data",
-              "text": {
-                "en": "We manually imported the map data for the San Diego Zoo.",
-                "zh": "我们手动导入了圣地亚哥动物园的地图数据。"
-              }
-            },
-            {
-              "id": "zoo-navigation-search",
-              "text": {
-                "en": "I was tasked with the navigation and search system.",
-                "zh": "我负责导航与搜索系统。"
-              }
+              "en": "We manually imported the zoo map as connected locations and roads. Each road carries a distance, allowing Dijkstra’s algorithm to calculate shortest paths from the visitor’s location. This is the foundation for navigation between selected stops.",
+              "zh": "我们手动导入动物园地图，将地点与道路构成一张连接图。每条道路带有距离权重，Dijkstra 算法据此计算从游客当前位置出发的最短路径，为所选地点之间的导航提供基础。"
             }
           ],
           "images": [
@@ -1233,17 +1096,23 @@
                 "zh": "动物园路线的加权图"
               },
               "small": false
-            },
+            }
+          ],
+          "layout": "paired"
+        },
+        {
+          "id": "testing-the-parts-and-the-journey",
+          "title": {
+            "en": "Testing the parts and the journey",
+            "zh": "测试功能，也测试完整行程"
+          },
+          "paragraphs": [
             {
-              "src": "assets/portfolio/page-21-image-02.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Android Studio animal search implementation",
-                "zh": "Android Studio 中的动物搜索实现"
-              },
-              "small": false
-            },
+              "en": "We built the app in Android Studio with functions separated into modules. I ran unit tests for individual features and integration tests that followed the overall visitor flow, checking how search, planning, and navigation worked together.",
+              "zh": "应用在 Android Studio 中开发，各项功能拆分为独立模块。我对单项功能进行单元测试，再用集成测试模拟完整游览流程，检查搜索、规划与导航如何共同工作。"
+            }
+          ],
+          "images": [
             {
               "src": "assets/portfolio/page-21-image-03.jpg",
               "width": 718,
@@ -1253,18 +1122,9 @@
                 "zh": "动物园路径的 JSON 数据结构"
               },
               "small": false
-            },
-            {
-              "src": "assets/portfolio/page-21-image-04.png",
-              "width": 2880,
-              "height": 1800,
-              "caption": {
-                "en": "Android Studio route implementation and logs",
-                "zh": "Android Studio 中的路线实现与日志"
-              },
-              "small": false
             }
-          ]
+          ],
+          "layout": "paired"
         }
       ],
       "cover_images": [
@@ -1277,16 +1137,45 @@
             "zh": "Zoo Navigator 的动物搜索与游览规划"
           },
           "small": false
+        }
+      ],
+      "design_question": {
+        "en": "How can a list of animals become a route a visitor can follow?",
+        "zh": "如何把想看的动物清单，变成游客能够跟随的路线？"
+      },
+      "hero_layout": "phone",
+      "process_images": [
+        {
+          "src": "assets/portfolio/page-21-image-02.png",
+          "width": 2880,
+          "height": 1800,
+          "caption": {
+            "en": "Search logic in Android Studio",
+            "zh": "Android Studio 中的搜索逻辑"
+          },
+          "small": false,
+          "crop": {
+            "x": 799,
+            "y": 103,
+            "width": 1324,
+            "height": 1420
+          }
         },
         {
-          "src": "assets/portfolio/page-20-image-01.png",
-          "width": 1080,
-          "height": 1080,
+          "src": "assets/portfolio/page-21-image-04.png",
+          "width": 2880,
+          "height": 1800,
           "caption": {
-            "en": "Android Studio logo illustration",
-            "zh": "Android Studio 标志插画"
+            "en": "An exhibit-data unit test",
+            "zh": "展区数据的单元测试"
           },
-          "small": true
+          "small": false,
+          "crop": {
+            "x": 810,
+            "y": 119,
+            "width": 1310,
+            "height": 535
+          }
         }
       ]
     }
@@ -1296,10 +1185,6 @@
     "title": {
       "en": "Oil Paintings",
       "zh": "油画"
-    },
-    "series_title": {
-      "en": "Slices of a Strange Life",
-      "zh": "奇异生活的切片"
     },
     "date_range": {
       "start": "2022",
@@ -1314,8 +1199,8 @@
       "zh": "艺术创作"
     },
     "overview": {
-      "en": "A painting series exploring subtle emotions hidden in ordinary life. Moving between realism and abstraction, these works collect fragments of memory, reflection, and the quiet strangeness of everyday experience.",
-      "zh": "这一绘画系列探索日常生活中不易察觉的情绪。作品游走于写实与抽象之间，捕捉记忆与沉思的片段，以及平凡经验中安静而奇异的一面。"
+      "en": "Paintings of ordinary life, and the feelings that linger within it. These works move between realism and abstraction, gathering fragments of memory, reflection, and quiet strangeness.",
+      "zh": "描绘日常生活，也描绘留在其中的情绪。这些作品游走于写实与抽象之间，收集记忆、沉思，以及安静而奇异的片刻。"
     },
     "links": [],
     "artworks": [
@@ -1552,5 +1437,16 @@
         }
       }
     ]
+  },
+  "machinary": {
+    "id": "machinary",
+    "title": {
+      "en": "Machinary Structuralism",
+      "zh": "Machinary Structuralism"
+    },
+    "overview": {
+      "en": "Project documentation is being gathered.",
+      "zh": "项目资料整理中。"
+    }
   }
 }
