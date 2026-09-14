@@ -76,7 +76,7 @@ export function createWorkGallery(
   portfolioRoot.append(imageDialog);
 
   const projectIdsByWorkIcon = {
-    eye: "machinary",
+    eye: "machinery-structuralism",
     rock: "sisyphus",
     bear: "polar-bear",
     controller: "disaster-defender",
@@ -84,10 +84,13 @@ export function createWorkGallery(
     robot: "zoo-navigator",
     brush: "oil-paintings",
   };
-  const completeProjectOrder = portfolioData.projects.map(
-    (project) => project.id,
-  );
-  completeProjectOrder.push("oil-paintings");
+  const completeProjectOrder = [
+    ...(portfolioData.machinery?.sections?.length
+      ? ["machinery-structuralism"]
+      : []),
+    ...portfolioData.projects.map((project) => project.id),
+    "oil-paintings",
+  ];
   const chapterHeadings = new Map();
 
   let currentProjectId = null;
@@ -120,7 +123,7 @@ export function createWorkGallery(
 
   /** Resolves both complete projects and the two separate index entries. */
   function findProject(projectId) {
-    if (projectId === "machinary") return portfolioData.machinary;
+    if (projectId === "machinery-structuralism") return portfolioData.machinery;
     if (projectId === "oil-paintings") return portfolioData.oil_paintings;
     return portfolioData.projects.find((project) => project.id === projectId);
   }
@@ -356,6 +359,8 @@ export function createWorkGallery(
   function appendVideoGallery(parentElement, videos) {
     if (!videos?.length) return;
     const videoGallery = createElement("div", "work-video-gallery");
+    videoGallery.dataset.galleryLayout =
+      videos.length === 1 ? "single" : "pair";
     videos.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
       const videoElement = document.createElement("video");
@@ -363,7 +368,10 @@ export function createWorkGallery(
       if (videoData.poster) videoElement.poster = videoData.poster;
       if (videoData.width) videoElement.width = videoData.width;
       if (videoData.height) videoElement.height = videoData.height;
+      if (videoData.width && videoData.height)
+        videoElement.style.aspectRatio = `${videoData.width} / ${videoData.height}`;
       videoElement.controls = true;
+      videoElement.loop = Boolean(videoData.loop);
       videoElement.playsInline = true;
       videoElement.preload = "none";
       videoElement.setAttribute(
@@ -458,7 +466,7 @@ export function createWorkGallery(
     const summaryLabel =
       activeLanguage === "zh"
         ? `过程记录 · ${imageCount} 张`
-        : `Process notes · ${imageCount} images`;
+        : `Process notes · ${imageCount} ${imageCount === 1 ? "image" : "images"}`;
     processDetails.append(createElement("summary", "", summaryLabel));
     if (projectData.process_note)
       appendParagraph(
@@ -527,7 +535,10 @@ export function createWorkGallery(
       "00",
       activeLanguage === "zh" ? "项目概览" : "Overview",
     );
-    if (currentProjectId === "machinary") {
+    if (
+      currentProjectId === "machinery-structuralism" &&
+      !projectData.sections?.length
+    ) {
       appendParagraph(projectDetail, projectData.overview, "work-lead");
       appendDetailFooter(projectData);
       return;

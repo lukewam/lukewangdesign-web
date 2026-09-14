@@ -479,7 +479,7 @@
           "height": 1600,
           "caption": {
             "en": "Recycler Ranger Ricky — concept by Luke Wang",
-            "zh": "Recycler 乱ger Ricky — 概念设计：Luke Wang"
+            "zh": "回收游侠瑞奇 — 概念设计：Luke Wang"
           },
           "small": false
         },
@@ -846,17 +846,18 @@
               "small": false
             },
             {
-              "src": "assets/portfolio/page-15-image-01.png",
-              "width": 608,
-              "height": 457,
+              "src": "assets/portfolio/autonomous-vehicle/camera-and-front-sensor.jpeg",
+              "width": 768,
+              "height": 1024,
               "caption": {
-                "en": "Autonomous vehicle wiring diagram",
-                "zh": "自动驾驶小车接线图"
+                "en": "Front sensor mounting and cable routing",
+                "zh": "前置传感器的固定与走线"
               },
               "small": false
             }
           ],
-          "layout": "paired"
+          "layout": "wide",
+          "gallery_layout": "hardware"
         },
         {
           "id": "learning-from-thirty-laps",
@@ -937,30 +938,10 @@
                 "zh": "响应停车标志"
               },
               "small": false
-            },
-            {
-              "src": "assets/portfolio/page-17-image-02.png",
-              "width": 842,
-              "height": 776,
-              "caption": {
-                "en": "Vehicle passing speed limit 50 sign",
-                "zh": "经过限速 50 标志"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/page-17-image-05.png",
-              "width": 731,
-              "height": 699,
-              "caption": {
-                "en": "Vehicle passing speed limit 100 sign",
-                "zh": "经过限速 100 标志"
-              },
-              "small": false
             }
           ],
-          "layout": "wide",
-          "gallery_layout": "quad"
+          "layout": "paired",
+          "gallery_layout": "pair"
         }
       ],
       "cover_images": [
@@ -982,6 +963,26 @@
       "hero_layout": "object",
       "process_images": [
         {
+          "src": "assets/portfolio/autonomous-vehicle/laser-cut-acrylic-platform.jpeg",
+          "width": 1024,
+          "height": 768,
+          "caption": {
+            "en": "The laser-cut acrylic platform before fitting the electronics",
+            "zh": "安装电子部件前的激光切割亚克力平台"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-15-image-01.png",
+          "width": 608,
+          "height": 457,
+          "caption": {
+            "en": "Autonomous vehicle wiring diagram",
+            "zh": "自动驾驶小车接线图"
+          },
+          "small": false
+        },
+        {
           "src": "assets/portfolio/page-16-image-01.png",
           "width": 1045,
           "height": 943,
@@ -992,32 +993,32 @@
           "small": false
         },
         {
-          "src": "assets/portfolio/page-15-image-02.jpg",
-          "width": 984,
-          "height": 1758,
-          "caption": {
-            "en": "Laptop remote control and video streaming test",
-            "zh": "远程驾驶与视频传输测试"
-          },
-          "small": false
-        },
-        {
-          "src": "assets/portfolio/page-16-image-02.jpg",
-          "width": 1005,
-          "height": 1786,
-          "caption": {
-            "en": "Vehicle on lane detection test track",
-            "zh": "小车循迹测试"
-          },
-          "small": false
-        },
-        {
           "src": "assets/portfolio/page-17-image-01.jpg",
           "width": 2048,
           "height": 1536,
           "caption": {
             "en": "OpenCV color detection implementation",
             "zh": "OpenCV 颜色检测代码"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-17-image-02.png",
+          "width": 842,
+          "height": 776,
+          "caption": {
+            "en": "Vehicle passing speed limit 50 sign",
+            "zh": "经过限速 50 标志"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/page-17-image-05.png",
+          "width": 731,
+          "height": 699,
+          "caption": {
+            "en": "Vehicle passing speed limit 100 sign",
+            "zh": "经过限速 100 标志"
           },
           "small": false
         }
@@ -1438,15 +1439,167 @@
       }
     ]
   },
-  "machinary": {
-    "id": "machinary",
+  "machinery": {
+    "id": "machinery-structuralism",
     "title": {
-      "en": "Machinary Structuralism",
+      "en": "Machinery Structuralism",
       "zh": "机械结构主义"
     },
+    "subtitle": {
+      "en": "Painting, projection, and machine vision",
+      "zh": "绘画、投影与机器视觉"
+    },
+    "date_range": {
+      "start": "2026",
+      "end": "2026",
+      "label": {
+        "en": "2026",
+        "zh": "2026 年"
+      }
+    },
+    "role": {
+      "en": "Concept, painting, programming, and installation",
+      "zh": "构思、绘画、程序与装置制作"
+    },
     "overview": {
-      "en": "Project documentation is being gathered.",
-      "zh": "资料整理中。"
+      "en": "A self-portrait, abstract paintings, and projected images share a wall. A camera captures the paintings and wall projection live; YOLO and CLIP interpret the scene while visitors watch. What we recognize depends on what we bring to an image.",
+      "zh": "自画像、抽象绘画与投影并置在墙上，摄像头将绘画与墙上的投影一起收入画面，交由 YOLO 和 CLIP 实时识别。观众驻足观看，也在各自的经验中辨认这些图像。同一张画，因观看者而有了不同的意味。"
+    },
+    "links": [
+      {
+        "label": {
+          "en": "Read AI Structuralism · PDF, 13 pages",
+          "zh": "阅读论文《AI 结构主义》· PDF，13 页"
+        },
+        "url": "assets/papers/ai-structuralism-essay.pdf"
+      }
+    ],
+    "hero_layout": "installation",
+    "cover_images": [
+      {
+        "src": "assets/portfolio/machinery-structuralism/installation-overview.jpg",
+        "width": 1024,
+        "height": 768,
+        "crop": {
+          "x": 100,
+          "y": 150,
+          "width": 840,
+          "height": 450
+        },
+        "caption": {
+          "en": "Installation view: paintings, projection, and a live machine reading",
+          "zh": "装置现场：绘画、投影与实时识别"
+        },
+        "small": false
+      }
+    ],
+    "sections": [
+      {
+        "id": "recognizing-a-face",
+        "title": {
+          "en": "Recognizing a face",
+          "zh": "认出一张脸"
+        },
+        "paragraphs": [
+          {
+            "en": "A friend may recognize the person before noticing the painting. A stranger may first see a face, a surface, or a collection of marks. The models approach the same image through learned visual patterns and a set of labels. Each reading belongs to a different web of relationships. “Machinery structuralism” is my way of bringing them into the same space.",
+            "zh": "熟悉的人也许先认出我，陌生人看到的则可能是一张脸，或画布上的色块。识别模型依据训练中形成的视觉关系和预设标签，给出另一种解释。“机械结构主义”由此追问：图像的意义，如何在这些不同的关系中形成？"
+          }
+        ],
+        "layout": "wide",
+        "images": [
+          {
+            "src": "assets/portfolio/machinery-structuralism/portrait-reading-study.jpg",
+            "width": 1212,
+            "height": 647,
+            "crop": {
+              "x": 0,
+              "y": 0,
+              "width": 1212,
+              "height": 456
+            },
+            "caption": {
+              "en": "Portrait recognition study. CLIP scores show relative matches within the chosen label set.",
+              "zh": "绘画识别实验。CLIP 分数表示图像与所选标签的相对匹配程度。"
+            },
+            "small": false
+          }
+        ]
+      },
+      {
+        "id": "from-words-to-an-image",
+        "title": {
+          "en": "From words to an image",
+          "zh": "从文字到图像"
+        },
+        "paragraphs": [
+          {
+            "en": "A sentence describing a face becomes the starting point for another image. Working from Aperture, I adapted an attention-map visualization to follow individual words across generation steps. In the film, facial features gather and disperse across eighteen small fields. Watching them together draws attention to the relationships between words and image regions.",
+            "zh": "一句对面孔的描述，成为生成图像的起点。借助改写后的 Aperture，文字在生成过程中对应的注意力图被逐步记录下来。十八个小格里，面孔从噪点中浮现，又在循环播放中散去，让文字与图像之间的联系变得可见。"
+          }
+        ],
+        "layout": "wide",
+        "images": [],
+        "videos": [
+          {
+            "src": "assets/films/machinery-structuralism-attention-grid.mp4",
+            "poster": "assets/films/machinery-structuralism-attention-grid-poster.jpg",
+            "title": {
+              "en": "A face, word by word",
+              "zh": "面孔，逐词浮现"
+            },
+            "caption": {
+              "en": "Attention maps across generation steps. Edited as a forward-and-reverse loop.",
+              "zh": "逐词注意力图；正放与倒放组成循环。"
+            },
+            "duration": 19.5,
+            "width": 1264,
+            "height": 912,
+            "loop": true
+          }
+        ]
+      },
+      {
+        "id": "painting-with-light",
+        "title": {
+          "en": "Painting with light",
+          "zh": "让光落在画布上"
+        },
+        "paragraphs": [
+          {
+            "en": "Jim Campbell’s work encouraged me to think about light as part of an image’s physical presence. Projection let a canvas hold a painted image and a changing digital one at once.",
+            "zh": "Jim Campbell 的作品让我留意，光如何影响我们辨认一幅图像。投影覆在画布上，绘画便有了另一层会变化的表面。"
+          },
+          {
+            "en": "The first installation exposed a practical tension: room light kept the paint visible but weakened the projection; dimming the room made the projection clearer while hiding the painted surface. Small projected text was also difficult to read. This test made lighting, scale, and legibility central to the next iteration.",
+            "zh": "实际布展时，明亮的环境削弱了投影，暗下来又看不清笔触；投影文字也偏小。这次尝试，让光照、画幅和文字尺度成了后续调整的重点。"
+          }
+        ],
+        "layout": "text",
+        "images": []
+      }
+    ],
+    "process_images": [
+      {
+        "src": "assets/portfolio/machinery-structuralism/abstract-reading-study.jpg",
+        "width": 1208,
+        "height": 648,
+        "crop": {
+          "x": 0,
+          "y": 6,
+          "width": 1208,
+          "height": 474
+        },
+        "caption": {
+          "en": "A second recognition test using a few painted facial marks",
+          "zh": "用简化的五官色块测试识别结果"
+        },
+        "small": false
+      }
+    ],
+    "process_note": {
+      "en": "Earlier experiments included reconstructing a lemon from frames of Hollis Frampton’s Lemon (1969). The essay follows these studies and the ideas that connect them to the installation.",
+      "zh": "前期还尝试过从 Hollis Frampton 的《柠檬》（1969）中提取画面、重建三维形体。论文记录了这些实验，以及它们如何逐渐汇入装置的构思。"
     }
   }
 }
