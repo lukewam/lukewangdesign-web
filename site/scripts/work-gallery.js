@@ -457,6 +457,64 @@ export function createWorkGallery(
     });
   }
 
+  /**
+   * Adds readable project materials beside their original downloads.
+   * @param {object} projectData Project with an optional materials collection.
+   */
+  function appendProjectMaterials(projectData) {
+    if (!projectData.materials?.length) return;
+    const materialsSection = createElement("section", "work-materials");
+    const materialsHeading = createElement(
+      "h3",
+      "",
+      activeLanguage === "zh" ? "阅读游戏材料" : "Read the game materials",
+    );
+    materialsHeading.id = `work-${currentProjectId}-materials`;
+    materialsSection.setAttribute("aria-labelledby", materialsHeading.id);
+    materialsSection.append(materialsHeading);
+    appendParagraph(
+      materialsSection,
+      projectData.materials_note,
+      "work-materials-note",
+    );
+    const materialsList = createElement("ul", "work-materials-list");
+    projectData.materials.forEach((material) => {
+      const materialItem = createElement("li", "work-material");
+      const materialCopy = createElement("div", "work-material-copy");
+      materialCopy.append(
+        createElement("h4", "", localizeText(material.title)),
+      );
+      appendParagraph(materialCopy, material.description);
+      const materialActions = createElement("div", "work-material-actions");
+      material.links.forEach((linkData) => {
+        const materialLink = createElement(
+          "a",
+          "",
+          localizeText(linkData.label),
+        );
+        materialLink.href = linkData.url;
+        if (linkData.download) {
+          materialLink.download = linkData.download;
+        } else {
+          materialLink.target = "_blank";
+          materialLink.rel = "noopener noreferrer";
+          materialLink.append(
+            createElement(
+              "span",
+              "work-reader-note",
+              activeLanguage === "zh" ? "（新标签页）" : " (new tab)",
+            ),
+          );
+        }
+        materialActions.append(materialLink);
+      });
+      materialItem.append(materialCopy, materialActions);
+      materialsList.append(materialItem);
+    });
+    materialsSection.append(materialsList);
+    projectDetail.append(materialsSection);
+  }
+
   /** Adds supporting documentation behind a native disclosure control. */
   function appendProcessImages(projectData) {
     if (!projectData.process_images?.length && !projectData.process_note)
@@ -574,6 +632,7 @@ export function createWorkGallery(
     opening.append(introduction);
     appendImageGallery(opening, projectData.cover_images, "hero");
     projectDetail.append(opening);
+    appendProjectMaterials(projectData);
 
     (projectData.sections || []).forEach((projectSection, sectionIndex) => {
       const chapterSection = createElement("section", "work-chapter");

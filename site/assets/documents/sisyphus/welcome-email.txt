@@ -1,0 +1,45 @@
+Subject: Welcome to LeetCodeAcademy – Your First Python Assignment
+From: leetcodeacademy@gmail.com
+Date: 8 December 2025
+
+Dear luke wang,
+Welcome to *LeetCodeAcademy*, and thank you for reaching out.
+I’m *Professor John Smith*, and I’ll be your instructor for our
+introductory Python course. I’m genuinely excited to have you here. This
+class is designed to help you build a solid foundation in programming while
+also preparing you for the kinds of problem-solving challenges you’ll face
+on platforms like LeetCode—and eventually, in real job interviews.
+Before we officially begin, a quick note:
+I am currently out of town on a short vacation, so I won’t be able to reply
+personally for the next few days. In the meantime, this automated message
+will guide you through your first task so you can start right away.
+
+*Your First Assignment*
+You’ll find a file attached to this email titled *PA 1.ipynb*. Open the
+file with Jupyter Notebook. Inside, you’ll begin working on your first
+exercise:
+*Write a Python program that calculates a weighted grade average.*
+Please make sure your program:
+
+   1. Stores each grade and its weight in variables.
+   2. Multiplies each grade by the correct weight.
+   3. Calculates the final weighted average.
+   4. Prints your result clearly.
+
+This assignment is simple by design—it’s meant to help you get comfortable
+with Python syntax, variables, and arithmetic. These basics become
+especially important once we transition into algorithmic thinking and
+LeetCode-style challenges.
+
+*What to Do Next*
+When you finish, just upload the file into the autograder and it will
+automatically run the testing cases.
+Even though I’m away at the moment, you will automatically receive the next
+steps and your upcoming challenge.
+Once I’m back, I’ll review everything in more detail.
+Welcome to the course—I'm looking forward to seeing how you approach your
+first problem. Enjoy the journey, take your time, and get ready for a fun
+and rewarding experience.
+Warm regards,
+*Professor John Smith*
+LeetCodeAcademy

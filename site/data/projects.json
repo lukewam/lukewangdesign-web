@@ -62,6 +62,60 @@
           "url": "https://lukewam.github.io/MS1/"
         }
       ],
+      "materials_note": {
+        "en": "The welcome email and first assignment, in their original English. Read in your browser or keep a copy.",
+        "zh": "欢迎邮件与第一份作业，保留英文原文。可直接阅读，也可下载留存。"
+      },
+      "materials": [
+        {
+          "title": {
+            "en": "The welcome email",
+            "zh": "欢迎邮件"
+          },
+          "description": {
+            "en": "Professor John Smith’s invitation from LeetCodeAcademy.",
+            "zh": "LeetCodeAcademy 教授 John Smith 的自动回复。"
+          },
+          "links": [
+            {
+              "label": { "en": "Read the email ↗", "zh": "阅读邮件 ↗" },
+              "url": "reading/sisyphus/welcome-email.html"
+            },
+            {
+              "label": {
+                "en": "Email text · TXT ↓",
+                "zh": "邮件文字版 · TXT ↓"
+              },
+              "url": "assets/documents/sisyphus/welcome-email.txt",
+              "download": "LeetCodeAcademy-welcome-email.txt"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "PA 1 · Weighted Averager",
+            "zh": "PA 1 · 加权平均作业"
+          },
+          "description": {
+            "en": "The original notebook, with a reading version that needs no Jupyter installation.",
+            "zh": "原始 Notebook 附在线阅读版，无需安装 Jupyter。"
+          },
+          "links": [
+            {
+              "label": { "en": "Read PA 1 ↗", "zh": "阅读 PA 1 ↗" },
+              "url": "reading/sisyphus/pa1.html"
+            },
+            {
+              "label": {
+                "en": "Original · IPYNB, 8 KB ↓",
+                "zh": "原文件 · IPYNB，8 KB ↓"
+              },
+              "url": "assets/documents/sisyphus/PA-1.ipynb",
+              "download": "PA 1.ipynb"
+            }
+          ]
+        }
+      ],
       "sections": [
         {
           "id": "an-ordinary-invitation",
@@ -114,8 +168,8 @@
           },
           "paragraphs": [
             {
-              "en": "The player is asked to repair a weighted-average function in Python. Its hidden grader tests random inputs against the arbitrary answer 42, so even a correct function can fail. Inspired by Camus, I made repetition part of the experience: progress begins when the player questions the test itself. A comment inside the grader points beyond the assignment.",
-              "zh": "任务要求修复 Python 的加权平均函数，但隐藏的评分程序无论随机生成什么输入，都把 42 当作预期答案。函数写对了，测试也可能失败。加缪笔下的重复与受挫由此成为游戏体验；下一步的线索藏在代码注释里，提示玩家跳出题目，重新审视测试本身。"
+              "en": "The player is asked to repair a weighted-average function in Python. The grader’s final test uses randomly generated inputs but insists on the arbitrary answer 42, so even a correct function can fail. Inspired by Camus, I made repetition part of the experience: progress begins when the player questions the test itself. The grader also contains the address of the school website.",
+              "zh": "任务要求修复 Python 的加权平均函数。评分程序最后一项测试使用随机生成的数据，却硬把 42 设为答案；函数写对了，也可能无法通过。加缪笔下的重复与受挫由此成为游戏体验。评分程序里还留着校园网站的地址，等待玩家跳出题目，重新审视规则。"
             }
           ],
           "images": [
