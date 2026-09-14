@@ -942,6 +942,15 @@ export function createWorkGallery(
         projectButton.querySelector(".work-title").textContent = localizeText(
           project.title,
         );
+        const projectIndexSubtitle = projectButton.querySelector(
+          ".work-index-subtitle",
+        );
+        if (projectIndexSubtitle) {
+          projectIndexSubtitle.textContent = localizeText(
+            project.index_subtitle,
+          );
+          projectIndexSubtitle.hidden = !project.index_subtitle;
+        }
         const projectStatus = projectButton.querySelector(".work-status");
         if (projectStatus) {
           projectStatus.textContent = localizeText(project.status);

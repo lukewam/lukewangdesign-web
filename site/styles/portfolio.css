@@ -565,6 +565,14 @@ body {
   opacity: 0;
 }
 
+#portfolio-site .work-labels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+}
+
 #portfolio-site .work-title {
   max-width: 24ch;
   font-size: clamp(16px, 1.12vw, 20px);
@@ -574,10 +582,16 @@ body {
   transition: color 180ms ease;
 }
 
-#portfolio-site .work-status {
-  margin-top: -8px;
+#portfolio-site .work-index-subtitle {
   color: var(--muted-ink-color);
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+#portfolio-site .work-status {
+  color: var(--muted-ink-color);
+  font-size: 11px;
   line-height: 1.4;
   font-weight: 400;
 }
@@ -718,9 +732,19 @@ body {
   height: 84px;
 }
 
+#portfolio-site .work-painting-item .work-labels {
+  align-items: flex-start;
+}
+
 @media (max-width: 1100px) {
   #portfolio-site .work-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #portfolio-site .work-grid .work-title {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 2.7em;
   }
 }
 

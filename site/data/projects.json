@@ -19,7 +19,11 @@
         "zh": "一款正在开发的多元宇宙游戏原型。计划让三名玩家同时选择怪物词条，由 AI 组合成敌人，再一起面对各自选择带来的后果。"
       },
       "cover_images": [],
-      "sections": []
+      "sections": [],
+      "index_subtitle": {
+        "en": "AI model-driven game",
+        "zh": "AI 模型驱动游戏"
+      }
     },
     {
       "id": "sisyphus",
@@ -336,6 +340,10 @@
       "process_note": {
         "en": "The missing course is CSE 1A. Bold letters across the site spell “meaning”; encoding it in Base64 gives the password. The username, “lukewam,” is hidden in the URL.",
         "zh": "课程目录里找不到 CSE 1A。各页的粗体字母拼出“meaning”，将这个词转为 Base64 编码，便能得到密码。用户名“lukewam”藏在网址中。"
+      },
+      "index_subtitle": {
+        "en": "Alternate reality game",
+        "zh": "另类实境游戏"
       }
     },
     {
@@ -654,7 +662,11 @@
           },
           "small": false
         }
-      ]
+      ],
+      "index_subtitle": {
+        "en": "Mobile game",
+        "zh": "手机游戏"
+      }
     },
     {
       "id": "disaster-defender",
@@ -831,7 +843,11 @@
           },
           "small": false
         }
-      ]
+      ],
+      "index_subtitle": {
+        "en": "VR game",
+        "zh": "VR 游戏"
+      }
     },
     {
       "id": "autonomous-vehicle",
@@ -1082,7 +1098,11 @@
           "width": 1080,
           "height": 1920
         }
-      ]
+      ],
+      "index_subtitle": {
+        "en": "Computer vision",
+        "zh": "计算机视觉"
+      }
     },
     {
       "id": "zoo-navigator",
@@ -1238,7 +1258,11 @@
             "height": 535
           }
         }
-      ]
+      ],
+      "index_subtitle": {
+        "en": "Android app",
+        "zh": "安卓应用"
+      }
     }
   ],
   "oil_paintings": {
@@ -1497,7 +1521,11 @@
           "small": false
         }
       }
-    ]
+    ],
+    "index_subtitle": {
+      "en": "Oil & mixed media",
+      "zh": "油彩与综合材料"
+    }
   },
   "machinery": {
     "id": "machinery-structuralism",
@@ -1712,6 +1740,10 @@
         "loop": true,
         "autoplay": true
       }
-    ]
+    ],
+    "index_subtitle": {
+      "en": "Machine vision installation",
+      "zh": "机器视觉装置"
+    }
   }
 }
