@@ -1,5 +1,5 @@
-import { createWorkGallery } from "./work-gallery.js?v=4b9952a9a688";
-import { translations } from "./translations.js?v=4b9952a9a688";
+import { createWorkGallery } from "./work-gallery.js?v=d424d1e041da";
+import { translations } from "./translations.js?v=d424d1e041da";
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
  * @param {HTMLElement} portfolioRoot - Root containing the portfolio controls and sections.
@@ -19,9 +19,6 @@ export function initializePortfolio(
   const drawingContext = flowerCanvas.getContext("2d", {
     alpha: false,
   });
-  if (!drawingContext) {
-    return;
-  }
   const reducedMotionPreference = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   );
@@ -90,12 +87,13 @@ export function initializePortfolio(
   let pitchRadians = 0;
   let yawRadians = 0;
   let rollRadians = 0;
-  let previousFrameMilliseconds = 0;
+  let previousFrameMilliseconds = null;
   let bloomLoopSeconds = 6.7;
   let motionSeconds = 0;
   let currentLanguage = "en";
   let selectedSection = null;
-  let isRestoringLocation = false;
+  let isRestoringPortfolioLocation = false;
+  let lastHandledPortfolioUrl = null;
   let isPlaying = !reducedMotionPreference.matches;
   let pausedBloomProgress = reducedMotionPreference.matches ? 1 : 0;
   const sectionPanel = portfolioRoot.querySelector(".content-panel");
@@ -105,92 +103,107 @@ export function initializePortfolio(
     portfolioData,
     {
       language: () => currentLanguage,
-      onChange: (hasDetail) => {
+      onChange: (hasProjectDetail) => {
+        if (selectedSection !== "work") return;
         dragonflyRenderer.launch(
           "work",
-          reducedMotionPreference.matches || isRestoringLocation || !hasDetail,
+          reducedMotionPreference.matches ||
+            isRestoringPortfolioLocation ||
+            !hasProjectDetail,
         );
-        updateLocation();
+        synchronizePortfolioLocation();
       },
     },
   );
   /**
-   * Keep the current section in the address so a document can return to it.
+   * Add intentional navigation to browser history, or normalize a restored route.
+   * @param {boolean} [replaceCurrentEntry=false] - Replace malformed or noncanonical routes without adding a visit.
    * @returns {void}
    */
-  function updateLocation() {
-    if (isRestoringLocation) return;
+  function synchronizePortfolioLocation(replaceCurrentEntry = false) {
+    if (isRestoringPortfolioLocation) return;
     const locationUrl = new URL(window.location.href);
-    const projectId =
+    const currentProjectId =
       selectedSection === "work" && workGallery.currentProject();
     locationUrl.hash = selectedSection
-      ? `${selectedSection}${projectId ? `/${projectId}` : ""}`
+      ? `${selectedSection}${currentProjectId ? `/${currentProjectId}` : ""}`
       : "";
     if (locationUrl.href !== window.location.href) {
-      history.replaceState(history.state, "", locationUrl);
+      if (replaceCurrentEntry) {
+        history.replaceState(history.state, "", locationUrl);
+      } else {
+        history.pushState(history.state, "", locationUrl);
+      }
     }
+    lastHandledPortfolioUrl = locationUrl.href;
   }
   /**
    * Restore a linked section after loading or returning from a reading page.
    * @returns {void}
    */
-  function restoreLocation() {
-    const sectionRoute = window.location.hash.match(
+  function restorePortfolioLocation() {
+    /** Back/Forward may emit both popstate and hashchange for the same visit. */
+    if (lastHandledPortfolioUrl === window.location.href) return;
+    const matchedSectionRoute = window.location.hash.match(
       /^#(work|about|contact)(?:\/([a-z0-9-]+))?$/,
     );
-    if (!sectionRoute && window.location.hash) return;
-    isRestoringLocation = true;
-    if (!sectionRoute) {
-      closeSection();
-    } else {
-      const [, requestedSection, requestedProject] = sectionRoute;
-      if (
-        selectedSection !== requestedSection ||
-        sectionTransition.targetAmount === 0
-      ) {
-        openSection(requestedSection);
-      }
-      if (requestedSection === "work") {
-        if (requestedProject) workGallery.open(requestedProject);
-        else if (workGallery.hasDetail()) workGallery.back();
-      }
-      /** A document return should restore the reading position without the entrance. */
-      sectionTransition.startAsideAmount = sectionTransition.asideAmount = 1;
-      sectionTransition.startSlideProgress =
-        sectionTransition.slideProgress = 1;
-      sectionTransition.startRevealProgress =
-        sectionTransition.revealProgress = 1;
-      sectionTransition.startBloomProgress =
-        sectionTransition.bloomProgress = 1;
-      sectionTransition.elapsedSeconds = 10;
-      sectionTransition.isClosing = false;
-      updateSectionTransition(0);
-      try {
-        const readingReturn = JSON.parse(
-          sessionStorage.getItem("portfolio-reading-return") || "null",
-        );
+    isRestoringPortfolioLocation = true;
+    try {
+      if (!matchedSectionRoute) {
+        closeSection();
+      } else {
+        const [, requestedSection, requestedProject] = matchedSectionRoute;
         if (
-          requestedSection === "work" &&
-          readingReturn?.projectId === requestedProject
+          selectedSection !== requestedSection ||
+          sectionTransition.targetAmount === 0
         ) {
-          sectionPanel.scrollTop = Number(readingReturn.scrollTop) || 0;
-          sessionStorage.removeItem("portfolio-reading-return");
+          openSection(requestedSection);
         }
-      } catch {
-        /** Direct project links still open when browser storage is unavailable. */
+        if (requestedSection === "work") {
+          if (requestedProject) {
+            if (workGallery.currentProject() !== requestedProject) {
+              workGallery.open(requestedProject);
+            }
+          } else if (workGallery.hasDetail()) {
+            workGallery.back();
+          }
+        }
+        try {
+          const readingReturn = JSON.parse(
+            sessionStorage.getItem("portfolio-reading-return") || "null",
+          );
+          if (
+            requestedSection === "work" &&
+            requestedProject &&
+            workGallery.currentProject() === requestedProject &&
+            readingReturn?.projectId === requestedProject
+          ) {
+            const savedScrollTop = Number(readingReturn.scrollTop);
+            sectionPanel.scrollTop = Number.isFinite(savedScrollTop)
+              ? Math.max(0, savedScrollTop)
+              : 0;
+            sessionStorage.removeItem("portfolio-reading-return");
+          }
+        } catch {
+          /** Direct project links still open when browser storage is unavailable. */
+        }
       }
+      settleSectionTransition();
+      updateSectionTransition(0);
+    } finally {
+      isRestoringPortfolioLocation = false;
     }
-    isRestoringLocation = false;
-    updateLocation();
+    synchronizePortfolioLocation(true);
   }
   /**
    * Resize the flower bitmap and restore its paper background before painting.
    * @returns {void}
    */
-  function resize() {
+  function resizeFlowerCanvas() {
     const surfaceBounds = flowerSurface.getBoundingClientRect();
     canvasWidth = Math.max(1, surfaceBounds.width);
     canvasHeight = Math.max(1, surfaceBounds.height);
+    if (!drawingContext) return;
     const pixelRatio = Math.min(
       window.devicePixelRatio || 1,
       2,
@@ -240,6 +253,7 @@ export function initializePortfolio(
   if (typeof IntersectionObserver !== "undefined") {
     new IntersectionObserver((visibilityEntries) => {
       isVisible = visibilityEntries[0].isIntersecting;
+      previousFrameMilliseconds = null;
     }).observe(portfolioRoot);
   }
   /**
@@ -345,6 +359,35 @@ export function initializePortfolio(
     pausedBloomProgress = 1;
   }
   /**
+   * Settle restored or reduced-motion navigation so later preference changes cannot resume an old entrance.
+   * @returns {void}
+   */
+  function settleSectionTransition() {
+    const targetAmount = sectionTransition.targetAmount;
+    if (targetAmount === 0 && sectionTransition.isClosing) {
+      finishLotusReturn();
+    }
+    sectionTransition.startAsideAmount = sectionTransition.asideAmount =
+      targetAmount;
+    sectionTransition.startSlideProgress = sectionTransition.slideProgress =
+      targetAmount;
+    sectionTransition.startRevealProgress = sectionTransition.revealProgress =
+      targetAmount;
+    sectionTransition.startBloomProgress = sectionTransition.bloomProgress =
+      targetAmount === 1
+        ? 1
+        : isPlaying
+          ? getBloomProgress(bloomLoopSeconds)
+          : pausedBloomProgress;
+    sectionTransition.elapsedSeconds = 10;
+    sectionTransition.isClosing = false;
+    sectionTransition.petalFold = sectionTransition.petalFoldVelocity = 0;
+    sectionTransition.petalSway = sectionTransition.petalSwayVelocity = 0;
+    sectionTransition.petalTurn = sectionTransition.petalTurnVelocity = 0;
+    sectionPanel.hidden = targetAmount === 0;
+    sectionPanel.inert = targetAmount === 0;
+  }
+  /**
    * Open a section and coordinate its content, flower movement, and dragonfly flight.
    * @param {'work'|'about'|'contact'} nextSection - Section to present.
    * @returns {void}
@@ -387,21 +430,20 @@ export function initializePortfolio(
         ),
       );
     portfolioRoot.dataset.activeSection = nextSection;
-    setLanguage(currentLanguage);
+    setPortfolioLanguage(currentLanguage);
     dragonflyRenderer.launch(
       nextSection,
-      reducedMotionPreference.matches || isRestoringLocation,
+      reducedMotionPreference.matches || isRestoringPortfolioLocation,
     );
+    updateNavigationHover(0);
     portfolioRoot.querySelector(".panel-close-button").focus({
       preventScroll: true,
     });
     if (reducedMotionPreference.matches) {
-      sectionTransition.asideAmount = 1;
-      sectionTransition.slideProgress = 1;
-      sectionTransition.revealProgress = 1;
-      sectionTransition.bloomProgress = 1;
+      settleSectionTransition();
+      updateSectionTransition(0);
     }
-    updateLocation();
+    synchronizePortfolioLocation();
   }
   /**
    * Close the content panel and restore navigation focus for keyboard activation.
@@ -422,15 +464,22 @@ export function initializePortfolio(
     sectionTransition.elapsedSeconds = 0;
     sectionTransition.isClosing = true;
     sectionTransition.startRevealProgress = sectionTransition.revealProgress;
-    dragonflyRenderer.returnHome(reducedMotionPreference.matches, 0);
+    dragonflyRenderer.returnHome(
+      reducedMotionPreference.matches || isRestoringPortfolioLocation,
+      0,
+    );
+    const wasFocusInsidePanel = sectionPanel.contains(document.activeElement);
     sectionPanel.inert = true;
     const previousSection = selectedSection;
     selectedSection = null;
     delete portfolioRoot.dataset.activeSection;
-    updateLocation();
-    /** Restore a keyboard user's place without adding a mouse-click focus mark. */
+    synchronizePortfolioLocation();
+    /** Never leave focus inside the newly inert panel, including after a pointer close. */
     const shouldRestoreFocus =
-      !event || event.type === "keydown" || event.detail === 0;
+      wasFocusInsidePanel ||
+      !event ||
+      event.type === "keydown" ||
+      event.detail === 0;
     if (previousSection && shouldRestoreFocus) {
       portfolioRoot
         .querySelector('[data-navigation-section="' + previousSection + '"]')
@@ -444,18 +493,23 @@ export function initializePortfolio(
         sectionButton.setAttribute("aria-pressed", "false"),
       );
     if (reducedMotionPreference.matches) {
-      finishLotusReturn();
-      sectionPanel.hidden = true;
+      settleSectionTransition();
+      updateSectionTransition(0);
     }
+    updateNavigationHover(0);
   }
   /**
    * Advance panel reveal, flower displacement, and the petal spring responses.
-   * @param {number} deltaSeconds - Time since the previous frame.
+   * @param {number} sceneDeltaSeconds - Capped step for continuous spring and input motion.
+   * @param {number} [transitionDeltaSeconds=sceneDeltaSeconds] - Visible elapsed time for panel and flight durations.
    * @returns {void}
    */
-  function updateSectionTransition(deltaSeconds) {
+  function updateSectionTransition(
+    sceneDeltaSeconds,
+    transitionDeltaSeconds = sceneDeltaSeconds,
+  ) {
     const previousSlideProgress = sectionTransition.slideProgress;
-    sectionTransition.elapsedSeconds += deltaSeconds;
+    sectionTransition.elapsedSeconds += transitionDeltaSeconds;
     const transitionSeconds = sectionTransition.elapsedSeconds;
     if (!reducedMotionPreference.matches) {
       if (sectionTransition.isClosing) {
@@ -527,7 +581,7 @@ export function initializePortfolio(
        */
       const slideVelocity =
         (sectionTransition.slideProgress - previousSlideProgress) /
-        Math.max(0.001, deltaSeconds);
+        Math.max(0.001, transitionDeltaSeconds);
       const movementDirection = sectionTransition.isClosing
         ? -1
         : sectionTransition.targetAmount === 1
@@ -547,7 +601,7 @@ export function initializePortfolio(
         "petalFoldVelocity",
         clampRange(Math.abs(slideVelocity) * 0.9 + anticipationAmount * 0.55),
         9.5,
-        deltaSeconds,
+        sceneDeltaSeconds,
       );
       relaxPetalSpring(
         "petalSway",
@@ -558,7 +612,7 @@ export function initializePortfolio(
           1,
         ),
         7,
-        deltaSeconds,
+        sceneDeltaSeconds,
       );
       /** A slower axial turn trails the petal response, then settles to neutral. */
       relaxPetalSpring(
@@ -570,7 +624,7 @@ export function initializePortfolio(
           1,
         ),
         4.6,
-        deltaSeconds,
+        sceneDeltaSeconds,
       );
     }
     if (
@@ -586,12 +640,13 @@ export function initializePortfolio(
       "--section-transition-progress",
       String(sectionTransition.asideAmount),
     );
-    updateNavigationHover(deltaSeconds);
+    updateNavigationHover(sceneDeltaSeconds);
     dragonflyRenderer.draw(
       motionSeconds,
-      deltaSeconds,
+      sceneDeltaSeconds,
       reducedMotionPreference.matches,
       navigationHoverState.work,
+      transitionDeltaSeconds,
     );
   }
   const navigationHoverState = {
@@ -842,7 +897,7 @@ export function initializePortfolio(
    * @param {'en'|'zh'} languageCode - Language to display.
    * @returns {void}
    */
-  function setLanguage(languageCode) {
+  function setPortfolioLanguage(languageCode) {
     currentLanguage = languageCode;
     try {
       sessionStorage.setItem("portfolio-language", languageCode);
@@ -850,6 +905,16 @@ export function initializePortfolio(
       /** Language switching remains available when browser storage is disabled. */
     }
     portfolioRoot.lang = languageCode === "zh" ? "zh-CN" : "en";
+    portfolioRoot
+      .querySelector(".main-navigation")
+      .setAttribute("aria-label", translations[languageCode].navigationLabel);
+    portfolioRoot
+      .querySelector(".language-switcher")
+      .setAttribute("aria-label", translations[languageCode].languageLabel);
+    sectionPanel.setAttribute(
+      "aria-label",
+      translations[languageCode].contentLabel,
+    );
     portfolioRoot
       .querySelectorAll("[data-language-option]")
       .forEach((languageButton) =>
@@ -864,8 +929,11 @@ export function initializePortfolio(
         sectionButton.textContent =
           translations[languageCode][sectionButton.dataset.navigationSection];
       });
-    portfolioRoot.querySelector(".site-message").textContent =
-      translations[languageCode].hint;
+    portfolioRoot.querySelector(".site-message").textContent = drawingContext
+      ? translations[languageCode].hint
+      : languageCode === "zh"
+        ? "暂时无法显示花朵动画。"
+        : "The flower animation is unavailable.";
     portfolioRoot.querySelector(".restart-bloom-button").textContent =
       translations[languageCode].replay;
     const returnButton = portfolioRoot.querySelector(".panel-close-button");
@@ -922,7 +990,7 @@ export function initializePortfolio(
     .querySelectorAll("[data-language-option]")
     .forEach((languageButton) =>
       languageButton.addEventListener("click", () =>
-        setLanguage(languageButton.dataset.languageOption),
+        setPortfolioLanguage(languageButton.dataset.languageOption),
       ),
     );
   portfolioRoot
@@ -936,7 +1004,15 @@ export function initializePortfolio(
     .querySelector(".panel-close-button")
     .addEventListener("click", closeSection);
   portfolioRoot.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !sectionPanel.hidden) {
+    if (
+      event.key === "Escape" &&
+      !event.defaultPrevented &&
+      !event.repeat &&
+      !document.fullscreenElement &&
+      !sectionPanel.hidden &&
+      !sectionPanel.inert
+    ) {
+      event.preventDefault();
       if (selectedSection === "work" && workGallery.hasDetail()) {
         workGallery.back();
       } else {
@@ -1088,7 +1164,7 @@ export function initializePortfolio(
       ? getBloomProgress(bloomLoopSeconds)
       : pausedBloomProgress;
     isPlaying = !isPlaying;
-    setLanguage(currentLanguage);
+    setPortfolioLanguage(currentLanguage);
   });
   portfolioRoot
     .querySelector(".restart-bloom-button")
@@ -1096,12 +1172,22 @@ export function initializePortfolio(
       bloomLoopSeconds = 0;
       pausedBloomProgress = 0;
       isPlaying = true;
-      setLanguage(currentLanguage);
+      setPortfolioLanguage(currentLanguage);
     });
   reducedMotionPreference.addEventListener("change", () => {
     isPlaying = !reducedMotionPreference.matches;
     pausedBloomProgress = 1;
-    setLanguage(currentLanguage);
+    if (reducedMotionPreference.matches) {
+      resetLotusPointer();
+      settleSectionTransition();
+      if (selectedSection) {
+        dragonflyRenderer.launch(selectedSection, true);
+      } else {
+        dragonflyRenderer.returnHome(true);
+      }
+      updateSectionTransition(0);
+    }
+    setPortfolioLanguage(currentLanguage);
   });
   /**
    * Render one ASCII frame and schedule the next, preserving pauses and visibility state.
@@ -1110,16 +1196,18 @@ export function initializePortfolio(
    */
   function drawFrame(frameMilliseconds) {
     requestAnimationFrame(drawFrame);
-    const deltaSeconds = Math.min(
-      0.05,
-      (frameMilliseconds - previousFrameMilliseconds) / 1000 || 0.0167,
-    );
+    const elapsedFrameSeconds =
+      previousFrameMilliseconds === null
+        ? 0
+        : Math.max(0, (frameMilliseconds - previousFrameMilliseconds) / 1000);
+    /** Keep interaction motion bounded without stretching finite transitions at low frame rates. */
+    const sceneDeltaSeconds = Math.min(0.05, elapsedFrameSeconds);
     previousFrameMilliseconds = frameMilliseconds;
     if (!isVisible || document.hidden) {
       return;
     }
     if (isFlowerResizePending) {
-      resize();
+      resizeFlowerCanvas();
       isFlowerResizePending = false;
     }
     if (
@@ -1127,13 +1215,14 @@ export function initializePortfolio(
       sectionTransition.targetAmount === 0 &&
       !sectionTransition.isClosing
     ) {
-      bloomLoopSeconds += deltaSeconds;
+      bloomLoopSeconds += sceneDeltaSeconds;
     }
     if (!reducedMotionPreference.matches) {
-      motionSeconds += deltaSeconds;
+      motionSeconds += sceneDeltaSeconds;
     }
-    updateSectionTransition(deltaSeconds);
-    flowerCanvas.style.transform = `translate3d(${canvasWidth * sectionTransition.slideProgress * (portfolioRoot.clientWidth < 600 ? 0.9 : 0.52)}px,0,0)`;
+    updateSectionTransition(sceneDeltaSeconds, elapsedFrameSeconds);
+    flowerCanvas.style.transform = `translate3d(${canvasWidth * sectionTransition.slideProgress * (portfolioRoot.clientWidth <= 600 ? 0.9 : 0.52)}px,0,0)`;
+    if (!drawingContext) return;
     drawingContext.globalAlpha = 1;
     drawingContext.fillStyle = paperColor;
     drawingContext.fillRect(0, 0, canvasWidth, canvasHeight);
@@ -1143,8 +1232,8 @@ export function initializePortfolio(
       drawingContext.textAlign = "center";
       drawingContext.fillText(
         currentLanguage === "zh"
-          ? "显示花朵动画需要开启浏览器的图形加速。"
-          : "The flower needs browser graphics acceleration.",
+          ? "暂时无法显示花朵动画。"
+          : "The flower animation is unavailable.",
         canvasWidth / 2,
         canvasHeight / 2,
       );
@@ -1161,7 +1250,7 @@ export function initializePortfolio(
       sectionTransition.slideProgress > 0.001 ||
       navigationHoverState.activeSection
         ? 0
-        : 1 - Math.exp(-deltaSeconds * 3.6);
+        : 1 - Math.exp(-sceneDeltaSeconds * 3.6);
     pitchRadians +=
       ((isPointerActive ? -pointerState.normalizedY * 0.24 : 0) -
         pitchRadians) *
@@ -1172,29 +1261,39 @@ export function initializePortfolio(
     rollRadians = 0;
     const bloomProgress = sectionTransition.bloomProgress;
     const modelScale = Math.min(canvasWidth / 3.48, canvasHeight / 4.4);
-    const renderedPixels = lotusRenderer.render(
-      columnCount,
-      rowCount,
-      columnCount * characterCellWidth,
-      rowCount * characterCellHeight,
-      bloomProgress,
-      [pitchRadians, yawRadians, rollRadians],
-      [canvasWidth * 0.51, canvasHeight * 0.44, modelScale],
-      renderSettings.highlight,
-      {
-        fold:
-          sectionTransition.petalFold *
-          (sectionTransition.slideProgress > 0 &&
-          sectionTransition.slideProgress < 1
-            ? Math.sin(Math.PI * sectionTransition.slideProgress)
-            : 0),
-        sway: sectionTransition.petalSway,
-        turn: sectionTransition.petalTurn,
-        attention: navigationHoverState.about,
-        phase: motionSeconds,
-      },
-    );
-    const heatDecayFactor = Math.exp(-deltaSeconds * 3.0);
+    let renderedPixels;
+    try {
+      renderedPixels = lotusRenderer.render(
+        columnCount,
+        rowCount,
+        columnCount * characterCellWidth,
+        rowCount * characterCellHeight,
+        bloomProgress,
+        [pitchRadians, yawRadians, rollRadians],
+        [canvasWidth * 0.51, canvasHeight * 0.44, modelScale],
+        renderSettings.highlight,
+        {
+          fold:
+            sectionTransition.petalFold *
+            (sectionTransition.slideProgress > 0 &&
+            sectionTransition.slideProgress < 1
+              ? Math.sin(Math.PI * sectionTransition.slideProgress)
+              : 0),
+          sway: sectionTransition.petalSway,
+          turn: sectionTransition.petalTurn,
+          attention: navigationHoverState.about,
+          phase: motionSeconds,
+        },
+      );
+    } catch (renderError) {
+      /** A failed graphics frame must not interrupt navigation or retry a broken renderer forever. */
+      flowerCanvas.dataset.graphicsError = String(
+        renderError?.message || renderError,
+      );
+      lotusRenderer = null;
+      return;
+    }
+    const heatDecayFactor = Math.exp(-sceneDeltaSeconds * 3.0);
     const brushRadius = Math.min(66, canvasWidth * 0.19);
     const accentTick = reducedMotionPreference.matches
       ? 0
@@ -1356,24 +1455,49 @@ export function initializePortfolio(
     }
     drawingContext.globalAlpha = 1;
   }
-  resize();
-  let savedLanguage = "en";
+  resizeFlowerCanvas();
+  let savedLanguageCode = "en";
   try {
     if (sessionStorage.getItem("portfolio-language") === "zh")
-      savedLanguage = "zh";
+      savedLanguageCode = "zh";
   } catch {
     /** A direct visit defaults to English when browser storage is unavailable. */
   }
-  setLanguage(savedLanguage);
-  restoreLocation();
-  window.addEventListener("hashchange", restoreLocation);
+  setPortfolioLanguage(savedLanguageCode);
+  restorePortfolioLocation();
+  window.addEventListener("hashchange", restorePortfolioLocation);
+  window.addEventListener("popstate", restorePortfolioLocation);
+  /**
+   * Pause media and discard stale input when the document leaves the foreground.
+   * @returns {void}
+   */
+  function suspendPage() {
+    previousFrameMilliseconds = null;
+    workGallery.pauseMedia();
+    resetLotusPointer();
+    cancelNavigationHover();
+    navigationHoverState.pointerSection = null;
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      suspendPage();
+    } else {
+      previousFrameMilliseconds = null;
+      requestFlowerResize();
+    }
+  });
+  window.addEventListener("pagehide", suspendPage);
   window.addEventListener("pageshow", (event) => {
+    previousFrameMilliseconds = null;
+    requestFlowerResize();
+    dragonflyRenderer.resize();
     if (!event.persisted) return;
     try {
       sessionStorage.removeItem("portfolio-reading-return");
     } catch {
       /** Browser-restored pages already preserve their current reading position. */
     }
+    restorePortfolioLocation();
   });
   requestAnimationFrame(drawFrame);
 }

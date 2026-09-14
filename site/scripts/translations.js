@@ -1,6 +1,9 @@
 /** English and Chinese portfolio copy, including accessible descriptions. */
 export const translations = {
   en: {
+    navigationLabel: "Portfolio navigation",
+    languageLabel: "Language",
+    contentLabel: "Portfolio content",
     work: "Work",
     about: "About",
     contact: "Contact",
@@ -25,6 +28,9 @@ export const translations = {
       "An ASCII lotus opens and closes above a slender, fading stem. Move the pointer to rotate the flower and reveal colored character cells.",
   },
   zh: {
+    navigationLabel: "网站导航",
+    languageLabel: "语言",
+    contentLabel: "作品集内容",
     work: "作品",
     about: "关于",
     contact: "联系",

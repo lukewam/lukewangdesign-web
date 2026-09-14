@@ -1,6 +1,6 @@
 /**
  * @typedef {object} DragonflyRenderer
- * @property {function(number, number, boolean, number=): void} draw - Advance and render one frame.
+ * @property {function(number, number, boolean, number=, number=): void} draw - Advance and render one frame.
  * @property {function(): void} resize - Recompute the canvas and perch geometry.
  * @property {function((string|boolean)=, boolean=): void} launch - Fly to a section heading.
  * @property {function(boolean=, number=): void} returnHome - Return to the Work navigation perch.
@@ -17,6 +17,14 @@
 export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   const dragonflyCanvas = portfolioRoot.querySelector(".dragonfly-canvas");
   const drawingContext = dragonflyCanvas.getContext("2d");
+  if (!drawingContext) {
+    throw new Error("A 2D canvas is unavailable for the dragonfly.");
+  }
+  if (!modelBytes.byteLength || modelBytes.byteLength % 11 !== 0) {
+    throw new Error(
+      "The dragonfly model contains an incomplete vertex record.",
+    );
+  }
   const stageElement = portfolioRoot;
   const workNavigationButton = portfolioRoot.querySelector(
     '[data-navigation-section="work"]',
@@ -75,6 +83,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   let stageWidth = 1;
   let stageHeight = 1;
   let designScale = 1;
+  let isResizePending = false;
   let homePerch = [0, 0];
   let launchPosition = [0, 0];
   let flightMode = "rest";
@@ -184,6 +193,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
    */
   function resize() {
     const stageBounds = stageElement.getBoundingClientRect();
+    if (stageBounds.width <= 0 || stageBounds.height <= 0) return;
     const previousDesignScale = designScale;
     designScale = Math.max(
       1,
@@ -203,12 +213,16 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       );
     }
     const pixelRatio = Math.min(
-      devicePixelRatio || 1,
+      window.devicePixelRatio || 1,
       2,
       Math.sqrt(8000000 / (stageBounds.width * stageBounds.height)),
     );
-    dragonflyCanvas.width = Math.round(stageBounds.width * pixelRatio);
-    dragonflyCanvas.height = Math.round(stageBounds.height * pixelRatio);
+    const bitmapWidth = Math.round(stageBounds.width * pixelRatio);
+    const bitmapHeight = Math.round(stageBounds.height * pixelRatio);
+    if (dragonflyCanvas.width !== bitmapWidth)
+      dragonflyCanvas.width = bitmapWidth;
+    if (dragonflyCanvas.height !== bitmapHeight)
+      dragonflyCanvas.height = bitmapHeight;
     drawingContext.setTransform(
       pixelRatio * designScale,
       0,
@@ -242,7 +256,13 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
         homeFontSize * 0.82) /
       designScale;
   }
-  new ResizeObserver(resize).observe(stageElement);
+  /** Reset a resized bitmap only in the frame that repaints it. */
+  function requestResize() {
+    isResizePending = true;
+  }
+  new ResizeObserver(requestResize).observe(stageElement);
+  window.addEventListener("resize", requestResize, { passive: true });
+  dragonflyCanvas.addEventListener("contextrestored", requestResize);
   resize();
   /**
    * Keep a departing perch near the canvas when its heading has scrolled away.
@@ -353,9 +373,10 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   /**
    * Advance the flight and draw its opaque body and translucent wing layers.
    * @param {number} elapsedSeconds - Animation clock used for breathing and wing motion.
-   * @param {number} deltaSeconds - Time elapsed since the previous frame.
+   * @param {number} deltaSeconds - Bounded integration step for wing motion.
    * @param {boolean} prefersReducedMotion - Disable idle motion and finish active flights.
    * @param {number} [attentionAmount=0] - Navigation dwell response between zero and one.
+   * @param {number} [transitionDeltaSeconds=deltaSeconds] - Visible elapsed time for the flight path.
    * @returns {void}
    */
   function draw(
@@ -363,8 +384,16 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     deltaSeconds,
     prefersReducedMotion,
     attentionAmount = 0,
+    transitionDeltaSeconds = deltaSeconds,
   ) {
-    flightElapsedSeconds += deltaSeconds;
+    if (drawingContext.isContextLost?.()) return;
+    if (isResizePending) {
+      resize();
+      isResizePending = false;
+    }
+    flightElapsedSeconds += Number.isFinite(transitionDeltaSeconds)
+      ? Math.max(0, transitionDeltaSeconds)
+      : 0;
     drawingContext.clearRect(0, 0, stageWidth, stageHeight);
     if (prefersReducedMotion && flightMode === "out") {
       flightMode = "section-rest";
@@ -567,7 +596,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
         const orbitAngle = 2 * Math.PI * smoothStep(orbitProgress);
         const orbitFloor = Math.min(
           startPosition[1],
-          stageWidth < 600 ? 46 : 96,
+          stageWidth <= 600 ? 46 : 96,
         );
         const orbitRise = Math.min(
           takeoffRise,
@@ -784,7 +813,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       return;
     }
     const homeModelScale = Math.min(
-      stageWidth < 600 ? 55 : 76,
+      stageWidth <= 600 ? 55 : 76,
       Math.max(28, (homePerch[0] - 7) / 1.27),
     );
     const modelScale =
@@ -839,10 +868,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     drawingContext.textBaseline = "middle";
     drawingContext.font = '2.8px "Courier New",monospace';
     const motionSampleCount = wingActivity > 0.1 ? 3 : 1;
-    let rightmostPixel = -Infinity;
-    let leftmostPixel = Infinity;
-    let topmostPixel = Infinity;
-    let bottommostPixel = -Infinity;
     for (
       let sampleIndex = motionSampleCount - 1;
       sampleIndex >= 0;
@@ -1109,10 +1134,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
               modelOrigin[1] +
               (Math.floor(cellIndex / rasterSize) - rasterSize / 2) *
                 characterCellSize;
-            rightmostPixel = Math.max(rightmostPixel, canvasX);
-            leftmostPixel = Math.min(leftmostPixel, canvasX);
-            topmostPixel = Math.min(topmostPixel, canvasY);
-            bottommostPixel = Math.max(bottommostPixel, canvasY);
             drawingContext.fillText(
               characterRamp[Math.min(7, Math.floor(toneValue * 7.99))],
               canvasX,
@@ -1130,7 +1151,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   }
   return {
     draw,
-    resize,
+    resize: requestResize,
     launch,
     returnHome,
   };

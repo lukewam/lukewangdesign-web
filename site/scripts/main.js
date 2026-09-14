@@ -1,61 +1,76 @@
-import { createLotusRenderer } from "./scene/lotus-renderer.js?v=4b9952a9a688";
-import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=4b9952a9a688";
-import { initializePortfolio } from "./portfolio-controller.js?v=4b9952a9a688";
+import { createLotusRenderer } from "./scene/lotus-renderer.js?v=d424d1e041da";
+import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=d424d1e041da";
+import { initializePortfolio } from "./portfolio-controller.js?v=d424d1e041da";
 
 /**
  * Load a local resource relative to this module, including on a repository subpath.
  * @param {string} relativePath Resource path relative to the scripts directory.
- * @returns {Promise<Response>} Successful response ready for decoding.
+ * @param {'json'|'text'|'arrayBuffer'} [responseFormat='text'] Resource decoder.
+ * @returns {Promise<unknown>} Decoded content, with a timeout covering its body.
  */
-async function loadResource(relativePath) {
-  const response = await fetch(new URL(relativePath, import.meta.url));
-  if (!response.ok) {
-    throw new Error(`Unable to load ${relativePath}: ${response.status}`);
+async function loadResource(relativePath, responseFormat = "text") {
+  const requestController = new AbortController();
+  const requestTimeout = setTimeout(() => requestController.abort(), 15000);
+  try {
+    const response = await fetch(new URL(relativePath, import.meta.url), {
+      signal: requestController.signal,
+    });
+    if (!response.ok) {
+      throw new Error(`Unable to load ${relativePath}: ${response.status}`);
+    }
+    return await response[responseFormat]();
+  } finally {
+    clearTimeout(requestTimeout);
   }
-  return response;
 }
 
-/** Load scene assets, then connect the portfolio navigation and animation loop. */
+/** Load the flower independently so its graphics cannot prevent navigation. */
+async function loadLotusRenderer() {
+  try {
+    const [lotusModel, vertexShader, fragmentShader] = await Promise.all([
+      loadResource("../assets/models/lotus.json?v=d424d1e041da", "json"),
+      loadResource("../assets/shaders/lotus.vert?v=d424d1e041da"),
+      loadResource("../assets/shaders/lotus.frag?v=d424d1e041da"),
+    ]);
+    return createLotusRenderer(lotusModel, vertexShader, fragmentShader);
+  } catch (error) {
+    console.warn("The flower could not load.", error);
+    return null;
+  }
+}
+
+/**
+ * Keep section controls available when the dragonfly model or canvas fails.
+ * @param {HTMLElement} portfolioRoot Root containing the dragonfly canvas.
+ * @returns {Promise<object>} The flight controller, or an inactive equivalent.
+ */
+async function loadDragonflyRenderer(portfolioRoot) {
+  try {
+    const modelBuffer = await loadResource(
+      "../assets/models/dragonfly.bin?v=d424d1e041da",
+      "arrayBuffer",
+    );
+    const modelBytes = new Uint8Array(modelBuffer);
+    return createDragonflyRenderer(portfolioRoot, modelBytes);
+  } catch (error) {
+    console.warn("The dragonfly could not load.", error);
+    return {
+      draw() {},
+      resize() {},
+      launch() {},
+      returnHome() {},
+    };
+  }
+}
+
+/** Load project content and optional scene assets, then connect the controls. */
 async function startPortfolio() {
   const portfolioRoot = document.querySelector("#portfolio-site");
-  const [
-    lotusModel,
-    dragonflyModel,
-    vertexShader,
-    fragmentShader,
-    portfolioData,
-  ] = await Promise.all([
-    loadResource("../assets/models/lotus.json").then((response) =>
-      response.json(),
-    ),
-    loadResource("../assets/models/dragonfly.bin").then((response) =>
-      response.arrayBuffer(),
-    ),
-    loadResource("../assets/shaders/lotus.vert").then((response) =>
-      response.text(),
-    ),
-    loadResource("../assets/shaders/lotus.frag").then((response) =>
-      response.text(),
-    ),
-    loadResource("../data/projects.json?v=4b9952a9a688").then((response) => response.json()),
+  const [portfolioData, lotusRenderer, dragonflyRenderer] = await Promise.all([
+    loadResource("../data/projects.json?v=d424d1e041da", "json"),
+    loadLotusRenderer(),
+    loadDragonflyRenderer(portfolioRoot),
   ]);
-
-  let lotusRenderer = null;
-  try {
-    lotusRenderer = createLotusRenderer(
-      lotusModel,
-      vertexShader,
-      fragmentShader,
-    );
-  } catch (error) {
-    portfolioRoot.querySelector(
-      ".lotus-interaction canvas",
-    ).dataset.graphicsError = error.message;
-  }
-  const dragonflyRenderer = createDragonflyRenderer(
-    portfolioRoot,
-    new Uint8Array(dragonflyModel),
-  );
   initializePortfolio(
     portfolioRoot,
     lotusRenderer,
@@ -64,8 +79,55 @@ async function startPortfolio() {
   );
 }
 
-startPortfolio().catch((error) => {
+/** Replace unavailable controls with a retry action and a direct contact link. */
+function showLoadingError(error) {
   console.error("Portfolio could not start.", error);
-  document.querySelector(".site-message").textContent =
-    "The portfolio could not load. Please refresh to try again.";
-});
+  let useChineseCopy = false;
+  try {
+    useChineseCopy = sessionStorage.getItem("portfolio-language") === "zh";
+  } catch {
+    /** English remains available when browser storage is blocked. */
+  }
+  const portfolioRoot = document.querySelector("#portfolio-site");
+  const portfolioStage = portfolioRoot.querySelector(".portfolio-stage");
+  portfolioStage.hidden = true;
+  portfolioRoot.querySelectorAll("canvas").forEach((canvas) => {
+    canvas.hidden = true;
+  });
+  portfolioRoot
+    .querySelectorAll("[data-language-option], .restart-bloom-button")
+    .forEach((button) => {
+      button.disabled = true;
+    });
+  portfolioRoot.querySelector(".site-message").textContent = "";
+  const errorPanel = document.createElement("section");
+  errorPanel.className = "load-error";
+  errorPanel.lang = useChineseCopy ? "zh-CN" : "en";
+  errorPanel.setAttribute("role", "alert");
+  errorPanel.setAttribute("aria-labelledby", "portfolio-load-error-title");
+  const errorHeading = document.createElement("h2");
+  errorHeading.id = "portfolio-load-error-title";
+  errorHeading.tabIndex = -1;
+  errorHeading.textContent = useChineseCopy
+    ? "暂时无法加载作品集。"
+    : "The portfolio couldn't load.";
+  const errorExplanation = document.createElement("p");
+  errorExplanation.textContent = useChineseCopy
+    ? "请重试，或通过邮件联系。"
+    : "Please try again, or get in touch by email.";
+  const errorActions = document.createElement("div");
+  errorActions.className = "load-error-actions";
+  const retryButton = document.createElement("button");
+  retryButton.type = "button";
+  retryButton.textContent = useChineseCopy ? "重试" : "Try again";
+  retryButton.addEventListener("click", () => window.location.reload());
+  const emailLink = document.createElement("a");
+  emailLink.href = "mailto:lukewang2333@gmail.com";
+  emailLink.textContent = useChineseCopy ? "邮件联系" : "Email Luke";
+  errorActions.append(retryButton, emailLink);
+  errorPanel.append(errorHeading, errorExplanation, errorActions);
+  portfolioStage.before(errorPanel);
+  errorHeading.focus();
+}
+
+startPortfolio().catch(showLoadingError);

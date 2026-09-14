@@ -46,6 +46,70 @@ export function createLotusRenderer(
   if (!webglContext) {
     return null;
   }
+  let sceneRenderer = createLotusScene(
+    webglContext,
+    lotusMeshData,
+    vertexShaderSource,
+    fragmentShaderSource,
+  );
+  let previousPixels = null;
+  let previousColumnCount = 0;
+  let previousRowCount = 0;
+  let emptyPixels = new Uint8Array(0);
+  renderCanvas.addEventListener("webglcontextlost", (event) => {
+    event.preventDefault();
+  });
+  renderCanvas.addEventListener("webglcontextrestored", () => {
+    try {
+      sceneRenderer = createLotusScene(
+        webglContext,
+        lotusMeshData,
+        vertexShaderSource,
+        fragmentShaderSource,
+      );
+    } catch (error) {
+      sceneRenderer = null;
+      console.warn("The flower graphics could not be restored.", error);
+    }
+  });
+  return {
+    /** Keep the last valid frame while the browser restores its graphics context. */
+    render(...renderParameters) {
+      const [columnCount, rowCount] = renderParameters;
+      if (webglContext.isContextLost() || !sceneRenderer) {
+        if (
+          previousPixels &&
+          columnCount === previousColumnCount &&
+          rowCount === previousRowCount
+        )
+          return previousPixels;
+        const requiredLength = columnCount * rowCount * 16;
+        if (emptyPixels.length !== requiredLength)
+          emptyPixels = new Uint8Array(requiredLength);
+        return emptyPixels;
+      }
+      previousPixels = sceneRenderer.render(...renderParameters);
+      previousColumnCount = columnCount;
+      previousRowCount = rowCount;
+      return previousPixels;
+    },
+  };
+}
+
+/**
+ * Allocate GPU resources for a new or restored context.
+ * @param {WebGLRenderingContext} webglContext The current canvas context.
+ * @param {LotusMeshData} lotusMeshData Packed mesh data retained for restoration.
+ * @param {string} vertexShaderSource Vertex shader source.
+ * @param {string} fragmentShaderSource Fragment shader source.
+ * @returns {{render: Function}} The scene render pass and its cached light maps.
+ */
+function createLotusScene(
+  webglContext,
+  lotusMeshData,
+  vertexShaderSource,
+  fragmentShaderSource,
+) {
   /**
    * Compiles a shader and reports the WebGL compiler's error when compilation fails.
    *
@@ -63,7 +127,9 @@ export function createLotusRenderer(
         webglContext.COMPILE_STATUS,
       )
     ) {
-      throw new Error(webglContext.getShaderInfoLog(compiledShader));
+      const compilerMessage = webglContext.getShaderInfoLog(compiledShader);
+      webglContext.deleteShader(compiledShader);
+      throw new Error(compilerMessage || "The lotus shader could not compile.");
     }
     return compiledShader;
   }
@@ -83,7 +149,6 @@ export function createLotusRenderer(
     throw new Error(webglContext.getProgramInfoLog(shaderProgram));
   }
   webglContext.useProgram(shaderProgram);
-  const meshData = lotusMeshData;
   /**
    * Restores the byte sequence stored in a compressed mesh field.
    *
@@ -98,10 +163,21 @@ export function createLotusRenderer(
     }
     return decodedBytes;
   }
-  const vertexBytes = decodeBase64(meshData.vertexAttributesBase64);
+  const vertexBytes = decodeBase64(lotusMeshData.vertexAttributesBase64);
+  if (
+    !Number.isInteger(lotusMeshData.vertexCount) ||
+    lotusMeshData.vertexCount <= 0 ||
+    vertexBytes.byteLength !== lotusMeshData.vertexCount * 22
+  ) {
+    throw new Error("The lotus model contains an incomplete vertex record.");
+  }
   const vertexDataView = new DataView(vertexBytes.buffer);
-  const vertexAttributes = new Float32Array(meshData.vertexCount * 16);
-  for (let vertexIndex = 0; vertexIndex < meshData.vertexCount; vertexIndex++) {
+  const vertexAttributes = new Float32Array(lotusMeshData.vertexCount * 16);
+  for (
+    let vertexIndex = 0;
+    vertexIndex < lotusMeshData.vertexCount;
+    vertexIndex++
+  ) {
     const compressedVertexOffset = vertexIndex * 22;
     const attributeOffset = vertexIndex * 16;
     for (let coordinateIndex = 0; coordinateIndex < 3; coordinateIndex++) {
@@ -131,7 +207,14 @@ export function createLotusRenderer(
     vertexAttributes[attributeOffset + 15] =
       vertexBytes[compressedVertexOffset + 21] / 255;
   }
-  const decodedIndexBytes = decodeBase64(meshData.triangleIndicesBase64);
+  const decodedIndexBytes = decodeBase64(lotusMeshData.triangleIndicesBase64);
+  if (
+    !Number.isInteger(lotusMeshData.triangleCount) ||
+    lotusMeshData.triangleCount <= 0 ||
+    decodedIndexBytes.byteLength !== lotusMeshData.triangleCount * 6
+  ) {
+    throw new Error("The lotus model contains an incomplete triangle record.");
+  }
   const triangleIndices = new Uint16Array(decodedIndexBytes.buffer);
   const vertexBuffer = webglContext.createBuffer();
   webglContext.bindBuffer(webglContext.ARRAY_BUFFER, vertexBuffer);
@@ -261,6 +344,15 @@ export function createLotusRenderer(
       webglContext.RENDERBUFFER,
       depthBuffer,
     );
+    if (
+      webglContext.checkFramebufferStatus(webglContext.FRAMEBUFFER) !==
+      webglContext.FRAMEBUFFER_COMPLETE
+    ) {
+      webglContext.deleteTexture(texture);
+      webglContext.deleteRenderbuffer(depthBuffer);
+      webglContext.deleteFramebuffer(framebuffer);
+      throw new Error("The browser could not allocate a lotus render target.");
+    }
     return {
       texture,
       depthBuffer,

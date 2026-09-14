@@ -8,17 +8,17 @@
       name="description"
       content="Luke Wang — paintings, interactive works, and moments of stillness."
     />
-    <title>LukeWangDesign</title>
+    <title>Luke Wang — Art &amp; Interaction</title>
     <link rel="canonical" href="https://lukewangdesign.com/" />
     <link rel="icon" href="assets/work-icons/eye-0.png" type="image/png" />
-    <link rel="stylesheet" href="styles/portfolio.css?v=4b9952a9a688" />
-    <script type="module" src="scripts/main.js?v=4b9952a9a688"></script>
+    <link rel="stylesheet" href="styles/portfolio.css?v=d424d1e041da" />
+    <script type="module" src="scripts/main.js?v=d424d1e041da"></script>
   </head>
   <body>
     <div id="portfolio-site" lang="en" aria-label="Luke Wang portfolio">
       <header class="site-header">
         <h1 class="site-name">Luke Wang</h1>
-        <div class="language-switcher" aria-label="Language">
+        <div class="language-switcher" role="group" aria-label="Language">
           <button type="button" data-language-option="en" aria-pressed="true">
             EN
           </button>
@@ -77,7 +77,7 @@
             </button>
           </div>
           <div class="panel-content">
-            <h2></h2>
+            <h2 id="panel-title" class="panel-title"></h2>
             <dl class="contact-details" hidden>
               <div class="contact-entry">
                 <dt data-contact-label="emailLabel">Email</dt>
@@ -101,7 +101,7 @@
                 </dd>
               </div>
             </dl>
-            <div class="work-section" hidden>
+            <section class="work-section" aria-labelledby="panel-title" hidden>
               <ul class="work-grid" aria-label="Selected projects">
                 <li>
                   <button
@@ -112,7 +112,7 @@
                     <span class="work-drawing" aria-hidden="true">
                       <svg
                         class="work-frame work-frame-rest"
-                        viewBox="0 0 640 380"
+                        viewBox="0 0 300 178"
                         focusable="false"
                       >
                         <defs>
@@ -121,8 +121,8 @@
                             filterUnits="userSpaceOnUse"
                             x="0"
                             y="0"
-                            width="640"
-                            height="380"
+                            width="300"
+                            height="178"
                             color-interpolation-filters="sRGB"
                           >
                             <feColorMatrix
@@ -133,17 +133,17 @@
                         </defs>
                         <g filter="url(#multiverse-planet-ink)">
                           <image
-                            href="assets/work-icons/ai-multiverse-drawings-v2.png"
-                            x="-167"
-                            y="-578"
-                            width="2732"
-                            height="2048"
+                            href="assets/work-icons/ai-multiverse-drawings-v3.jpg"
+                            x="-75"
+                            y="-267"
+                            width="1280"
+                            height="959"
                           />
                         </g>
                       </svg>
                       <svg
                         class="work-frame work-frame-hover"
-                        viewBox="0 0 640 380"
+                        viewBox="0 0 300 178"
                         focusable="false"
                       >
                         <defs>
@@ -152,8 +152,8 @@
                             filterUnits="userSpaceOnUse"
                             x="0"
                             y="0"
-                            width="640"
-                            height="380"
+                            width="300"
+                            height="178"
                             color-interpolation-filters="sRGB"
                           >
                             <feColorMatrix
@@ -164,11 +164,11 @@
                         </defs>
                         <g filter="url(#multiverse-monster-ink)">
                           <image
-                            href="assets/work-icons/ai-multiverse-drawings-v2.png"
-                            x="-859"
-                            y="-578"
-                            width="2732"
-                            height="2048"
+                            href="assets/work-icons/ai-multiverse-drawings-v3.jpg"
+                            x="-399"
+                            y="-267"
+                            width="1280"
+                            height="959"
                           />
                         </g>
                       </svg>
@@ -374,8 +374,8 @@
                   <span class="work-title">Oil Paintings</span>
                 </button>
               </section>
-            </div>
-            <div class="about-section" hidden>
+            </section>
+            <article class="about-section" aria-labelledby="panel-title" hidden>
               <figure class="self-portrait">
                 <img
                   src="assets/luke-self-portrait-lines.png"
@@ -392,7 +392,7 @@
                 <p data-about-copy="aboutPractice"></p>
                 <p data-about-copy="aboutEncounter"></p>
               </div>
-            </div>
+            </article>
           </div>
         </section>
       </main>
@@ -404,11 +404,25 @@
       </footer>
     </div>
 
-    <noscript
-      ><p class="script-notice">
-        Please enable JavaScript to explore the interactive portfolio. Contact:
-        <a href="mailto:lukewang2333@gmail.com">lukewang2333@gmail.com</a>.
-      </p></noscript
-    >
+    <noscript>
+      <style>
+        #portfolio-site {
+          display: none;
+        }
+        html,
+        body {
+          height: auto;
+          overflow: auto;
+        }
+      </style>
+      <main class="script-notice">
+        <h1>Luke Wang</h1>
+        <p>
+          Please enable JavaScript to explore the interactive portfolio.
+          Contact:
+          <a href="mailto:lukewang2333@gmail.com">lukewang2333@gmail.com</a>.
+        </p>
+      </main>
+    </noscript>
   </body>
 </html>

@@ -25,9 +25,13 @@ function createPerspectiveMatrix(perspective) {
     width <= 0 ||
     !Number.isFinite(height) ||
     height <= 0 ||
-    corners?.length !== 4 ||
+    !Array.isArray(corners) ||
+    corners.length !== 4 ||
     !corners.every(
-      (corner) => corner?.length === 2 && corner.every(Number.isFinite),
+      (corner) =>
+        Array.isArray(corner) &&
+        corner.length === 2 &&
+        corner.every(Number.isFinite),
     )
   )
     return null;
@@ -37,63 +41,96 @@ function createPerspectiveMatrix(perspective) {
     [width, height],
     [0, height],
   ];
-  const equations = corners.flatMap(([sourceX, sourceY], cornerIndex) => {
-    const [targetX, targetY] = rectangleCorners[cornerIndex];
-    return [
-      [
-        sourceX,
-        sourceY,
-        1,
-        0,
-        0,
-        0,
-        -targetX * sourceX,
-        -targetX * sourceY,
-        targetX,
-      ],
-      [
-        0,
-        0,
-        0,
-        sourceX,
-        sourceY,
-        1,
-        -targetY * sourceX,
-        -targetY * sourceY,
-        targetY,
-      ],
-    ];
-  });
+  const homographyEquations = corners.flatMap(
+    ([sourceX, sourceY], cornerIndex) => {
+      const [targetX, targetY] = rectangleCorners[cornerIndex];
+      return [
+        [
+          sourceX,
+          sourceY,
+          1,
+          0,
+          0,
+          0,
+          -targetX * sourceX,
+          -targetX * sourceY,
+          targetX,
+        ],
+        [
+          0,
+          0,
+          0,
+          sourceX,
+          sourceY,
+          1,
+          -targetY * sourceX,
+          -targetY * sourceY,
+          targetY,
+        ],
+      ];
+    },
+  );
   for (let columnIndex = 0; columnIndex < 8; columnIndex++) {
     let pivotIndex = columnIndex;
     for (let rowIndex = columnIndex + 1; rowIndex < 8; rowIndex++) {
       if (
-        Math.abs(equations[rowIndex][columnIndex]) >
-        Math.abs(equations[pivotIndex][columnIndex])
+        Math.abs(homographyEquations[rowIndex][columnIndex]) >
+        Math.abs(homographyEquations[pivotIndex][columnIndex])
       ) {
         pivotIndex = rowIndex;
       }
     }
-    if (Math.abs(equations[pivotIndex][columnIndex]) < 1e-10) return null;
-    [equations[columnIndex], equations[pivotIndex]] = [
-      equations[pivotIndex],
-      equations[columnIndex],
+    if (Math.abs(homographyEquations[pivotIndex][columnIndex]) < 1e-10)
+      return null;
+    [homographyEquations[columnIndex], homographyEquations[pivotIndex]] = [
+      homographyEquations[pivotIndex],
+      homographyEquations[columnIndex],
     ];
-    const pivotValue = equations[columnIndex][columnIndex];
-    equations[columnIndex] = equations[columnIndex].map(
-      (value) => value / pivotValue,
+    const pivotCoefficient = homographyEquations[columnIndex][columnIndex];
+    homographyEquations[columnIndex] = homographyEquations[columnIndex].map(
+      (value) => value / pivotCoefficient,
     );
     for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
       if (rowIndex === columnIndex) continue;
-      const factor = equations[rowIndex][columnIndex];
-      equations[rowIndex] = equations[rowIndex].map(
+      const eliminationFactor = homographyEquations[rowIndex][columnIndex];
+      homographyEquations[rowIndex] = homographyEquations[rowIndex].map(
         (value, entryIndex) =>
-          value - factor * equations[columnIndex][entryIndex],
+          value -
+          eliminationFactor * homographyEquations[columnIndex][entryIndex],
       );
     }
   }
-  const coefficients = equations.map((equation) => equation[8]);
-  return coefficients.every(Number.isFinite) ? coefficients : null;
+  const homographyCoefficients = homographyEquations.map(
+    (equation) => equation[8],
+  );
+  return homographyCoefficients.every(Number.isFinite)
+    ? homographyCoefficients
+    : null;
+}
+
+/**
+ * Use the same validated frame for image layout and the enlarged preview.
+ * @param {GalleryImage} galleryImage Original dimensions and optional rectification.
+ * @returns {{visibleArea: {x: number, y: number, width: number, height: number}, perspectiveMatrix: number[]|null}} Image geometry.
+ */
+function resolveImageGeometry(galleryImage) {
+  const perspectiveMatrix = galleryImage.perspective
+    ? createPerspectiveMatrix(galleryImage.perspective)
+    : null;
+  const visibleArea = perspectiveMatrix
+    ? {
+        x: 0,
+        y: 0,
+        width: galleryImage.perspective.width,
+        height: galleryImage.perspective.height,
+      }
+    : galleryImage.crop || {
+        x: 0,
+        y: 0,
+        width: galleryImage.width,
+        height: galleryImage.height,
+      };
+  return { visibleArea, perspectiveMatrix };
 }
 
 /**
@@ -102,23 +139,25 @@ function createPerspectiveMatrix(perspective) {
  * @param {HTMLElement} portfolioRoot Root element carrying portfolio state.
  * @param {HTMLElement} contentPanel Scrollable portfolio panel.
  * @param {Object} portfolioData Project copy, media, and artwork metadata.
- * @param {Object} options Callbacks supplied by the portfolio controller.
- * @param {() => string} options.language Returns the selected language.
- * @param {(hasDetail: boolean) => void} options.onChange Reports detail navigation.
- * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, open: (projectId: string) => void, currentProject: () => string|null, hasDetail: () => boolean}}
+ * @param {Object} galleryCallbacks Callbacks supplied by the portfolio controller.
+ * @param {() => string} galleryCallbacks.language Returns the selected language.
+ * @param {(hasDetail: boolean) => void} galleryCallbacks.onChange Reports detail navigation.
+ * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, open: (projectId: string) => boolean, currentProject: () => string|null, hasDetail: () => boolean}}
  */
 export function createWorkGallery(
   portfolioRoot,
   contentPanel,
   portfolioData,
-  options,
+  galleryCallbacks,
 ) {
   const workArea = contentPanel.querySelector(".work-section");
   const projectGrid = workArea.querySelector(".work-grid");
   const paintingsSection = workArea.querySelector(".work-paintings");
   const contentHeading = contentPanel.querySelector("h2");
   const panelToolbar = contentPanel.querySelector(".panel-toolbar");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reducedMotionPreference = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  );
   contentHeading.tabIndex = -1;
 
   const projectDetail = createElement("article", "work-detail");
@@ -180,7 +219,7 @@ export function createWorkGallery(
     entries.forEach((entry) => {
       const perspectiveImage = perspectiveWindows.get(entry.target);
       if (!perspectiveImage || entry.contentRect.width <= 0) return;
-      const { imageElement, coefficients, width } = perspectiveImage;
+      const { imageElement, homographyCoefficients, width } = perspectiveImage;
       const frameScale = entry.contentRect.width / width;
       const [
         horizontalX,
@@ -191,7 +230,7 @@ export function createWorkGallery(
         verticalOffset,
         depthX,
         depthY,
-      ] = coefficients;
+      ] = homographyCoefficients;
       imageElement.style.transform = `matrix3d(${[
         horizontalX * frameScale,
         verticalX * frameScale,
@@ -236,6 +275,7 @@ export function createWorkGallery(
       : content?.[activeLanguage] || content?.en || "";
   }
 
+  /** Appends localized prose as text, without interpreting project copy as markup. */
   function appendParagraph(parentElement, content, className = "") {
     const paragraph = createElement("p", className, localizeText(content));
     parentElement.append(paragraph);
@@ -346,13 +386,28 @@ export function createWorkGallery(
     (chapterHeading || contentHeading).focus({ preventScroll: true });
     contentPanel.scrollTo({
       top: Math.max(0, targetPosition),
-      behavior: reducedMotion.matches ? "auto" : "smooth",
+      behavior: reducedMotionPreference.matches ? "auto" : "smooth",
     });
   }
 
-  /** Closes the image view; the native dialog returns focus to its opening control. */
-  function closeImageDialog() {
+  /**
+   * Close a preview before its surrounding content changes. Focus is restored
+   * synchronously so a queued close event cannot steal it from a later action.
+   * @param {boolean} [restoreFocus=true] Return to the image only for a user dismissal.
+   * @returns {void}
+   */
+  function closeImageDialog(restoreFocus = true) {
+    const openingButton = lastImageButton;
+    lastImageButton = null;
     if (imageDialog.open) imageDialog.close();
+    releasePerspectiveWindows(enlargedImageFigure);
+    if (
+      restoreFocus &&
+      openingButton?.isConnected &&
+      portfolioRoot.dataset.activeSection === "work" &&
+      !projectDetail.hidden
+    )
+      openingButton.focus({ preventScroll: true });
   }
 
   /**
@@ -379,21 +434,8 @@ export function createWorkGallery(
   function createImageWindow(galleryImage, eager = false) {
     const imageWindow = createElement("span", "work-image-window");
     const imageElement = document.createElement("img");
-    const perspectiveMatrix = galleryImage.perspective
-      ? createPerspectiveMatrix(galleryImage.perspective)
-      : null;
-    const visibleArea = (perspectiveMatrix && {
-      x: 0,
-      y: 0,
-      width: galleryImage.perspective.width,
-      height: galleryImage.perspective.height,
-    }) ||
-      galleryImage.crop || {
-        x: 0,
-        y: 0,
-        width: galleryImage.width,
-        height: galleryImage.height,
-      };
+    const { visibleArea, perspectiveMatrix } =
+      resolveImageGeometry(galleryImage);
     imageWindow.style.aspectRatio = `${visibleArea.width} / ${visibleArea.height}`;
     imageWindow.style.setProperty(
       "--media-ratio",
@@ -422,7 +464,7 @@ export function createWorkGallery(
       imageElement.style.visibility = "hidden";
       perspectiveWindows.set(imageWindow, {
         imageElement,
-        coefficients: perspectiveMatrix,
+        homographyCoefficients: perspectiveMatrix,
         width: visibleArea.width,
       });
       perspectiveResizeObserver.observe(imageWindow);
@@ -437,14 +479,8 @@ export function createWorkGallery(
     closeChapterNavigation();
     lastImageButton = openingButton;
     const caption = localizeText(galleryImage.caption);
-    const visibleWidth =
-      galleryImage.perspective?.width ||
-      galleryImage.crop?.width ||
-      galleryImage.width;
-    const visibleHeight =
-      galleryImage.perspective?.height ||
-      galleryImage.crop?.height ||
-      galleryImage.height;
+    const { visibleArea } = resolveImageGeometry(galleryImage);
+    const { width: visibleWidth, height: visibleHeight } = visibleArea;
     enlargedImageFigure.style.width = `min(100%, ${(visibleWidth / visibleHeight) * 70}svh)`;
     releasePerspectiveWindows(enlargedImageFigure);
     enlargedImageFigure.replaceChildren(
@@ -489,14 +525,8 @@ export function createWorkGallery(
           : "pair"
         : galleryLayout;
     galleryImages.forEach((galleryImage) => {
-      const visibleWidth =
-        galleryImage.perspective?.width ||
-        galleryImage.crop?.width ||
-        galleryImage.width;
-      const visibleHeight =
-        galleryImage.perspective?.height ||
-        galleryImage.crop?.height ||
-        galleryImage.height;
+      const { visibleArea } = resolveImageGeometry(galleryImage);
+      const { width: visibleWidth, height: visibleHeight } = visibleArea;
       const imageFigure = createElement("figure", "work-figure");
       imageFigure.classList.toggle(
         "is-portrait",
@@ -525,13 +555,13 @@ export function createWorkGallery(
     parentElement.append(imageGallery);
   }
 
-  /** Adds user-controlled clips; starting one pauses any other playing clip. */
-  function appendVideoGallery(parentElement, videos) {
-    if (!videos?.length) return;
+  /** Adds native video controls and keeps playback within the active case study. */
+  function appendVideoGallery(parentElement, videoSources) {
+    if (!videoSources?.length) return;
     const videoGallery = createElement("div", "work-video-gallery");
     videoGallery.dataset.galleryLayout =
-      videos.length === 1 ? "single" : "pair";
-    videos.forEach((videoData) => {
+      videoSources.length === 1 ? "single" : "pair";
+    videoSources.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
       const videoElement = document.createElement("video");
       videoElement.src = videoData.src;
@@ -545,13 +575,25 @@ export function createWorkGallery(
       videoElement.playsInline = true;
       videoElement.muted = Boolean(videoData.autoplay);
       videoElement.autoplay =
-        Boolean(videoData.autoplay) && !reducedMotion.matches;
+        Boolean(videoData.autoplay) && !reducedMotionPreference.matches;
       videoElement.preload = videoData.autoplay ? "metadata" : "none";
       videoElement.setAttribute(
         "aria-label",
         localizeText(videoData.title || videoData.caption),
       );
       videoElement.addEventListener("play", () => {
+        if (
+          !videoElement.isConnected ||
+          document.hidden ||
+          portfolioRoot.dataset.activeSection !== "work" ||
+          contentPanel.hidden ||
+          contentPanel.inert ||
+          projectDetail.hidden ||
+          imageDialog.open
+        ) {
+          videoElement.pause();
+          return;
+        }
         pauseVideos(videoElement);
       });
       const videoCaption = createElement("figcaption");
@@ -589,8 +631,8 @@ export function createWorkGallery(
 
   /** Keeps role, date, and tools together without putting long team credits first. */
   function appendProjectMetadata(parentElement, projectData) {
-    const metadata = createElement("dl", "work-meta");
-    const metadataFields = [
+    const projectMetadata = createElement("dl", "work-meta");
+    const projectMetadataFields = [
       [
         activeLanguage === "zh" ? "时间" : "When",
         localizeText(projectData.date_range?.label),
@@ -600,16 +642,17 @@ export function createWorkGallery(
         localizeText(projectData.role),
       ],
     ];
-    metadataFields.forEach(([label, value]) => {
+    projectMetadataFields.forEach(([label, value]) => {
       if (!value) return;
       const metadataRow = createElement("div");
       metadataRow.append(
         createElement("dt", "", label),
         createElement("dd", "", value),
       );
-      metadata.append(metadataRow);
+      projectMetadata.append(metadataRow);
     });
-    if (metadata.childElementCount) parentElement.append(metadata);
+    if (projectMetadata.childElementCount)
+      parentElement.append(projectMetadata);
     const projectTools = projectData.tools?.length
       ? projectData.tools
       : projectData.skills;
@@ -670,7 +713,16 @@ export function createWorkGallery(
           );
           materialActions.append(materialLink);
         } else {
-          materialLink.addEventListener("click", () => {
+          materialLink.addEventListener("click", (event) => {
+            if (
+              event.defaultPrevented ||
+              event.button > 0 ||
+              event.metaKey ||
+              event.ctrlKey ||
+              event.shiftKey ||
+              event.altKey
+            )
+              return;
             try {
               sessionStorage.setItem(
                 "portfolio-reading-return",
@@ -717,16 +769,19 @@ export function createWorkGallery(
   /** Appends index navigation and the next complete project. */
   function appendDetailFooter(projectData) {
     if (projectData.collaborators?.length) {
-      const credits = createElement("div", "work-credits");
-      credits.append(
+      const collaboratorCredits = createElement("div", "work-credits");
+      collaboratorCredits.append(
         createElement(
           "span",
           "",
           activeLanguage === "zh" ? "合作者" : "Collaborators",
         ),
       );
-      appendParagraph(credits, projectData.collaborators.join(", "));
-      projectDetail.append(credits);
+      appendParagraph(
+        collaboratorCredits,
+        projectData.collaborators.join(", "),
+      );
+      projectDetail.append(collaboratorCredits);
     }
     const detailFooter = createElement("footer", "work-detail-footer");
     const allWorkButton = createElement(
@@ -737,9 +792,11 @@ export function createWorkGallery(
     allWorkButton.type = "button";
     allWorkButton.addEventListener("click", returnToWorkIndex);
     detailFooter.append(allWorkButton);
-    const currentIndex = completeProjectOrder.indexOf(currentProjectId);
+    const currentProjectIndex = completeProjectOrder.indexOf(currentProjectId);
     const nextProjectId =
-      completeProjectOrder[(currentIndex + 1) % completeProjectOrder.length];
+      completeProjectOrder[
+        (currentProjectIndex + 1) % completeProjectOrder.length
+      ];
     const nextProject = findProject(nextProjectId);
     if (nextProject && nextProjectId !== currentProjectId) {
       const nextProjectButton = createElement(
@@ -760,7 +817,7 @@ export function createWorkGallery(
   function renderProjectDetail(projectData) {
     pauseVideos();
     releasePerspectiveWindows(projectDetail);
-    closeImageDialog();
+    closeImageDialog(false);
     projectDetail.dataset.projectId = currentProjectId;
     projectDetail.replaceChildren();
     chapterHeadings.clear();
@@ -801,21 +858,25 @@ export function createWorkGallery(
       return;
     }
 
-    const opening = createElement("div", "work-opening");
-    opening.dataset.heroLayout = projectData.hero_layout || "object";
-    const introduction = createElement("div", "work-introduction");
+    const projectOpening = createElement("div", "work-opening");
+    projectOpening.dataset.heroLayout = projectData.hero_layout || "object";
+    const projectIntroduction = createElement("div", "work-introduction");
     if (projectData.subtitle)
-      appendParagraph(introduction, projectData.subtitle, "work-subtitle");
-    appendParagraph(introduction, projectData.overview, "work-lead");
-    appendProjectMetadata(introduction, projectData);
-    appendProjectMaterials(projectData, introduction);
-    opening.append(introduction);
+      appendParagraph(
+        projectIntroduction,
+        projectData.subtitle,
+        "work-subtitle",
+      );
+    appendParagraph(projectIntroduction, projectData.overview, "work-lead");
+    appendProjectMetadata(projectIntroduction, projectData);
+    appendProjectMaterials(projectData, projectIntroduction);
+    projectOpening.append(projectIntroduction);
     if (projectData.cover_videos?.length) {
-      appendVideoGallery(opening, projectData.cover_videos);
+      appendVideoGallery(projectOpening, projectData.cover_videos);
     } else {
-      appendImageGallery(opening, projectData.cover_images, "hero");
+      appendImageGallery(projectOpening, projectData.cover_images, "hero");
     }
-    projectDetail.append(opening);
+    projectDetail.append(projectOpening);
 
     (projectData.sections || []).forEach((projectSection, sectionIndex) => {
       const chapterSection = createElement("section", "work-chapter");
@@ -868,7 +929,7 @@ export function createWorkGallery(
   function renderGallery(selectedLanguage, isWorkPanelActive) {
     if (activeLanguage !== selectedLanguage || !isWorkPanelActive) {
       pauseVideos();
-      closeImageDialog();
+      closeImageDialog(false);
       closeChapterNavigation();
     }
     activeLanguage = selectedLanguage;
@@ -926,23 +987,31 @@ export function createWorkGallery(
     }
   }
 
-  /** Opens a case study while preserving the index position for the return trip. */
+  /**
+   * Open a known case study; stale or misspelled links return to the work index.
+   * @param {string} projectId Requested project identifier.
+   * @returns {boolean} Whether the requested project exists.
+   */
   function openProject(projectId) {
-    if (!findProject(projectId)) return;
+    if (!findProject(projectId)) {
+      returnToWorkIndex();
+      return false;
+    }
     pauseVideos();
-    closeImageDialog();
+    closeImageDialog(false);
     currentProjectId = projectId;
-    renderGallery(options.language(), true);
+    renderGallery(galleryCallbacks.language(), true);
     contentPanel.scrollTop = 0;
     contentHeading.focus({ preventScroll: true });
-    options.onChange(true);
+    galleryCallbacks.onChange(true);
+    return true;
   }
 
   /** Clears media and detail state before the controller closes or changes panels. */
   function resetGallery() {
     pauseVideos();
     releasePerspectiveWindows(projectDetail);
-    closeImageDialog();
+    closeImageDialog(false);
     currentProjectId = null;
     renderedProjectLanguageKey = null;
     chapterHeadings.clear();
@@ -958,8 +1027,11 @@ export function createWorkGallery(
     resetGallery();
     renderGallery(activeLanguage, true);
     contentPanel.scrollTop = workIndexScrollPosition;
-    lastSelectedProjectButton?.focus({ preventScroll: true });
-    options.onChange(false);
+    (lastSelectedProjectButton?.isConnected
+      ? lastSelectedProjectButton
+      : contentHeading
+    ).focus({ preventScroll: true });
+    galleryCallbacks.onChange(false);
   }
 
   chapterTrigger.addEventListener("click", () => {
@@ -979,28 +1051,29 @@ export function createWorkGallery(
     if (chapterPopover.hidden) {
       openChapterNavigation();
     }
-    const buttons = [...chapterList.querySelectorAll("button")];
-    const focusedIndex = buttons.indexOf(document.activeElement);
-    const nextIndex =
+    const chapterButtons = [...chapterList.querySelectorAll("button")];
+    const focusedChapterIndex = chapterButtons.indexOf(document.activeElement);
+    const nextChapterIndex =
       event.key === "Home"
         ? 0
         : event.key === "End"
-          ? buttons.length - 1
+          ? chapterButtons.length - 1
           : event.key === "ArrowDown"
-            ? Math.min(focusedIndex + 1, buttons.length - 1)
-            : focusedIndex <= 0
-              ? buttons.length - 1
-              : focusedIndex - 1;
-    const focusedButton = buttons[nextIndex];
+            ? (focusedChapterIndex + 1) % chapterButtons.length
+            : focusedChapterIndex <= 0
+              ? chapterButtons.length - 1
+              : focusedChapterIndex - 1;
+    const focusedButton = chapterButtons[nextChapterIndex];
     if (!focusedButton) return;
     focusedButton.focus({ preventScroll: true });
-    const buttonBounds = focusedButton.getBoundingClientRect();
-    const popoverBounds = chapterPopover.getBoundingClientRect();
-    if (buttonBounds.bottom > popoverBounds.bottom - 12) {
+    const focusedChapterBounds = focusedButton.getBoundingClientRect();
+    const chapterPopoverBounds = chapterPopover.getBoundingClientRect();
+    if (focusedChapterBounds.bottom > chapterPopoverBounds.bottom - 12) {
       chapterPopover.scrollTop +=
-        buttonBounds.bottom - popoverBounds.bottom + 12;
-    } else if (buttonBounds.top < popoverBounds.top + 12) {
-      chapterPopover.scrollTop -= popoverBounds.top - buttonBounds.top + 12;
+        focusedChapterBounds.bottom - chapterPopoverBounds.bottom + 12;
+    } else if (focusedChapterBounds.top < chapterPopoverBounds.top + 12) {
+      chapterPopover.scrollTop -=
+        chapterPopoverBounds.top - focusedChapterBounds.top + 12;
     }
   });
   chapterNavigation.addEventListener("focusout", (event) => {
@@ -1014,8 +1087,8 @@ export function createWorkGallery(
   contentPanel.addEventListener(
     "scroll",
     () => {
-      if (!chapterPopover.hidden)
-        closeChapterNavigation(chapterPopover.contains(document.activeElement));
+      /** The sticky toolbar keeps the menu anchored during focus-driven scrolling. */
+      if (!chapterPopover.hidden) updateCurrentChapter();
     },
     { passive: true },
   );
@@ -1023,7 +1096,7 @@ export function createWorkGallery(
     closeChapterNavigation(chapterPopover.contains(document.activeElement)),
   );
 
-  closeImageButton.addEventListener("click", closeImageDialog);
+  closeImageButton.addEventListener("click", () => closeImageDialog());
   imageDialog.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
     event.preventDefault();
@@ -1038,13 +1111,8 @@ export function createWorkGallery(
     if (event.target === imageDialog) closeImageDialog();
   });
   imageDialog.addEventListener("close", () => {
+    if (imageDialog.open) return;
     releasePerspectiveWindows(enlargedImageFigure);
-    if (
-      lastImageButton?.isConnected &&
-      !projectDetail.hidden &&
-      currentProjectId
-    )
-      lastImageButton.focus({ preventScroll: true });
     lastImageButton = null;
   });
   backToIndexButton.addEventListener("click", returnToWorkIndex);
