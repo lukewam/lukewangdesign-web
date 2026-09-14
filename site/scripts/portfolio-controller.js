@@ -70,6 +70,7 @@ export function initializePortfolio(
   ];
   let canvasWidth = 1;
   let canvasHeight = 1;
+  let isFlowerResizePending = true;
   let columnCount = 1;
   let rowCount = 1;
   let characterCellWidth = 5.6;
@@ -108,7 +109,7 @@ export function initializePortfolio(
     },
   );
   /**
-   * Resize the character grid and pointer-heat buffers for the flower's surface.
+   * Resize the flower bitmap and restore its paper background before painting.
    * @returns {void}
    */
   function resize() {
@@ -120,8 +121,20 @@ export function initializePortfolio(
       2,
       Math.sqrt(8000000 / (canvasWidth * canvasHeight)),
     );
-    flowerCanvas.width = Math.round(canvasWidth * pixelRatio);
-    flowerCanvas.height = Math.round(canvasHeight * pixelRatio);
+    const bitmapWidth = Math.round(canvasWidth * pixelRatio);
+    const bitmapHeight = Math.round(canvasHeight * pixelRatio);
+    const hasBitmapChanged =
+      flowerCanvas.width !== bitmapWidth ||
+      flowerCanvas.height !== bitmapHeight;
+    if (flowerCanvas.width !== bitmapWidth) flowerCanvas.width = bitmapWidth;
+    if (flowerCanvas.height !== bitmapHeight)
+      flowerCanvas.height = bitmapHeight;
+    if (hasBitmapChanged) {
+      drawingContext.setTransform(1, 0, 0, 1, 0, 0);
+      drawingContext.globalAlpha = 1;
+      drawingContext.fillStyle = paperColor;
+      drawingContext.fillRect(0, 0, bitmapWidth, bitmapHeight);
+    }
     drawingContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     const responsiveScale =
       canvasWidth < 350 ? 0.77 : canvasWidth < 500 ? 0.89 : 1;
@@ -143,7 +156,12 @@ export function initializePortfolio(
     tileColumnCount = Math.ceil(columnCount / 2);
     tileHeat = new Float32Array(tileColumnCount * Math.ceil(rowCount / 2));
   }
-  new ResizeObserver(resize).observe(flowerSurface);
+  /** Defer bitmap resets until the animation frame that redraws the flower. */
+  function requestFlowerResize() {
+    isFlowerResizePending = true;
+  }
+  new ResizeObserver(requestFlowerResize).observe(flowerSurface);
+  window.addEventListener("resize", requestFlowerResize, { passive: true });
   if (typeof IntersectionObserver !== "undefined") {
     new IntersectionObserver((visibilityEntries) => {
       isVisible = visibilityEntries[0].isIntersecting;
@@ -1014,6 +1032,10 @@ export function initializePortfolio(
     previousFrameMilliseconds = frameMilliseconds;
     if (!isVisible || document.hidden) {
       return;
+    }
+    if (isFlowerResizePending) {
+      resize();
+      isFlowerResizePending = false;
     }
     if (
       isPlaying &&
