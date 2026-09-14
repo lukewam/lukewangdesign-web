@@ -14,62 +14,58 @@
       href="../../assets/work-icons/rock-0.png"
       type="image/png"
     />
-    <link rel="stylesheet" href="document.css?v=4d3089b2c0cd" />
+    <link rel="stylesheet" href="document.css?v=871170ec5ccb" />
   </head>
-  <body>
+  <body class="assignment-page">
     <a class="skip-link" href="#document">Skip to document</a>
     <header class="document-header">
-      <a class="portfolio-link" href="../../index.html#work/sisyphus"
-        ><span aria-hidden="true">← </span>Back to The Myth of Sisyphus</a
+      <a class="portfolio-link" href="../../#work/sisyphus"
+        ><span aria-hidden="true">← </span>The Myth of Sisyphus</a
       >
       <span class="author-name">Luke Wang</span>
     </header>
     <main id="document" tabindex="-1">
-      <p class="eyebrow">The Myth of Sisyphus · Original game material</p>
-
-      <h1>Programming Assignment 1</h1>
-      <p class="document-intro">
-        The Python assignment sent by the fictional LeetCodeAcademy. Read the
-        original instructions and code here, or download the notebook to open in
-        Jupyter.
-      </p>
-      <p class="reading-note" lang="zh">
-        这是游戏中虚构学校发出的第一份作业。下方保留英文原文与代码，无需安装软件即可阅读；展开评分程序会看到谜题线索。
-      </p>
-      <nav class="document-actions" aria-label="Assignment documents">
-        <a
-          class="download-link"
-          href="../../assets/documents/sisyphus/PA-1.ipynb"
-          download="PA 1.ipynb"
-          >Download original notebook
-          <span class="file-label">.ipynb · 8 KB</span></a
-        >
-        <a href="welcome-email.html"
-          >Read the welcome email <span aria-hidden="true">→</span></a
-        >
-      </nav>
+      <header class="document-heading">
+        <h1>CSE 1A Programming Assignment 1</h1>
+        <nav class="document-actions" aria-label="Assignment documents">
+          <a
+            class="download-link"
+            href="../../assets/documents/sisyphus/PA-1.ipynb"
+            download="PA 1.ipynb"
+            >Download notebook <span class="file-label">.ipynb · 8 KB</span></a
+          >
+          <a href="welcome-email.html"
+            >Welcome email <span aria-hidden="true">→</span></a
+          >
+        </nav>
+      </header>
       <div class="original-document">
-        <section aria-labelledby="assignment-instructions">
-          <h2 id="assignment-instructions">CSE 1A Programming Assignment 1</h2>
-          <h3>Weighted Averager</h3>
-          <p>
-            Implement <code>compute_weighted_average(grades, weights)</code> so
-            that it:
-          </p>
-          <ol>
-            <li>Returns a float</li>
-            <li>Handles normal cases</li>
-            <li>Handles edge cases sensibly</li>
-          </ol>
-          <p>
-            Run this file to see whether your implementation passes the tests.
-            (Use of AI is not prohibited)
-          </p>
-          <h3>Original starter code</h3>
-          <pre
-            tabindex="0"
-            aria-label="Original Python starter code"
-          ><code>import random
+        <section
+          class="assignment-layout"
+          aria-labelledby="assignment-instructions"
+        >
+          <div class="assignment-instructions">
+            <h2 id="assignment-instructions">Weighted Averager</h2>
+            <p>
+              Implement
+              <code>compute_weighted_average(grades, weights)</code> so that it:
+            </p>
+            <ol>
+              <li>Returns a float</li>
+              <li>Handles normal cases</li>
+              <li>Handles edge cases sensibly</li>
+            </ol>
+            <p>
+              Run this file to see whether your implementation passes the tests.
+              (Use of AI is not prohibited)
+            </p>
+          </div>
+          <div class="assignment-code">
+            <h2>Starter code</h2>
+            <pre
+              tabindex="0"
+              aria-label="Original Python starter code"
+            ><code>import random
 
 def compute_weighted_average(grades, weights):
     &quot;&quot;&quot;
@@ -89,6 +85,7 @@ def compute_weighted_average(grades, weights):
     # 1st WRONG (given): ignores weights entirely, and divides by number of grades
     return total / len(grades)
 </code></pre>
+          </div>
         </section>
         <details class="grader-disclosure">
           <summary>
@@ -192,15 +189,15 @@ if __name__ == &quot;__main__&quot;:
 
 
 </code></pre>
-            <h3>Previously saved output</h3>
-            <p class="source-note">
-              This output was saved in the original notebook. No Python code
-              runs on this page.
-            </p>
-            <pre
-              tabindex="0"
-              aria-label="Output previously saved in the notebook"
-            ><code>Running tests for compute_weighted_average...
+            <details class="saved-output-disclosure">
+              <summary>Saved notebook output</summary>
+              <p class="source-note">
+                Saved with the notebook. Code does not run on this page.
+              </p>
+              <pre
+                tabindex="0"
+                aria-label="Output previously saved in the notebook"
+              ><code>Running tests for compute_weighted_average...
 
 Test 1 passed.
 
@@ -221,17 +218,10 @@ AssertionError                            Traceback (most recent call last)
      29         )
 
 AssertionError: Test 2 failed: expected 87.5, got 75.0</code></pre>
+            </details>
           </div>
         </details>
       </div>
     </main>
-    <footer class="document-footer">
-      <p>
-        A fictional school, an invitation, and a task that begins to unravel.
-      </p>
-      <a href="../../index.html#work/sisyphus"
-        >Return to The Myth of Sisyphus</a
-      >
-    </footer>
   </body>
 </html>

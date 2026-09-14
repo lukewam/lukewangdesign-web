@@ -1043,8 +1043,8 @@ body {
 
 #portfolio-site[data-work-detail] .panel-content > h2 {
   font-size: clamp(27px, 2.5vw, 46px);
-  margin-top: clamp(52px, 7svh, 80px);
-  margin-bottom: 24px;
+  margin-top: clamp(28px, 4svh, 48px);
+  margin-bottom: 20px;
   max-width: 26ch;
   text-wrap: balance;
 }
@@ -1150,20 +1150,15 @@ body {
 }
 
 #portfolio-site .work-materials {
-  margin-top: 32px;
-  padding-top: 24px;
+  margin-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid #d6d8cc;
 }
 #portfolio-site .work-materials h3 {
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-#portfolio-site .work-detail .work-materials-note {
-  margin: 0 0 16px;
-  font-size: 14px;
-  color: #595e51;
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #73766a;
 }
 #portfolio-site .work-materials-list {
   list-style: none;
@@ -1171,36 +1166,29 @@ body {
   padding: 0;
 }
 #portfolio-site .work-material {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-  padding: 14px 0;
+  gap: 12px;
+  padding: 2px 0;
 }
 #portfolio-site .work-material + .work-material {
   border-top: 1px solid #dedfd6;
 }
-#portfolio-site .work-material-copy {
-  flex: 1 1 240px;
-  min-width: 0;
-}
 #portfolio-site .work-material h4 {
-  margin: 0 0 4px;
-  font-size: 15px;
-  font-weight: 600;
-}
-#portfolio-site .work-detail .work-material p {
   margin: 0;
-  font-size: 13px;
-  color: #595e51;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
 }
 #portfolio-site .work-material-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 24px;
+  gap: 4px 12px;
 }
-#portfolio-site .work-material-actions a {
+#portfolio-site .work-material-actions a,
+#portfolio-site .work-material-reader {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -1209,7 +1197,12 @@ body {
   text-underline-offset: 5px;
   text-decoration-thickness: 1px;
 }
-#portfolio-site .work-material-actions a:hover {
+#portfolio-site .work-material-reader {
+  font-size: inherit;
+  text-decoration: none;
+}
+#portfolio-site .work-material-actions a:hover,
+#portfolio-site .work-material-reader:hover {
   color: #616955;
 }
 #portfolio-site .work-reader-note {
@@ -1263,7 +1256,33 @@ body {
   width: 100%;
 }
 #portfolio-site .work-opening[data-hero-layout="poster"] {
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  align-items: start;
+}
+#portfolio-site .work-opening[data-hero-layout="poster"] .work-image-button {
+  display: flex;
+  justify-content: center;
+}
+#portfolio-site .work-opening[data-hero-layout="poster"] .work-image-window {
+  width: min(
+    100%,
+    calc(max(360px, min(680px, 100svh - 300px)) * var(--media-ratio))
+  );
+}
+#portfolio-site .work-opening[data-hero-layout="poster"] figcaption {
+  text-align: center;
+}
+#portfolio-site .work-opening[data-hero-layout="poster"] .work-meta {
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+#portfolio-site .work-opening[data-hero-layout="poster"] .work-project-link {
+  margin-top: 10px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 #portfolio-site .work-opening[data-hero-layout="phone"] {
   grid-template-columns: 0.7fr 1fr;
@@ -1307,6 +1326,11 @@ body {
   max-width: 100%;
 }
 #portfolio-site .work-opening[data-hero-layout="installation"] > .work-gallery {
+  order: -1;
+}
+#portfolio-site
+  .work-opening[data-hero-layout="installation"]
+  > .work-video-gallery {
   order: -1;
 }
 #portfolio-site .work-gallery[data-gallery-layout="invitation"] {
@@ -1444,9 +1468,49 @@ body {
   max-width: 650px;
   margin-inline: auto;
 }
+#portfolio-site .work-opening > .work-video-gallery {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
 #portfolio-site .work-video-figure {
   min-width: 0;
   margin: 0;
+}
+#portfolio-site .work-video-player {
+  position: relative;
+}
+#portfolio-site .work-video-play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 1px solid #d7d8cc;
+  border-radius: 2px;
+  background: #f5f3eef2;
+  color: #30332b;
+  font-size: 13px;
+  white-space: nowrap;
+}
+#portfolio-site .work-video-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-block: 5px solid transparent;
+  border-left: 8px solid currentColor;
+}
+#portfolio-site .work-video-play:hover {
+  background: #fffdf8;
+}
+#portfolio-site .work-video-play:focus-visible {
+  outline: 2px solid #8a9875;
+  outline-offset: 4px;
 }
 #portfolio-site .work-video-figure video {
   display: block;
@@ -1588,6 +1652,7 @@ body {
 #portfolio-site .work-process summary:focus-visible,
 #portfolio-site .work-project-link:focus-visible,
 #portfolio-site .work-material-actions a:focus-visible,
+#portfolio-site .work-material-reader:focus-visible,
 #portfolio-site .work-lightbox-close:focus-visible {
   outline: 1px solid #686f5b;
   outline-offset: 5px;
@@ -1606,6 +1671,10 @@ body {
     grid-column: 1;
     grid-row: 2;
   }
+  #portfolio-site .work-opening > .work-video-gallery {
+    grid-column: 1;
+    grid-row: 2;
+  }
   #portfolio-site .work-opening[data-hero-layout="poster"],
   #portfolio-site .work-opening[data-hero-layout="phone"] {
     grid-template-columns: 1fr;
@@ -1613,6 +1682,9 @@ body {
   #portfolio-site .work-opening[data-hero-layout="poster"] .work-gallery {
     max-width: 430px;
     margin-inline: auto;
+  }
+  #portfolio-site .work-opening[data-hero-layout="poster"] .work-image-window {
+    width: min(100%, calc(420px * var(--media-ratio)));
   }
   #portfolio-site .work-opening[data-hero-layout="object"] .work-gallery {
     max-width: 460px;
@@ -1651,6 +1723,12 @@ body {
   }
   #portfolio-site .work-video-gallery {
     grid-template-columns: 1fr;
+  }
+  #portfolio-site
+    .work-opening
+    > .work-video-gallery[data-gallery-layout="pair"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
   #portfolio-site .work-gallery[data-gallery-layout="quad"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));

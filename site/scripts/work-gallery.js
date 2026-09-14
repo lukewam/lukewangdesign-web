@@ -170,12 +170,10 @@ export function createWorkGallery(
     brush: "oil-paintings",
   };
   const completeProjectOrder = [
-    ...(portfolioData.machinery?.sections?.length
-      ? ["machinery-structuralism"]
-      : []),
-    ...portfolioData.projects.map((project) => project.id),
-    "oil-paintings",
-  ];
+    ...workArea.querySelectorAll("[data-project-icon]"),
+  ].map(
+    (projectButton) => projectIdsByWorkIcon[projectButton.dataset.projectIcon],
+  );
   const chapterHeadings = new Map();
   const perspectiveWindows = new Map();
   const perspectiveResizeObserver = new ResizeObserver((entries) => {
@@ -535,6 +533,7 @@ export function createWorkGallery(
       videos.length === 1 ? "single" : "pair";
     videos.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
+      const videoPlayer = createElement("div", "work-video-player");
       const videoElement = document.createElement("video");
       videoElement.src = videoData.src;
       if (videoData.poster) videoElement.poster = videoData.poster;
@@ -545,12 +544,44 @@ export function createWorkGallery(
       videoElement.controls = true;
       videoElement.loop = Boolean(videoData.loop);
       videoElement.playsInline = true;
-      videoElement.preload = "none";
+      videoElement.muted = Boolean(videoData.autoplay);
+      videoElement.autoplay =
+        Boolean(videoData.autoplay) && !reducedMotion.matches;
+      videoElement.preload = videoData.autoplay ? "metadata" : "none";
       videoElement.setAttribute(
         "aria-label",
         localizeText(videoData.title || videoData.caption),
       );
-      videoElement.addEventListener("play", () => pauseVideos(videoElement));
+      const playButton = createElement(
+        "button",
+        "work-video-play",
+        activeLanguage === "zh" ? "播放视频" : "Play film",
+      );
+      playButton.type = "button";
+      playButton.setAttribute(
+        "aria-label",
+        `${activeLanguage === "zh" ? "播放" : "Play"} ${localizeText(videoData.title || videoData.caption)}`,
+      );
+      playButton.addEventListener("click", () => {
+        videoElement
+          .play()
+          .then(() => {
+            videoElement.focus({ preventScroll: true });
+          })
+          .catch(() => {
+            playButton.hidden = false;
+          });
+      });
+      videoElement.addEventListener("play", () => {
+        playButton.hidden = true;
+        pauseVideos(videoElement);
+      });
+      videoElement.addEventListener("pause", () => {
+        playButton.hidden = false;
+      });
+      videoElement.addEventListener("ended", () => {
+        playButton.hidden = false;
+      });
       const videoCaption = createElement("figcaption");
       if (videoData.title)
         videoCaption.append(
@@ -578,7 +609,8 @@ export function createWorkGallery(
           createElement("span", "work-video-duration", durationLabel),
         );
       }
-      videoFigure.append(videoElement, videoCaption);
+      videoPlayer.append(videoElement, playButton);
+      videoFigure.append(videoPlayer, videoCaption);
       videoGallery.append(videoFigure);
     });
     parentElement.append(videoGallery);
@@ -632,49 +664,62 @@ export function createWorkGallery(
   /**
    * Adds readable project materials beside their original downloads.
    * @param {object} projectData Project with an optional materials collection.
+   * @param {HTMLElement} parentElement Introduction containing the material links.
    */
-  function appendProjectMaterials(projectData) {
+  function appendProjectMaterials(projectData, parentElement) {
     if (!projectData.materials?.length) return;
     const materialsSection = createElement("section", "work-materials");
     const materialsHeading = createElement(
       "h3",
       "",
-      activeLanguage === "zh" ? "阅读游戏材料" : "Read the game materials",
+      activeLanguage === "zh" ? "游戏材料" : "Game materials",
     );
     materialsHeading.id = `work-${currentProjectId}-materials`;
     materialsSection.setAttribute("aria-labelledby", materialsHeading.id);
     materialsSection.append(materialsHeading);
-    appendParagraph(
-      materialsSection,
-      projectData.materials_note,
-      "work-materials-note",
-    );
     const materialsList = createElement("ul", "work-materials-list");
     projectData.materials.forEach((material) => {
       const materialItem = createElement("li", "work-material");
-      const materialCopy = createElement("div", "work-material-copy");
-      materialCopy.append(
-        createElement("h4", "", localizeText(material.title)),
-      );
-      appendParagraph(materialCopy, material.description);
+      const materialHeading = createElement("h4");
       const materialActions = createElement("div", "work-material-actions");
       material.links.forEach((linkData) => {
         const materialLink = createElement(
           "a",
-          "",
-          localizeText(linkData.label),
+          linkData.download ? "" : "work-material-reader",
+          linkData.download
+            ? localizeText(linkData.label)
+            : `${localizeText(material.title)} →`,
         );
         materialLink.href = linkData.url;
         if (linkData.download) {
           materialLink.download = linkData.download;
+          materialLink.setAttribute(
+            "aria-label",
+            `${activeLanguage === "zh" ? "下载" : "Download"} ${localizeText(material.title)} — ${localizeText(linkData.label)}`,
+          );
+          materialActions.append(materialLink);
+        } else {
+          materialLink.addEventListener("click", () => {
+            try {
+              sessionStorage.setItem(
+                "portfolio-reading-return",
+                JSON.stringify({
+                  projectId: currentProjectId,
+                  scrollTop: contentPanel.scrollTop,
+                }),
+              );
+            } catch {
+              /** The project route remains usable when storage is unavailable. */
+            }
+          });
+          materialHeading.append(materialLink);
         }
-        materialActions.append(materialLink);
       });
-      materialItem.append(materialCopy, materialActions);
+      materialItem.append(materialHeading, materialActions);
       materialsList.append(materialItem);
     });
     materialsSection.append(materialsList);
-    projectDetail.append(materialsSection);
+    parentElement.append(materialsSection);
   }
 
   /** Adds supporting documentation behind a native disclosure control. */
@@ -792,10 +837,14 @@ export function createWorkGallery(
       appendParagraph(introduction, projectData.subtitle, "work-subtitle");
     appendParagraph(introduction, projectData.overview, "work-lead");
     appendProjectMetadata(introduction, projectData);
+    appendProjectMaterials(projectData, introduction);
     opening.append(introduction);
-    appendImageGallery(opening, projectData.cover_images, "hero");
+    if (projectData.cover_videos?.length) {
+      appendVideoGallery(opening, projectData.cover_videos);
+    } else {
+      appendImageGallery(opening, projectData.cover_images, "hero");
+    }
     projectDetail.append(opening);
-    appendProjectMaterials(projectData);
 
     (projectData.sections || []).forEach((projectSection, sectionIndex) => {
       const chapterSection = createElement("section", "work-chapter");

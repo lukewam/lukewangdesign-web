@@ -1,6 +1,27 @@
 {
   "projects": [
     {
+      "id": "ai-multiverse",
+      "title": {
+        "en": "AI Multiverse",
+        "zh": "AI Multiverse"
+      },
+      "subtitle": {
+        "en": "In development",
+        "zh": "开发中"
+      },
+      "status": {
+        "en": "In development",
+        "zh": "开发中"
+      },
+      "overview": {
+        "en": "A multiplayer game prototype set in a multiverse. The planned core loop lets three players choose traits at the same time, then face a monster that AI assembles from their choices.",
+        "zh": "一款正在开发的多元宇宙游戏原型。计划让三名玩家同时选择怪物词条，由 AI 组合成敌人，再一起面对各自选择带来的后果。"
+      },
+      "cover_images": [],
+      "sections": []
+    },
+    {
       "id": "sisyphus",
       "title": {
         "en": "The Myth of Sisyphus",
@@ -24,35 +45,13 @@
       },
       "collaborators": [],
       "overview": {
-        "en": "An alternate reality game about our desire for answers. A university recruitment poster leads into emails, Python assignments, and a fictional school portal, where the familiar promise of progress slowly begins to fail.",
-        "zh": "一场关于寻找答案的另类实境游戏。玩家从一张大学招生海报出发，循着邮件、Python 作业和校园网站寻找线索，却发现努力并不总能换来进展。"
+        "en": "A recruitment poster leads to emails, Python assignments, and a fictional university. As the promise of progress begins to fail, players must question the rules they have been trying to follow.",
+        "zh": "一张招生海报，将玩家引向邮件、Python 作业与虚构的大学。当努力不再换来进展，寻找答案便成了对规则本身的追问。"
       },
       "design_question": {
         "en": "Can a digital system make absurdity something we experience?",
         "zh": "数字系统能否让人切身体会到荒诞？"
       },
-      "skills": [
-        {
-          "en": "Interaction Design",
-          "zh": "交互设计"
-        },
-        {
-          "en": "Web Development",
-          "zh": "网页开发"
-        },
-        {
-          "en": "Narrative Systems",
-          "zh": "叙事系统"
-        },
-        {
-          "en": "AI Integration",
-          "zh": "AI 集成"
-        },
-        {
-          "en": "Puzzle Design",
-          "zh": "谜题设计"
-        }
-      ],
       "links": [
         {
           "label": {
@@ -62,19 +61,11 @@
           "url": "https://lukewam.github.io/MS1/"
         }
       ],
-      "materials_note": {
-        "en": "The welcome email and first assignment, in their original English. Read in your browser or keep a copy.",
-        "zh": "欢迎邮件与第一份作业，保留英文原文。可直接阅读，也可下载留存。"
-      },
       "materials": [
         {
           "title": {
             "en": "The welcome email",
             "zh": "欢迎邮件"
-          },
-          "description": {
-            "en": "Professor John Smith’s invitation from LeetCodeAcademy.",
-            "zh": "LeetCodeAcademy 教授 John Smith 的自动回复。"
           },
           "links": [
             {
@@ -86,8 +77,8 @@
             },
             {
               "label": {
-                "en": "Email text · TXT ↓",
-                "zh": "邮件文字版 · TXT ↓"
+                "en": "TXT ↓",
+                "zh": "TXT ↓"
               },
               "url": "assets/documents/sisyphus/welcome-email.txt",
               "download": "LeetCodeAcademy-welcome-email.txt"
@@ -99,10 +90,6 @@
             "en": "PA 1 · Weighted Averager",
             "zh": "PA 1 · 加权平均作业"
           },
-          "description": {
-            "en": "The original notebook, with a reading version that needs no Jupyter installation.",
-            "zh": "原始 Notebook 附在线阅读版，无需安装 Jupyter。"
-          },
           "links": [
             {
               "label": {
@@ -113,8 +100,8 @@
             },
             {
               "label": {
-                "en": "Original · IPYNB, 8 KB ↓",
-                "zh": "原文件 · IPYNB，8 KB ↓"
+                "en": "IPYNB ↓",
+                "zh": "IPYNB ↓"
               },
               "url": "assets/documents/sisyphus/PA-1.ipynb",
               "download": "PA 1.ipynb"
@@ -1004,18 +991,7 @@
           "gallery_layout": "pair"
         }
       ],
-      "cover_images": [
-        {
-          "src": "assets/portfolio/page-15-image-04-display-orientation.png",
-          "width": 2823,
-          "height": 2117,
-          "caption": {
-            "en": "Vehicle acrylic chassis and printed component housings",
-            "zh": "亚克力底盘与 3D 打印外壳"
-          },
-          "small": false
-        }
-      ],
+      "cover_images": [],
       "design_question": {
         "en": "What changes when a driving model meets a reflective, unevenly lit track?",
         "zh": "赛道反光、光照不均时，驾驶模型会怎样表现？"
@@ -1081,6 +1057,30 @@
             "zh": "经过限速 100 标志"
           },
           "small": false
+        }
+      ],
+      "cover_videos": [
+        {
+          "src": "assets/films/vehicle-track-drive.mp4",
+          "poster": "assets/films/vehicle-track-drive-poster.jpg",
+          "title": {
+            "en": "On the track",
+            "zh": "赛道行驶"
+          },
+          "duration": 24.77,
+          "width": 1080,
+          "height": 1920
+        },
+        {
+          "src": "assets/films/vehicle-indoor-drive.mp4",
+          "poster": "assets/films/vehicle-indoor-drive-poster.jpg",
+          "title": {
+            "en": "Indoor trial",
+            "zh": "室内测试"
+          },
+          "duration": 16.45,
+          "width": 1080,
+          "height": 1920
         }
       ]
     },
@@ -1239,27 +1239,6 @@
           }
         }
       ]
-    },
-    {
-      "id": "ai-multiverse",
-      "title": {
-        "en": "AI Multiverse",
-        "zh": "AI Multiverse"
-      },
-      "subtitle": {
-        "en": "In development",
-        "zh": "开发中"
-      },
-      "status": {
-        "en": "In development",
-        "zh": "开发中"
-      },
-      "overview": {
-        "en": "A multiplayer game prototype set in a multiverse. The planned core loop lets three players choose traits at the same time, then face a monster that AI assembles from their choices.",
-        "zh": "一款正在开发的多元宇宙游戏原型。计划让三名玩家同时选择怪物词条，由 AI 组合成敌人，再一起面对各自选择带来的后果。"
-      },
-      "cover_images": [],
-      "sections": []
     }
   ],
   "oil_paintings": {
@@ -1556,28 +1535,7 @@
       }
     ],
     "hero_layout": "installation",
-    "cover_images": [
-      {
-        "src": "assets/portfolio/machinery-structuralism/installation-projection.jpg",
-        "width": 1280,
-        "height": 720,
-        "caption": {
-          "en": "Installation view: paintings, projection, and a live machine reading",
-          "zh": "装置现场：绘画、投影与实时识别"
-        },
-        "small": false,
-        "perspective": {
-          "corners": [
-            [83.243, 70.543],
-            [1184.947, 72.743],
-            [1157.212, 656.654],
-            [107.652, 654.454]
-          ],
-          "width": 1100,
-          "height": 582
-        }
-      }
-    ],
+    "cover_images": [],
     "sections": [
       {
         "id": "recognizing-a-face",
@@ -1640,7 +1598,7 @@
             "zh": "一句对面孔的描述，成为生成图像的起点。借助改写后的 Aperture，文字在生成过程中对应的注意力图被逐步记录下来。十八个小格里，面孔从噪点中浮现，又在循环播放中散去，让文字与图像之间的联系变得可见。"
           }
         ],
-        "layout": "wide",
+        "layout": "paired",
         "images": [],
         "videos": [
           {
@@ -1739,6 +1697,21 @@
     "process_note": {
       "en": "Earlier experiments included reconstructing a lemon from frames of Hollis Frampton’s Lemon (1969). The essay follows these studies and the ideas that connect them to the installation.",
       "zh": "前期还尝试过从 Hollis Frampton 的《柠檬》（1969）中提取画面、重建三维形体。论文记录了这些实验，以及它们如何逐渐汇入装置的构思。"
-    }
+    },
+    "cover_videos": [
+      {
+        "src": "assets/films/machinery-installation.mp4",
+        "poster": "assets/films/machinery-installation-poster.jpg",
+        "title": {
+          "en": "Installation view",
+          "zh": "装置现场"
+        },
+        "duration": 16,
+        "width": 1920,
+        "height": 1080,
+        "loop": true,
+        "autoplay": true
+      }
+    ]
   }
 }

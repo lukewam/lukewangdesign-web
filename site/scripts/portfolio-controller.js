@@ -1,5 +1,5 @@
-import { createWorkGallery } from "./work-gallery.js?v=4d3089b2c0cd";
-import { translations } from "./translations.js?v=4d3089b2c0cd";
+import { createWorkGallery } from "./work-gallery.js?v=871170ec5ccb";
+import { translations } from "./translations.js?v=871170ec5ccb";
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
  * @param {HTMLElement} portfolioRoot - Root containing the portfolio controls and sections.
@@ -105,8 +105,11 @@ export function initializePortfolio(
     portfolioData,
     {
       language: () => currentLanguage,
-      onChange: () => {
-        dragonflyRenderer.launch("work", reducedMotionPreference.matches);
+      onChange: (hasDetail) => {
+        dragonflyRenderer.launch(
+          "work",
+          reducedMotionPreference.matches || isRestoringLocation || !hasDetail,
+        );
         updateLocation();
       },
     },
@@ -150,6 +153,31 @@ export function initializePortfolio(
       if (requestedSection === "work") {
         if (requestedProject) workGallery.open(requestedProject);
         else if (workGallery.hasDetail()) workGallery.back();
+      }
+      /** A document return should restore the reading position without the entrance. */
+      sectionTransition.startAsideAmount = sectionTransition.asideAmount = 1;
+      sectionTransition.startSlideProgress =
+        sectionTransition.slideProgress = 1;
+      sectionTransition.startRevealProgress =
+        sectionTransition.revealProgress = 1;
+      sectionTransition.startBloomProgress =
+        sectionTransition.bloomProgress = 1;
+      sectionTransition.elapsedSeconds = 10;
+      sectionTransition.isClosing = false;
+      updateSectionTransition(0);
+      try {
+        const readingReturn = JSON.parse(
+          sessionStorage.getItem("portfolio-reading-return") || "null",
+        );
+        if (
+          requestedSection === "work" &&
+          readingReturn?.projectId === requestedProject
+        ) {
+          sectionPanel.scrollTop = Number(readingReturn.scrollTop) || 0;
+          sessionStorage.removeItem("portfolio-reading-return");
+        }
+      } catch {
+        /** Direct project links still open when browser storage is unavailable. */
       }
     }
     isRestoringLocation = false;
@@ -360,7 +388,10 @@ export function initializePortfolio(
       );
     portfolioRoot.dataset.activeSection = nextSection;
     setLanguage(currentLanguage);
-    dragonflyRenderer.launch(nextSection, reducedMotionPreference.matches);
+    dragonflyRenderer.launch(
+      nextSection,
+      reducedMotionPreference.matches || isRestoringLocation,
+    );
     portfolioRoot.querySelector(".panel-close-button").focus({
       preventScroll: true,
     });
@@ -430,18 +461,18 @@ export function initializePortfolio(
       if (sectionTransition.isClosing) {
         sectionTransition.asideAmount =
           sectionTransition.startAsideAmount *
-          (1 - smoothStep((transitionSeconds - 0.14) / 0.72));
+          (1 - smoothStep(transitionSeconds / 0.5));
         sectionTransition.slideProgress =
           sectionTransition.startSlideProgress *
-          (1 - smootherStep(transitionSeconds / 2.3));
+          (1 - smootherStep(transitionSeconds / 1.1));
         sectionTransition.bloomProgress =
           sectionTransition.startBloomProgress +
           (1 - sectionTransition.startBloomProgress) *
-            smootherStep(transitionSeconds / 2.3);
+            smootherStep(transitionSeconds / 1.1);
         sectionTransition.revealProgress =
           sectionTransition.startRevealProgress *
           (1 - smoothStep(transitionSeconds / 0.24));
-        if (transitionSeconds >= 2.3) {
+        if (transitionSeconds >= 1.1) {
           finishLotusReturn();
         }
       } else if (sectionTransition.targetAmount === 1) {
@@ -1336,5 +1367,13 @@ export function initializePortfolio(
   setLanguage(savedLanguage);
   restoreLocation();
   window.addEventListener("hashchange", restoreLocation);
+  window.addEventListener("pageshow", (event) => {
+    if (!event.persisted) return;
+    try {
+      sessionStorage.removeItem("portfolio-reading-return");
+    } catch {
+      /** Browser-restored pages already preserve their current reading position. */
+    }
+  });
   requestAnimationFrame(drawFrame);
 }

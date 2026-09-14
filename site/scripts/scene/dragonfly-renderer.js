@@ -484,7 +484,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
         ? getNavigationPerch()
         : getTitlePerch();
       const flightDuration = isReturningHome
-        ? 1.88
+        ? 1.15
         : activeSection === "about"
           ? 2.48
           : activeSection === "contact"
