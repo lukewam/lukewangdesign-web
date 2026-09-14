@@ -9,8 +9,92 @@
  * @property {number} height Original image height in pixels.
  * @property {LocalizedText} caption Figure caption and alternative text.
  * @property {{x: number, y: number, width: number, height: number}} [crop] Visible area in original pixels.
+ * @property {{corners: number[][], width: number, height: number}} [perspective] Original pixel corners in top-left, top-right, bottom-right, bottom-left order and the rectified dimensions.
  * @property {boolean} [small] Whether the image is supporting detail.
  */
+
+/**
+ * Map four photographed corners onto a rectangle without altering the source.
+ * @param {{corners: number[][], width: number, height: number}} perspective Rectified image geometry.
+ * @returns {number[]|null} Eight homography coefficients, or null for invalid geometry.
+ */
+function createPerspectiveMatrix(perspective) {
+  const { corners, width, height } = perspective;
+  if (
+    !Number.isFinite(width) ||
+    width <= 0 ||
+    !Number.isFinite(height) ||
+    height <= 0 ||
+    corners?.length !== 4 ||
+    !corners.every(
+      (corner) => corner?.length === 2 && corner.every(Number.isFinite),
+    )
+  )
+    return null;
+  const rectangleCorners = [
+    [0, 0],
+    [width, 0],
+    [width, height],
+    [0, height],
+  ];
+  const equations = corners.flatMap(([sourceX, sourceY], cornerIndex) => {
+    const [targetX, targetY] = rectangleCorners[cornerIndex];
+    return [
+      [
+        sourceX,
+        sourceY,
+        1,
+        0,
+        0,
+        0,
+        -targetX * sourceX,
+        -targetX * sourceY,
+        targetX,
+      ],
+      [
+        0,
+        0,
+        0,
+        sourceX,
+        sourceY,
+        1,
+        -targetY * sourceX,
+        -targetY * sourceY,
+        targetY,
+      ],
+    ];
+  });
+  for (let columnIndex = 0; columnIndex < 8; columnIndex++) {
+    let pivotIndex = columnIndex;
+    for (let rowIndex = columnIndex + 1; rowIndex < 8; rowIndex++) {
+      if (
+        Math.abs(equations[rowIndex][columnIndex]) >
+        Math.abs(equations[pivotIndex][columnIndex])
+      ) {
+        pivotIndex = rowIndex;
+      }
+    }
+    if (Math.abs(equations[pivotIndex][columnIndex]) < 1e-10) return null;
+    [equations[columnIndex], equations[pivotIndex]] = [
+      equations[pivotIndex],
+      equations[columnIndex],
+    ];
+    const pivotValue = equations[columnIndex][columnIndex];
+    equations[columnIndex] = equations[columnIndex].map(
+      (value) => value / pivotValue,
+    );
+    for (let rowIndex = 0; rowIndex < 8; rowIndex++) {
+      if (rowIndex === columnIndex) continue;
+      const factor = equations[rowIndex][columnIndex];
+      equations[rowIndex] = equations[rowIndex].map(
+        (value, entryIndex) =>
+          value - factor * equations[columnIndex][entryIndex],
+      );
+    }
+  }
+  const coefficients = equations.map((equation) => equation[8]);
+  return coefficients.every(Number.isFinite) ? coefficients : null;
+}
 
 /**
  * Connects the illustrated work index to case studies and the painting gallery.
@@ -21,7 +105,7 @@
  * @param {Object} options Callbacks supplied by the portfolio controller.
  * @param {() => string} options.language Returns the selected language.
  * @param {(hasDetail: boolean) => void} options.onChange Reports detail navigation.
- * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, hasDetail: () => boolean}}
+ * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, open: (projectId: string) => void, currentProject: () => string|null, hasDetail: () => boolean}}
  */
 export function createWorkGallery(
   portfolioRoot,
@@ -92,6 +176,44 @@ export function createWorkGallery(
     "oil-paintings",
   ];
   const chapterHeadings = new Map();
+  const perspectiveWindows = new Map();
+  const perspectiveResizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      const perspectiveImage = perspectiveWindows.get(entry.target);
+      if (!perspectiveImage || entry.contentRect.width <= 0) return;
+      const { imageElement, coefficients, width } = perspectiveImage;
+      const frameScale = entry.contentRect.width / width;
+      const [
+        horizontalX,
+        horizontalY,
+        horizontalOffset,
+        verticalX,
+        verticalY,
+        verticalOffset,
+        depthX,
+        depthY,
+      ] = coefficients;
+      imageElement.style.transform = `matrix3d(${[
+        horizontalX * frameScale,
+        verticalX * frameScale,
+        0,
+        depthX,
+        horizontalY * frameScale,
+        verticalY * frameScale,
+        0,
+        depthY,
+        0,
+        0,
+        1,
+        0,
+        horizontalOffset * frameScale,
+        verticalOffset * frameScale,
+        0,
+        1,
+      ].join(",")})`;
+      imageElement.style.visibility = "visible";
+    });
+  });
 
   let currentProjectId = null;
   let workIndexScrollPosition = 0;
@@ -235,7 +357,21 @@ export function createWorkGallery(
   }
 
   /**
-   * Shows a crop through an overflow window while keeping the source untouched.
+   * Stop observing image windows before their project or preview is replaced.
+   * @param {HTMLElement} container Removed or hidden media container.
+   * @returns {void}
+   */
+  function releasePerspectiveWindows(container) {
+    container
+      .querySelectorAll("[data-perspective-image]")
+      .forEach((imageWindow) => {
+        perspectiveResizeObserver.unobserve(imageWindow);
+        perspectiveWindows.delete(imageWindow);
+      });
+  }
+
+  /**
+   * Shows a crop or rectified photograph while keeping the source untouched.
    * The same geometry is used for thumbnails and the large image view.
    * @param {GalleryImage} galleryImage Image metadata and optional crop.
    * @param {boolean} [eager] Whether to load the image immediately.
@@ -244,12 +380,21 @@ export function createWorkGallery(
   function createImageWindow(galleryImage, eager = false) {
     const imageWindow = createElement("span", "work-image-window");
     const imageElement = document.createElement("img");
-    const visibleArea = galleryImage.crop || {
+    const perspectiveMatrix = galleryImage.perspective
+      ? createPerspectiveMatrix(galleryImage.perspective)
+      : null;
+    const visibleArea = (perspectiveMatrix && {
       x: 0,
       y: 0,
-      width: galleryImage.width,
-      height: galleryImage.height,
-    };
+      width: galleryImage.perspective.width,
+      height: galleryImage.perspective.height,
+    }) ||
+      galleryImage.crop || {
+        x: 0,
+        y: 0,
+        width: galleryImage.width,
+        height: galleryImage.height,
+      };
     imageWindow.style.aspectRatio = `${visibleArea.width} / ${visibleArea.height}`;
     imageWindow.style.setProperty(
       "--media-ratio",
@@ -270,6 +415,19 @@ export function createWorkGallery(
     imageElement.style.height = `${(galleryImage.height / visibleArea.height) * 100}%`;
     imageElement.style.left = `${(-visibleArea.x / visibleArea.width) * 100}%`;
     imageElement.style.top = `${(-visibleArea.y / visibleArea.height) * 100}%`;
+    if (perspectiveMatrix) {
+      imageWindow.dataset.perspectiveImage = "";
+      imageElement.style.width = `${galleryImage.width}px`;
+      imageElement.style.height = `${galleryImage.height}px`;
+      imageElement.style.transformOrigin = "0 0";
+      imageElement.style.visibility = "hidden";
+      perspectiveWindows.set(imageWindow, {
+        imageElement,
+        coefficients: perspectiveMatrix,
+        width: visibleArea.width,
+      });
+      perspectiveResizeObserver.observe(imageWindow);
+    }
     imageWindow.append(imageElement);
     return imageWindow;
   }
@@ -280,9 +438,16 @@ export function createWorkGallery(
     closeChapterNavigation();
     lastImageButton = openingButton;
     const caption = localizeText(galleryImage.caption);
-    const visibleWidth = galleryImage.crop?.width || galleryImage.width;
-    const visibleHeight = galleryImage.crop?.height || galleryImage.height;
+    const visibleWidth =
+      galleryImage.perspective?.width ||
+      galleryImage.crop?.width ||
+      galleryImage.width;
+    const visibleHeight =
+      galleryImage.perspective?.height ||
+      galleryImage.crop?.height ||
+      galleryImage.height;
     enlargedImageFigure.style.width = `min(100%, ${(visibleWidth / visibleHeight) * 70}svh)`;
+    releasePerspectiveWindows(enlargedImageFigure);
     enlargedImageFigure.replaceChildren(
       createImageWindow(galleryImage, true),
       createElement("figcaption", "", caption),
@@ -325,8 +490,14 @@ export function createWorkGallery(
           : "pair"
         : galleryLayout;
     galleryImages.forEach((galleryImage) => {
-      const visibleWidth = galleryImage.crop?.width || galleryImage.width;
-      const visibleHeight = galleryImage.crop?.height || galleryImage.height;
+      const visibleWidth =
+        galleryImage.perspective?.width ||
+        galleryImage.crop?.width ||
+        galleryImage.width;
+      const visibleHeight =
+        galleryImage.perspective?.height ||
+        galleryImage.crop?.height ||
+        galleryImage.height;
       const imageFigure = createElement("figure", "work-figure");
       imageFigure.classList.toggle(
         "is-portrait",
@@ -495,16 +666,6 @@ export function createWorkGallery(
         materialLink.href = linkData.url;
         if (linkData.download) {
           materialLink.download = linkData.download;
-        } else {
-          materialLink.target = "_blank";
-          materialLink.rel = "noopener noreferrer";
-          materialLink.append(
-            createElement(
-              "span",
-              "work-reader-note",
-              activeLanguage === "zh" ? "（新标签页）" : " (new tab)",
-            ),
-          );
         }
         materialActions.append(materialLink);
       });
@@ -581,6 +742,7 @@ export function createWorkGallery(
   /** Rebuilds the current case study in the selected language. */
   function renderProjectDetail(projectData) {
     pauseVideos();
+    releasePerspectiveWindows(projectDetail);
     closeImageDialog();
     projectDetail.dataset.projectId = currentProjectId;
     projectDetail.replaceChildren();
@@ -753,6 +915,7 @@ export function createWorkGallery(
   /** Clears media and detail state before the controller closes or changes panels. */
   function resetGallery() {
     pauseVideos();
+    releasePerspectiveWindows(projectDetail);
     closeImageDialog();
     currentProjectId = null;
     renderedProjectLanguageKey = null;
@@ -849,6 +1012,7 @@ export function createWorkGallery(
     if (event.target === imageDialog) closeImageDialog();
   });
   imageDialog.addEventListener("close", () => {
+    releasePerspectiveWindows(enlargedImageFigure);
     if (
       lastImageButton?.isConnected &&
       !projectDetail.hidden &&
@@ -874,6 +1038,8 @@ export function createWorkGallery(
       closeChapterNavigation();
     },
     back: returnToWorkIndex,
+    open: openProject,
+    currentProject: () => currentProjectId,
     hasDetail: () => Boolean(currentProjectId),
   };
 }

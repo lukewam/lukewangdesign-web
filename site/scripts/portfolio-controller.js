@@ -95,6 +95,7 @@ export function initializePortfolio(
   let motionSeconds = 0;
   let currentLanguage = "en";
   let selectedSection = null;
+  let isRestoringLocation = false;
   let isPlaying = !reducedMotionPreference.matches;
   let pausedBloomProgress = reducedMotionPreference.matches ? 1 : 0;
   const sectionPanel = portfolioRoot.querySelector(".content-panel");
@@ -104,10 +105,56 @@ export function initializePortfolio(
     portfolioData,
     {
       language: () => currentLanguage,
-      onChange: () =>
-        dragonflyRenderer.launch("work", reducedMotionPreference.matches),
+      onChange: () => {
+        dragonflyRenderer.launch("work", reducedMotionPreference.matches);
+        updateLocation();
+      },
     },
   );
+  /**
+   * Keep the current section in the address so a document can return to it.
+   * @returns {void}
+   */
+  function updateLocation() {
+    if (isRestoringLocation) return;
+    const locationUrl = new URL(window.location.href);
+    const projectId =
+      selectedSection === "work" && workGallery.currentProject();
+    locationUrl.hash = selectedSection
+      ? `${selectedSection}${projectId ? `/${projectId}` : ""}`
+      : "";
+    if (locationUrl.href !== window.location.href) {
+      history.replaceState(history.state, "", locationUrl);
+    }
+  }
+  /**
+   * Restore a linked section after loading or returning from a reading page.
+   * @returns {void}
+   */
+  function restoreLocation() {
+    const sectionRoute = window.location.hash.match(
+      /^#(work|about|contact)(?:\/([a-z0-9-]+))?$/,
+    );
+    if (!sectionRoute && window.location.hash) return;
+    isRestoringLocation = true;
+    if (!sectionRoute) {
+      closeSection();
+    } else {
+      const [, requestedSection, requestedProject] = sectionRoute;
+      if (
+        selectedSection !== requestedSection ||
+        sectionTransition.targetAmount === 0
+      ) {
+        openSection(requestedSection);
+      }
+      if (requestedSection === "work") {
+        if (requestedProject) workGallery.open(requestedProject);
+        else if (workGallery.hasDetail()) workGallery.back();
+      }
+    }
+    isRestoringLocation = false;
+    updateLocation();
+  }
   /**
    * Resize the flower bitmap and restore its paper background before painting.
    * @returns {void}
@@ -323,6 +370,7 @@ export function initializePortfolio(
       sectionTransition.revealProgress = 1;
       sectionTransition.bloomProgress = 1;
     }
+    updateLocation();
   }
   /**
    * Close the content panel and restore navigation focus for keyboard activation.
@@ -348,6 +396,7 @@ export function initializePortfolio(
     const previousSection = selectedSection;
     selectedSection = null;
     delete portfolioRoot.dataset.activeSection;
+    updateLocation();
     /** Restore a keyboard user's place without adding a mouse-click focus mark. */
     const shouldRestoreFocus =
       !event || event.type === "keydown" || event.detail === 0;
@@ -764,6 +813,11 @@ export function initializePortfolio(
    */
   function setLanguage(languageCode) {
     currentLanguage = languageCode;
+    try {
+      sessionStorage.setItem("portfolio-language", languageCode);
+    } catch {
+      /** Language switching remains available when browser storage is disabled. */
+    }
     portfolioRoot.lang = languageCode === "zh" ? "zh-CN" : "en";
     portfolioRoot
       .querySelectorAll("[data-language-option]")
@@ -1272,6 +1326,15 @@ export function initializePortfolio(
     drawingContext.globalAlpha = 1;
   }
   resize();
-  setLanguage("en");
+  let savedLanguage = "en";
+  try {
+    if (sessionStorage.getItem("portfolio-language") === "zh")
+      savedLanguage = "zh";
+  } catch {
+    /** A direct visit defaults to English when browser storage is unavailable. */
+  }
+  setLanguage(savedLanguage);
+  restoreLocation();
+  window.addEventListener("hashchange", restoreLocation);
   requestAnimationFrame(drawFrame);
 }
