@@ -617,6 +617,13 @@ body {
   --ink-duration: 1.4s;
 }
 
+/** Center the shared 610px car body; its 845px canvas also leaves room for exhaust. */
+#portfolio-site [data-project-icon="car"] .work-frame {
+  left: calc(50% - 100% * 524 / 610);
+  right: auto;
+  width: calc(100% * 845 / 610);
+}
+
 #portfolio-site [data-project-icon="robot"] {
   --ink-duration: 1.6s;
 }
