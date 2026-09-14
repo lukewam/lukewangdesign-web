@@ -21,7 +21,7 @@
       "cover_images": [],
       "sections": [],
       "index_subtitle": {
-        "en": "AI model-driven game",
+        "en": "AI Model-Driven Game",
         "zh": "AI 模型驱动游戏"
       }
     },
@@ -342,7 +342,7 @@
         "zh": "课程目录里找不到 CSE 1A。各页的粗体字母拼出“meaning”，将这个词转为 Base64 编码，便能得到密码。用户名“lukewam”藏在网址中。"
       },
       "index_subtitle": {
-        "en": "Alternate reality game",
+        "en": "Alternate Reality Game",
         "zh": "另类实境游戏"
       }
     },
@@ -664,7 +664,7 @@
         }
       ],
       "index_subtitle": {
-        "en": "Mobile game",
+        "en": "Mobile Game",
         "zh": "手机游戏"
       }
     },
@@ -845,7 +845,7 @@
         }
       ],
       "index_subtitle": {
-        "en": "VR game",
+        "en": "VR Game",
         "zh": "VR 游戏"
       }
     },
@@ -1100,7 +1100,7 @@
         }
       ],
       "index_subtitle": {
-        "en": "Computer vision",
+        "en": "Computer Vision",
         "zh": "计算机视觉"
       }
     },
@@ -1260,7 +1260,7 @@
         }
       ],
       "index_subtitle": {
-        "en": "Android app",
+        "en": "Android App",
         "zh": "安卓应用"
       }
     }
@@ -1521,11 +1521,7 @@
           "small": false
         }
       }
-    ],
-    "index_subtitle": {
-      "en": "Oil & mixed media",
-      "zh": "油彩与综合材料"
-    }
+    ]
   },
   "machinery": {
     "id": "machinery-structuralism",
@@ -1742,7 +1738,7 @@
       }
     ],
     "index_subtitle": {
-      "en": "Machine vision installation",
+      "en": "Machine Vision Installation",
       "zh": "机器视觉装置"
     }
   }
