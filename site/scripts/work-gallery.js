@@ -44,9 +44,24 @@ export function createWorkGallery(
   const backToIndexButton = createElement("button", "work-back");
   backToIndexButton.type = "button";
   backToIndexButton.hidden = true;
-  const chapterSelector = createElement("select", "work-chapter-select");
-  chapterSelector.hidden = true;
-  panelToolbar.prepend(backToIndexButton, chapterSelector);
+  const chapterNavigation = createElement("div", "work-chapter-navigation");
+  chapterNavigation.hidden = true;
+  const chapterTrigger = createElement("button", "work-chapter-trigger");
+  chapterTrigger.type = "button";
+  chapterTrigger.setAttribute("aria-expanded", "false");
+  chapterTrigger.setAttribute("aria-controls", "work-chapter-popover");
+  const chapterTriggerLabel = createElement("span");
+  const chapterChevron = createElement("span", "work-chapter-chevron");
+  chapterChevron.setAttribute("aria-hidden", "true");
+  chapterTrigger.append(chapterTriggerLabel, chapterChevron);
+  const chapterPopover = createElement("nav", "work-chapter-popover");
+  chapterPopover.id = "work-chapter-popover";
+  chapterPopover.hidden = true;
+  const chapterProjectLabel = createElement("p", "work-chapter-project-label");
+  const chapterList = createElement("ol", "work-chapter-list");
+  chapterPopover.append(chapterProjectLabel, chapterList);
+  chapterNavigation.append(chapterTrigger, chapterPopover);
+  panelToolbar.prepend(backToIndexButton, chapterNavigation);
 
   const imageDialog = createElement("dialog", "work-lightbox");
   const imageDialogToolbar = createElement("div", "work-lightbox-toolbar");
@@ -117,6 +132,100 @@ export function createWorkGallery(
     });
   }
 
+  /** Closes the local contents disclosure without moving focus after an outside click. */
+  function closeChapterNavigation(restoreFocus = false) {
+    chapterPopover.hidden = true;
+    chapterTrigger.setAttribute("aria-expanded", "false");
+    if (restoreFocus) chapterTrigger.focus({ preventScroll: true });
+  }
+
+  /** Keeps the contents sheet inside the reading panel, including narrow screens. */
+  function openChapterNavigation() {
+    updateCurrentChapter();
+    const panelBounds = contentPanel.getBoundingClientRect();
+    const navigationBounds = chapterNavigation.getBoundingClientRect();
+    const panelPadding = parseFloat(
+      getComputedStyle(contentPanel).paddingRight,
+    );
+    const availableWidth = contentPanel.clientWidth - panelPadding - 8;
+    const popoverWidth = Math.min(332, availableWidth);
+    const minimumLeft = panelBounds.left + 4;
+    const maximumLeft = minimumLeft + availableWidth - popoverWidth;
+    const centeredLeft =
+      navigationBounds.left + navigationBounds.width / 2 - popoverWidth / 2;
+    const popoverLeft = Math.max(
+      minimumLeft,
+      Math.min(centeredLeft, maximumLeft),
+    );
+    chapterPopover.style.width = `${popoverWidth}px`;
+    chapterPopover.style.left = `${popoverLeft - navigationBounds.left}px`;
+    chapterPopover.style.maxHeight = `${Math.max(96, panelBounds.bottom - navigationBounds.bottom - 19)}px`;
+    chapterPopover.hidden = false;
+    chapterTrigger.setAttribute("aria-expanded", "true");
+  }
+
+  /** Highlights the chapter occupying the upper part of the reading panel. */
+  function updateCurrentChapter() {
+    const readingEdge = panelToolbar.getBoundingClientRect().bottom + 44;
+    let currentChapterId = "";
+    chapterHeadings.forEach((heading, chapterId) => {
+      if (
+        heading.closest(".work-chapter-copy").getBoundingClientRect().top <=
+        readingEdge
+      ) {
+        currentChapterId = chapterId;
+      }
+    });
+    chapterList.querySelectorAll("button").forEach((button) => {
+      if (button.dataset.chapterId === currentChapterId)
+        button.setAttribute("aria-current", "location");
+      else button.removeAttribute("aria-current");
+    });
+  }
+
+  /** Adds an ordinary navigation button; Tab follows the document's normal focus order. */
+  function appendChapterLink(chapterId, number, label) {
+    const item = createElement("li");
+    const button = createElement("button", "work-chapter-link");
+    button.type = "button";
+    button.dataset.chapterId = chapterId;
+    const chapterNumber = createElement(
+      "span",
+      "work-chapter-link-number",
+      number,
+    );
+    chapterNumber.setAttribute("aria-hidden", "true");
+    const chapterMarker = createElement("span", "work-chapter-marker");
+    chapterMarker.setAttribute("aria-hidden", "true");
+    button.append(
+      chapterNumber,
+      createElement("span", "work-chapter-link-label", label),
+      chapterMarker,
+    );
+    button.addEventListener("click", () => navigateToChapter(chapterId));
+    item.append(button);
+    chapterList.append(item);
+  }
+
+  /** Moves to the whole copy group so neither its number nor first line is hidden by the toolbar. */
+  function navigateToChapter(chapterId) {
+    const chapterHeading = chapterHeadings.get(chapterId);
+    closeChapterNavigation();
+    const targetPosition = chapterHeading
+      ? contentPanel.scrollTop +
+        chapterHeading.closest(".work-chapter-copy").getBoundingClientRect()
+          .top -
+        contentPanel.getBoundingClientRect().top -
+        panelToolbar.getBoundingClientRect().height -
+        22
+      : 0;
+    (chapterHeading || contentHeading).focus({ preventScroll: true });
+    contentPanel.scrollTo({
+      top: Math.max(0, targetPosition),
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+    });
+  }
+
   /** Closes the image view; the native dialog returns focus to its opening control. */
   function closeImageDialog() {
     if (imageDialog.open) imageDialog.close();
@@ -165,6 +274,7 @@ export function createWorkGallery(
   /** Opens the chosen image without navigating away from the case study. */
   function showImage(galleryImage, openingButton) {
     pauseVideos();
+    closeChapterNavigation();
     lastImageButton = openingButton;
     const caption = localizeText(galleryImage.caption);
     const visibleWidth = galleryImage.crop?.width || galleryImage.width;
@@ -409,14 +519,14 @@ export function createWorkGallery(
     projectDetail.dataset.projectId = currentProjectId;
     projectDetail.replaceChildren();
     chapterHeadings.clear();
-    chapterSelector.replaceChildren(
-      createElement(
-        "option",
-        "",
-        activeLanguage === "zh" ? "本页目录 ↓" : "On this page ↓",
-      ),
+    closeChapterNavigation();
+    chapterList.replaceChildren();
+    chapterProjectLabel.textContent = localizeText(projectData.title);
+    appendChapterLink(
+      "",
+      "00",
+      activeLanguage === "zh" ? "项目概览" : "Overview",
     );
-    chapterSelector.options[0].value = "";
     if (currentProjectId === "machinary") {
       appendParagraph(projectDetail, projectData.overview, "work-lead");
       appendDetailFooter(projectData);
@@ -485,13 +595,11 @@ export function createWorkGallery(
         appendVideoGallery(chapterEvidence, projectSection.videos);
         chapterSection.append(chapterEvidence);
       }
-      const chapterOption = createElement(
-        "option",
-        "",
-        `${chapterNumber} · ${localizeText(projectSection.title)}`,
+      appendChapterLink(
+        projectSection.id,
+        chapterNumber,
+        localizeText(projectSection.title),
       );
-      chapterOption.value = projectSection.id;
-      chapterSelector.append(chapterOption);
       chapterHeadings.set(projectSection.id, chapterHeading);
       projectDetail.append(chapterSection);
     });
@@ -508,6 +616,7 @@ export function createWorkGallery(
     if (activeLanguage !== selectedLanguage || !isWorkPanelActive) {
       pauseVideos();
       closeImageDialog();
+      closeChapterNavigation();
     }
     activeLanguage = selectedLanguage;
     backToIndexButton.textContent =
@@ -516,9 +625,11 @@ export function createWorkGallery(
     const selectedProject = currentProjectId
       ? findProject(currentProjectId)
       : null;
-    chapterSelector.hidden =
+    chapterNavigation.hidden =
       !isWorkPanelActive || !selectedProject?.sections?.length;
-    chapterSelector.setAttribute(
+    chapterTriggerLabel.textContent =
+      activeLanguage === "zh" ? "本页目录" : "On this page";
+    chapterPopover.setAttribute(
       "aria-label",
       activeLanguage === "zh" ? "跳转到章节" : "Jump to a section",
     );
@@ -563,7 +674,8 @@ export function createWorkGallery(
     renderedProjectLanguageKey = null;
     chapterHeadings.clear();
     backToIndexButton.hidden = true;
-    chapterSelector.hidden = true;
+    closeChapterNavigation();
+    chapterNavigation.hidden = true;
     projectDetail.removeAttribute("data-project-id");
     portfolioRoot.removeAttribute("data-work-detail");
   }
@@ -577,29 +689,66 @@ export function createWorkGallery(
     options.onChange(false);
   }
 
-  chapterSelector.addEventListener("change", () => {
-    const chapterHeading = chapterHeadings.get(chapterSelector.value);
-    if (!chapterHeading) {
-      contentPanel.scrollTo({
-        top: 0,
-        behavior: reducedMotion.matches ? "auto" : "smooth",
-      });
-      contentHeading.focus({ preventScroll: true });
+  chapterTrigger.addEventListener("click", () => {
+    if (!chapterPopover.hidden) return closeChapterNavigation();
+    openChapterNavigation();
+  });
+  chapterNavigation.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !chapterPopover.hidden) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeChapterNavigation(true);
       return;
     }
-    const chapterCopy = chapterHeading.closest(".work-chapter-copy");
-    const targetPosition =
-      contentPanel.scrollTop +
-      chapterCopy.getBoundingClientRect().top -
-      contentPanel.getBoundingClientRect().top -
-      panelToolbar.getBoundingClientRect().height -
-      22;
-    chapterHeading.focus({ preventScroll: true });
-    contentPanel.scrollTo({
-      top: Math.max(0, targetPosition),
-      behavior: reducedMotion.matches ? "auto" : "smooth",
-    });
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+    if (chapterPopover.hidden && event.target !== chapterTrigger) return;
+    event.preventDefault();
+    if (chapterPopover.hidden) {
+      openChapterNavigation();
+    }
+    const buttons = [...chapterList.querySelectorAll("button")];
+    const focusedIndex = buttons.indexOf(document.activeElement);
+    const nextIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? buttons.length - 1
+          : event.key === "ArrowDown"
+            ? Math.min(focusedIndex + 1, buttons.length - 1)
+            : focusedIndex <= 0
+              ? buttons.length - 1
+              : focusedIndex - 1;
+    const focusedButton = buttons[nextIndex];
+    if (!focusedButton) return;
+    focusedButton.focus({ preventScroll: true });
+    const buttonBounds = focusedButton.getBoundingClientRect();
+    const popoverBounds = chapterPopover.getBoundingClientRect();
+    if (buttonBounds.bottom > popoverBounds.bottom - 12) {
+      chapterPopover.scrollTop +=
+        buttonBounds.bottom - popoverBounds.bottom + 12;
+    } else if (buttonBounds.top < popoverBounds.top + 12) {
+      chapterPopover.scrollTop -= popoverBounds.top - buttonBounds.top + 12;
+    }
   });
+  chapterNavigation.addEventListener("focusout", (event) => {
+    if (!chapterNavigation.contains(event.relatedTarget))
+      closeChapterNavigation();
+  });
+  document.addEventListener("pointerdown", (event) => {
+    if (!chapterPopover.hidden && !chapterNavigation.contains(event.target))
+      closeChapterNavigation();
+  });
+  contentPanel.addEventListener(
+    "scroll",
+    () => {
+      if (!chapterPopover.hidden)
+        closeChapterNavigation(chapterPopover.contains(document.activeElement));
+    },
+    { passive: true },
+  );
+  window.addEventListener("resize", () =>
+    closeChapterNavigation(chapterPopover.contains(document.activeElement)),
+  );
 
   closeImageButton.addEventListener("click", closeImageDialog);
   imageDialog.addEventListener("keydown", (event) => {
@@ -636,7 +785,10 @@ export function createWorkGallery(
   return {
     render: renderGallery,
     reset: resetGallery,
-    pauseMedia: pauseVideos,
+    pauseMedia: () => {
+      pauseVideos();
+      closeChapterNavigation();
+    },
     back: returnToWorkIndex,
     hasDetail: () => Boolean(currentProjectId),
   };

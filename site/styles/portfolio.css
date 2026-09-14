@@ -861,19 +861,158 @@ body {
   color: var(--muted-ink-color);
 }
 
-#portfolio-site .work-chapter-select {
+#portfolio-site .work-chapter-navigation {
+  position: relative;
   max-width: min(48%, 270px);
-  min-height: 40px;
+  min-width: 0;
   margin: 0 auto;
-  padding: 4px 22px 4px 12px;
-  font-family: inherit;
+}
+
+#portfolio-site .work-chapter-trigger {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 42px;
+  padding: 8px 4px;
   font-size: 12px;
   line-height: 1.4;
   color: #66685f;
-  background: var(--paper-color);
-  border: 0;
-  cursor: pointer;
-  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+#portfolio-site .work-chapter-trigger:hover,
+#portfolio-site .work-chapter-trigger[aria-expanded="true"] {
+  color: #333b2f;
+}
+
+#portfolio-site .work-chapter-chevron {
+  width: 5px;
+  height: 5px;
+  margin-top: -3px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 180ms ease;
+}
+
+#portfolio-site
+  .work-chapter-trigger[aria-expanded="true"]
+  .work-chapter-chevron {
+  transform: translateY(3px) rotate(225deg);
+}
+
+#portfolio-site .work-chapter-popover {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% + 7px);
+  left: 0;
+  width: 332px;
+  max-width: calc(100vw - 64px);
+  max-height: calc(100svh - 240px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 19px 17px 12px;
+  background: #faf8f2;
+  border: 1px solid #dedfd5;
+  border-radius: 3px;
+  box-shadow: 0 8px 30px rgb(52 56 40 / 7%);
+  scrollbar-width: thin;
+  scrollbar-color: #a2a894 transparent;
+  animation: chapter-navigation-reveal 180ms ease-out;
+}
+
+#portfolio-site
+  .content-panel:has(.work-chapter-trigger[aria-expanded="true"]) {
+  z-index: 7;
+}
+
+#portfolio-site .content-panel .work-chapter-project-label {
+  margin: 0 7px 11px;
+  padding: 0 0 13px;
+  border-bottom: 1px solid #e5e5dc;
+  font-size: 11px;
+  line-height: 1.5;
+  color: #777d6f;
+  max-width: none;
+}
+
+#portfolio-site .work-chapter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#portfolio-site .work-chapter-link {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) 10px;
+  gap: 11px;
+  align-items: baseline;
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 8px;
+  border-radius: 2px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+  color: #51574a;
+  transition:
+    background-color 140ms ease,
+    color 140ms ease;
+}
+
+#portfolio-site .work-chapter-link-number {
+  color: #999f8f;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+#portfolio-site .work-chapter-link-label {
+  transition: transform 140ms ease;
+}
+
+#portfolio-site .work-chapter-link[aria-current] {
+  color: #343e2e;
+}
+
+#portfolio-site .work-chapter-marker {
+  width: 8px;
+  height: 1px;
+  align-self: center;
+  background: #879377;
+  opacity: 0;
+}
+
+#portfolio-site .work-chapter-link[aria-current] .work-chapter-marker {
+  opacity: 1;
+}
+
+#portfolio-site .work-chapter-link:is(:hover, :focus-visible) {
+  background: #eeefe7;
+  color: #2e3928;
+}
+
+#portfolio-site
+  .work-chapter-link:is(:hover, :focus-visible)
+  .work-chapter-link-label {
+  transform: translateX(2px);
+}
+
+#portfolio-site .work-chapter-link:focus-visible {
+  outline: 1px solid #b5bea8;
+  outline-offset: -1px;
+}
+
+@keyframes chapter-navigation-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #portfolio-site[data-work-detail] .content-panel {
@@ -1319,7 +1458,7 @@ body {
 #portfolio-site .work-back:focus-visible,
 #portfolio-site .work-end-back:focus-visible,
 #portfolio-site .work-next:focus-visible,
-#portfolio-site .work-chapter-select:focus-visible,
+#portfolio-site .work-chapter-trigger:focus-visible,
 #portfolio-site .work-image-button:focus-visible,
 #portfolio-site .work-process summary:focus-visible,
 #portfolio-site .work-lightbox-close:focus-visible {
@@ -1408,11 +1547,20 @@ body {
   #portfolio-site .panel-toolbar {
     gap: 8px;
   }
-  #portfolio-site .work-chapter-select {
+  #portfolio-site .work-chapter-navigation {
     max-width: 49%;
-    padding-left: 0;
-    padding-right: 0;
+  }
+  #portfolio-site .work-chapter-trigger {
     font-size: 11px;
+    gap: 12px;
+  }
+  #portfolio-site .work-chapter-popover {
+    padding: 16px 12px 10px;
+  }
+  #portfolio-site .work-chapter-link {
+    font-size: 12px;
+    padding-block: 12px;
+    column-gap: 8px;
   }
   #portfolio-site .work-back {
     font-size: 12px;
@@ -1457,6 +1605,15 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #portfolio-site .work-chapter-popover {
+    animation: none;
+  }
+  #portfolio-site .work-chapter-trigger,
+  #portfolio-site .work-chapter-chevron,
+  #portfolio-site .work-chapter-link,
+  #portfolio-site .work-chapter-link-label {
+    transition: none;
+  }
   #portfolio-site .contact-entry a {
     transition: none;
   }
