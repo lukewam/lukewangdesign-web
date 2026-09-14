@@ -740,12 +740,6 @@ body {
   #portfolio-site .work-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  #portfolio-site .work-grid .work-title {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    min-height: 2.7em;
-  }
 }
 
 @media (max-width: 600px) {
