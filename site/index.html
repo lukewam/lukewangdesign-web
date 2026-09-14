@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta
+      name="description"
+      content="Luke Wang — paintings, interactive works, and moments of stillness."
+    />
+    <title>LukeWangDesign</title>
+    <link rel="canonical" href="https://lukewangdesign.com/" />
+    <link rel="icon" href="assets/work-icons/eye-0.png" type="image/png" />
+    <link rel="stylesheet" href="styles/portfolio.css" />
+    <script type="module" src="scripts/main.js"></script>
+  </head>
+  <body>
+    <div id="portfolio-site" lang="en" aria-label="Luke Wang portfolio">
+      <header class="site-header">
+        <h1 class="site-name">Luke Wang</h1>
+        <div class="language-switcher" aria-label="Language">
+          <button type="button" data-language-option="en" aria-pressed="true">
+            EN
+          </button>
+          <span aria-hidden="true">/</span>
+          <button type="button" data-language-option="zh" aria-pressed="false">
+            中文
+          </button>
+        </div>
+      </header>
+      <canvas class="dragonfly-canvas" aria-hidden="true"></canvas>
+      <main class="portfolio-stage">
+        <nav class="main-navigation" aria-label="Portfolio">
+          <button
+            type="button"
+            data-navigation-section="work"
+            aria-pressed="false"
+          >
+            Work
+          </button>
+          <button
+            type="button"
+            data-navigation-section="about"
+            aria-pressed="false"
+          >
+            About
+          </button>
+          <button
+            type="button"
+            data-navigation-section="contact"
+            aria-pressed="false"
+          >
+            Contact
+          </button>
+        </nav>
+        <button
+          type="button"
+          class="lotus-interaction"
+          aria-label="Pause the lotus loop. Move the pointer to rotate the model and reveal colored cells. Use arrow keys when focused."
+        >
+          <canvas
+            role="img"
+            aria-label="A three-dimensional lotus on a slender stem, with curved petals, bright highlights, cast shadows, and separate stamens."
+            >An ASCII lotus model on a stem, blooming and closing
+            continuously.</canvas
+          >
+        </button>
+        <section
+          class="content-panel"
+          aria-label="Portfolio content"
+          tabindex="0"
+          hidden
+        >
+          <div class="panel-toolbar">
+            <button class="panel-close-button" type="button" aria-label="Back">
+              Close
+            </button>
+          </div>
+          <div class="panel-content">
+            <h2></h2>
+            <dl class="contact-details" hidden>
+              <div class="contact-entry">
+                <dt data-contact-label="emailLabel">Email</dt>
+                <dd>
+                  <a href="mailto:lukewang2333@gmail.com"
+                    >lukewang2333@gmail.com</a
+                  >
+                </dd>
+              </div>
+              <div class="contact-entry">
+                <dt>LinkedIn</dt>
+                <dd>
+                  <a
+                    class="contact-profile"
+                    href="https://www.linkedin.com/in/luke-wang-7bb0b8234/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Luke Wang on LinkedIn (opens in a new tab)"
+                    >Luke Wang <span aria-hidden="true">↗</span></a
+                  >
+                </dd>
+              </div>
+            </dl>
+            <div class="work-section" hidden>
+              <ul class="work-grid" aria-label="Selected projects">
+                <li>
+                  <button
+                    type="button"
+                    class="work-item"
+                    data-project-icon="eye"
+                  >
+                    <span class="work-drawing" aria-hidden="true"
+                      ><img
+                        class="work-frame work-frame-rest"
+                        src="assets/work-icons/eye-0.png"
+                        width="499"
+                        height="297"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false" /><img
+                        class="work-frame work-frame-hover"
+                        src="assets/work-icons/eye-1.png"
+                        width="499"
+                        height="297"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                    /></span>
+                    <span class="work-title">Machinary Structuralism</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="work-item"
+                    data-project-icon="rock"
+                  >
+                    <span class="work-drawing" aria-hidden="true"
+                      ><img
+                        class="work-frame work-frame-rest"
+                        src="assets/work-icons/rock-0.png"
+                        width="577"
+                        height="583"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false" /><img
+                        class="work-frame work-frame-hover"
+                        src="assets/work-icons/rock-1.png"
+                        width="577"
+                        height="583"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                    /></span>
+                    <span class="work-title">The Myth of Sisyphus</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="work-item"
+                    data-project-icon="bear"
+                  >
+                    <span class="work-drawing" aria-hidden="true"
+                      ><img
+                        class="work-frame work-frame-rest"
+                        src="assets/work-icons/bear-0.png"
+                        width="544"
+                        height="437"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false" /><img
+                        class="work-frame work-frame-hover"
+                        src="assets/work-icons/bear-1.png"
+                        width="544"
+                        height="437"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                    /></span>
+                    <span class="work-title">My Beloved Polar Bear</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="work-item"
+                    data-project-icon="controller"
+                  >
+                    <span class="work-drawing" aria-hidden="true"
+                      ><img
+                        class="work-frame work-frame-rest"
+                        src="assets/work-icons/controller-0.png"
+                        width="576"
+                        height="431"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false" /><img
+                        class="work-frame work-frame-hover"
+                        src="assets/work-icons/controller-1.png"
+                        width="576"
+                        height="431"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                    /></span>
+                    <span class="work-title">Disaster Defender</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="work-item"
+                    data-project-icon="car"
+                  >
+                    <span class="work-drawing" aria-hidden="true"
+                      ><img
+                        class="work-frame work-frame-rest"
+                        src="assets/work-icons/car-0.png"
+                        width="845"
+                        height="455"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false" /><img
+                        class="work-frame work-frame-hover"
+                        src="assets/work-icons/car-1.png"
+                        width="845"
+                        height="455"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                    /></span>
+                    <span class="work-title">Autonomous Vehicle</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="work-item"
+                    data-project-icon="robot"
+                  >
+                    <span class="work-drawing" aria-hidden="true"
+                      ><img
+                        class="work-frame work-frame-rest"
+                        src="assets/work-icons/robot-0.png"
+                        width="341"
+                        height="305"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false" /><img
+                        class="work-frame work-frame-hover"
+                        src="assets/work-icons/robot-1.png"
+                        width="341"
+                        height="305"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        draggable="false"
+                    /></span>
+                    <span class="work-title">Zoo Navigator</span>
+                  </button>
+                </li>
+              </ul>
+              <section class="work-paintings" aria-label="Oil Paintings">
+                <button
+                  type="button"
+                  class="work-item work-painting-item"
+                  data-project-icon="brush"
+                >
+                  <span class="work-drawing" aria-hidden="true"
+                    ><img
+                      class="work-frame work-frame-rest"
+                      src="assets/work-icons/brush-0.png"
+                      width="282"
+                      height="419"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false" /><img
+                      class="work-frame work-frame-hover"
+                      src="assets/work-icons/brush-1.png"
+                      width="282"
+                      height="419"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                  /></span>
+                  <span class="work-title">Oil Paintings</span>
+                </button>
+              </section>
+            </div>
+            <div class="about-section" hidden>
+              <figure class="self-portrait">
+                <img
+                  src="assets/luke-self-portrait-lines.png"
+                  alt="Luke Wang's hand-drawn self-portrait"
+                  width="1418"
+                  height="1899"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+              <div class="about-copy">
+                <p data-about-copy="aboutIntro"></p>
+                <p data-about-copy="aboutMoment"></p>
+                <p data-about-copy="aboutPractice"></p>
+                <p data-about-copy="aboutEncounter"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <span class="site-message">Move to turn the flower.</span>
+        <button type="button" class="restart-bloom-button">
+          Restart bloom
+        </button>
+      </footer>
+    </div>
+
+    <noscript
+      ><p class="script-notice">
+        Please enable JavaScript to explore the interactive portfolio. Contact:
+        <a href="mailto:lukewang2333@gmail.com">lukewang2333@gmail.com</a>.
+      </p></noscript
+    >
+  </body>
+</html>
