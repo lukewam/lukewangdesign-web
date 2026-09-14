@@ -1,5 +1,5 @@
-import { createWorkGallery } from "./work-gallery.js?v=871170ec5ccb";
-import { translations } from "./translations.js?v=871170ec5ccb";
+import { createWorkGallery } from "./work-gallery.js?v=4b9952a9a688";
+import { translations } from "./translations.js?v=4b9952a9a688";
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
  * @param {HTMLElement} portfolioRoot - Root containing the portfolio controls and sections.

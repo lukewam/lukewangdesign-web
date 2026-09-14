@@ -569,6 +569,10 @@ body {
   --ink-duration: 2.2s;
 }
 
+#portfolio-site [data-project-icon="multiverse"] .work-drawing {
+  transform: scale(1.25);
+}
+
 #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening {
   display: block;
   max-width: 62ch;
@@ -1478,39 +1482,6 @@ body {
 #portfolio-site .work-video-figure {
   min-width: 0;
   margin: 0;
-}
-#portfolio-site .work-video-player {
-  position: relative;
-}
-#portfolio-site .work-video-play {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  transform: translate(-50%, -50%);
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  min-height: 48px;
-  padding: 10px 18px;
-  border: 1px solid #d7d8cc;
-  border-radius: 2px;
-  background: #f5f3eef2;
-  color: #30332b;
-  font-size: 13px;
-  white-space: nowrap;
-}
-#portfolio-site .work-video-play::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-block: 5px solid transparent;
-  border-left: 8px solid currentColor;
-}
-#portfolio-site .work-video-play:hover {
-  background: #fffdf8;
-}
-#portfolio-site .work-video-play:focus-visible {
-  outline: 2px solid #8a9875;
-  outline-offset: 4px;
 }
 #portfolio-site .work-video-figure video {
   display: block;

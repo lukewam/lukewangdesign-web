@@ -533,7 +533,6 @@ export function createWorkGallery(
       videos.length === 1 ? "single" : "pair";
     videos.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
-      const videoPlayer = createElement("div", "work-video-player");
       const videoElement = document.createElement("video");
       videoElement.src = videoData.src;
       if (videoData.poster) videoElement.poster = videoData.poster;
@@ -552,35 +551,8 @@ export function createWorkGallery(
         "aria-label",
         localizeText(videoData.title || videoData.caption),
       );
-      const playButton = createElement(
-        "button",
-        "work-video-play",
-        activeLanguage === "zh" ? "播放视频" : "Play film",
-      );
-      playButton.type = "button";
-      playButton.setAttribute(
-        "aria-label",
-        `${activeLanguage === "zh" ? "播放" : "Play"} ${localizeText(videoData.title || videoData.caption)}`,
-      );
-      playButton.addEventListener("click", () => {
-        videoElement
-          .play()
-          .then(() => {
-            videoElement.focus({ preventScroll: true });
-          })
-          .catch(() => {
-            playButton.hidden = false;
-          });
-      });
       videoElement.addEventListener("play", () => {
-        playButton.hidden = true;
         pauseVideos(videoElement);
-      });
-      videoElement.addEventListener("pause", () => {
-        playButton.hidden = false;
-      });
-      videoElement.addEventListener("ended", () => {
-        playButton.hidden = false;
       });
       const videoCaption = createElement("figcaption");
       if (videoData.title)
@@ -609,8 +581,7 @@ export function createWorkGallery(
           createElement("span", "work-video-duration", durationLabel),
         );
       }
-      videoPlayer.append(videoElement, playButton);
-      videoFigure.append(videoPlayer, videoCaption);
+      videoFigure.append(videoElement, videoCaption);
       videoGallery.append(videoFigure);
     });
     parentElement.append(videoGallery);
