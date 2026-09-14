@@ -798,7 +798,7 @@ export function initializePortfolio(
         .querySelector(".work-grid")
         .setAttribute(
           "aria-label",
-          languageCode === "en" ? "Selected projects" : "精选项目",
+          languageCode === "en" ? "Selected projects" : "作品列表",
         );
       if (isAboutSection) {
         sectionPanel
@@ -1036,7 +1036,7 @@ export function initializePortfolio(
       drawingContext.textAlign = "center";
       drawingContext.fillText(
         currentLanguage === "zh"
-          ? "此预览需要浏览器图形加速。"
+          ? "显示花朵动画需要开启浏览器的图形加速。"
           : "The flower needs browser graphics acceleration.",
         canvasWidth / 2,
         canvasHeight / 2,

@@ -25,11 +25,11 @@
       "collaborators": [],
       "overview": {
         "en": "An alternate reality game about our desire for answers. A university recruitment poster leads into emails, Python assignments, and a fictional school portal, where the familiar promise of progress slowly begins to fail.",
-        "zh": "一场关于寻找答案的另类实境游戏。一张大学招生海报，将玩家引向邮件、Python 作业和虚构的学校门户。在这些熟悉的系统里，付出努力就能取得进展的承诺，开始慢慢失效。"
+        "zh": "一场关于寻找答案的另类实境游戏。玩家从一张大学招生海报出发，循着邮件、Python 作业和校园网站寻找线索，却发现努力并不总能换来进展。"
       },
       "design_question": {
         "en": "Can a digital system make absurdity something we experience?",
-        "zh": "数字系统能否让荒诞成为一种亲身经验？"
+        "zh": "数字系统能否让人切身体会到荒诞？"
       },
       "skills": [
         {
@@ -67,12 +67,12 @@
           "id": "an-ordinary-invitation",
           "title": {
             "en": "An ordinary invitation",
-            "zh": "一封普通的邀请"
+            "zh": "看似寻常的邀请"
           },
           "paragraphs": [
             {
               "en": "I began with the language of an academic institution: a recruitment poster, a contact address, and an automatic reply from an absent professor. The email leaves a programming assignment. These ordinary details make the invitation credible before anything seems wrong.",
-              "zh": "我从学术机构熟悉的语言入手：招生海报、联系邮箱，以及一位暂时离校的教授发来的自动回复。邮件留下一份编程作业。在任何异常出现之前，这些日常细节先让邀请显得可信。"
+              "zh": "向海报上的邮箱发信，会收到一封自动回复：教授暂时离校，留下一份编程作业。招生海报、联系邮箱与来信，这些寻常细节让虚构的学校显得可信。"
             }
           ],
           "images": [
@@ -92,7 +92,7 @@
               "height": 1800,
               "caption": {
                 "en": "Fictional instructor email",
-                "zh": "虚构教师的邮件"
+                "zh": "虚构教授的来信"
               },
               "small": false,
               "crop": {
@@ -115,7 +115,7 @@
           "paragraphs": [
             {
               "en": "The player is asked to repair a weighted-average function in Python. Its hidden grader tests random inputs against the arbitrary answer 42, so even a correct function can fail. Inspired by Camus, I made repetition part of the experience: progress begins when the player questions the test itself. A comment inside the grader points beyond the assignment.",
-              "zh": "玩家需要修复一个 Python 加权平均函数，但隐藏的评分程序对随机输入都预设了答案 42，因此函数即使正确，也可能无法通过。受到加缪的启发，我把重复受挫写进体验：真正的进展，始于玩家对测试本身的怀疑。评分程序里的一条注释，将线索引向作业之外。"
+              "zh": "任务要求修复 Python 的加权平均函数，但隐藏的评分程序无论随机生成什么输入，都把 42 当作预期答案。函数写对了，测试也可能失败。加缪笔下的重复与受挫由此成为游戏体验；下一步的线索藏在代码注释里，提示玩家跳出题目，重新审视测试本身。"
             }
           ],
           "images": [
@@ -125,7 +125,7 @@
               "height": 352,
               "caption": {
                 "en": "Hidden absurd test code",
-                "zh": "隐藏的荒诞测试代码"
+                "zh": "隐藏的评分代码"
               },
               "small": false
             }
@@ -136,12 +136,12 @@
           "id": "clues-inside-the-school",
           "title": {
             "en": "Clues inside the school",
-            "zh": "学校里的线索"
+            "zh": "校园网站里的线索"
           },
           "paragraphs": [
             {
               "en": "I designed the website to resemble an outdated university portal. Missing courses and scattered bold letters turn its bureaucracy into a puzzle, bringing the email and assignment together. An AI assistant offers hints and asks questions about meaning; players who keep requesting the login details can also reach the ending through conversation.",
-              "zh": "我把网站设计成老旧的大学门户。查不到的课程、散落在各页的粗体字母，让官僚式的界面成为谜题，也把邮件和作业连接起来。AI 助手一边提供提示，一边询问意义是什么；持续追问登录信息的玩家，也能通过对话抵达结尾。"
+              "zh": "网站刻意模仿老旧的大学门户。查不到的课程、散落的粗体字母，让繁琐的页面成为谜题，也串起邮件与作业中的线索。AI 助手既提供提示，也会追问意义是什么；反复询问登录信息，还能通过对话进入结尾。"
             }
           ],
           "images": [
@@ -168,12 +168,12 @@
           "id": "an-open-ending",
           "title": {
             "en": "An ending that stays open",
-            "zh": "没有收束的结尾"
+            "zh": "一个开放的结尾"
           },
           "paragraphs": [
             {
               "en": "Behind the student login is John Smith, the fictional professor, now speaking through an AI chatbot. The final encounter opens a conversation about absurdity instead of resolving the puzzles into one answer. I wanted the tension between our need for clarity and an indifferent system to remain with the player after the game ends.",
-              "zh": "学生门户之后，是以 AI 聊天机器人身份出现的虚构教授 John Smith。最后的相遇带来一场关于荒诞的对话，而没有把所有谜题收束成一个答案。我希望人对清晰答案的渴望与系统的漠然之间，那股张力能够延续到游戏结束之后。"
+              "zh": "登录后，虚构教授 John Smith 以 AI 聊天机器人的身份出现，将解谜带向一场关于荒诞的对话。结尾没有标准答案。我希望玩家在离开游戏后，仍会想起这段经历：人渴望清晰的解释，系统却始终漠然。"
             }
           ],
           "images": [
@@ -183,7 +183,7 @@
               "height": 1800,
               "caption": {
                 "en": "An excerpt from the final conversation with John Smith",
-                "zh": "与 John Smith 的最后一段对话节选"
+                "zh": "与 John Smith 的最终对话节选"
               },
               "small": false,
               "crop": {
@@ -233,7 +233,7 @@
           "height": 1800,
           "caption": {
             "en": "Fictional school course catalog",
-            "zh": "虚构学校的课程目录"
+            "zh": "虚构学校课程目录"
           },
           "small": false,
           "crop": {
@@ -249,7 +249,7 @@
           "height": 1800,
           "caption": {
             "en": "Introduction to Absurdism course page",
-            "zh": "荒诞主义导论课程页面"
+            "zh": "“荒诞主义导论”课程页"
           },
           "small": false,
           "crop": {
@@ -281,14 +281,14 @@
           "height": 377,
           "caption": {
             "en": "Student portal login implementation",
-            "zh": "学生门户登录功能的实现"
+            "zh": "学生门户登录代码"
           },
           "small": false
         }
       ],
       "process_note": {
         "en": "The missing course is CSE 1A. Bold letters across the site spell “meaning”; encoding it in Base64 gives the password. The username, “lukewam,” is hidden in the URL.",
-        "zh": "消失的课程是 CSE 1A。各页的粗体字母组成“meaning”，将其转换为 Base64 编码即可得到密码。用户名“lukewam”则藏在网址里。"
+        "zh": "课程目录里找不到 CSE 1A。各页的粗体字母拼出“meaning”，将这个词转为 Base64 编码，便能得到密码。用户名“lukewam”藏在网址中。"
       }
     },
     {
@@ -324,7 +324,7 @@
       ],
       "overview": {
         "en": "Care for a virtual polar bear by completing small climate-friendly actions in daily life. Our Tamagotchi-inspired prototype turns those actions into coins for food and clothing, giving players a companion to return to.",
-        "zh": "通过日常的小小环保行动，照顾一只虚拟北极熊。这款受到 Tamagotchi 启发的原型，把行动转换成购买食物和服装的金币，让玩家有一个想要回来探望的伙伴。"
+        "zh": "完成日常环保任务，赚取金币，为虚拟北极熊购买食物和服装。原型借鉴了 Tamagotchi，通过照顾宠物，鼓励玩家坚持环保行动。"
       },
       "links": [],
       "sections": [
@@ -332,12 +332,12 @@
           "id": "why-a-digital-pet",
           "title": {
             "en": "Why a digital pet?",
-            "zh": "为什么是一只电子宠物？"
+            "zh": "为什么选择电子宠物？"
           },
           "paragraphs": [
             {
               "en": "Our survey reached more than 100 people, primarily Gen Z students. Many already took small climate-friendly actions but wanted encouragement to keep going; educational games often felt unappealing. We considered racing, a recycling RPG, and a digital pet. The pet offered a clear connection between everyday action and care, within a scope our team could prototype.",
-              "zh": "我们的问卷收集了 100 多人的反馈，主要是 Z 世代学生。许多人已经在做小规模环保行动，却需要持续行动的动力，也觉得教育游戏缺乏吸引力。团队比较了赛车、回收主题 RPG 和电子宠物三个方向。宠物把日常行动与照料直接联系起来，也适合团队当时能够完成的原型规模。"
+              "zh": "问卷收集了 100 多人的反馈，受访者多是 Z 世代学生。许多人已经会做一些环保小事，却缺少坚持的动力，也觉得教育游戏不够有趣。团队比较了赛车、回收主题 RPG 和电子宠物三个方案，最终选择宠物养成：行动与照料的关系直观，也适合当时的原型开发规模。"
             }
           ],
           "images": [
@@ -347,7 +347,7 @@
               "height": 704,
               "caption": {
                 "en": "Large-scale and small-scale climate action survey results",
-                "zh": "大规模与小规模气候行动的调查结果"
+                "zh": "不同规模气候行动的问卷结果"
               },
               "small": false
             }
@@ -358,12 +358,12 @@
           "id": "testing-two-ways-through",
           "title": {
             "en": "Testing two ways through",
-            "zh": "比较两种操作方式"
+            "zh": "比较两套操作流程"
           },
           "paragraphs": [
             {
               "en": "In Figma, we tested two versions of customization, task progress, and task history. I designed Flow B. We recorded completion times, self-ratings, and comments during task-based sessions. The feedback favored B as the more intuitive option, helping us choose which flow to develop further.",
-              "zh": "我们在 Figma 中为装扮、任务进度与任务历史设计了两种流程，我负责 Flow B。任务测试记录了完成时间、自评和参与者的意见，反馈更倾向于 B 版，也帮助我们确定了下一步继续完善的方向。"
+              "zh": "团队在 Figma 中为装扮、任务进度和历史记录制作了 A、B 两套流程，其中 B 版由我设计。测试记录了完成时间、参与者自评与反馈。B 版被认为更容易上手，因此成为后续完善的方向。"
             }
           ],
           "images": [
@@ -373,7 +373,7 @@
               "height": 422,
               "caption": {
                 "en": "Task browsing low-fidelity wireframes",
-                "zh": "任务浏览的低保真线框图"
+                "zh": "任务浏览线框图"
               },
               "small": false
             },
@@ -383,7 +383,7 @@
               "height": 659,
               "caption": {
                 "en": "Task history and calendar low-fidelity wireframes",
-                "zh": "任务历史与日历的低保真线框图"
+                "zh": "任务记录与日历线框图"
               },
               "small": false
             }
@@ -395,12 +395,12 @@
           "id": "bringing-care-into-the-interface",
           "title": {
             "en": "Bringing care into the interface",
-            "zh": "把照料放进界面"
+            "zh": "喂养与装扮"
           },
           "paragraphs": [
             {
               "en": "The resulting home screen brings tasks, progress, and streaks together. I designed the feeding and customization systems, including the inventory, icons, items, and tasks. A food shop, friends page, and profile extend the same daily loop: choose an action, earn coins, and spend time with the bear.",
-              "zh": "迭代后的主界面把任务、进度和连续完成记录放在一起。我设计了喂养与装扮系统，包括物品栏、图标、道具和任务。食物商店、好友页和个人资料，围绕同一个日常循环展开：选择行动、获得金币，再回来陪伴北极熊。"
+              "zh": "首页集中展示任务、进度和连续打卡记录。负责设计的喂养与装扮系统包括物品栏、图标、道具和任务，并与食物商店、好友页和个人资料相连：完成行动，赚取金币，再回来照顾北极熊。"
             }
           ],
           "images": [
@@ -410,7 +410,7 @@
               "height": 981,
               "caption": {
                 "en": "Home: the bear, streaks, and task progress",
-                "zh": "首页：北极熊、连续记录与任务进度"
+                "zh": "首页：北极熊、打卡记录与任务进度"
               },
               "small": false,
               "crop": {
@@ -426,7 +426,7 @@
               "height": 854,
               "caption": {
                 "en": "Final food shop and feeding screen",
-                "zh": "最终原型的食物商店与喂养界面"
+                "zh": "食物商店与喂养界面"
               },
               "small": false
             },
@@ -436,7 +436,7 @@
               "height": 854,
               "caption": {
                 "en": "Final bear customization screen",
-                "zh": "最终原型的北极熊装扮界面"
+                "zh": "北极熊装扮界面"
               },
               "small": false
             }
@@ -452,14 +452,14 @@
           "height": 1200,
           "caption": {
             "en": "My Beloved Polar Bear two-phone mockup",
-            "zh": "《我心爱的北极熊》双手机展示图"
+            "zh": "《我心爱的北极熊》界面展示"
           },
           "small": false
         }
       ],
       "design_question": {
         "en": "What might make someone want to return to a small good habit?",
-        "zh": "是什么，让人愿意一次次回到一个小小的好习惯？"
+        "zh": "怎样让人愿意坚持一个好习惯？"
       },
       "hero_layout": "object",
       "process_images": [
@@ -469,7 +469,7 @@
           "height": 1221,
           "caption": {
             "en": "Team PlanetFlip research survey",
-            "zh": "PlanetFlip 团队的调研问卷"
+            "zh": "PlanetFlip 团队调研问卷"
           },
           "small": false
         },
@@ -479,7 +479,7 @@
           "height": 1600,
           "caption": {
             "en": "Recycler Ranger Ricky — concept by Luke Wang",
-            "zh": "Recycler Ranger Ricky — 概念设计：Luke Wang"
+            "zh": "Recycler 乱ger Ricky — 概念设计：Luke Wang"
           },
           "small": false
         },
@@ -489,7 +489,7 @@
           "height": 844,
           "caption": {
             "en": "My Beloved Polar Bear — concept by Luke Wang",
-            "zh": "My Beloved Polar Bear — 概念设计：Luke Wang"
+            "zh": "我心爱的北极熊 — 概念设计：Luke Wang"
           },
           "small": false
         },
@@ -509,7 +509,7 @@
           "height": 1800,
           "caption": {
             "en": "Figma bear customization prototype overview",
-            "zh": "Figma 中的北极熊装扮原型概览"
+            "zh": "北极熊装扮原型（Figma）"
           },
           "small": false,
           "crop": {
@@ -525,7 +525,7 @@
           "height": 1800,
           "caption": {
             "en": "Figma customization variants and task prototypes",
-            "zh": "Figma 中的装扮方案与任务原型"
+            "zh": "装扮方案与任务原型（Figma）"
           },
           "small": false,
           "crop": {
@@ -541,7 +541,7 @@
           "height": 1800,
           "caption": {
             "en": "Figma task browsing variants",
-            "zh": "Figma 中的任务浏览方案"
+            "zh": "任务浏览方案（Figma）"
           },
           "small": false,
           "crop": {
@@ -557,7 +557,7 @@
           "height": 1800,
           "caption": {
             "en": "Figma task history and profile prototypes",
-            "zh": "Figma 中的任务历史与个人资料原型"
+            "zh": "任务记录与个人资料原型（Figma）"
           },
           "small": false,
           "crop": {
@@ -573,7 +573,7 @@
           "height": 362,
           "caption": {
             "en": "Reusable shopping bag task detail",
-            "zh": "使用可重复利用购物袋的任务详情"
+            "zh": "“使用环保购物袋”任务详情"
           },
           "small": true
         },
@@ -583,7 +583,7 @@
           "height": 854,
           "caption": {
             "en": "Final user profile screen",
-            "zh": "最终原型的个人资料界面"
+            "zh": "个人资料界面"
           },
           "small": false
         },
@@ -593,7 +593,7 @@
           "height": 842,
           "caption": {
             "en": "Final friends and invitations screen",
-            "zh": "最终原型的好友与邀请界面"
+            "zh": "好友与邀请界面"
           },
           "small": false
         },
@@ -629,12 +629,12 @@
       },
       "role": {
         "en": "User interaction and testing lead",
-        "zh": "用户交互与测试负责人"
+        "zh": "交互设计与测试负责人"
       },
       "collaborators": ["Matthew Mizumoto", "Jack Barkes", "Bran Zhang"],
       "overview": {
         "en": "A Meta Quest 2 game set in an urban disaster scene. Players locate injured people, select first-aid items, and follow guided actions against the clock. I led interaction design and testing, from controller input to hand tracking.",
-        "zh": "一款发生在城市灾后场景中的 Meta Quest 2 游戏。玩家需要在限定时间内找到伤者、选择急救物品，并依照指引操作。我负责交互与测试，从手柄输入逐步探索到手部追踪。"
+        "zh": "这款 Meta Quest 2 游戏模拟城市灾后救援。玩家要在限定时间内找到伤者、选择急救物品，并按指引操作。交互设计与测试从手柄操作入手，再逐步扩展到手部追踪。"
       },
       "tools": ["Unity", "C#", "Meta Quest 2", "Meta Interaction SDK"],
       "links": [],
@@ -643,12 +643,12 @@
           "id": "building-the-first-interactions",
           "title": {
             "en": "Building the first interactions",
-            "zh": "先建立基本操作"
+            "zh": "从手柄操作开始"
           },
           "paragraphs": [
             {
               "en": "I built a medical-room prototype in Unity and C# to develop selection, object manipulation, and movement. A controller ray selects items and points to teleport destinations. Directional arrows lead toward injured people, while a menu lets players choose equipment and enter text.",
-              "zh": "我用 Unity 和 C# 搭建医疗室原型，开发选择、物体操作与移动。手柄射线用于选取物品和指定传送位置；方向箭头引导玩家接近伤者，菜单则用于选择器材和输入文字。"
+              "zh": "最初用 Unity 和 C# 搭建医疗室原型，实现物品选择、操作和移动。手柄射线既可选取物品，也可指定传送位置；箭头引导玩家找到伤者，菜单则用于选择器材和输入文字。"
             }
           ],
           "images": [
@@ -668,7 +668,7 @@
               "height": 669,
               "caption": {
                 "en": "Controller selection and interaction flow",
-                "zh": "手柄选择与交互流程"
+                "zh": "手柄选取与操作流程"
               },
               "small": false
             }
@@ -680,12 +680,12 @@
           "id": "keeping-the-menu-with-the-player",
           "title": {
             "en": "Keeping the menu with the player",
-            "zh": "让菜单跟上玩家"
+            "zh": "随身的菜单"
           },
           "paragraphs": [
             {
               "en": "Testing exposed a practical issue: the menu needed to stay usable as the player moved. I attached it to the player model, adjusted its height dynamically, and hid it when unused. That kept the same tools available throughout the scene without leaving the menu permanently in view.",
-              "zh": "测试中出现了一个实际问题：玩家移动后，菜单仍然需要便于使用。我将它绑定到玩家模型，动态调整高度，并在不用时隐藏。这样玩家在场景中移动时仍能调用同一组工具，菜单也不必一直挡在眼前。"
+              "zh": "测试中发现，玩家移动时，菜单也需要保持在便于操作的位置。将菜单绑定到玩家模型，并动态调整高度后，就能随时调用工具；不用时则隐藏菜单，减少视线遮挡。"
             }
           ],
           "images": [
@@ -695,7 +695,7 @@
               "height": 687,
               "caption": {
                 "en": "Patient and medical equipment input flow",
-                "zh": "伤者与医疗器材的输入流程"
+                "zh": "伤者与医疗器材输入流程"
               },
               "small": false
             }
@@ -706,12 +706,12 @@
           "id": "making-gestures-distinct",
           "title": {
             "en": "Making gestures distinct",
-            "zh": "让手势容易区分"
+            "zh": "让手势更易识别"
           },
           "paragraphs": [
             {
               "en": "We then mapped hand gestures to the existing controls with the Meta Interaction SDK. Some gestures were difficult for the headset to recognize, so I focused on simple, distinct movements. The work became a balance between what felt understandable to the player and what the tracking system could reliably distinguish.",
-              "zh": "随后，我们通过 Meta Interaction SDK 将手势映射到已有操作。部分手势难以被头显识别，因此我重点设计简单、彼此差异清晰的动作。这个过程需要在玩家能否理解动作，以及追踪系统能否稳定区分动作之间，找到平衡。"
+              "zh": "随后通过 Meta Interaction SDK，将手势对应到已有操作。由于部分动作难以稳定识别，设计时优先选择简单、差异明显的手势：既要让玩家容易理解，也要让头显能够分辨。"
             }
           ],
           "images": [
@@ -721,7 +721,7 @@
               "height": 770,
               "caption": {
                 "en": "Hand gestures keyboard and teleport interaction flow",
-                "zh": "手势、键盘与传送的交互流程"
+                "zh": "手势、键盘与传送操作流程"
               },
               "small": false
             },
@@ -731,7 +731,7 @@
               "height": 517,
               "caption": {
                 "en": "Hand tracking virtual keyboard gameplay",
-                "zh": "通过手部追踪操作虚拟键盘的游戏画面"
+                "zh": "通过手部追踪操作虚拟键盘"
               },
               "small": false
             }
@@ -747,14 +747,14 @@
           "height": 523,
           "caption": {
             "en": "Disaster Defender urban rescue gameplay",
-            "zh": "《灾难守护者》的城市救援游戏场景"
+            "zh": "《灾难守护者》城市救援场景"
           },
           "small": false
         }
       ],
       "design_question": {
         "en": "How can selecting, moving, and finding help feel clear inside VR?",
-        "zh": "在 VR 里，如何让选择、移动和寻找救援目标变得清楚？"
+        "zh": "在 VR 中，如何让选取物品、移动和寻找伤者都容易上手？"
       },
       "hero_layout": "landscape",
       "process_images": [
@@ -764,7 +764,7 @@
           "height": 900,
           "caption": {
             "en": "Unity virtual keyboard implementation",
-            "zh": "Unity 中的虚拟键盘实现"
+            "zh": "虚拟键盘的实现（Unity）"
           },
           "small": false,
           "crop": {
@@ -780,7 +780,7 @@
           "height": 1669,
           "caption": {
             "en": "Hand tracking gesture implementation",
-            "zh": "手部追踪与手势识别的实现"
+            "zh": "手部追踪与手势识别"
           },
           "small": false
         }
@@ -794,7 +794,7 @@
       },
       "subtitle": {
         "en": "A small vehicle learning to read a track",
-        "zh": "学习辨认赛道的自动驾驶小车"
+        "zh": "让小车学会辨认赛道"
       },
       "date_range": {
         "start": "2022-09",
@@ -806,12 +806,12 @@
       },
       "role": {
         "en": "Hardware design and tracking software development lead",
-        "zh": "硬件设计与循迹软件开发负责人"
+        "zh": "硬件设计与循迹开发负责人"
       },
       "collaborators": ["Jerry Hung", "Michael Baluja"],
       "overview": {
         "en": "A camera-equipped vehicle built to follow a track and respond to signs. I constructed its hardware and developed the tracking software, moving from recorded driving demonstrations toward explicit color-based responses in OpenCV.",
-        "zh": "一辆装有摄像头的小车，尝试沿赛道行驶并响应路标。我负责硬件搭建与循迹软件，先用驾驶示范训练模型，再通过 OpenCV 为颜色设置明确的响应规则。"
+        "zh": "一辆装有摄像头的小车，学习沿赛道行驶并响应路标。硬件搭建与循迹软件由我负责，先用驾驶示范训练模型，再通过 OpenCV 设置基于颜色的响应规则。"
       },
       "tools": [
         "LightBurn",
@@ -826,12 +826,12 @@
           "id": "building-a-platform-to-test",
           "title": {
             "en": "Building a platform to test",
-            "zh": "搭建可以测试的小车"
+            "zh": "搭建测试小车"
           },
           "paragraphs": [
             {
               "en": "I assembled and wired the vehicle, designed its laser-cut acrylic chassis in LightBurn, and modeled protective housings in Blender for 3D printing. NVIDIA hardware, a camera, front depth sensing, and a central VESC motor controller formed the platform. A laptop connection provided live video and manual driving with arrow keys.",
-              "zh": "我负责组装与接线，用 LightBurn 设计激光切割的亚克力底盘，并在 Blender 中建模、3D 打印保护外壳。车上装有 NVIDIA 硬件、摄像头、前置深度传感器与位于中央的 VESC 电机控制器。连接笔记本后，可以查看实时画面，并用方向键手动驾驶。"
+              "zh": "亚克力底盘用 LightBurn 设计并激光切割，保护外壳则在 Blender 中建模、3D 打印。小车搭载 NVIDIA 硬件、摄像头、前置深度传感器与 VESC 电机控制器。完成组装与接线后，连接笔记本即可查看实时画面，用方向键手动驾驶。"
             }
           ],
           "images": [
@@ -841,7 +841,7 @@
               "height": 1815,
               "caption": {
                 "en": "Vehicle electronics and wiring assembly",
-                "zh": "小车的电子部件与接线组装"
+                "zh": "电子部件与接线"
               },
               "small": false
             },
@@ -862,12 +862,12 @@
           "id": "learning-from-thirty-laps",
           "title": {
             "en": "Learning from 30 laps",
-            "zh": "从 30 圈驾驶中学习"
+            "zh": "用 30 圈驾驶训练模型"
           },
           "paragraphs": [
             {
               "en": "I collected 30 laps of manual driving under different lighting conditions, trained the model on a remote server, and deployed it to the vehicle. Track reflections disrupted its performance, so I repeated the training process. Lighting became a practical part of the problem, not just a background condition.",
-              "zh": "我在不同光照下手动驾驶了 30 圈，用收集的数据在远程服务器上训练模型，再部署到小车上。赛道反光影响了表现，因此我多次重复训练。光照也从背景条件，变成了需要认真处理的实际问题。"
+              "zh": "在不同光照下手动驾驶 30 圈，用采集的数据在远程服务器上训练模型，再部署到小车。赛道反光会干扰行驶，因此又进行了多轮训练。光照变化成了实际测试中绕不开的问题。"
             }
           ],
           "images": [],
@@ -878,11 +878,11 @@
               "poster": "assets/films/autonomous-vehicle-road-mat-poster.jpg",
               "title": {
                 "en": "Road-mat course",
-                "zh": "道路垫场地"
+                "zh": "地垫赛道"
               },
               "caption": {
                 "en": "Onboard training footage from the marked track, with curves and strong window light.",
-                "zh": "车载视角下的训练片段：标记道路上的弯道，以及窗边强光带来的明暗变化。"
+                "zh": "车载镜头记录了赛道弯道和窗边强光下的训练过程。"
               },
               "duration": 24,
               "width": 1920,
@@ -893,11 +893,11 @@
               "poster": "assets/films/autonomous-vehicle-tape-course-poster.jpg",
               "title": {
                 "en": "Tape-line course",
-                "zh": "胶带路线场地"
+                "zh": "胶带赛道"
               },
               "caption": {
                 "en": "A second training recording on tiled flooring, using blue tape to mark the route.",
-                "zh": "另一段训练记录：在瓷砖地面上，以蓝色胶带标记行驶路线。"
+                "zh": "另一段训练录像，路线由瓷砖地面上的蓝色胶带标出。"
               },
               "duration": 22,
               "width": 1920,
@@ -909,12 +909,12 @@
           "id": "giving-colors-a-response",
           "title": {
             "en": "Giving colors a response",
-            "zh": "为颜色设置响应"
+            "zh": "通过颜色控制行驶"
           },
           "paragraphs": [
             {
               "en": "We reworked the approach in OpenCV so responses could be programmed more directly. I wrote the color detection: white marked track edges, black the driving surface, light blue the boundary, and red a stop cue. This gave the team more control over behaviors such as stopping, parking, speeding up, and slowing down.",
-              "zh": "团队随后用 OpenCV 调整方案，让车辆行为能够被更直接地编程。我负责编写颜色检测：白色表示赛道边缘，黑色表示行驶区域，浅蓝色表示边界，红色表示停止信号。这样，我们能更明确地设置停止、停车、加速与减速等响应。"
+              "zh": "随后用 OpenCV 调整方案，让小车按识别到的颜色作出响应。颜色检测程序将白色视为赛道边缘、黑色视为路面、浅蓝色视为边界，红色作为停止信号。这样便能更直接地设置停止、泊车、加速和减速等行为。"
             }
           ],
           "images": [
@@ -924,7 +924,7 @@
               "height": 996,
               "caption": {
                 "en": "Vehicle stopping at stop sign",
-                "zh": "在停止标志前停下的小车"
+                "zh": "在停止标志前停车"
               },
               "small": false
             },
@@ -934,7 +934,7 @@
               "height": 735,
               "caption": {
                 "en": "Vehicle responding to parking sign",
-                "zh": "响应停车标志的小车"
+                "zh": "响应停车标志"
               },
               "small": false
             },
@@ -944,7 +944,7 @@
               "height": 776,
               "caption": {
                 "en": "Vehicle passing speed limit 50 sign",
-                "zh": "经过限速 50 标志的小车"
+                "zh": "经过限速 50 标志"
               },
               "small": false
             },
@@ -954,7 +954,7 @@
               "height": 699,
               "caption": {
                 "en": "Vehicle passing speed limit 100 sign",
-                "zh": "经过限速 100 标志的小车"
+                "zh": "经过限速 100 标志"
               },
               "small": false
             }
@@ -970,14 +970,14 @@
           "height": 2117,
           "caption": {
             "en": "Vehicle acrylic chassis and printed component housings",
-            "zh": "小车的亚克力底盘与打印的部件外壳"
+            "zh": "亚克力底盘与 3D 打印外壳"
           },
           "small": false
         }
       ],
       "design_question": {
         "en": "What changes when a driving model meets a reflective, unevenly lit track?",
-        "zh": "当驾驶模型遇到反光与变化的光照，会发生什么？"
+        "zh": "赛道反光、光照不均时，驾驶模型会怎样表现？"
       },
       "hero_layout": "object",
       "process_images": [
@@ -987,7 +987,7 @@
           "height": 943,
           "caption": {
             "en": "Lane-following model training output",
-            "zh": "循迹模型的训练输出"
+            "zh": "循迹模型训练记录"
           },
           "small": false
         },
@@ -997,7 +997,7 @@
           "height": 1758,
           "caption": {
             "en": "Laptop remote control and video streaming test",
-            "zh": "笔记本远程控制与视频传输测试"
+            "zh": "远程驾驶与视频传输测试"
           },
           "small": false
         },
@@ -1007,7 +1007,7 @@
           "height": 1786,
           "caption": {
             "en": "Vehicle on lane detection test track",
-            "zh": "赛道识别测试中的小车"
+            "zh": "小车循迹测试"
           },
           "small": false
         },
@@ -1017,7 +1017,7 @@
           "height": 1536,
           "caption": {
             "en": "OpenCV color detection implementation",
-            "zh": "OpenCV 颜色检测的实现"
+            "zh": "OpenCV 颜色检测代码"
           },
           "small": false
         }
@@ -1043,7 +1043,7 @@
       },
       "role": {
         "en": "Backend software development lead",
-        "zh": "后端软件开发负责人"
+        "zh": "后端开发负责人"
       },
       "collaborators": [
         "Yukati Gupta",
@@ -1054,7 +1054,7 @@
       ],
       "overview": {
         "en": "Choose the animals you want to see, then find a route through the San Diego Zoo. I led the search and navigation backend for an Android app that turns a list of favorite exhibits into a visit plan.",
-        "zh": "选出想看的动物，再找到穿行圣地亚哥动物园的路线。我负责这款 Android 应用的搜索与导航后端，将一份想去的展区清单转化为游览计划。"
+        "zh": "选好想看的动物，就能规划圣地亚哥动物园的游览路线。这款 Android 应用把展区清单变成行程计划，搜索与导航后端由我负责。"
       },
       "tools": ["Android Studio", "Dijkstra’s algorithm"],
       "links": [],
@@ -1068,7 +1068,7 @@
           "paragraphs": [
             {
               "en": "The search accepts partial animal names, so visitors can find exhibits without typing a complete name. They add the places they want to visit, then choose between detailed navigation and a simpler guide. I was responsible for the search and navigation systems behind this flow.",
-              "zh": "搜索支持输入部分动物名称，游客不必打完完整名称就能找到展区。选好想去的地点后，可以使用详细导航或更简洁的导览。我负责实现这段流程背后的搜索与导航系统。"
+              "zh": "输入动物名称的一部分，就能找到对应展区。将想去的地点加入清单后，可以选择详细导航或更简洁的导览，按计划开始游览。"
             }
           ],
           "images": [],
@@ -1078,12 +1078,12 @@
           "id": "turning-the-map-into-a-graph",
           "title": {
             "en": "Turning the map into a graph",
-            "zh": "把地图变成路径图"
+            "zh": "把地图整理成路径图"
           },
           "paragraphs": [
             {
               "en": "We manually imported the zoo map as connected locations and roads. Each road carries a distance, allowing Dijkstra’s algorithm to calculate shortest paths from the visitor’s location. This is the foundation for navigation between selected stops.",
-              "zh": "我们手动导入动物园地图，将地点与道路构成一张连接图。每条道路带有距离权重，Dijkstra 算法据此计算从游客当前位置出发的最短路径，为所选地点之间的导航提供基础。"
+              "zh": "地图由团队手动录入，地点与道路组成路径图，每条道路带有距离权重。Dijkstra 算法据此计算从当前位置出发的最短路径，帮助游客在所选展区之间导航。"
             }
           ],
           "images": [
@@ -1093,7 +1093,7 @@
               "height": 945,
               "caption": {
                 "en": "Zoo route weighted graph",
-                "zh": "动物园路线的加权图"
+                "zh": "动物园路径加权图"
               },
               "small": false
             }
@@ -1104,12 +1104,12 @@
           "id": "testing-the-parts-and-the-journey",
           "title": {
             "en": "Testing the parts and the journey",
-            "zh": "测试功能，也测试完整行程"
+            "zh": "功能与流程测试"
           },
           "paragraphs": [
             {
               "en": "We built the app in Android Studio with functions separated into modules. I ran unit tests for individual features and integration tests that followed the overall visitor flow, checking how search, planning, and navigation worked together.",
-              "zh": "应用在 Android Studio 中开发，各项功能拆分为独立模块。我对单项功能进行单元测试，再用集成测试模拟完整游览流程，检查搜索、规划与导航如何共同工作。"
+              "zh": "应用在 Android Studio 中开发，各项功能拆分为独立模块。单元测试检查单项功能，集成测试则模拟完整游览流程，确认搜索、规划与导航能否顺利衔接。"
             }
           ],
           "images": [
@@ -1119,7 +1119,7 @@
               "height": 340,
               "caption": {
                 "en": "Zoo path JSON data structure",
-                "zh": "动物园路径的 JSON 数据结构"
+                "zh": "动物园路径数据（JSON）"
               },
               "small": false
             }
@@ -1134,14 +1134,14 @@
           "height": 1161,
           "caption": {
             "en": "Zoo Navigator animal search and visit planner",
-            "zh": "Zoo Navigator 的动物搜索与游览规划"
+            "zh": "动物园导航 动物搜索与行程规划"
           },
           "small": false
         }
       ],
       "design_question": {
         "en": "How can a list of animals become a route a visitor can follow?",
-        "zh": "如何把想看的动物清单，变成游客能够跟随的路线？"
+        "zh": "如何根据想看的动物安排游览路线？"
       },
       "hero_layout": "phone",
       "process_images": [
@@ -1151,7 +1151,7 @@
           "height": 1800,
           "caption": {
             "en": "Search logic in Android Studio",
-            "zh": "Android Studio 中的搜索逻辑"
+            "zh": "搜索逻辑（Android Studio）"
           },
           "small": false,
           "crop": {
@@ -1167,7 +1167,7 @@
           "height": 1800,
           "caption": {
             "en": "An exhibit-data unit test",
-            "zh": "展区数据的单元测试"
+            "zh": "展区数据单元测试"
           },
           "small": false,
           "crop": {
@@ -1200,7 +1200,7 @@
     },
     "overview": {
       "en": "Paintings of ordinary life, and the feelings that linger within it. These works move between realism and abstraction, gathering fragments of memory, reflection, and quiet strangeness.",
-      "zh": "描绘日常生活，也描绘留在其中的情绪。这些作品游走于写实与抽象之间，收集记忆、沉思，以及安静而奇异的片刻。"
+      "zh": "这些画记录日常生活中久久不散的情绪，在写实与抽象之间，留下记忆、思绪，以及平静生活里不易察觉的异样。"
     },
     "links": [],
     "artworks": [
@@ -1208,7 +1208,7 @@
         "id": "march-rain",
         "title": {
           "en": "March Rain",
-          "zh": "三月的雨"
+          "zh": "三月雨"
         },
         "dimensions": {
           "display": "24\" × 30\""
@@ -1220,7 +1220,7 @@
         "year": 2025,
         "caption": {
           "en": "March Rain — 24\" × 30\", oil on canvas, 2025",
-          "zh": "三月的雨 — 24\" × 30\"，布面油画，2025"
+          "zh": "《三月雨》｜24 × 30 英寸，布面油画，2025"
         },
         "image": {
           "src": "assets/portfolio/page-18-image-03.jpg",
@@ -1228,7 +1228,7 @@
           "height": 799,
           "caption": {
             "en": "March Rain",
-            "zh": "三月的雨"
+            "zh": "三月雨"
           },
           "small": false
         }
@@ -1249,7 +1249,7 @@
         "year": 2026,
         "caption": {
           "en": "Heritage — 12\" × 12\", oil on canvas, 2026",
-          "zh": "传承 — 12\" × 12\"，布面油画，2026"
+          "zh": "《传承》｜12 × 12 英寸，布面油画，2026"
         },
         "image": {
           "src": "assets/portfolio/page-18-image-02.png",
@@ -1278,7 +1278,7 @@
         "year": 2026,
         "caption": {
           "en": "Heritage — 12\" × 12\", oil on canvas, 2026",
-          "zh": "传承 — 12\" × 12\"，布面油画，2026"
+          "zh": "《传承》｜12 × 12 英寸，布面油画，2026"
         },
         "image": {
           "src": "assets/portfolio/page-18-image-01.png",
@@ -1295,7 +1295,7 @@
         "id": "samantabhadra",
         "title": {
           "en": "Samantabhadra",
-          "zh": "Samantabhadra"
+          "zh": "普贤"
         },
         "dimensions": {
           "display": "20\" × 24\""
@@ -1307,7 +1307,7 @@
         "year": 2024,
         "caption": {
           "en": "Samantabhadra — 20\" × 24\", oil on canvas, 2024",
-          "zh": "Samantabhadra — 20\" × 24\"，布面油画，2024"
+          "zh": "《普贤》｜20 × 24 英寸，布面油画，2024"
         },
         "image": {
           "src": "assets/portfolio/page-19-image-01.png",
@@ -1315,7 +1315,7 @@
           "height": 2516,
           "caption": {
             "en": "Samantabhadra",
-            "zh": "Samantabhadra"
+            "zh": "普贤"
           },
           "small": false
         }
@@ -1336,7 +1336,7 @@
         "year": 2024,
         "caption": {
           "en": "Self Portrait — 20\" × 24\", oil on canvas, 2024",
-          "zh": "自画像 — 20\" × 24\"，布面油画，2024"
+          "zh": "《自画像》｜20 × 24 英寸，布面油画，2024"
         },
         "image": {
           "src": "assets/portfolio/page-19-image-02.png",
@@ -1353,7 +1353,7 @@
         "id": "family-portrait",
         "title": {
           "en": "Family Portrait",
-          "zh": "全家福"
+          "zh": "家庭"
         },
         "dimensions": {
           "display": "30\" × 40\""
@@ -1365,7 +1365,7 @@
         "year": 2025,
         "caption": {
           "en": "Family Portrait — 30\" × 40\", oil on canvas, 2025",
-          "zh": "全家福 — 30\" × 40\"，布面油画，2025"
+          "zh": "《家庭》｜30 × 40 英寸，布面油画，2025"
         },
         "image": {
           "src": "assets/portfolio/page-19-image-03.png",
@@ -1373,7 +1373,7 @@
           "height": 750,
           "caption": {
             "en": "Family Portrait",
-            "zh": "全家福"
+            "zh": "家庭"
           },
           "small": false
         }
@@ -1382,7 +1382,7 @@
         "id": "ran",
         "title": {
           "en": "Ran",
-          "zh": "Ran"
+          "zh": "乱"
         },
         "dimensions": {
           "display": "10\" × 14\""
@@ -1394,7 +1394,7 @@
         "year": 2024,
         "caption": {
           "en": "Ran — 10\" × 14\", oil pastel on paper, 2024",
-          "zh": "Ran — 10\" × 14\"，纸本油画棒，2024"
+          "zh": "《乱》｜10 × 14 英寸，纸本油画棒，2024"
         },
         "image": {
           "src": "assets/portfolio/page-19-image-04.png",
@@ -1402,7 +1402,7 @@
           "height": 626,
           "caption": {
             "en": "Ran",
-            "zh": "Ran"
+            "zh": "乱"
           },
           "small": false
         }
@@ -1411,7 +1411,7 @@
         "id": "sakya",
         "title": {
           "en": "Sakya",
-          "zh": "Sakya"
+          "zh": "释迦"
         },
         "dimensions": {
           "display": "20\" × 16\""
@@ -1423,7 +1423,7 @@
         "year": 2024,
         "caption": {
           "en": "Sakya — 20\" × 16\", oil pastel & acrylic on canvas, 2024",
-          "zh": "Sakya — 20\" × 16\"，布面油画棒与丙烯，2024"
+          "zh": "《释迦》｜20 × 16 英寸，布面油画棒与丙烯，2024"
         },
         "image": {
           "src": "assets/portfolio/page-19-image-05.png",
@@ -1431,7 +1431,7 @@
           "height": 559,
           "caption": {
             "en": "Sakya",
-            "zh": "Sakya"
+            "zh": "释迦"
           },
           "small": false
         }
@@ -1442,11 +1442,11 @@
     "id": "machinary",
     "title": {
       "en": "Machinary Structuralism",
-      "zh": "Machinary Structuralism"
+      "zh": "机械结构主义"
     },
     "overview": {
       "en": "Project documentation is being gathered.",
-      "zh": "项目资料整理中。"
+      "zh": "资料整理中。"
     }
   }
 }

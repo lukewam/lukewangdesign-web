@@ -413,7 +413,7 @@ export function createWorkGallery(
         localizeText(projectData.date_range?.label),
       ],
       [
-        activeLanguage === "zh" ? "我的角色" : "My role",
+        activeLanguage === "zh" ? "角色" : "My role",
         localizeText(projectData.role),
       ],
     ];
@@ -457,7 +457,7 @@ export function createWorkGallery(
     const imageCount = projectData.process_images?.length || 0;
     const summaryLabel =
       activeLanguage === "zh"
-        ? `过程资料 · ${imageCount} 张图片`
+        ? `过程记录 · ${imageCount} 张`
         : `Process notes · ${imageCount} images`;
     processDetails.append(createElement("summary", "", summaryLabel));
     if (projectData.process_note)
@@ -478,7 +478,7 @@ export function createWorkGallery(
         createElement(
           "span",
           "",
-          activeLanguage === "zh" ? "合作伙伴" : "Collaborators",
+          activeLanguage === "zh" ? "合作者" : "Collaborators",
         ),
       );
       appendParagraph(credits, projectData.collaborators.join(", "));
@@ -501,7 +501,7 @@ export function createWorkGallery(
       const nextProjectButton = createElement(
         "button",
         "work-next",
-        `${activeLanguage === "zh" ? "下一件：" : "Next: "}${localizeText(nextProject.title)} →`,
+        `${activeLanguage === "zh" ? "下一件作品：" : "Next: "}${localizeText(nextProject.title)} →`,
       );
       nextProjectButton.type = "button";
       nextProjectButton.addEventListener("click", () =>
@@ -619,6 +619,20 @@ export function createWorkGallery(
       closeChapterNavigation();
     }
     activeLanguage = selectedLanguage;
+    workArea
+      .querySelectorAll("[data-project-icon]")
+      .forEach((projectButton) => {
+        const project = findProject(
+          projectIdsByWorkIcon[projectButton.dataset.projectIcon],
+        );
+        projectButton.querySelector(".work-title").textContent = localizeText(
+          project.title,
+        );
+      });
+    paintingsSection.setAttribute(
+      "aria-label",
+      localizeText(portfolioData.oil_paintings.title),
+    );
     backToIndexButton.textContent =
       activeLanguage === "zh" ? "← 所有作品" : "← All work";
     backToIndexButton.hidden = !isWorkPanelActive || !currentProjectId;
