@@ -166,6 +166,7 @@ export function createWorkGallery(
     controller: "disaster-defender",
     car: "autonomous-vehicle",
     robot: "zoo-navigator",
+    multiverse: "ai-multiverse",
     brush: "oil-paintings",
   };
   const completeProjectOrder = [
@@ -605,7 +606,7 @@ export function createWorkGallery(
       );
       metadata.append(metadataRow);
     });
-    parentElement.append(metadata);
+    if (metadata.childElementCount) parentElement.append(metadata);
     const projectTools = projectData.tools?.length
       ? projectData.tools
       : projectData.skills;
@@ -860,6 +861,11 @@ export function createWorkGallery(
         projectButton.querySelector(".work-title").textContent = localizeText(
           project.title,
         );
+        const projectStatus = projectButton.querySelector(".work-status");
+        if (projectStatus) {
+          projectStatus.textContent = localizeText(project.status);
+          projectStatus.hidden = !project.status;
+        }
       });
     paintingsSection.setAttribute(
       "aria-label",

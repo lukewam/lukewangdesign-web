@@ -1,6 +1,6 @@
-import { createLotusRenderer } from "./scene/lotus-renderer.js";
-import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js";
-import { initializePortfolio } from "./portfolio-controller.js";
+import { createLotusRenderer } from "./scene/lotus-renderer.js?v=4d3089b2c0cd";
+import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=4d3089b2c0cd";
+import { initializePortfolio } from "./portfolio-controller.js?v=4d3089b2c0cd";
 
 /**
  * Load a local resource relative to this module, including on a repository subpath.
@@ -37,7 +37,7 @@ async function startPortfolio() {
     loadResource("../assets/shaders/lotus.frag").then((response) =>
       response.text(),
     ),
-    loadResource("../data/projects.json").then((response) => response.json()),
+    loadResource("../data/projects.json?v=4d3089b2c0cd").then((response) => response.json()),
   ]);
 
   let lotusRenderer = null;

@@ -1239,6 +1239,27 @@
           }
         }
       ]
+    },
+    {
+      "id": "ai-multiverse",
+      "title": {
+        "en": "AI Multiverse",
+        "zh": "AI Multiverse"
+      },
+      "subtitle": {
+        "en": "In development",
+        "zh": "开发中"
+      },
+      "status": {
+        "en": "In development",
+        "zh": "开发中"
+      },
+      "overview": {
+        "en": "A multiplayer game prototype set in a multiverse. The planned core loop lets three players choose traits at the same time, then face a monster that AI assembles from their choices.",
+        "zh": "一款正在开发的多元宇宙游戏原型。计划让三名玩家同时选择怪物词条，由 AI 组合成敌人，再一起面对各自选择带来的后果。"
+      },
+      "cover_images": [],
+      "sections": []
     }
   ],
   "oil_paintings": {

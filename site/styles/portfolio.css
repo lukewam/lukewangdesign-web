@@ -557,6 +557,23 @@ body {
   transition: color 180ms ease;
 }
 
+#portfolio-site .work-status {
+  margin-top: -8px;
+  color: var(--muted-ink-color);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+#portfolio-site [data-project-icon="multiverse"] {
+  --ink-duration: 2.2s;
+}
+
+#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening {
+  display: block;
+  max-width: 62ch;
+}
+
 #portfolio-site [data-project-icon="eye"] {
   --ink-duration: 2.4s;
   --ink-rest: work-eye-rest;
