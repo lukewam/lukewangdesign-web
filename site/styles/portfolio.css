@@ -710,29 +710,48 @@ body {
   }
 }
 
-#portfolio-site .work-paintings {
+#portfolio-site .work-collections,
+#portfolio-site .work-older {
   margin-top: clamp(26px, 4svh, 50px);
   padding-top: 24px;
   border-top: 1px solid #dedfd7;
 }
 
-#portfolio-site .work-painting-item {
+#portfolio-site .work-collections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 18px 28px;
+}
+
+#portfolio-site .work-group-title {
+  margin: 0 0 24px;
+  color: var(--muted-ink-color);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+#portfolio-site .work-collection-item {
   flex-direction: row;
   justify-content: flex-start;
-  gap: 26px;
+  gap: clamp(12px, 1.8vw, 26px);
   min-height: 94px;
-  width: fit-content;
   max-width: 100%;
-  padding-right: 24px;
   text-align: left;
 }
 
-#portfolio-site .work-painting-item .work-drawing {
+#portfolio-site .work-collection-item .work-drawing {
   width: 72px;
   height: 84px;
 }
 
-#portfolio-site .work-painting-item .work-labels {
+#portfolio-site [data-project-icon="touchdesigner"] .work-drawing {
+  width: 80px;
+  height: 84px;
+}
+
+#portfolio-site .work-collection-item .work-labels {
   align-items: flex-start;
 }
 
@@ -759,7 +778,11 @@ body {
     width: 100px;
     height: 80px;
   }
-  #portfolio-site .work-painting-item {
+  #portfolio-site .work-collections {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+  #portfolio-site .work-collection-item {
     min-height: 88px;
   }
 }
@@ -1549,6 +1572,28 @@ body {
 #portfolio-site .work-video-duration {
   grid-column: 2;
   grid-row: 1;
+}
+#portfolio-site .work-video-source {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 10px;
+  padding-block: 4px;
+  color: var(--muted-ink-color);
+  font-size: 14px;
+  text-underline-offset: 4px;
+}
+#portfolio-site .work-video-source:hover {
+  color: var(--ink-color);
+}
+#portfolio-site .work-video-source:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+#portfolio-site .work-detail[data-project-id="touchdesigner"] > .work-video-gallery {
+  gap: 32px 24px;
+}
+#portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-title {
+  font-size: 14px;
 }
 #portfolio-site .work-video-figure figcaption p {
   margin-top: 5px;

@@ -142,6 +142,7 @@ function resolveImageGeometry(galleryImage) {
  * @param {Object} galleryCallbacks Callbacks supplied by the portfolio controller.
  * @param {() => string} galleryCallbacks.language Returns the selected language.
  * @param {(hasDetail: boolean) => void} galleryCallbacks.onChange Reports detail navigation.
+ * @param {() => boolean} [galleryCallbacks.shouldAnimate] False while restoring browser or reader history.
  * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, open: (projectId: string) => boolean, currentProject: () => string|null, hasDetail: () => boolean}}
  */
 export function createWorkGallery(
@@ -152,7 +153,9 @@ export function createWorkGallery(
 ) {
   const workArea = contentPanel.querySelector(".work-section");
   const projectGrid = workArea.querySelector(".work-grid");
-  const paintingsSection = workArea.querySelector(".work-paintings");
+  const collectionsSection = workArea.querySelector(".work-collections");
+  const olderWorkSection = workArea.querySelector(".work-older");
+  const olderWorkHeading = olderWorkSection.querySelector(".work-group-title");
   const contentHeading = contentPanel.querySelector("h2");
   const panelToolbar = contentPanel.querySelector(".panel-toolbar");
   const reducedMotionPreference = window.matchMedia(
@@ -194,7 +197,15 @@ export function createWorkGallery(
   originalImageLink.target = "_blank";
   originalImageLink.rel = "noopener noreferrer";
   const enlargedImageFigure = createElement("figure", "work-lightbox-figure");
-  imageDialogToolbar.append(closeImageButton, originalImageLink);
+  const imageSequenceNavigation = createElement("div", "work-lightbox-navigation");
+  const previousImageButton = createElement("button", "", "←");
+  const nextImageButton = createElement("button", "", "→");
+  previousImageButton.type = nextImageButton.type = "button";
+  const imageSequenceCounter = createElement("span", "work-lightbox-counter");
+  imageSequenceCounter.setAttribute("role", "status");
+  imageSequenceCounter.setAttribute("aria-live", "polite");
+  imageSequenceNavigation.append(previousImageButton, imageSequenceCounter, nextImageButton);
+  imageDialogToolbar.append(closeImageButton, imageSequenceNavigation, originalImageLink);
   imageDialog.append(imageDialogToolbar, enlargedImageFigure);
   portfolioRoot.append(imageDialog);
 
@@ -207,6 +218,7 @@ export function createWorkGallery(
     robot: "zoo-navigator",
     multiverse: "ai-multiverse",
     brush: "oil-paintings",
+    touchdesigner: "touchdesigner",
   };
   const completeProjectOrder = [
     ...workArea.querySelectorAll("[data-project-icon]"),
@@ -259,6 +271,24 @@ export function createWorkGallery(
   let lastImageButton = null;
   let activeLanguage = "en";
   let renderedProjectLanguageKey = null;
+  let imageSequence = [];
+  let selectedImageIndex = -1;
+  let detailEnterAnimation = null;
+
+  /** Content changes immediately; a cancellable visual arrival never delays navigation. */
+  function animateDetailArrival() {
+    detailEnterAnimation?.cancel();
+    detailEnterAnimation = null;
+    if (!reducedMotionPreference.matches && galleryCallbacks.shouldAnimate?.() !== false)
+      detailEnterAnimation = workArea.animate?.(
+        [{ opacity: 0.4 }, { opacity: 1 }],
+        { duration: 180, easing: "ease-out" },
+      );
+  }
+  reducedMotionPreference.addEventListener?.("change", () => {
+    detailEnterAnimation?.cancel();
+    detailEnterAnimation = null;
+  });
 
   /** Creates a plain element without interpreting project content as HTML. */
   function createElement(tagName, className = "", textContent = "") {
@@ -477,11 +507,17 @@ export function createWorkGallery(
   function showImage(galleryImage, openingButton) {
     pauseVideos();
     closeChapterNavigation();
-    lastImageButton = openingButton;
+    const isAlreadyOpen = imageDialog.open;
+    if (!isAlreadyOpen) lastImageButton = openingButton;
+    selectedImageIndex = imageSequence.findIndex((entry) => entry.image === galleryImage);
+    imageSequenceNavigation.hidden = imageSequence.length < 2;
+    previousImageButton.setAttribute("aria-label", activeLanguage === "zh" ? "上一张" : "Previous image");
+    nextImageButton.setAttribute("aria-label", activeLanguage === "zh" ? "下一张" : "Next image");
+    imageSequenceCounter.textContent = `${selectedImageIndex + 1} / ${imageSequence.length}`;
     const caption = localizeText(galleryImage.caption);
     const { visibleArea } = resolveImageGeometry(galleryImage);
     const { width: visibleWidth, height: visibleHeight } = visibleArea;
-    enlargedImageFigure.style.width = `min(100%, ${(visibleWidth / visibleHeight) * 70}svh)`;
+    enlargedImageFigure.style.width = `min(100%, calc(${visibleWidth / visibleHeight} * min(70svh, calc(100svh - 180px))))`;
     releasePerspectiveWindows(enlargedImageFigure);
     enlargedImageFigure.replaceChildren(
       createImageWindow(galleryImage, true),
@@ -501,8 +537,17 @@ export function createWorkGallery(
       "aria-label",
       caption || (activeLanguage === "zh" ? "图片预览" : "Image preview"),
     );
-    imageDialog.showModal();
-    closeImageButton.focus();
+    if (!isAlreadyOpen) {
+      imageDialog.showModal();
+      closeImageButton.focus();
+    }
+  }
+
+  function stepImage(direction) {
+    if (!imageDialog.open || imageSequence.length < 2) return;
+    const index = (selectedImageIndex + direction + imageSequence.length) % imageSequence.length;
+    const entry = imageSequence[index];
+    showImage(entry.image, entry.button);
   }
 
   /**
@@ -528,6 +573,7 @@ export function createWorkGallery(
       const { visibleArea } = resolveImageGeometry(galleryImage);
       const { width: visibleWidth, height: visibleHeight } = visibleArea;
       const imageFigure = createElement("figure", "work-figure");
+      imageFigure.style.setProperty("--media-ratio", String(visibleWidth / visibleHeight));
       imageFigure.classList.toggle(
         "is-portrait",
         visibleHeight > visibleWidth * 1.25,
@@ -546,6 +592,7 @@ export function createWorkGallery(
       imageButton.addEventListener("click", () =>
         showImage(galleryImage, imageButton),
       );
+      imageSequence.push({ image: galleryImage, button: imageButton });
       imageFigure.append(
         imageButton,
         createElement("figcaption", "", localizeText(galleryImage.caption)),
@@ -560,7 +607,7 @@ export function createWorkGallery(
     if (!videoSources?.length) return;
     const videoGallery = createElement("div", "work-video-gallery");
     videoGallery.dataset.galleryLayout =
-      videoSources.length === 1 ? "single" : "pair";
+      videoSources.length === 1 ? "single" : videoSources.length === 2 ? "pair" : "collection";
     videoSources.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
       const videoElement = document.createElement("video");
@@ -622,6 +669,20 @@ export function createWorkGallery(
         videoCaption.append(
           createElement("span", "work-video-duration", durationLabel),
         );
+      }
+      if (videoData.source_file) {
+        const sourceLink = createElement(
+          "a",
+          "work-video-source",
+          activeLanguage === "zh" ? "下载源文件 .toe" : "Download source .toe",
+        );
+        sourceLink.href = videoData.source_file.src;
+        sourceLink.download = videoData.source_file.filename;
+        sourceLink.setAttribute(
+          "aria-label",
+          `${localizeText(videoData.title)} — ${sourceLink.textContent}`,
+        );
+        videoCaption.append(sourceLink);
       }
       videoFigure.append(videoElement, videoCaption);
       videoGallery.append(videoFigure);
@@ -818,6 +879,8 @@ export function createWorkGallery(
     pauseVideos();
     releasePerspectiveWindows(projectDetail);
     closeImageDialog(false);
+    imageSequence = [];
+    selectedImageIndex = -1;
     projectDetail.dataset.projectId = currentProjectId;
     projectDetail.replaceChildren();
     chapterHeadings.clear();
@@ -857,6 +920,11 @@ export function createWorkGallery(
       appendDetailFooter(projectData);
       return;
     }
+    if (currentProjectId === "touchdesigner") {
+      appendVideoGallery(projectDetail, projectData.cover_videos);
+      appendDetailFooter(projectData);
+      return;
+    }
 
     const projectOpening = createElement("div", "work-opening");
     projectOpening.dataset.heroLayout = projectData.hero_layout || "object";
@@ -870,12 +938,12 @@ export function createWorkGallery(
     appendParagraph(projectIntroduction, projectData.overview, "work-lead");
     appendProjectMetadata(projectIntroduction, projectData);
     appendProjectMaterials(projectData, projectIntroduction);
-    projectOpening.append(projectIntroduction);
     if (projectData.cover_videos?.length) {
       appendVideoGallery(projectOpening, projectData.cover_videos);
     } else {
       appendImageGallery(projectOpening, projectData.cover_images, "hero");
     }
+    projectOpening.append(projectIntroduction);
     projectDetail.append(projectOpening);
 
     (projectData.sections || []).forEach((projectSection, sectionIndex) => {
@@ -957,10 +1025,14 @@ export function createWorkGallery(
           projectStatus.hidden = !project.status;
         }
       });
-    paintingsSection.setAttribute(
+    collectionsSection.setAttribute(
       "aria-label",
-      localizeText(portfolioData.oil_paintings.title),
+      activeLanguage === "zh"
+        ? "绘画与 TouchDesigner"
+        : "Paintings and TouchDesigner",
     );
+    olderWorkHeading.textContent =
+      activeLanguage === "zh" ? "早期作品" : "Older Work";
     backToIndexButton.textContent =
       activeLanguage === "zh" ? "← 所有作品" : "← All work";
     backToIndexButton.hidden = !isWorkPanelActive || !currentProjectId;
@@ -977,7 +1049,8 @@ export function createWorkGallery(
     );
     if (!isWorkPanelActive) return;
     projectGrid.hidden = Boolean(currentProjectId);
-    paintingsSection.hidden = Boolean(currentProjectId);
+    collectionsSection.hidden = Boolean(currentProjectId);
+    olderWorkSection.hidden = Boolean(currentProjectId);
     projectDetail.hidden = !currentProjectId;
     portfolioRoot.toggleAttribute(
       "data-work-detail",
@@ -994,6 +1067,7 @@ export function createWorkGallery(
       contentHeading.textContent =
         activeLanguage === "zh" ? "精选作品" : "Selected work";
     }
+    contentHeading.lang = /[\u3400-\u9fff]/u.test(contentHeading.textContent) ? "zh-CN" : "en";
   }
 
   /**
@@ -1013,14 +1087,19 @@ export function createWorkGallery(
     contentPanel.scrollTop = 0;
     contentHeading.focus({ preventScroll: true });
     galleryCallbacks.onChange(true);
+    animateDetailArrival();
     return true;
   }
 
   /** Clears media and detail state before the controller closes or changes panels. */
   function resetGallery() {
+    detailEnterAnimation?.cancel();
+    detailEnterAnimation = null;
     pauseVideos();
     releasePerspectiveWindows(projectDetail);
     closeImageDialog(false);
+    imageSequence = [];
+    selectedImageIndex = -1;
     currentProjectId = null;
     renderedProjectLanguageKey = null;
     chapterHeadings.clear();
@@ -1041,6 +1120,7 @@ export function createWorkGallery(
       : contentHeading
     ).focus({ preventScroll: true });
     galleryCallbacks.onChange(false);
+    animateDetailArrival();
   }
 
   chapterTrigger.addEventListener("click", () => {
@@ -1106,7 +1186,15 @@ export function createWorkGallery(
   );
 
   closeImageButton.addEventListener("click", () => closeImageDialog());
+  previousImageButton.addEventListener("click", () => stepImage(-1));
+  nextImageButton.addEventListener("click", () => stepImage(1));
   imageDialog.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      event.stopPropagation();
+      stepImage(event.key === "ArrowLeft" ? -1 : 1);
+      return;
+    }
     if (event.key !== "Escape") return;
     event.preventDefault();
     event.stopPropagation();
@@ -1126,7 +1214,21 @@ export function createWorkGallery(
   });
   backToIndexButton.addEventListener("click", returnToWorkIndex);
   workArea.querySelectorAll("[data-project-icon]").forEach((projectButton) => {
-    projectButton.addEventListener("click", () => {
+    const project = findProject(projectIdsByWorkIcon[projectButton.dataset.projectIcon]);
+    const coverVideo = project?.cover_videos?.[0];
+    const previewImage = project?.index_image || project?.artworks?.[0]?.image || project?.cover_images?.[0] ||
+      (coverVideo?.poster ? { src: coverVideo.poster, width: coverVideo.width, height: coverVideo.height, caption: "" } : null);
+    if (previewImage) {
+      const { visibleArea } = resolveImageGeometry(previewImage);
+      projectButton.style.setProperty("--preview-ratio", String(visibleArea.width / visibleArea.height));
+      const preview = createElement("span", "work-preview");
+      preview.setAttribute("aria-hidden", "true");
+      preview.append(createImageWindow(previewImage));
+      projectButton.prepend(preview);
+    }
+    projectButton.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button > 0) return;
+      event.preventDefault();
       workIndexScrollPosition = contentPanel.scrollTop;
       lastSelectedProjectButton = projectButton;
       openProject(projectIdsByWorkIcon[projectButton.dataset.projectIcon]);
@@ -1137,6 +1239,8 @@ export function createWorkGallery(
     render: renderGallery,
     reset: resetGallery,
     pauseMedia: () => {
+      detailEnterAnimation?.cancel();
+      detailEnterAnimation = null;
       pauseVideos();
       closeChapterNavigation();
     },

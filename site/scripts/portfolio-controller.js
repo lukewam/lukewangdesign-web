@@ -1,5 +1,5 @@
-import { createWorkGallery } from "./work-gallery.js?v=481dd1ee36c3";
-import { translations } from "./translations.js?v=481dd1ee36c3";
+import { createWorkGallery } from "./work-gallery.js?v=226833e12f34";
+import { translations } from "./translations.js?v=226833e12f34";
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
  * @param {HTMLElement} portfolioRoot - Root containing the portfolio controls and sections.
@@ -83,6 +83,7 @@ export function initializePortfolio(
     normalizedY: 0,
   };
   let isKeyboardPointer = false;
+  const dragonflyPointer = { clientX: 0, clientY: 0, isActive: false };
   let isVisible = true;
   let pitchRadians = 0;
   let yawRadians = 0;
@@ -103,8 +104,11 @@ export function initializePortfolio(
     portfolioData,
     {
       language: () => currentLanguage,
+      shouldAnimate: () => !isRestoringPortfolioLocation,
       onChange: (hasProjectDetail) => {
         if (selectedSection !== "work") return;
+        panelEnterAnimation?.cancel();
+        panelEnterAnimation = null;
         dragonflyRenderer.launch(
           "work",
           reducedMotionPreference.matches ||
@@ -392,6 +396,7 @@ export function initializePortfolio(
    * @param {'work'|'about'|'contact'} nextSection - Section to present.
    * @returns {void}
    */
+  let panelEnterAnimation = null;
   function openSection(nextSection) {
     if (
       selectedSection === nextSection &&
@@ -402,7 +407,11 @@ export function initializePortfolio(
       }
       return;
     }
+    const isEnteringFromHome = sectionTransition.targetAmount === 0;
+    resetDragonflyPointer();
     workGallery.reset();
+    panelEnterAnimation?.cancel();
+    panelEnterAnimation = null;
     cancelNavigationHover();
     resetLotusPointer();
     if (sectionTransition.targetAmount === 0) {
@@ -431,6 +440,16 @@ export function initializePortfolio(
       );
     portfolioRoot.dataset.activeSection = nextSection;
     setPortfolioLanguage(currentLanguage);
+    sectionTransition.revealProgress = 1;
+    updateSectionTransition(0);
+    if (!reducedMotionPreference.matches && !isRestoringPortfolioLocation) {
+      panelEnterAnimation = sectionPanel.querySelector(".panel-content").animate?.(
+        isEnteringFromHome
+          ? [{ opacity: 0.3, transform: "translateY(6px)" }, { opacity: 1, transform: "translateY(0)" }]
+          : [{ opacity: 0.4 }, { opacity: 1 }],
+        { duration: isEnteringFromHome ? 280 : 180, easing: "cubic-bezier(.2,.65,.3,1)" },
+      );
+    }
     dragonflyRenderer.launch(
       nextSection,
       reducedMotionPreference.matches || isRestoringPortfolioLocation,
@@ -451,6 +470,9 @@ export function initializePortfolio(
    * @returns {void}
    */
   function closeSection(event) {
+    resetDragonflyPointer();
+    panelEnterAnimation?.cancel();
+    panelEnterAnimation = null;
     if (sectionTransition.targetAmount === 0) {
       return;
     }
@@ -544,10 +566,7 @@ export function initializePortfolio(
           sectionTransition.startBloomProgress +
           (1 - sectionTransition.startBloomProgress) *
             smootherStep(transitionSeconds / 2.78);
-        sectionTransition.revealProgress =
-          sectionTransition.startRevealProgress +
-          (1 - sectionTransition.startRevealProgress) *
-            smoothStep((cueSeconds - 1.03) / 0.6);
+        sectionTransition.revealProgress = 1;
       } else {
         sectionTransition.bloomProgress = isPlaying
           ? getBloomProgress(bloomLoopSeconds)
@@ -647,6 +666,7 @@ export function initializePortfolio(
       reducedMotionPreference.matches,
       navigationHoverState.work,
       transitionDeltaSeconds,
+      dragonflyPointer,
     );
   }
   const navigationHoverState = {
@@ -898,6 +918,7 @@ export function initializePortfolio(
    * @returns {void}
    */
   function setPortfolioLanguage(languageCode) {
+    resetDragonflyPointer();
     currentLanguage = languageCode;
     try {
       sessionStorage.setItem("portfolio-language", languageCode);
@@ -905,6 +926,9 @@ export function initializePortfolio(
       /** Language switching remains available when browser storage is disabled. */
     }
     portfolioRoot.lang = languageCode === "zh" ? "zh-CN" : "en";
+    portfolioRoot.querySelector(".site-home-link")?.setAttribute(
+      "aria-label", languageCode === "zh" ? "Luke Wang — 首页" : "Luke Wang — Home",
+    );
     portfolioRoot
       .querySelector(".main-navigation")
       .setAttribute("aria-label", translations[languageCode].navigationLabel);
@@ -947,6 +971,7 @@ export function initializePortfolio(
     flowerCanvas.setAttribute("aria-label", translations[languageCode].image);
     flowerCanvas.textContent = translations[languageCode].image;
     if (selectedSection) {
+      sectionPanel.querySelector("h2").lang = portfolioRoot.lang;
       sectionPanel.querySelector("h2").textContent =
         selectedSection === "work"
           ? languageCode === "en"
@@ -1003,6 +1028,15 @@ export function initializePortfolio(
   portfolioRoot
     .querySelector(".panel-close-button")
     .addEventListener("click", closeSection);
+  portfolioRoot.querySelector(".site-home-link")?.addEventListener("click", (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button > 0) return;
+    event.preventDefault();
+    closeSection(event);
+  });
+  reducedMotionPreference.addEventListener("change", () => {
+    panelEnterAnimation?.cancel();
+    panelEnterAnimation = null;
+  });
   portfolioRoot.addEventListener("keydown", (event) => {
     if (
       event.key === "Escape" &&
@@ -1059,6 +1093,20 @@ export function initializePortfolio(
     characterHeat.fill(0);
     tileHeat.fill(0);
   }
+  function resetDragonflyPointer() {
+    dragonflyPointer.isActive = false;
+    dragonflyRenderer.resetAttention?.();
+  }
+  function updateDragonflyPointer(event) {
+    if (event.pointerType !== "mouse" || selectedSection ||
+        sectionTransition.isClosing || reducedMotionPreference.matches) {
+      resetDragonflyPointer();
+      return;
+    }
+    dragonflyPointer.clientX = event.clientX;
+    dragonflyPointer.clientY = event.clientY;
+    dragonflyPointer.isActive = true;
+  }
   /**
    * Map pointer coordinates to the flower canvas and normalized portfolio bounds.
    * @param {PointerEvent} event - Pointer movement or touch event.
@@ -1093,19 +1141,23 @@ export function initializePortfolio(
   /** Pointer position sets yaw and pitch around one fixed flower pivot. */
   portfolioRoot.addEventListener("pointerenter", (event) => {
     isKeyboardPointer = false;
+    updateDragonflyPointer(event);
     updateLotusPointer(event);
   });
   portfolioRoot.addEventListener("pointermove", (event) => {
     isKeyboardPointer = false;
+    updateDragonflyPointer(event);
     updateLotusPointer(event);
   });
   portfolioRoot.addEventListener("pointerleave", () => {
     pointerState.isActive = false;
+    dragonflyPointer.isActive = false;
   });
   portfolioRoot.addEventListener(
     "pointerdown",
     (event) => {
       if (event.pointerType === "touch") {
+        resetDragonflyPointer();
         updateLotusPointer(event);
       }
     },
@@ -1122,7 +1174,9 @@ export function initializePortfolio(
   });
   portfolioRoot.addEventListener("pointercancel", () => {
     pointerState.isActive = false;
+    dragonflyPointer.isActive = false;
   });
+  window.addEventListener("blur", resetDragonflyPointer);
   flowerSurface.addEventListener("blur", () => {
     pointerState.isActive = false;
     isKeyboardPointer = false;
@@ -1179,6 +1233,7 @@ export function initializePortfolio(
     pausedBloomProgress = 1;
     if (reducedMotionPreference.matches) {
       resetLotusPointer();
+      resetDragonflyPointer();
       settleSectionTransition();
       if (selectedSection) {
         dragonflyRenderer.launch(selectedSection, true);
@@ -1472,9 +1527,12 @@ export function initializePortfolio(
    * @returns {void}
    */
   function suspendPage() {
+    panelEnterAnimation?.cancel();
+    panelEnterAnimation = null;
     previousFrameMilliseconds = null;
     workGallery.pauseMedia();
     resetLotusPointer();
+    resetDragonflyPointer();
     cancelNavigationHover();
     navigationHoverState.pointerSection = null;
   }

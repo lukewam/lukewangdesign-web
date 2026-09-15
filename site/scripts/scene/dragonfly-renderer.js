@@ -1,6 +1,7 @@
 /**
  * @typedef {object} DragonflyRenderer
- * @property {function(number, number, boolean, number=, number=): void} draw - Advance and render one frame.
+ * @property {function(number, number, boolean, number=, number=, object=): void} draw - Advance and render one frame.
+ * @property {function(): void} resetAttention - Discard proximity input after navigation or suspension.
  * @property {function(): void} resize - Recompute the canvas and perch geometry.
  * @property {function((string|boolean)=, boolean=): void} launch - Fly to a section heading.
  * @property {function(boolean=, number=): void} returnHome - Return to the Work navigation perch.
@@ -104,6 +105,14 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   };
   let previousAttention = 0;
   let takeoffAttention = 0;
+  let proximityAmount = 0;
+  let proximityDwellSeconds = 0;
+  let isPointerNear = false;
+  function resetAttention() {
+    proximityAmount = 0;
+    proximityDwellSeconds = 0;
+    isPointerNear = false;
+  }
   const rasterSize = 152;
   const characterCellSize = 1.45;
   const toneLayers = Array.from(
@@ -114,22 +123,85 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     { length: 3 },
     () => new Float32Array(rasterSize * rasterSize),
   );
+  const textMeasurementCanvas = document.createElement?.("canvas");
+  const textMeasurementContext = textMeasurementCanvas?.getContext("2d", {
+    willReadFrequently: true,
+  });
+  const textPerchMetrics = new Map();
+  document.fonts?.addEventListener("loadingdone", () => textPerchMetrics.clear());
+
+  /** Measure a shoulder in the first glyph, including its actual ink contour. */
+  function getTextPerch(element) {
+    const stageBounds = stageElement.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    const fontSize = parseFloat(style.fontSize);
+    const text = (element.textContent || "W").trim() || "W";
+    let bounds = element.getBoundingClientRect();
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    const textBounds = range.getClientRects?.()[0] || range.getBoundingClientRect();
+    if (textBounds.width) bounds = textBounds;
+    let x = fontSize * 0.82;
+    let y = fontSize * 0.17;
+    if (textMeasurementContext) {
+      try {
+        const font = `${style.fontWeight || 400} ${fontSize}px ${style.fontFamily}`;
+        const cacheKey = `${font}|${text}`;
+        let metrics = textPerchMetrics.get(cacheKey);
+        if (!metrics) {
+          const context = textMeasurementContext;
+          textMeasurementCanvas.width = Math.ceil(fontSize * 3);
+          textMeasurementCanvas.height = Math.ceil(fontSize * 3);
+          context.font = font;
+          context.textBaseline = "alphabetic";
+          const fullMetrics = context.measureText(text);
+          const glyph = Array.from(text)[0];
+          const glyphMetrics = context.measureText(glyph);
+          const ascent = fullMetrics.fontBoundingBoxAscent || fontSize * 0.85;
+          const descent = fullMetrics.fontBoundingBoxDescent || fontSize * 0.25;
+          const padding = Math.ceil(fontSize / 2);
+          const baseline = padding + ascent;
+          context.fillText(glyph, padding, baseline);
+          const pixels = context.getImageData(0, 0, textMeasurementCanvas.width, textMeasurementCanvas.height);
+          const isCjk = /[\u3400-\u9fff]/u.test(glyph);
+          const from = Math.round(padding + glyphMetrics.width * (isCjk ? 0.5 : 0.76));
+          const to = Math.round(padding + glyphMetrics.width * (isCjk ? 0.78 : 0.94));
+          let inkPoint = null;
+          for (let row = 0; row < pixels.height && !inkPoint; row++) {
+            for (let column = to; column >= from; column--) {
+              if (pixels.data[(row * pixels.width + column) * 4 + 3] > 160) {
+                inkPoint = [column - padding, row - baseline];
+                break;
+              }
+            }
+          }
+          metrics = { ascent, descent, x: inkPoint?.[0] ?? x, y: inkPoint?.[1] ?? -(glyphMetrics.actualBoundingBoxAscent || fontSize * 0.7) };
+          if (Object.values(metrics).every(Number.isFinite)) {
+            if (textPerchMetrics.size >= 128) textPerchMetrics.delete(textPerchMetrics.keys().next().value);
+            textPerchMetrics.set(cacheKey, metrics);
+          }
+        }
+        // A Range includes the font box; resolve its baseline before adding ink bounds.
+        const inkY = (bounds.height - metrics.ascent - metrics.descent) / 2 + metrics.ascent + metrics.y;
+        if (Number.isFinite(metrics.x) && Number.isFinite(inkY)) {
+          x = metrics.x;
+          y = inkY;
+        }
+      } catch {
+        // Restricted pixel access must never interrupt navigation or the scene.
+      }
+    }
+    return [
+      (bounds.left - stageBounds.left + x) / designScale,
+      (bounds.top - stageBounds.top + y) / designScale,
+    ];
+  }
   /**
    * Find the foot contact above the Work navigation label.
    * @returns {[number, number]} Perch coordinates in design units.
    */
   function getNavigationPerch() {
-    const stageBounds = stageElement.getBoundingClientRect();
-    const buttonBounds = workNavigationButton.getBoundingClientRect();
-    const buttonFontSize =
-      parseFloat(getComputedStyle(workNavigationButton).fontSize) / designScale;
-    return [
-      (buttonBounds.left - stageBounds.left) / designScale +
-        buttonFontSize * 0.82,
-      (buttonBounds.top - stageBounds.top) / designScale +
-        4 +
-        buttonFontSize * 0.16,
-    ];
+    return getTextPerch(workNavigationButton);
   }
   /**
    * Find a perch over the printed heading text, falling back to navigation.
@@ -140,29 +212,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     if (!sectionHeading) {
       return getNavigationPerch();
     }
-    const stageBounds = stageElement.getBoundingClientRect();
-    const headingFontSize =
-      parseFloat(getComputedStyle(sectionHeading).fontSize) / designScale;
-    let headingBounds = sectionHeading.getBoundingClientRect();
-    /**
-     * A heading is a full-width block. Perch above its actual printed words,
-     * with enough room to retain a legible insect even on a narrow screen.
-     */
-    if (sectionHeading.textContent.length) {
-      const textRange = document.createRange();
-      textRange.selectNodeContents(sectionHeading);
-      const textBounds = textRange.getBoundingClientRect();
-      if (textBounds.width) {
-        headingBounds = textBounds;
-      }
-    }
-    return [
-      (headingBounds.left - stageBounds.left) / designScale +
-        Math.min(80, (headingBounds.width * 0.65) / designScale),
-      (headingBounds.top - stageBounds.top) / designScale +
-        headingFontSize * 0.17 +
-        2,
-    ];
+    return getTextPerch(sectionHeading);
   }
   /**
    * Fade the resting dragonfly with the heading's scroll clipping.
@@ -231,34 +281,15 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       0,
       0,
     );
-    homePerch = getNavigationPerch();
-    /** Size against the resting navigation, even when resizing an open section. */
-    const frameBounds = portfolioRoot
-      .querySelector(".portfolio-stage")
-      .getBoundingClientRect();
-    const asideProgress =
-      parseFloat(
-        getComputedStyle(portfolioRoot).getPropertyValue(
-          "--section-transition-progress",
-        ),
-      ) || 0;
-    const currentFontSize = parseFloat(
-      getComputedStyle(workNavigationButton).fontSize,
-    );
-    const homeFontSize =
-      stageBounds.width <= 600
-        ? currentFontSize + 11 * asideProgress
-        : currentFontSize / (1 - 0.28 * asideProgress);
-    homePerch[0] =
-      (frameBounds.left -
-        stageBounds.left +
-        (stageBounds.width <= 600 ? 26 : frameBounds.width * 0.104) +
-        homeFontSize * 0.82) /
-      designScale;
+    // Preserve the measured home geometry while the compact interior navigation is visible.
+    if (!portfolioRoot.hasAttribute?.("data-active-section")) {
+      homePerch = getNavigationPerch();
+    }
   }
   /** Reset a resized bitmap only in the frame that repaints it. */
   function requestResize() {
     isResizePending = true;
+    resetAttention();
   }
   new ResizeObserver(requestResize).observe(stageElement);
   window.addEventListener("resize", requestResize, { passive: true });
@@ -292,6 +323,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
    * @returns {void}
    */
   function launch(nextSection = "work", prefersReducedMotion = false) {
+    resetAttention();
     if (typeof nextSection === "boolean") {
       prefersReducedMotion = nextSection;
       nextSection = "work";
@@ -332,6 +364,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
    * @returns {void}
    */
   function returnHome(prefersReducedMotion = false, delaySeconds = 0) {
+    resetAttention();
     queuedSection = null;
     if (flightMode === "rest") {
       return;
@@ -370,6 +403,11 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       rotatedDepth * 0.993 + modelY * 0.12,
     ];
   }
+  // The lowest visible foot, rather than the centre of six feet, touches the ink.
+  const projectedFootContact = [-1, 1]
+    .flatMap((side) => [-1, 0, 1].map((index) =>
+      projectPoint(side * 0.032, -0.3, -0.03 + index * 0.055, -0.66, 1.3)))
+    .reduce((lowest, foot) => foot[1] > lowest[1] ? foot : lowest);
   /**
    * Advance the flight and draw its opaque body and translucent wing layers.
    * @param {number} elapsedSeconds - Animation clock used for breathing and wing motion.
@@ -377,6 +415,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
    * @param {boolean} prefersReducedMotion - Disable idle motion and finish active flights.
    * @param {number} [attentionAmount=0] - Navigation dwell response between zero and one.
    * @param {number} [transitionDeltaSeconds=deltaSeconds] - Visible elapsed time for the flight path.
+   * @param {{clientX: number, clientY: number, isActive: boolean}|null} [pointer=null] - Hover-capable pointer in viewport coordinates.
    * @returns {void}
    */
   function draw(
@@ -385,6 +424,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     prefersReducedMotion,
     attentionAmount = 0,
     transitionDeltaSeconds = deltaSeconds,
+    pointer = null,
   ) {
     if (drawingContext.isContextLost?.()) return;
     if (isResizePending) {
@@ -411,7 +451,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     let footPosition = getNavigationPerch();
     let legTuckAmount = 0;
     let posePitchRadians = 0;
-    if (flightMode === "rest") {
+    if (flightMode === "rest" || portfolioRoot.hasAttribute?.("data-active-section") === false) {
       homePerch = footPosition.slice();
     }
     if (flightMode === "section-rest") {
@@ -826,11 +866,30 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     const breathingOffset = prefersReducedMotion
       ? 0
       : Math.sin(elapsedSeconds * 1.35);
-    const projectedFootContact = projectPoint(0, -0.3, -0.03, -0.66, 1.3);
     const modelOrigin = [
       footPosition[0] - projectedFootContact[0] * modelScale,
       footPosition[1] - projectedFootContact[1] * modelScale,
     ];
+    // A small halo follows the actual insect, including responsive glyph perches.
+    // Its wider exit boundary avoids repeated reactions at the edge of the halo.
+    if (prefersReducedMotion || flightMode !== "rest" ||
+        portfolioRoot.hasAttribute?.("data-active-section")) {
+      resetAttention();
+    } else {
+      const step = Number.isFinite(transitionDeltaSeconds) ? Math.max(0, transitionDeltaSeconds) : 0;
+      const stageBounds = stageElement.getBoundingClientRect();
+      const radius = Math.max(30 / designScale, modelScale * (isPointerNear ? 1.05 : 0.85));
+      isPointerNear = Boolean(pointer?.isActive) && Math.hypot(
+        (pointer.clientX - stageBounds.left) / designScale - modelOrigin[0],
+        (pointer.clientY - stageBounds.top) / designScale - modelOrigin[1],
+      ) <= radius;
+      proximityDwellSeconds = isPointerNear ? proximityDwellSeconds + step : 0;
+      const target = proximityDwellSeconds >= 0.25 ? 0.8 : 0;
+      // Rise once, hold while nearby, and take longer to settle after leaving.
+      const rate = target > proximityAmount ? 8 : 4;
+      proximityAmount += (target - proximityAmount) * (1 - Math.exp(-rate * step));
+      if (Math.abs(target - proximityAmount) < 0.001) proximityAmount = target;
+    }
     const idleCycleTime = elapsedSeconds % 4.8;
     const idlePulse =
       !prefersReducedMotion &&
@@ -845,7 +904,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
         ? 1
         : 0;
     /**
-     * The navigation controller supplies one measured response after a dwell.
+     * Navigation and proximity share one response rather than adding together.
      * It never displaces the foot contact or changes a flight already underway.
      */
     const carriedAttention =
@@ -854,7 +913,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
           (1 - smoothStep(Math.max(0, flightElapsedSeconds) / 0.22))
         : 0;
     const attentiveAmount =
-      idleMotionAmount * clampUnitInterval(Number(attentionAmount) || 0) +
+      idleMotionAmount * Math.max(clampUnitInterval(Number(attentionAmount) || 0), proximityAmount) +
       carriedAttention;
     previousAttention = attentiveAmount;
     const wingbeatFrequency = 18 + 10 * smoothStep(flightElapsedSeconds / 0.42);
@@ -1154,5 +1213,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     resize: requestResize,
     launch,
     returnHome,
+    resetAttention,
   };
 }

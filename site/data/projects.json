@@ -1,6 +1,113 @@
 {
   "projects": [
     {
+      "id": "touchdesigner",
+      "title": {
+        "en": "TouchDesigner",
+        "zh": "TouchDesigner"
+      },
+      "cover_images": [],
+      "sections": [],
+      "cover_videos": [
+        {
+          "id": "study-01",
+          "src": "assets/touchdesigner/study-01.mp4",
+          "poster": "assets/touchdesigner/study-01.jpg",
+          "title": {
+            "en": "Coconut",
+            "zh": "椰子树"
+          },
+          "width": 1280,
+          "height": 720,
+          "duration": 30,
+          "source_file": {
+            "src": "assets/touchdesigner/study-01.toe",
+            "filename": "coconut.7.toe"
+          }
+        },
+        {
+          "id": "study-02",
+          "src": "assets/touchdesigner/study-02.mp4",
+          "poster": "assets/touchdesigner/study-02.jpg",
+          "title": {
+            "en": "Gourd",
+            "zh": "葫芦"
+          },
+          "width": 1280,
+          "height": 720,
+          "duration": 13,
+          "source_file": {
+            "src": "assets/touchdesigner/study-02.toe",
+            "filename": "basket.5.toe"
+          }
+        },
+        {
+          "id": "study-03",
+          "src": "assets/touchdesigner/study-03.mp4",
+          "poster": "assets/touchdesigner/study-03.jpg",
+          "title": {
+            "en": "Brocade",
+            "zh": "织锦"
+          },
+          "width": 1280,
+          "height": 720,
+          "duration": 24.333333,
+          "source_file": {
+            "src": "assets/touchdesigner/study-03.toe",
+            "filename": "图片提取粒子.4.toe"
+          }
+        },
+        {
+          "id": "study-04",
+          "src": "assets/touchdesigner/study-04.mp4",
+          "poster": "assets/touchdesigner/study-04.jpg",
+          "title": {
+            "en": "Implosion",
+            "zh": "聚爆"
+          },
+          "width": 1280,
+          "height": 720,
+          "duration": 9.8,
+          "source_file": {
+            "src": "assets/touchdesigner/study-04.toe",
+            "filename": "particle_pearl_0720_v5_2_ambient_implosion.toe"
+          }
+        },
+        {
+          "id": "study-05",
+          "src": "assets/touchdesigner/study-05.mp4",
+          "poster": "assets/touchdesigner/study-05.jpg",
+          "title": {
+            "en": "Tassels",
+            "zh": "流苏"
+          },
+          "width": 1280,
+          "height": 720,
+          "duration": 24.533333,
+          "source_file": {
+            "src": "assets/touchdesigner/study-05.toe",
+            "filename": "flow_stripe_interactive.2.toe"
+          }
+        },
+        {
+          "id": "study-06",
+          "src": "assets/touchdesigner/study-06.mp4",
+          "poster": "assets/touchdesigner/study-06.jpg",
+          "title": {
+            "en": "Hainan",
+            "zh": "海南"
+          },
+          "width": 1280,
+          "height": 720,
+          "duration": 13,
+          "source_file": {
+            "src": "assets/touchdesigner/study-06.toe",
+            "filename": "Hainan_Particle_Roads-aligned.toe"
+          }
+        }
+      ]
+    },
+    {
       "id": "ai-multiverse",
       "title": {
         "en": "AI Multiverse",
@@ -690,12 +797,21 @@
         "en": "User interaction and testing lead",
         "zh": "交互设计与测试负责人"
       },
-      "collaborators": ["Matthew Mizumoto", "Jack Barkes", "Bran Zhang"],
+      "collaborators": [
+        "Matthew Mizumoto",
+        "Jack Barkes",
+        "Bran Zhang"
+      ],
       "overview": {
         "en": "A Meta Quest 2 game set in an urban disaster scene. Players locate injured people, select first-aid items, and follow guided actions against the clock. I led interaction design and testing, from controller input to hand tracking.",
         "zh": "这款 Meta Quest 2 游戏模拟城市灾后救援。玩家要在限定时间内找到伤者、选择急救物品，并按指引操作。交互设计与测试从手柄操作入手，再逐步扩展到手部追踪。"
       },
-      "tools": ["Unity", "C#", "Meta Quest 2", "Meta Interaction SDK"],
+      "tools": [
+        "Unity",
+        "C#",
+        "Meta Quest 2",
+        "Meta Interaction SDK"
+      ],
       "links": [],
       "sections": [
         {
@@ -871,7 +987,10 @@
         "en": "Hardware design and tracking software development lead",
         "zh": "硬件设计与循迹开发负责人"
       },
-      "collaborators": ["Jerry Hung", "Michael Baluja"],
+      "collaborators": [
+        "Jerry Hung",
+        "Michael Baluja"
+      ],
       "overview": {
         "en": "A camera-equipped vehicle built to follow a track and respond to signs. I constructed its hardware and developed the tracking software, moving from recorded driving demonstrations toward explicit color-based responses in OpenCV.",
         "zh": "一辆装有摄像头的小车，学习沿赛道行驶并响应路标。硬件搭建与循迹软件由我负责，先用驾驶示范训练模型，再通过 OpenCV 设置基于颜色的响应规则。"
@@ -1102,6 +1221,16 @@
       "index_subtitle": {
         "en": "Computer Vision",
         "zh": "计算机视觉"
+      },
+      "index_image": {
+        "src": "assets/portfolio/page-17-image-03.png",
+        "width": 1100,
+        "height": 996,
+        "caption": {
+          "en": "Vehicle stopping at stop sign",
+          "zh": "在停止标志前停车"
+        },
+        "small": false
       }
     },
     {
@@ -1137,7 +1266,10 @@
         "en": "Choose the animals you want to see, then find a route through the San Diego Zoo. I led the search and navigation backend for an Android app that turns a list of favorite exhibits into a visit plan.",
         "zh": "选好想看的动物，就能规划圣地亚哥动物园的游览路线。这款 Android 应用把展区清单变成行程计划，搜索与导航后端由我负责。"
       },
-      "tools": ["Android Studio", "Dijkstra’s algorithm"],
+      "tools": [
+        "Android Studio",
+        "Dijkstra’s algorithm"
+      ],
       "links": [],
       "sections": [
         {
@@ -1268,8 +1400,8 @@
   "oil_paintings": {
     "id": "oil-paintings",
     "title": {
-      "en": "Oil Paintings",
-      "zh": "油画"
+      "en": "Paintings",
+      "zh": "绘画"
     },
     "date_range": {
       "start": "2022",
@@ -1308,14 +1440,36 @@
           "zh": "《三月雨》｜24 × 30 英寸，布面油画，2025"
         },
         "image": {
-          "src": "assets/portfolio/page-18-image-03.jpg",
-          "width": 636,
-          "height": 799,
+          "src": "assets/paintings/march-rain-photo.jpeg",
+          "width": 1576,
+          "height": 1992,
           "caption": {
             "en": "March Rain",
             "zh": "三月雨"
           },
-          "small": false
+          "small": false,
+          "perspective": {
+            "corners": [
+              [
+                151,
+                168
+              ],
+              [
+                1424,
+                170
+              ],
+              [
+                1413,
+                1753
+              ],
+              [
+                146,
+                1750
+              ]
+            ],
+            "width": 1264,
+            "height": 1580
+          }
         }
       },
       {
@@ -1395,9 +1549,9 @@
           "zh": "《普贤》｜20 × 24 英寸，布面油画，2024"
         },
         "image": {
-          "src": "assets/portfolio/page-19-image-01.png",
-          "width": 1872,
-          "height": 2516,
+          "src": "assets/paintings/samantabhadra-original.png",
+          "width": 3120,
+          "height": 4192,
           "caption": {
             "en": "Samantabhadra",
             "zh": "普贤"
@@ -1424,7 +1578,7 @@
           "zh": "《自画像》｜20 × 24 英寸，布面油画，2024"
         },
         "image": {
-          "src": "assets/portfolio/page-19-image-02.png",
+          "src": "assets/paintings/self-portrait-original.png",
           "width": 645,
           "height": 822,
           "caption": {
@@ -1453,14 +1607,36 @@
           "zh": "《家庭》｜30 × 40 英寸，布面油画，2025"
         },
         "image": {
-          "src": "assets/portfolio/page-19-image-03.png",
-          "width": 560,
-          "height": 750,
+          "src": "assets/paintings/family-portrait-photo.jpeg",
+          "width": 1536,
+          "height": 2048,
           "caption": {
             "en": "Family Portrait",
             "zh": "家庭"
           },
-          "small": false
+          "small": false,
+          "perspective": {
+            "corners": [
+              [
+                203,
+                268
+              ],
+              [
+                1333,
+                268
+              ],
+              [
+                1329,
+                1779
+              ],
+              [
+                203,
+                1778
+              ]
+            ],
+            "width": 1128,
+            "height": 1504
+          }
         }
       },
       {
@@ -1482,14 +1658,36 @@
           "zh": "《乱》｜10 × 14 英寸，纸本油画棒，2024"
         },
         "image": {
-          "src": "assets/portfolio/page-19-image-04.png",
-          "width": 879,
-          "height": 626,
+          "src": "assets/paintings/ran-photo.jpeg",
+          "width": 1536,
+          "height": 2048,
           "caption": {
             "en": "Ran",
             "zh": "乱"
           },
-          "small": false
+          "small": false,
+          "perspective": {
+            "corners": [
+              [
+                93,
+                612
+              ],
+              [
+                1446,
+                612
+              ],
+              [
+                1443,
+                1566
+              ],
+              [
+                95,
+                1582
+              ]
+            ],
+            "width": 1344,
+            "height": 960
+          }
         }
       },
       {
@@ -1511,14 +1709,36 @@
           "zh": "《释迦》｜20 × 16 英寸，布面油画棒与丙烯，2024"
         },
         "image": {
-          "src": "assets/portfolio/page-19-image-05.png",
-          "width": 694,
-          "height": 559,
+          "src": "assets/paintings/sakya-photo.jpeg",
+          "width": 2048,
+          "height": 1536,
           "caption": {
             "en": "Sakya",
             "zh": "释迦"
           },
-          "small": false
+          "small": false,
+          "perspective": {
+            "corners": [
+              [
+                319,
+                194
+              ],
+              [
+                1703,
+                188
+              ],
+              [
+                1719,
+                1295
+              ],
+              [
+                327,
+                1303
+              ]
+            ],
+            "width": 1380,
+            "height": 1104
+          }
         }
       }
     ]
@@ -1672,10 +1892,22 @@
             "small": false,
             "perspective": {
               "corners": [
-                [111.125, 177.909],
-                [908.403, 191.777],
-                [887.078, 609.836],
-                [135.348, 595.968]
+                [
+                  111.125,
+                  177.909
+                ],
+                [
+                  908.403,
+                  191.777
+                ],
+                [
+                  887.078,
+                  609.836
+                ],
+                [
+                  135.348,
+                  595.968
+                ]
               ],
               "width": 795,
               "height": 418

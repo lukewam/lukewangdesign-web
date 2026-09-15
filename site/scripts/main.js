@@ -1,6 +1,6 @@
-import { createLotusRenderer } from "./scene/lotus-renderer.js?v=481dd1ee36c3";
-import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=481dd1ee36c3";
-import { initializePortfolio } from "./portfolio-controller.js?v=481dd1ee36c3";
+import { createLotusRenderer } from "./scene/lotus-renderer.js?v=226833e12f34";
+import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=226833e12f34";
+import { initializePortfolio } from "./portfolio-controller.js?v=226833e12f34";
 
 /**
  * Load a local resource relative to this module, including on a repository subpath.
@@ -28,9 +28,9 @@ async function loadResource(relativePath, responseFormat = "text") {
 async function loadLotusRenderer() {
   try {
     const [lotusModel, vertexShader, fragmentShader] = await Promise.all([
-      loadResource("../assets/models/lotus.json?v=481dd1ee36c3", "json"),
-      loadResource("../assets/shaders/lotus.vert?v=481dd1ee36c3"),
-      loadResource("../assets/shaders/lotus.frag?v=481dd1ee36c3"),
+      loadResource("../assets/models/lotus.json?v=226833e12f34", "json"),
+      loadResource("../assets/shaders/lotus.vert?v=226833e12f34"),
+      loadResource("../assets/shaders/lotus.frag?v=226833e12f34"),
     ]);
     return createLotusRenderer(lotusModel, vertexShader, fragmentShader);
   } catch (error) {
@@ -47,7 +47,7 @@ async function loadLotusRenderer() {
 async function loadDragonflyRenderer(portfolioRoot) {
   try {
     const modelBuffer = await loadResource(
-      "../assets/models/dragonfly.bin?v=481dd1ee36c3",
+      "../assets/models/dragonfly.bin?v=226833e12f34",
       "arrayBuffer",
     );
     const modelBytes = new Uint8Array(modelBuffer);
@@ -67,7 +67,7 @@ async function loadDragonflyRenderer(portfolioRoot) {
 async function startPortfolio() {
   const portfolioRoot = document.querySelector("#portfolio-site");
   const [portfolioData, lotusRenderer, dragonflyRenderer] = await Promise.all([
-    loadResource("../data/projects.json?v=481dd1ee36c3", "json"),
+    loadResource("../data/projects.json?v=226833e12f34", "json"),
     loadLotusRenderer(),
     loadDragonflyRenderer(portfolioRoot),
   ]);
