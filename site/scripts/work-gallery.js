@@ -143,7 +143,8 @@ function resolveImageGeometry(galleryImage) {
  * @param {() => string} galleryCallbacks.language Returns the selected language.
  * @param {(hasDetail: boolean) => void} galleryCallbacks.onChange Reports detail navigation.
  * @param {() => boolean} [galleryCallbacks.shouldAnimate] False while restoring browser or reader history.
- * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, open: (projectId: string) => boolean, currentProject: () => string|null, hasDetail: () => boolean}}
+ * @param {Object} [galleryCallbacks.mediaManifest] Size variants keyed by original image path.
+ * @returns {{render: (language: string, isWork: boolean) => void, reset: () => void, pauseMedia: () => void, back: () => void, open: (projectId: string) => boolean, currentProject: () => string|null, currentTitle: () => string|null, hasDetail: () => boolean}}
  */
 export function createWorkGallery(
   portfolioRoot,
@@ -162,6 +163,59 @@ export function createWorkGallery(
     "(prefers-reduced-motion: reduce)",
   );
   contentHeading.tabIndex = -1;
+  const mediaManifest = galleryCallbacks.mediaManifest || {};
+  /**
+   * Rendered image widths by context, as [media condition, length] pairs for
+   * the sizes attribute. Cropped photographs scale each length by their overscan
+   * so the browser still chooses a large enough variant.
+   */
+  const imageSizes = {
+    index: [
+      ["(max-width: 600px)", "calc(100vw - 48px)"],
+      ["(max-width: 800px)", "50vw"],
+      [null, "640px"],
+    ],
+    hero: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "60vw"]],
+    heroWide: [
+      ["(max-width: 600px)", "calc(100vw - 48px)"],
+      [null, "calc(100vw - 192px)"],
+    ],
+    single: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "60vw"]],
+    pair: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "40vw"]],
+    invitation: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "33vw"]],
+    hardware: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "33vw"]],
+    phones: [["(max-width: 600px)", "45vw"], [null, "22vw"]],
+    quad: [["(max-width: 600px)", "45vw"], [null, "22vw"]],
+    archive: [["(max-width: 600px)", "45vw"], [null, "22vw"]],
+    artworks: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "50vw"]],
+    lightbox: [
+      ["(max-width: 600px)", "calc(100vw - 44px)"],
+      [null, "calc(100vw - 104px)"],
+    ],
+  };
+
+  /**
+   * Offer the WebP size variants of an image; the original stays the src fallback.
+   * @param {HTMLImageElement} imageElement Image being prepared.
+   * @param {GalleryImage} galleryImage Original image metadata.
+   * @param {Array<[string|null, string]>|null} sizeEntries Rendered widths for this context.
+   * @param {number} overscan Ratio of the drawn image width to its visible window.
+   * @returns {void}
+   */
+  function applyResponsiveSources(imageElement, galleryImage, sizeEntries, overscan) {
+    const manifestEntry = mediaManifest[galleryImage.src];
+    if (!sizeEntries || !manifestEntry?.sources?.length) return;
+    imageElement.sizes = sizeEntries
+      .map(([condition, length]) => {
+        const scaledLength =
+          overscan > 1.001 ? `calc(${length} * ${overscan.toFixed(3)})` : length;
+        return condition ? `${condition} ${scaledLength}` : scaledLength;
+      })
+      .join(", ");
+    imageElement.srcset = manifestEntry.sources
+      .map((source) => `${source.src} ${source.width}w`)
+      .join(", ");
+  }
 
   const projectDetail = createElement("article", "work-detail");
   projectDetail.hidden = true;
@@ -459,9 +513,10 @@ export function createWorkGallery(
    * The same geometry is used for thumbnails and the large image view.
    * @param {GalleryImage} galleryImage Image metadata and optional crop.
    * @param {boolean} [eager] Whether to load the image immediately.
+   * @param {Array<[string|null, string]>|null} [sizeEntries] Rendered widths used to pick a size variant.
    * @returns {HTMLSpanElement} Aspect-ratio window containing the image.
    */
-  function createImageWindow(galleryImage, eager = false) {
+  function createImageWindow(galleryImage, eager = false, sizeEntries = null) {
     const imageWindow = createElement("span", "work-image-window");
     const imageElement = document.createElement("img");
     const { visibleArea, perspectiveMatrix } =
@@ -486,6 +541,12 @@ export function createWorkGallery(
     imageElement.style.height = `${(galleryImage.height / visibleArea.height) * 100}%`;
     imageElement.style.left = `${(-visibleArea.x / visibleArea.width) * 100}%`;
     imageElement.style.top = `${(-visibleArea.y / visibleArea.height) * 100}%`;
+    applyResponsiveSources(
+      imageElement,
+      galleryImage,
+      sizeEntries,
+      galleryImage.width / visibleArea.width,
+    );
     if (perspectiveMatrix) {
       imageWindow.dataset.perspectiveImage = "";
       imageElement.style.width = `${galleryImage.width}px`;
@@ -520,7 +581,7 @@ export function createWorkGallery(
     enlargedImageFigure.style.width = `min(100%, calc(${visibleWidth / visibleHeight} * min(70svh, calc(100svh - 180px))))`;
     releasePerspectiveWindows(enlargedImageFigure);
     enlargedImageFigure.replaceChildren(
-      createImageWindow(galleryImage, true),
+      createImageWindow(galleryImage, true, imageSizes.lightbox),
       createElement("figcaption", "", caption),
     );
     originalImageLink.href = galleryImage.src;
@@ -555,11 +616,13 @@ export function createWorkGallery(
    * @param {HTMLElement} parentElement Element receiving the gallery.
    * @param {GalleryImage[]} galleryImages Ordered selected images.
    * @param {string} [galleryLayout] Layout role handled by the stylesheet.
+   * @param {Array<[string|null, string]>|null} [sizeEntries] Rendered widths; defaults follow the layout role.
    */
   function appendImageGallery(
     parentElement,
     galleryImages,
     galleryLayout = "default",
+    sizeEntries = null,
   ) {
     if (!galleryImages?.length) return;
     const imageGallery = createElement("div", "work-gallery");
@@ -569,6 +632,8 @@ export function createWorkGallery(
           ? "single"
           : "pair"
         : galleryLayout;
+    const resolvedSizes =
+      sizeEntries || imageSizes[imageGallery.dataset.galleryLayout] || imageSizes.pair;
     galleryImages.forEach((galleryImage) => {
       const { visibleArea } = resolveImageGeometry(galleryImage);
       const { width: visibleWidth, height: visibleHeight } = visibleArea;
@@ -587,7 +652,7 @@ export function createWorkGallery(
         `${localizeText(galleryImage.caption)}${activeLanguage === "zh" ? "，放大查看" : ", enlarge image"}`,
       );
       imageButton.append(
-        createImageWindow(galleryImage, galleryLayout === "hero"),
+        createImageWindow(galleryImage, galleryLayout === "hero", resolvedSizes),
       );
       imageButton.addEventListener("click", () =>
         showImage(galleryImage, imageButton),
@@ -941,7 +1006,14 @@ export function createWorkGallery(
     if (projectData.cover_videos?.length) {
       appendVideoGallery(projectOpening, projectData.cover_videos);
     } else {
-      appendImageGallery(projectOpening, projectData.cover_images, "hero");
+      appendImageGallery(
+        projectOpening,
+        projectData.cover_images,
+        "hero",
+        ["landscape", "installation"].includes(projectData.hero_layout)
+          ? imageSizes.heroWide
+          : imageSizes.hero,
+      );
     }
     projectOpening.append(projectIntroduction);
     projectDetail.append(projectOpening);
@@ -1223,7 +1295,7 @@ export function createWorkGallery(
       projectButton.style.setProperty("--preview-ratio", String(visibleArea.width / visibleArea.height));
       const preview = createElement("span", "work-preview");
       preview.setAttribute("aria-hidden", "true");
-      preview.append(createImageWindow(previewImage));
+      preview.append(createImageWindow(previewImage, false, imageSizes.index));
       projectButton.prepend(preview);
     }
     projectButton.addEventListener("click", (event) => {
@@ -1247,6 +1319,9 @@ export function createWorkGallery(
     back: returnToWorkIndex,
     open: openProject,
     currentProject: () => currentProjectId,
+    /** Localized title of the open case study, for the document title. */
+    currentTitle: () =>
+      currentProjectId ? localizeText(findProject(currentProjectId)?.title) : null,
     hasDetail: () => Boolean(currentProjectId),
   };
 }
