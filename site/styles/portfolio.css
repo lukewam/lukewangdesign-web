@@ -427,10 +427,6 @@ body {
 #portfolio-site [data-project-icon="multiverse"] {
   --ink-duration: 2.2s;
 }
-#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening {
-  display: block;
-  max-width: 62ch;
-}
 #portfolio-site [data-project-icon="eye"] {
   --ink-duration: 2.4s;
   --ink-rest: work-eye-rest;
@@ -1313,7 +1309,8 @@ body {
   #portfolio-site .work-video-gallery {
     grid-template-columns: 1fr;
   }
-  #portfolio-site .work-opening > .work-video-gallery[data-gallery-layout="pair"] {
+  /* Portrait pairs stay side by side; landscape pairs stack so each keeps its width. */
+  #portfolio-site .work-opening > .work-video-gallery[data-gallery-layout="pair"][data-video-orientation="portrait"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
   }
@@ -1630,22 +1627,6 @@ body {
 #portfolio-site .work-status {
   font-size: var(--text-sm);
   line-height: 1.55;
-}
-#portfolio-site .work-item[data-project-icon="multiverse"] {
-  width: 100%;
-  min-height: 200px;
-  align-content: center;
-  justify-items: start;
-  padding: 28px 0;
-  border-top: 1px solid var(--color-line);
-}
-#portfolio-site [data-project-icon="multiverse"] .work-drawing {
-  width: 120px;
-  height: 90px;
-  grid-column: 1;
-  grid-row: 1;
-  transform: none;
-  margin-bottom: 8px;
 }
 #portfolio-site .work-collections {
   display: grid;

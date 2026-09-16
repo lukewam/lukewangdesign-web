@@ -121,12 +121,129 @@
         "en": "In development",
         "zh": "开发中"
       },
-      "overview": {
-        "en": "A multiplayer game prototype set in a multiverse. The planned core loop lets three players choose traits at the same time, then face a monster that AI assembles from their choices.",
-        "zh": "一款正在开发的多元宇宙游戏原型。计划让三名玩家同时选择怪物词条，由 AI 组合成敌人，再一起面对各自选择带来的后果。"
+      "date_range": {
+        "start": "2026-09",
+        "label": {
+          "en": "September 2026 – ongoing",
+          "zh": "2026 年 9 月至今"
+        }
       },
+      "role": {
+        "en": "Design and development",
+        "zh": "设计与开发"
+      },
+      "collaborators": [
+        "Tianyang Wang"
+      ],
+      "overview": {
+        "en": "This is an online action game built around a generative AI model. Four players team up, and three of them fight one boss player, so the game is asymmetric. The monster is generated in real time from the prompts the three players choose, and that is the monster they then have to fight. The boss player plays the monster, so every round is a different, fresh experience. The game combines roguelike and party game: the randomness of a roguelike, taken to a whole new level with generative AI, while keeping the interaction of a party game, with intense interaction and plenty of trolling each other. Players can pick some really nasty traits to make the game more fun.",
+        "zh": "这是一款结合生成式 AI 模型的联机动作游戏。四名玩家组队，其中三人对抗一名 Boss 玩家，属于非对称对抗。三名玩家各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家扮演这只怪物与其他三人对抗，所以每一局都是不一样的新鲜体验。游戏把 Roguelike 和派对游戏结合在一起：Roguelike 的随机性，靠生成式 AI 推到一个全新的层次；同时又保留了派对游戏的互动性，高强度的互动和互坑都在其中。玩家可以选一些很坑人的词条，让游戏更有意思。"
+      },
+      "tools": [
+        "Unity",
+        "C#",
+        "Blender",
+        "Node.js"
+      ],
+      "links": [],
+      "hero_layout": "installation",
       "cover_images": [],
-      "sections": [],
+      "cover_videos": [
+        {
+          "src": "assets/films/ai-multiverse-playtest.mp4",
+          "poster": "assets/films/ai-multiverse-playtest-poster.jpg",
+          "title": {
+            "en": "Online playtest",
+            "zh": "联机试玩"
+          },
+          "caption": {
+            "en": "Two players in one room: the hunter and the boss-driven monster",
+            "zh": "两名玩家联机：猎人对上 Boss 操控的怪物"
+          },
+          "duration": 30,
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "src": "assets/films/ai-multiverse-arena.mp4",
+          "poster": "assets/films/ai-multiverse-arena-poster.jpg",
+          "title": {
+            "en": "Arena demo",
+            "zh": "场地演示"
+          },
+          "caption": {
+            "en": "Golden Ring Arena in Unity",
+            "zh": "Unity 里的 Golden Ring Arena"
+          },
+          "duration": 29.9,
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "sections": [
+        {
+          "id": "flowcharts",
+          "title": {
+            "en": "Flowcharts",
+            "zh": "流程图"
+          },
+          "layout": "wide",
+          "paragraphs": [],
+          "images": [
+            {
+              "src": "assets/portfolio/ai-multiverse/gameplay-flowchart-v5.png",
+              "width": 2112,
+              "height": 1632,
+              "caption": {
+                "en": "Gameplay flow, V5",
+                "zh": "玩法流程，V5"
+              },
+              "small": false
+            },
+            {
+              "src": "assets/portfolio/ai-multiverse/mvp-flowchart-v5.png",
+              "width": 2112,
+              "height": 1632,
+              "caption": {
+                "en": "MVP order, V5",
+                "zh": "MVP 开发顺序，V5"
+              },
+              "small": false
+            }
+          ]
+        },
+        {
+          "id": "concept",
+          "title": {
+            "en": "Concept art",
+            "zh": "概念图"
+          },
+          "layout": "wide",
+          "paragraphs": [],
+          "images": [
+            {
+              "src": "assets/portfolio/ai-multiverse/astronaut-sketch.png",
+              "width": 2732,
+              "height": 2048,
+              "caption": {
+                "en": "Astronaut concept",
+                "zh": "宇航员概念"
+              },
+              "small": false
+            },
+            {
+              "src": "assets/portfolio/ai-multiverse/arena-concept.png",
+              "width": 1672,
+              "height": 941,
+              "caption": {
+                "en": "Arena concept",
+                "zh": "场地概念图"
+              },
+              "small": false
+            }
+          ]
+        }
+      ],
       "index_subtitle": {
         "en": "AI Model-Driven Game",
         "zh": "AI 模型驱动游戏"
@@ -156,8 +273,8 @@
       },
       "collaborators": [],
       "overview": {
-        "en": "A recruitment poster leads to emails, Python assignments, and a fictional university. As the promise of progress begins to fail, players must question the rules they have been trying to follow.",
-        "zh": "一张招生海报，将玩家引向邮件、Python 作业与虚构的大学。当努力不再换来进展，寻找答案便成了对规则本身的追问。"
+        "en": "An alternate reality game. The player enters from a recruitment poster and writes to the email on it. A fictional professor assigns Python homework and mentions being out of town. The whole thing is about Camus’s absurdism. When effort no longer brings progress, players start to question the rules themselves and jump out of the box.",
+        "zh": "这是一个另类实境游戏。玩家从一张招生海报进入，给海报上的邮箱写信，一位虚构的教授会布置 Python 作业，并说自己正在外地。整个游戏讲的是加缪的荒诞主义：当努力不再换来进展，玩家开始质疑规则本身，跳出框架。"
       },
       "design_question": {
         "en": "Can a digital system make absurdity something we experience?",
@@ -229,8 +346,8 @@
           },
           "paragraphs": [
             {
-              "en": "I began with the language of an academic institution: a recruitment poster, a contact address, and an automatic reply from an absent professor. The email leaves a programming assignment. These ordinary details make the invitation credible before anything seems wrong.",
-              "zh": "向海报上的邮箱发信，会收到一封自动回复：教授暂时离校，留下一份编程作业。招生海报、联系邮箱与来信，这些寻常细节让虚构的学校显得可信。"
+              "en": "The poster was posted through public social accounts, pretending that we are promoting a coding boot camp. If you write to the email on the poster, you will receive an automatic reply. The email leaves a programming assignment. I wanted all of the flow to look very normal, so that at first glance people cannot see any difference.",
+              "zh": "海报通过公共社交账号发布，假装在宣传一个编程训练营。给海报上的邮箱写信会收到一封自动回复，邮件里留了一份编程作业。我想让整个流程看起来都很正常，乍一看看不出任何异样。"
             }
           ],
           "images": [
@@ -272,8 +389,8 @@
           },
           "paragraphs": [
             {
-              "en": "The player is asked to repair a weighted-average function in Python. The grader’s final test uses randomly generated inputs but insists on the arbitrary answer 42, so even a correct function can fail. Inspired by Camus, I made repetition part of the experience: progress begins when the player questions the test itself. The grader also contains the address of the school website.",
-              "zh": "任务要求修复 Python 的加权平均函数。评分程序最后一项测试使用随机生成的数据，却硬把 42 设为答案；函数写对了，也可能无法通过。加缪笔下的重复与受挫由此成为游戏体验。评分程序里还留着校园网站的地址，等待玩家跳出题目，重新审视规则。"
+              "en": "The homework is to fix a weighted average function in Python. The last test uses random inputs but insists the answer is 42, so even a correct function can fail. Because players keep getting stuck, they question whether the autograder has a problem. When they see the grading rules, they find the clue was hidden in the rules: the address of the school website. I hope at this step they realize that what they are doing is repetitive and mechanical, and if they think carefully, it is actually meaningless.",
+              "zh": "作业是修复一个 Python 加权平均函数。最后一个测试用随机输入，却硬要答案是 42，所以函数写对了也可能过不了。玩家一直卡着，就会质疑自动评分程序是不是有问题。看到打分规则之后，会发现线索就藏在规则里：学校网站的地址。我希望他们在这一步意识到，自己做的事情是重复的、机械的，再仔细想想，其实毫无意义。"
             }
           ],
           "images": [
@@ -298,8 +415,8 @@
           },
           "paragraphs": [
             {
-              "en": "I designed the website to resemble an outdated university portal. Missing courses and scattered bold letters turn its bureaucracy into a puzzle, bringing the email and assignment together. An AI assistant offers hints and asks questions about meaning; players who keep requesting the login details can also reach the ending through conversation.",
-              "zh": "网站刻意模仿老旧的大学门户。查不到的课程、散落的粗体字母，让繁琐的页面成为谜题，也串起邮件与作业中的线索。AI 助手既提供提示，也会追问意义是什么；反复询问登录信息，还能通过对话进入结尾。"
+              "en": "The website looks like an outdated university portal. A course is missing, and bold letters are scattered across the pages. They are the puzzle. There are two AI assistants on the website. The first talks with you like an advisor, while hinting at the meaning behind absurdism. It gives hints, and actually asks back what meaning is. In the end it still gives you the account and password.",
+              "zh": "网站做成一个过时的大学门户：有一门课缺失，各页散落着粗体字母，这些就是谜题。网站上有两个 AI 助手。第一个像顾问一样和你探讨，同时暗示荒诞主义的意义；它会给提示，其实是在反问意义是什么，最后还是会给你账号和密码。"
             }
           ],
           "images": [
@@ -330,8 +447,8 @@
           },
           "paragraphs": [
             {
-              "en": "Behind the student login is John Smith, the fictional professor, now speaking through an AI chatbot. The final encounter opens a conversation about absurdity instead of resolving the puzzles into one answer. I wanted the tension between our need for clarity and an indifferent system to remain with the player after the game ends.",
-              "zh": "登录后，虚构教授 John Smith 以 AI 聊天机器人的身份出现，将解谜带向一场关于荒诞的对话。结尾没有标准答案。我希望玩家在离开游戏后，仍会想起这段经历：人渴望清晰的解释，系统却始终漠然。"
+              "en": "After logging in comes a conversation with the John Smith bot, the fictional professor. It does not resolve the puzzles into one answer. As the final guide and summarizer, it talks with you about absurdism and about the experience of this game. I hope players leave with a better understanding of the concept.",
+              "zh": "登录后是与 John Smith 机器人的对话，也就是那位虚构的教授。它不会把谜题归结成一个答案，而是作为最后的启发者和总结者，和你聊荒诞主义和这段游戏的体验。我希望玩家离开游戏后，对这个概念有更多理解。"
             }
           ],
           "images": [
@@ -445,7 +562,7 @@
         }
       ],
       "process_note": {
-        "en": "The missing course is CSE 1A. Bold letters across the site spell “meaning”; encoding it in Base64 gives the password. The username, “lukewam,” is hidden in the URL.",
+        "en": "The missing course is CSE 1A. The bold letters across the site spell “meaning”. Encoding it in Base64 gives the password. The username, “lukewam”, is hidden in the URL.",
         "zh": "课程目录里找不到 CSE 1A。各页的粗体字母拼出“meaning”，将这个词转为 Base64 编码，便能得到密码。用户名“lukewam”藏在网址中。"
       },
       "index_subtitle": {
@@ -485,8 +602,8 @@
         "Irene Liao"
       ],
       "overview": {
-        "en": "Care for a virtual polar bear by completing small climate-friendly actions in daily life. Our Tamagotchi-inspired prototype turns those actions into coins for food and clothing, giving players a companion to return to.",
-        "zh": "完成日常环保任务，赚取金币，为虚拟北极熊购买食物和服装。原型借鉴了 Tamagotchi，通过照顾宠物，鼓励玩家坚持环保行动。"
+        "en": "A digital pet based on Tamagotchi. The idea is to get players to start from small things to protect the environment. Every day you complete tasks by taking photos, and the tasks are small things like taking the bus or picking up trash. You earn coins, and you can use them to buy food, to dress up your polar bear, and to add other players. I was involved from the research at the start to the low-fidelity and hi-fi prototypes.",
+        "zh": "这是一个根据 Tamagotchi 改的电子宠物，意在倡导玩家从小事开始保护环境。玩家每天通过拍照完成任务来赚取金币，任务都是很小的事情，比如坐公交、捡垃圾。金币可以用来买食物、装扮北极熊，也可以去社交，加别的玩家。我从开始的调研一直到后面的低保真、高保真原型都有参与。"
       },
       "links": [],
       "sections": [
@@ -498,8 +615,8 @@
           },
           "paragraphs": [
             {
-              "en": "Our survey reached more than 100 people, primarily Gen Z students. Many already took small climate-friendly actions but wanted encouragement to keep going; educational games often felt unappealing. We considered racing, a recycling RPG, and a digital pet. The pet offered a clear connection between everyday action and care, within a scope our team could prototype.",
-              "zh": "问卷收集了 100 多人的反馈，受访者多是 Z 世代学生。许多人已经会做一些环保小事，却缺少坚持的动力，也觉得教育游戏不够有趣。团队比较了赛车、回收主题 RPG 和电子宠物三个方案，最终选择宠物养成：行动与照料的关系直观，也适合当时的原型开发规模。"
+              "en": "We gave the survey first to people around us, then to strangers on the street, more than 100 people in all. Most were young people, but the ages ranged widely. What we cared about most: many people are willing to do things for the environment and care about it, but they don’t deliberately keep it up. And they find this kind of educational game especially boring. From the three options, a racing game, a recycling RPG, and a pet, we picked the polar bear, because the polar bear represents the glaciers. Glacier melting is the most direct example of the greenhouse effect. We wanted to make it as cute as possible, social, and lightweight, so players can play it every day. It should fit the Gen Z trend, not be a game that is education for the sake of education.",
+              "zh": "问卷先发给周围的人，再发给街上的陌生人，一共 100 多人，大部分是年轻人，年纪从小到大都有。最让我们在意的是，很多人愿意做环保的事，也很在意环保，但并没有很刻意地去坚持。第二是他们觉得这类教育游戏特别无聊。赛车、回收 RPG 和电子宠物三个方案里选了北极熊，因为北极熊代表冰川，冰川融化是温室效应最直接的例子。我们想把它做得尽量可爱、社交化、轻量化，让玩家每天都能玩，更符合 Z 世代的潮流，而不是一个只为了教育而教育的游戏。"
             }
           ],
           "images": [
@@ -524,8 +641,8 @@
           },
           "paragraphs": [
             {
-              "en": "In Figma, we tested two versions of customization, task progress, and task history. I designed Flow B. We recorded completion times, self-ratings, and comments during task-based sessions. The feedback favored B as the more intuitive option, helping us choose which flow to develop further.",
-              "zh": "团队在 Figma 中为装扮、任务进度和历史记录制作了 A、B 两套流程，其中 B 版由我设计。测试记录了完成时间、参与者自评与反馈。B 版被认为更容易上手，因此成为后续完善的方向。"
+              "en": "A and B are two flows with different button patterns, made in Figma for customization, task progress, and task history. In A you have to tap more, and the screens are hidden behind buttons. I designed B to be more intuitive. The calendar and the task records are placed directly on the screen, and the task preview has a summary. My idea was to give information to the user more directly. We first evaluated the flows inside the team, then gave them to people around us, and recorded how long the tasks took, self-ratings, and comments. B was chosen.",
+              "zh": "A 和 B 两套流程在 Figma 里做，包括装扮、任务进度和任务记录，按键模式不一样。A 的模式里需要点的操作更多，界面都被藏在按键里面了。我设计的 B 更直观：日历和任务记录直接放在页面上，任务预览里有任务概述。我的想法就是，首先要把信息更直观地给用户。测试是我们先在小组内部完成内部评价，然后再把它分发给周围的人评价，记录了完成时间、自评和评论，最后选了 B。"
             }
           ],
           "images": [
@@ -561,8 +678,8 @@
           },
           "paragraphs": [
             {
-              "en": "The resulting home screen brings tasks, progress, and streaks together. I designed the feeding and customization systems, including the inventory, icons, items, and tasks. A food shop, friends page, and profile extend the same daily loop: choose an action, earn coins, and spend time with the bear.",
-              "zh": "首页集中展示任务、进度和连续打卡记录。负责设计的喂养与装扮系统包括物品栏、图标、道具和任务，并与食物商店、好友页和个人资料相连：完成行动，赚取金币，再回来照顾北极熊。"
+              "en": "The home screen has the bear, the tasks, progress, and streaks. I designed the feeding and dress-up systems, including the inventory, the icons, the items, and the tasks. You earn coins by completing tasks, like taking the bus every day or using a reusable bag, and you confirm a task by taking a photo. In the food shop you buy food for the bear, and in the shop you buy decorations. There is also a profile page. The friends page is the social part. Others can see your polar bear, and you can show off your bear and your decorations. What I liked most was turning the concept into something real, and making a topic as educational as the environment into a game I would actually want to play.",
+              "zh": "首页有北极熊、任务、进度和连续打卡。我设计了喂养和装扮系统，包括物品栏、图标、道具和任务。金币通过完成任务来赚。任务比如说每天坐公交，或者用可重复使用的购物袋，然后通过拍照来确认完成任务。食物商店给北极熊买食物，商店买装饰，还有个人资料页。好友页是社交的一部分，让别人看到、也向别人展示自己的北极熊和装饰。做完之后我觉得最有意思的是把概念落实到行动中，把环保这么教育性的概念做进一个我真的愿意玩的游戏里。"
             }
           ],
           "images": [
@@ -803,8 +920,8 @@
         "Bran Zhang"
       ],
       "overview": {
-        "en": "A VR game made with Meta Quest 2 in Unity and C#. There is an injured person somewhere in the ruins of a city. The player has to walk through the ruins, find them, and choose the first-aid items they need. Each item has its own way of being used, and you have to use it on the injured person the right way for them to recover. There is also a time limit. If you run out of time, the injured person dies. I was responsible for user interaction and testing, from the controllers to hand tracking, including how the user finds their way, moves around, and picks things up.",
-        "zh": "这是一个用 Unity 和 C# 做的 Meta Quest 2 VR 游戏。城市废墟里有一个伤者，玩家需要走过废墟找到伤者，选择需要的急救物品。每个急救物品有不同的使用方式，玩家要用对应的方式把它用到伤者身上，让伤者恢复。游戏还有时间限制，必须在规定时间以内完成，不然伤者就死了。我负责用户交互和测试，从手柄到手部追踪，包括用户的寻路、行动和拿起东西。"
+        "en": "A VR game for Meta Quest 2, made in Unity and C#. Somewhere in the ruins of a city there is an injured person. The player has to walk through the ruins, find them, and choose the first-aid items they need. Each item is used in its own way. There is also a time limit: if it runs out, the injured person dies. I was responsible for user interaction and testing, from the controllers to hand tracking.",
+        "zh": "这是一个用 Unity 和 C# 做的 Meta Quest 2 VR 游戏。城市废墟里有一名伤者，玩家需要穿过废墟找到他，选择需要的急救物品，每种物品的使用方式都不同。游戏还有时间限制，超时伤者就会死亡。我负责用户交互和测试，从手柄到手部追踪。"
       },
       "tools": [
         "Unity",
@@ -822,8 +939,8 @@
           },
           "paragraphs": [
             {
-              "en": "The medical room prototype in Unity was for testing user interaction. We wanted to first make something where you can pick things up, with medical models, that we could use in the game later. A room limits where the user can go, and it is very straightforward. We can put different buttons on it and they are easy to recognize, because everything is white. The controller selects things with a ray, and with different buttons you can choose to teleport or pick up. The arrows for finding the injured came after the medical room. We also tried different things, like text that says how far away and in what direction. In the menu, besides the equipment, there is text. We can search to find the equipment we need. We can also see the injured person’s information and give a diagnosis.",
-              "zh": "最开始在 Unity 里搭的医疗室原型是用来做用户交互测试的。我们希望先做好一个能拿起东西、并且有医疗模型的东西，以后能用在游戏上面。房间能限制用户的出入，而且它的东西非常直接，我们可以直接在上面放不同的按钮，非常好辨认，因为全是白色的。手柄是用射线选东西，根据不同的按键，可以选择传送或者拿起。用箭头找伤者是做医疗室之后的事情。我们也试了不同的东西，比如箭头，或者用文字表达距离多远、在什么方向。菜单里除了器材，还有文字需要输入。我们可以通过搜索，搜索出需要的器材，也可以了解伤者的信息，然后提供诊断。"
+              "en": "The medical room prototype in Unity was for testing user interaction. The controller selects things with a ray, and different buttons switch between teleporting and picking up. The arrows for finding the injured came after the medical room. The menu holds the equipment and also text input. You can search for the equipment you need, read the injured person’s information, and give a diagnosis.",
+              "zh": "最开始在 Unity 里搭的医疗室原型，是用来做用户交互测试的。手柄用射线选东西，按不同的键可以传送或者拿起。用箭头引导找伤者是医疗室之后的事。菜单里除了器材，还有需要输入的文字。可以通过搜索找到需要的器材，也可以查看伤者的信息，然后给出诊断。"
             }
           ],
           "images": [
@@ -859,8 +976,8 @@
           },
           "paragraphs": [
             {
-              "en": "When we tested, the menu stayed still. No matter where the player walked, the menu was always there. It did not follow the player. We kept debugging. We attached it to the player first, but the height blocked the player’s view, so we adjusted the height step by step, and then let it hide when the player moves, so it is not in the player’s view.",
-              "zh": "测试的时候，菜单保持不动，不管玩家走到哪里，菜单始终在那里，没有跟随玩家移动。我们不停地调试，先是绑到玩家身上，但是高度会挡住玩家的视野，所以我们又逐步调整高度，然后再让它在行动的时候隐藏，不挡到玩家的视野。"
+              "en": "In testing, the menu stayed still and did not follow the player. We first attached it to the player, but its height blocked the view, so we adjusted the height step by step and then let it hide while the player moves.",
+              "zh": "测试时发现菜单固定不动，不跟随玩家。我们先把它绑到玩家身上，但高度会挡住视野，于是逐步调整高度，再让它在移动时隐藏。"
             }
           ],
           "images": [
@@ -885,8 +1002,8 @@
           },
           "paragraphs": [
             {
-              "en": "After that we added hand tracking with the Meta Interaction SDK. It was a course requirement. The fingers were hard to detect, so in the end we kept the thumb pressing against different fingers, a fist, and an open hand. For the virtual keyboard, we first press the fingers to bring up the menu, then touch with the finger to type. The people who tested it said it can work.",
-              "zh": "之后我们用 Meta Interaction SDK 加入了手部追踪，这是课程要求。因为手指很难检测到，我们最后留下了大拇指和不同手指的按压，以及握拳和张手。虚拟键盘是我们先用手指按压，调出菜单，然后再用手指触碰。测试的人表示它能用。"
+              "en": "After that we added hand tracking with the Meta Interaction SDK. Fingers were hard to detect, so in the end we kept only the thumb pressing against different fingers, a fist, and an open hand. For the virtual keyboard, you first press the fingers together to bring up the menu, then type by touching the keys with a finger.",
+              "zh": "之后我们用 Meta Interaction SDK 加入了手部追踪。手指很难被检测到，最后只留下大拇指与不同手指的按压，以及握拳和张手。虚拟键盘是先用手指按压调出菜单，再用手指触碰输入。"
             }
           ],
           "images": [
@@ -992,8 +1109,8 @@
         "Michael Baluja"
       ],
       "overview": {
-        "en": "A camera-equipped vehicle built to follow a track and respond to signs. I constructed its hardware and developed the tracking software, moving from recorded driving demonstrations toward explicit color-based responses in OpenCV.",
-        "zh": "一辆装有摄像头的小车，学习沿赛道行驶并响应路标。硬件搭建与循迹软件由我负责，先用驾驶示范训练模型，再通过 OpenCV 设置基于颜色的响应规则。"
+        "en": "This project is to make a small car that can drive by itself. At the end the car can look at the road signs and make the corresponding action by itself, for example parking, speeding up, slowing down, and the stop sign. I was responsible for the hardware and the tracking software.",
+        "zh": "这个项目是做一辆能自动驾驶的小车。最后小车可以根据路标自己做出相应动作，比如泊车、加速、减速，以及看到停车标志时停下。硬件和循迹软件由我负责。"
       },
       "tools": [
         "LightBurn",
@@ -1012,8 +1129,8 @@
           },
           "paragraphs": [
             {
-              "en": "I assembled and wired the vehicle, designed its laser-cut acrylic chassis in LightBurn, and modeled protective housings in Blender for 3D printing. NVIDIA hardware, a camera, front depth sensing, and a central VESC motor controller formed the platform. A laptop connection provided live video and manual driving with arrow keys.",
-              "zh": "亚克力底盘用 LightBurn 设计并激光切割，保护外壳则在 Blender 中建模、3D 打印。小车搭载 NVIDIA 硬件、摄像头、前置深度传感器与 VESC 电机控制器。完成组装与接线后，连接笔记本即可查看实时画面，用方向键手动驾驶。"
+              "en": "The car is an acrylic board. I designed it in LightBurn and laser cut it. On it there is the NVIDIA chip and a lidar, a camera, and a central VESC motor controller. We 3D printed a protective shell, to protect the NVIDIA chip and to mount the camera. The shell was modeled in Blender. We also designed its wiring and layout. We can control it remotely through a laptop, and receive real-time video. You can operate it with the arrow keys.",
+              "zh": "车身是亚克力板，我用 LightBurn 设计，再激光切割。上面有 NVIDIA 芯片、一个激光雷达、一个摄像头，以及中央的 VESC 电机控制器。我们 3D 打印了一个保护壳，用来保护 NVIDIA 芯片和安装摄像头，外壳在 Blender 里建模。我们也设计了它的走线与布局。通过笔记本可以远程操纵它，接收实时视频，用方向键就能操作。"
             }
           ],
           "images": [
@@ -1049,8 +1166,8 @@
           },
           "paragraphs": [
             {
-              "en": "I collected 30 laps of manual driving under different lighting conditions, trained the model on a remote server, and deployed it to the vehicle. Track reflections disrupted its performance, so I repeated the training process. Lighting became a practical part of the problem, not just a background condition.",
-              "zh": "在不同光照下手动驾驶 30 圈，用采集的数据在远程服务器上训练模型，再部署到小车。赛道反光会干扰行驶，因此又进行了多轮训练。光照变化成了实际测试中绕不开的问题。"
+              "en": "We used Donkey Car to do the 30 laps. We drove 30 laps to record its data, and trained the model on a remote server. After training, at the beginning the car did not know how to drive, because the reflection was very serious. The light on the site was very strong. What we could do was to train repeatedly at different times of the day, and use a large amount of data to resist the reflection, because the lights and the reflections are at different places at different times.",
+              "zh": "我们用 Donkey Car 开了三十圈记录数据，在远程服务器上训练模型。训练完之后，车一开始并不知道怎么跑，因为场地光线特别强，反光特别严重。我们能做的是在一天的不同时段反复训练，用大量数据来抵抗反光的干扰，因为不同时段灯光和反光落的位置也不一样。"
             }
           ],
           "images": [],
@@ -1096,8 +1213,8 @@
           },
           "paragraphs": [
             {
-              "en": "We reworked the approach in OpenCV so responses could be programmed more directly. I wrote the color detection: white marked track edges, black the driving surface, light blue the boundary, and red a stop cue. This gave the team more control over behaviors such as stopping, parking, speeding up, and slowing down.",
-              "zh": "随后用 OpenCV 调整方案，让小车按识别到的颜色作出响应。颜色检测程序将白色视为赛道边缘、黑色视为路面、浅蓝色视为边界，红色作为停止信号。这样便能更直接地设置停止、泊车、加速和减速等行为。"
+              "en": "Later we switched to OpenCV and responding by color, because training this way was slow and not very accurate. With color, black, white, and yellow identify the track better, and light blue marks its boundary. Above a certain horizon line, blue means parking and red means the stop sign. By recognizing the 50 and the 100 on the signs, the car decides whether to speed up or slow down.",
+              "zh": "后来改成用 OpenCV 按颜色响应，因为一直这样训练特别慢，准确率也不高。按颜色响应时，黑色、白色和黄色能更好地识别赛道，浅蓝色是赛道的边界。特定地平线以上的蓝色是泊车标志，红色是停车标志。通过辨认路标上的 50 和 100，确认是加速还是减速。"
             }
           ],
           "images": [
@@ -1264,7 +1381,7 @@
       ],
       "overview": {
         "en": "Zoo Navigator is an Android app about the map of the San Diego Zoo. You can choose which exhibits you want to go and see, and it tells you the closest way to walk. We used real San Diego Zoo data. It can also plan the route for you and give you a best route to follow, if you give it a whole list. I led the backend development and the search algorithm, and I also wrote some of the database search and the navigation.",
-        "zh": "Zoo Navigator 是一个关于 San Diego Zoo 地图的 Android App。你可以选择要去看什么园区，它会告诉你怎么走最近。我们用了真实的 San Diego Zoo 的数据。如果你给它输入一整个清单，它也能帮你规划路线，给你一个最佳的行动路线。我负责的是后端开发和搜索算法，同时也写了一些数据库的搜索和导航。"
+        "zh": "Zoo Navigator 是一个基于 San Diego Zoo 地图的 Android 应用。你可以选择想去看的园区，它会告诉你怎么走最近。我们用的是真实的 San Diego Zoo 数据。如果输入一整个清单，它也能帮你规划出最佳路线。我负责后端开发和搜索算法，也写了一部分数据库搜索和导航。"
       },
       "tools": [
         "Android Studio",
@@ -1281,7 +1398,7 @@
           "paragraphs": [
             {
               "en": "First is search. The search can use part of an animal’s name, so visitors don’t have to write the full name every time. They can also write a related nickname. After that they put the places they want to go into a list, and based on this list they can also choose a simpler guide or the detailed navigation. What I was responsible for was the search and the navigation system in this flow.",
-              "zh": "首先是搜索。这个搜索可以用一部分动物的名字，所以游客不用每次都写全名，也可以写相关的昵称。之后他们把想去的地方放到清单里，根据这个清单，他们也能选择更简洁的导览或者详细的导航。我负责的就是搜索和导航系统这个流程。"
+              "zh": "首先是搜索。搜索可以只输入动物名字的一部分，游客不用每次都写全名，也可以写相关的昵称。之后他们把想去的地方放进清单，再根据清单选择更简洁的导览或者详细的导航。这个流程里的搜索和导航系统由我负责。"
             }
           ],
           "images": [],
@@ -1295,8 +1412,8 @@
           },
           "paragraphs": [
             {
-              "en": "We used the real map of the San Diego Zoo. We first made the map into nodes by hand, then added weighted paths between the nodes to simulate the distance between them. Then we used Dijkstra’s algorithm to calculate the nearest path from the visitor’s position to the stops they chose.",
-              "zh": "我们用真正的 San Diego Zoo 园区的地图。先手动把这个地图做成节点，然后在节点之间加入带权重的路径，来模拟它们之间的路程。然后我们用 Dijkstra 的算法，算出从游客位置到所选园区最近的路。"
+              "en": "We used the real map of the San Diego Zoo. We first turned the map into nodes by hand, then added weighted paths between the nodes to represent the distances between them. Dijkstra’s algorithm then calculates the shortest path from the visitor’s position to the stops they chose.",
+              "zh": "我们用的是 San Diego Zoo 真实的园区地图。先手动把地图做成节点，再在节点之间加入带权重的路径，模拟它们之间的路程。然后用 Dijkstra 算法，算出从游客位置到所选园区最近的路。"
             }
           ],
           "images": [
@@ -1322,7 +1439,7 @@
           "paragraphs": [
             {
               "en": "We built the app in Android Studio, and used different modules to develop the different functions separately. I was also responsible for unit testing, doing unit tests on the different features, and at the end we did the integration test to look at all the functions together, including search, planning, navigation, detailed navigation, and toggling between the different navigation modes.",
-              "zh": "我们在 Android Studio 里开发，先用不同的模块来分开开发不同的功能。我同样负责单元测试，对不同的功能进行单元测试，最后再进行集成测试，看一下所有功能，包括搜索、规划、导航、详细导航，还有不同导航模式的切换。"
+              "zh": "我们在 Android Studio 里开发，不同功能放在不同模块里分开开发。我也负责单元测试，对各个功能分别测试，最后再做集成测试，把搜索、规划、导航、详细导航和导航模式切换放在一起检验。"
             }
           ],
           "images": [
@@ -1766,8 +1883,8 @@
       "zh": "构思、绘画、程序与装置制作"
     },
     "overview": {
-      "en": "A self-portrait, abstract paintings, and projected images share a wall. A camera captures the paintings and wall projection live; YOLO and CLIP interpret the scene while visitors watch. What we recognize depends on what we bring to an image.",
-      "zh": "自画像、抽象绘画与投影并置在墙上，摄像头将绘画与墙上的投影一起收入画面，交由 YOLO 和 CLIP 实时识别。观众驻足观看，也在各自的经验中辨认这些图像。同一张画，因观看者而有了不同的意味。"
+      "en": "This work is an installation that combines projection and oil painting. On the wall are four self-portraits, all of the same subject, which is my face. The camera points at the most abstract one, the one made of lines. YOLO and CLIP detect what the camera can see, but they cannot detect that the painting is a face, my face. The audience, with the context given by the other three paintings and their own past experience, can see that it is a face.",
+      "zh": "这个作品是一个结合投影和油画的装置。墙上是我的四张自画像，画的都是同一个主题，就是我的脸。摄像头对着的是其中最抽象、用线条表示的那一张，YOLO 和 CLIP 检测摄像头看到的东西，但它们检测不出画上是一张脸，是我的脸。观众结合另外三张画给的语境，加上自己过往的经历，却能看出那是一张脸。"
     },
     "links": [
       {
@@ -1789,8 +1906,8 @@
         },
         "paragraphs": [
           {
-            "en": "A friend may recognize the person before noticing the painting. A stranger may first see a face, a surface, or a collection of marks. The models approach the same image through learned visual patterns and a set of labels. Each reading belongs to a different web of relationships. “Machinery structuralism” is my way of bringing them into the same space.",
-            "zh": "熟悉的人也许先认出我，陌生人看到的则可能是一张脸，或画布上的色块。识别模型依据训练中形成的视觉关系和预设标签，给出另一种解释。“机械结构主义”由此追问：图像的意义，如何在这些不同的关系中形成？"
+            "en": "The machine itself does not have the social structure or the shared memory that humans have. The three ways of seeing: first, you only see its shape; second, through your past social experience and memory you judge that this is a person; third, if you are my close friend, you know this person is me. Machinery structuralism gives structuralism a more contemporary definition: the meaning that exists between humans, AI, and machines, and the relations between us and images, and between computers and images.",
+            "zh": "机器本身是没有记忆的，没有社会结构，也没有像人类一样的共同记忆。三种看的区别：第一，你只看到形状；第二，你通过过去的社会经验和记忆，判断出这是一个人；第三，如果你是我的好朋友，你会知道这个人是我。机械结构主义想给结构主义一个更当代的定义：人、AI 和机械之间彼此存在的意义，以及我们与图像、电脑与图像之间的关系。"
           }
         ],
         "layout": "wide",
@@ -1838,8 +1955,8 @@
         },
         "paragraphs": [
           {
-            "en": "A sentence describing a face becomes the starting point for another image. Working from Aperture, I adapted an attention-map visualization to follow individual words across generation steps. In the film, facial features gather and disperse across eighteen small fields. Watching them together draws attention to the relationships between words and image regions.",
-            "zh": "一句对面孔的描述，成为生成图像的起点。借助改写后的 Aperture，文字在生成过程中对应的注意力图被逐步记录下来。十八个小格里，面孔从噪点中浮现，又在循环播放中散去，让文字与图像之间的联系变得可见。"
+            "en": "The film generates an image from a sentence describing a face. The eighteen small squares in Aperture correspond to the generation process of each word. I want to use it to show how machines understand vision, and the difference from how humans understand images.",
+            "zh": "影片是用一句描述面孔的话生成图像，Aperture 里的十八个小格分别对应每个词的生成过程。我希望用它展示机器对视觉的理解，以及和人类理解图片的区别。"
           }
         ],
         "layout": "paired",
@@ -1871,12 +1988,12 @@
         },
         "paragraphs": [
           {
-            "en": "Jim Campbell’s work encouraged me to think about light as part of an image’s physical presence. Projection let a canvas hold a painted image and a changing digital one at once.",
-            "zh": "Jim Campbell 的作品让我留意，光如何影响我们辨认一幅图像。投影覆在画布上，绘画便有了另一层会变化的表面。"
+            "en": "The projection is a realistic face dissolving into abstraction, so a concrete face appears in the abstract painting, simulating how generative AI turns the latent space of a diffusion model into an image. The other projection shows the confidence score. The latent space is the shared memory of the machines: they understand the face in the noise, but not the face in the abstract lines. Jim Campbell’s work made me notice that light is also a part of the image.",
+            "zh": "投影是一张写实的脸溶解成抽象，于是抽象画中浮现出一个具象的人脸，模拟生成式 AI 在扩散模型里从潜空间变成图片的样子。另一个投影展示置信度分数。潜空间是机器自己的共同记忆：它们能理解噪点中的人脸，却理解不了抽象线条里的人脸。Jim Campbell 的作品让我留意，光如何影响我们辨认一幅图像。"
           },
           {
-            "en": "The first installation exposed a practical tension: room light kept the paint visible but weakened the projection; dimming the room made the projection clearer while hiding the painted surface. Small projected text was also difficult to read. This test made lighting, scale, and legibility central to the next iteration.",
-            "zh": "实际布展时，明亮的环境削弱了投影，暗下来又看不清笔触；投影文字也偏小。这次尝试，让光照、画幅和文字尺度成了后续调整的重点。"
+            "en": "When installing, finding the balance between the painting and the projection was hard: too bright and the projection cannot be seen, too dark and the painting cannot be seen. The projected text was also too small.",
+            "zh": "布展时，画与投影的平衡很难找：太亮投影看不到，太暗画看不到。投影的文字也太小。"
           }
         ],
         "layout": "paired",
@@ -1951,8 +2068,8 @@
       }
     ],
     "process_note": {
-      "en": "Earlier experiments included reconstructing a lemon from frames of Hollis Frampton’s Lemon (1969). The essay follows these studies and the ideas that connect them to the installation.",
-      "zh": "前期还尝试过从 Hollis Frampton 的《柠檬》（1969）中提取画面、重建三维形体。论文记录了这些实验，以及它们如何逐渐汇入装置的构思。"
+      "en": "The lemon is the most direct annotation of structuralism: what we see is not the thing itself, but a product of all its relations with everything else. I rebuilt a 3D lemon from frames of Hollis Frampton’s Lemon (1969) with photogrammetry. These experiments are in the essay.",
+      "zh": "柠檬是对结构主义最直观的注解：我们看到的东西不是东西本身，而是它和其他所有东西之间所有关系的结合产物。我从 Hollis Frampton 的《柠檬》（1969）中提取画面、重建三维形体，这些实验都在论文里。"
     },
     "cover_videos": [
       {

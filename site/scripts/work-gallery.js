@@ -673,6 +673,12 @@ export function createWorkGallery(
     const videoGallery = createElement("div", "work-video-gallery");
     videoGallery.dataset.galleryLayout =
       videoSources.length === 1 ? "single" : videoSources.length === 2 ? "pair" : "collection";
+    /** Narrow layouts keep portrait pairs side by side and stack landscape ones. */
+    videoGallery.dataset.videoOrientation = videoSources.every(
+      (videoData) => videoData.height > videoData.width,
+    )
+      ? "portrait"
+      : "landscape";
     videoSources.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
       const videoElement = document.createElement("video");

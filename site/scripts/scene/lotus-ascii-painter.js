@@ -1,5 +1,5 @@
-import { clampRange, deterministicNoise } from "../motion/easing.js?v=1c5407edbe6d";
-import { lotusSceneSettings } from "../motion/settings.js?v=1c5407edbe6d";
+import { clampRange, deterministicNoise } from "../motion/easing.js?v=55b24ef37b4f";
+import { lotusSceneSettings } from "../motion/settings.js?v=55b24ef37b4f";
 
 /**
  * Paint the rendered lotus as ASCII characters on the paper canvas and keep

@@ -1,4 +1,32 @@
 {
+  "assets/films/ai-multiverse-arena-poster.jpg": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "assets/optimized/films/ai-multiverse-arena-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/ai-multiverse-arena-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/ai-multiverse-playtest-poster.jpg": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "assets/optimized/films/ai-multiverse-playtest-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/ai-multiverse-playtest-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
   "assets/films/autonomous-vehicle-road-mat-poster.jpg": {
     "width": 1920,
     "height": 1080,
@@ -222,6 +250,90 @@
       {
         "src": "assets/optimized/paintings/self-portrait-original-645.webp",
         "width": 645
+      }
+    ]
+  },
+  "assets/portfolio/ai-multiverse/arena-concept.png": {
+    "width": 1672,
+    "height": 941,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/arena-concept-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/arena-concept-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/arena-concept-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/ai-multiverse/astronaut-sketch.png": {
+    "width": 2732,
+    "height": 2048,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/astronaut-sketch-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/astronaut-sketch-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/astronaut-sketch-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/astronaut-sketch-2000.webp",
+        "width": 2000
+      }
+    ]
+  },
+  "assets/portfolio/ai-multiverse/gameplay-flowchart-v5.png": {
+    "width": 2112,
+    "height": 1632,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/gameplay-flowchart-v5-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/gameplay-flowchart-v5-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/gameplay-flowchart-v5-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/gameplay-flowchart-v5-2000.webp",
+        "width": 2000
+      }
+    ]
+  },
+  "assets/portfolio/ai-multiverse/mvp-flowchart-v5.png": {
+    "width": 2112,
+    "height": 1632,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/mvp-flowchart-v5-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/mvp-flowchart-v5-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/mvp-flowchart-v5-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/ai-multiverse/mvp-flowchart-v5-2000.webp",
+        "width": 2000
       }
     ]
   },
