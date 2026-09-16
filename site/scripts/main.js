@@ -1,6 +1,6 @@
-import { createLotusRenderer } from "./scene/lotus-renderer.js?v=2ea68460b0f0";
-import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=2ea68460b0f0";
-import { initializePortfolio } from "./portfolio-controller.js?v=2ea68460b0f0";
+import { createLotusRenderer } from "./scene/lotus-renderer.js?v=1c5407edbe6d";
+import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=1c5407edbe6d";
+import { initializePortfolio } from "./portfolio-controller.js?v=1c5407edbe6d";
 
 /**
  * Load a local resource relative to this module, including on a repository subpath.
@@ -28,9 +28,9 @@ async function loadResource(relativePath, responseFormat = "text") {
 async function loadLotusRenderer() {
   try {
     const [lotusModel, vertexShader, fragmentShader] = await Promise.all([
-      loadResource("../assets/models/lotus.json?v=2ea68460b0f0", "json"),
-      loadResource("../assets/shaders/lotus.vert?v=2ea68460b0f0"),
-      loadResource("../assets/shaders/lotus.frag?v=2ea68460b0f0"),
+      loadResource("../assets/models/lotus.json?v=1c5407edbe6d", "json"),
+      loadResource("../assets/shaders/lotus.vert?v=1c5407edbe6d"),
+      loadResource("../assets/shaders/lotus.frag?v=1c5407edbe6d"),
     ]);
     return createLotusRenderer(lotusModel, vertexShader, fragmentShader);
   } catch (error) {
@@ -47,7 +47,7 @@ async function loadLotusRenderer() {
 async function loadDragonflyRenderer(portfolioRoot) {
   try {
     const modelBuffer = await loadResource(
-      "../assets/models/dragonfly.bin?v=2ea68460b0f0",
+      "../assets/models/dragonfly.bin?v=1c5407edbe6d",
       "arrayBuffer",
     );
     const modelBytes = new Uint8Array(modelBuffer);
@@ -68,9 +68,9 @@ async function startPortfolio() {
   const portfolioRoot = document.querySelector("#portfolio-site");
   const [portfolioData, mediaManifest, lotusRenderer, dragonflyRenderer] =
     await Promise.all([
-      loadResource("../data/projects.json?v=2ea68460b0f0", "json"),
+      loadResource("../data/projects.json?v=1c5407edbe6d", "json"),
       /** Size variants are an enhancement; the original images remain available. */
-      loadResource("../data/media-manifest.json?v=2ea68460b0f0", "json").catch((error) => {
+      loadResource("../data/media-manifest.json?v=1c5407edbe6d", "json").catch((error) => {
         console.warn("Image size variants could not load.", error);
         return {};
       }),

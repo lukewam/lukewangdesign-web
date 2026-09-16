@@ -803,8 +803,8 @@
         "Bran Zhang"
       ],
       "overview": {
-        "en": "A Meta Quest 2 game set in an urban disaster scene. Players locate injured people, select first-aid items, and follow guided actions against the clock. I led interaction design and testing, from controller input to hand tracking.",
-        "zh": "这款 Meta Quest 2 游戏模拟城市灾后救援。玩家要在限定时间内找到伤者、选择急救物品，并按指引操作。交互设计与测试从手柄操作入手，再逐步扩展到手部追踪。"
+        "en": "A VR game made with Meta Quest 2 in Unity and C#. There is an injured person somewhere in the ruins of a city. The player has to walk through the ruins, find them, and choose the first-aid items they need. Each item has its own way of being used, and you have to use it on the injured person the right way for them to recover. There is also a time limit. If you run out of time, the injured person dies. I was responsible for user interaction and testing, from the controllers to hand tracking, including how the user finds their way, moves around, and picks things up.",
+        "zh": "这是一个用 Unity 和 C# 做的 Meta Quest 2 VR 游戏。城市废墟里有一个伤者，玩家需要走过废墟找到伤者，选择需要的急救物品。每个急救物品有不同的使用方式，玩家要用对应的方式把它用到伤者身上，让伤者恢复。游戏还有时间限制，必须在规定时间以内完成，不然伤者就死了。我负责用户交互和测试，从手柄到手部追踪，包括用户的寻路、行动和拿起东西。"
       },
       "tools": [
         "Unity",
@@ -822,8 +822,8 @@
           },
           "paragraphs": [
             {
-              "en": "I built a medical-room prototype in Unity and C# to develop selection, object manipulation, and movement. A controller ray selects items and points to teleport destinations. Directional arrows lead toward injured people, while a menu lets players choose equipment and enter text.",
-              "zh": "最初用 Unity 和 C# 搭建医疗室原型，实现物品选择、操作和移动。手柄射线既可选取物品，也可指定传送位置；箭头引导玩家找到伤者，菜单则用于选择器材和输入文字。"
+              "en": "The medical room prototype in Unity was for testing user interaction. We wanted to first make something where you can pick things up, with medical models, that we could use in the game later. A room limits where the user can go, and it is very straightforward. We can put different buttons on it and they are easy to recognize, because everything is white. The controller selects things with a ray, and with different buttons you can choose to teleport or pick up. The arrows for finding the injured came after the medical room. We also tried different things, like text that says how far away and in what direction. In the menu, besides the equipment, there is text. We can search to find the equipment we need. We can also see the injured person’s information and give a diagnosis.",
+              "zh": "最开始在 Unity 里搭的医疗室原型是用来做用户交互测试的。我们希望先做好一个能拿起东西、并且有医疗模型的东西，以后能用在游戏上面。房间能限制用户的出入，而且它的东西非常直接，我们可以直接在上面放不同的按钮，非常好辨认，因为全是白色的。手柄是用射线选东西，根据不同的按键，可以选择传送或者拿起。用箭头找伤者是做医疗室之后的事情。我们也试了不同的东西，比如箭头，或者用文字表达距离多远、在什么方向。菜单里除了器材，还有文字需要输入。我们可以通过搜索，搜索出需要的器材，也可以了解伤者的信息，然后提供诊断。"
             }
           ],
           "images": [
@@ -859,8 +859,8 @@
           },
           "paragraphs": [
             {
-              "en": "Testing exposed a practical issue: the menu needed to stay usable as the player moved. I attached it to the player model, adjusted its height dynamically, and hid it when unused. That kept the same tools available throughout the scene without leaving the menu permanently in view.",
-              "zh": "测试中发现，玩家移动时，菜单也需要保持在便于操作的位置。将菜单绑定到玩家模型，并动态调整高度后，就能随时调用工具；不用时则隐藏菜单，减少视线遮挡。"
+              "en": "When we tested, the menu stayed still. No matter where the player walked, the menu was always there. It did not follow the player. We kept debugging. We attached it to the player first, but the height blocked the player’s view, so we adjusted the height step by step, and then let it hide when the player moves, so it is not in the player’s view.",
+              "zh": "测试的时候，菜单保持不动，不管玩家走到哪里，菜单始终在那里，没有跟随玩家移动。我们不停地调试，先是绑到玩家身上，但是高度会挡住玩家的视野，所以我们又逐步调整高度，然后再让它在行动的时候隐藏，不挡到玩家的视野。"
             }
           ],
           "images": [
@@ -885,8 +885,8 @@
           },
           "paragraphs": [
             {
-              "en": "We then mapped hand gestures to the existing controls with the Meta Interaction SDK. Some gestures were difficult for the headset to recognize, so I focused on simple, distinct movements. The work became a balance between what felt understandable to the player and what the tracking system could reliably distinguish.",
-              "zh": "随后通过 Meta Interaction SDK，将手势对应到已有操作。由于部分动作难以稳定识别，设计时优先选择简单、差异明显的手势：既要让玩家容易理解，也要让头显能够分辨。"
+              "en": "After that we added hand tracking with the Meta Interaction SDK. It was a course requirement. The fingers were hard to detect, so in the end we kept the thumb pressing against different fingers, a fist, and an open hand. For the virtual keyboard, we first press the fingers to bring up the menu, then touch with the finger to type. The people who tested it said it can work.",
+              "zh": "之后我们用 Meta Interaction SDK 加入了手部追踪，这是课程要求。因为手指很难检测到，我们最后留下了大拇指和不同手指的按压，以及握拳和张手。虚拟键盘是我们先用手指按压，调出菜单，然后再用手指触碰。测试的人表示它能用。"
             }
           ],
           "images": [
