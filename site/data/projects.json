@@ -1263,8 +1263,8 @@
         "Galen Ng"
       ],
       "overview": {
-        "en": "Choose the animals you want to see, then find a route through the San Diego Zoo. I led the search and navigation backend for an Android app that turns a list of favorite exhibits into a visit plan.",
-        "zh": "选好想看的动物，就能规划圣地亚哥动物园的游览路线。这款 Android 应用把展区清单变成行程计划，搜索与导航后端由我负责。"
+        "en": "Zoo Navigator is an Android app about the map of the San Diego Zoo. You can choose which exhibits you want to go and see, and it tells you the closest way to walk. We used real San Diego Zoo data. It can also plan the route for you and give you a best route to follow, if you give it a whole list. I led the backend development and the search algorithm, and I also wrote some of the database search and the navigation.",
+        "zh": "Zoo Navigator 是一个关于 San Diego Zoo 地图的 Android App。你可以选择要去看什么园区，它会告诉你怎么走最近。我们用了真实的 San Diego Zoo 的数据。如果你给它输入一整个清单，它也能帮你规划路线，给你一个最佳的行动路线。我负责的是后端开发和搜索算法，同时也写了一些数据库的搜索和导航。"
       },
       "tools": [
         "Android Studio",
@@ -1280,8 +1280,8 @@
           },
           "paragraphs": [
             {
-              "en": "The search accepts partial animal names, so visitors can find exhibits without typing a complete name. They add the places they want to visit, then choose between detailed navigation and a simpler guide. I was responsible for the search and navigation systems behind this flow.",
-              "zh": "输入动物名称的一部分，就能找到对应展区。将想去的地点加入清单后，可以选择详细导航或更简洁的导览，按计划开始游览。"
+              "en": "First is search. The search can use part of an animal’s name, so visitors don’t have to write the full name every time. They can also write a related nickname. After that they put the places they want to go into a list, and based on this list they can also choose a simpler guide or the detailed navigation. What I was responsible for was the search and the navigation system in this flow.",
+              "zh": "首先是搜索。这个搜索可以用一部分动物的名字，所以游客不用每次都写全名，也可以写相关的昵称。之后他们把想去的地方放到清单里，根据这个清单，他们也能选择更简洁的导览或者详细的导航。我负责的就是搜索和导航系统这个流程。"
             }
           ],
           "images": [],
@@ -1295,8 +1295,8 @@
           },
           "paragraphs": [
             {
-              "en": "We manually imported the zoo map as connected locations and roads. Each road carries a distance, allowing Dijkstra’s algorithm to calculate shortest paths from the visitor’s location. This is the foundation for navigation between selected stops.",
-              "zh": "地图由团队手动录入，地点与道路组成路径图，每条道路带有距离权重。Dijkstra 算法据此计算从当前位置出发的最短路径，帮助游客在所选展区之间导航。"
+              "en": "We used the real map of the San Diego Zoo. We first made the map into nodes by hand, then added weighted paths between the nodes to simulate the distance between them. Then we used Dijkstra’s algorithm to calculate the nearest path from the visitor’s position to the stops they chose.",
+              "zh": "我们用真正的 San Diego Zoo 园区的地图。先手动把这个地图做成节点，然后在节点之间加入带权重的路径，来模拟它们之间的路程。然后我们用 Dijkstra 的算法，算出从游客位置到所选园区最近的路。"
             }
           ],
           "images": [
@@ -1321,8 +1321,8 @@
           },
           "paragraphs": [
             {
-              "en": "We built the app in Android Studio with functions separated into modules. I ran unit tests for individual features and integration tests that followed the overall visitor flow, checking how search, planning, and navigation worked together.",
-              "zh": "应用在 Android Studio 中开发，各项功能拆分为独立模块。单元测试检查单项功能，集成测试则模拟完整游览流程，确认搜索、规划与导航能否顺利衔接。"
+              "en": "We built the app in Android Studio, and used different modules to develop the different functions separately. I was also responsible for unit testing, doing unit tests on the different features, and at the end we did the integration test to look at all the functions together, including search, planning, navigation, detailed navigation, and toggling between the different navigation modes.",
+              "zh": "我们在 Android Studio 里开发，先用不同的模块来分开开发不同的功能。我同样负责单元测试，对不同的功能进行单元测试，最后再进行集成测试，看一下所有功能，包括搜索、规划、导航、详细导航，还有不同导航模式的切换。"
             }
           ],
           "images": [
