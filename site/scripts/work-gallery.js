@@ -182,6 +182,28 @@ export function createWorkGallery(
     ],
     single: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "60vw"]],
     pair: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "40vw"]],
+    // Case-study galleries: the reading container turns single-column below 620px
+    // (about a 690px viewport). Above that, two columns share the panel width with a
+    // 40px gap, which comes to roughly 45.5vw - 14px each; concept pairs split the
+    // same width 2fr / 3fr, matching portfolio.css.
+    documents: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      [null, "min(600px, calc(45.5vw - 14px))"],
+    ],
+    studies: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      [null, "min(600px, calc(45.5vw - 14px))"],
+    ],
+    concept: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      ["(max-width: 900px)", "calc(45.5vw - 14px)"],
+      [null, "min(480px, calc(36.4vw - 16px))"],
+    ],
+    conceptWide: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      ["(max-width: 900px)", "calc(45.5vw - 14px)"],
+      [null, "min(720px, calc(54.6vw - 24px))"],
+    ],
     invitation: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "33vw"]],
     hardware: [["(max-width: 600px)", "calc(100vw - 48px)"], [null, "33vw"]],
     phones: [["(max-width: 600px)", "45vw"], [null, "22vw"]],
@@ -193,6 +215,8 @@ export function createWorkGallery(
       [null, "calc(100vw - 104px)"],
     ],
   };
+  /** Galleries whose columns differ in width list one sizes entry per column, in column order. */
+  const columnSizes = { concept: [imageSizes.concept, imageSizes.conceptWide] };
 
   /**
    * Offer the WebP size variants of an image; the original stays the src fallback.
@@ -359,11 +383,23 @@ export function createWorkGallery(
       : content?.[activeLanguage] || content?.en || "";
   }
 
-  /** Appends localized prose as text, without interpreting project copy as markup. */
+  /** Blank lines divide localized prose into real paragraphs, without parsing HTML. */
   function appendParagraph(parentElement, content, className = "") {
-    const paragraph = createElement("p", className, localizeText(content));
-    parentElement.append(paragraph);
-    return paragraph;
+    const paragraphs = localizeText(content)
+      .split(/\r?\n\s*\r?\n/u)
+      .map((text) => text.trim())
+      .filter(Boolean)
+      .map((text) => createElement("p", className, text));
+    parentElement.append(...paragraphs);
+    return paragraphs[0] || null;
+  }
+
+  /** Keeps the overview together as one layout unit even when it has several paragraphs. */
+  function appendOverview(parentElement, content) {
+    if (!localizeText(content).trim()) return;
+    const overview = createElement("div", "work-overview");
+    appendParagraph(overview, content, "work-lead");
+    parentElement.append(overview);
   }
 
   /** Resolves both complete projects and the two separate index entries. */
@@ -634,7 +670,7 @@ export function createWorkGallery(
         : galleryLayout;
     const resolvedSizes =
       sizeEntries || imageSizes[imageGallery.dataset.galleryLayout] || imageSizes.pair;
-    galleryImages.forEach((galleryImage) => {
+    galleryImages.forEach((galleryImage, imageIndex) => {
       const { visibleArea } = resolveImageGeometry(galleryImage);
       const { width: visibleWidth, height: visibleHeight } = visibleArea;
       const imageFigure = createElement("figure", "work-figure");
@@ -651,8 +687,15 @@ export function createWorkGallery(
         "aria-label",
         `${localizeText(galleryImage.caption)}${activeLanguage === "zh" ? "，放大查看" : ", enlarge image"}`,
       );
+      const perColumnSizes = sizeEntries ? null : columnSizes[galleryLayout];
       imageButton.append(
-        createImageWindow(galleryImage, galleryLayout === "hero", resolvedSizes),
+        createImageWindow(
+          galleryImage,
+          galleryLayout === "hero",
+          perColumnSizes
+            ? perColumnSizes[imageIndex % perColumnSizes.length]
+            : resolvedSizes,
+        ),
       );
       imageButton.addEventListener("click", () =>
         showImage(galleryImage, imageButton),
@@ -963,17 +1006,20 @@ export function createWorkGallery(
       "00",
       activeLanguage === "zh" ? "项目概览" : "Overview",
     );
+    const projectStatus = localizeText(projectData.status).trim();
+    if (projectStatus)
+      appendParagraph(projectDetail, projectStatus, "work-project-status");
     if (
       currentProjectId === "machinery-structuralism" &&
       !projectData.sections?.length
     ) {
-      appendParagraph(projectDetail, projectData.overview, "work-lead");
+      appendOverview(projectDetail, projectData.overview);
       appendDetailFooter(projectData);
       return;
     }
     if (currentProjectId === "oil-paintings") {
       const artIntroduction = createElement("div", "work-introduction");
-      appendParagraph(artIntroduction, projectData.overview, "work-lead");
+      appendOverview(artIntroduction, projectData.overview);
       appendParagraph(
         artIntroduction,
         projectData.date_range.label,
@@ -1000,13 +1046,13 @@ export function createWorkGallery(
     const projectOpening = createElement("div", "work-opening");
     projectOpening.dataset.heroLayout = projectData.hero_layout || "object";
     const projectIntroduction = createElement("div", "work-introduction");
-    if (projectData.subtitle)
+    if (projectData.subtitle && localizeText(projectData.subtitle).trim() !== projectStatus)
       appendParagraph(
         projectIntroduction,
         projectData.subtitle,
         "work-subtitle",
       );
-    appendParagraph(projectIntroduction, projectData.overview, "work-lead");
+    appendOverview(projectIntroduction, projectData.overview);
     appendProjectMetadata(projectIntroduction, projectData);
     appendProjectMaterials(projectData, projectIntroduction);
     if (projectData.cover_videos?.length) {
@@ -1027,6 +1073,7 @@ export function createWorkGallery(
     (projectData.sections || []).forEach((projectSection, sectionIndex) => {
       const chapterSection = createElement("section", "work-chapter");
       chapterSection.dataset.chapterLayout = projectSection.layout || "paired";
+      chapterSection.dataset.chapterId = projectSection.id;
       const chapterCopy = createElement("div", "work-chapter-copy");
       const chapterNumber = String(sectionIndex + 1).padStart(2, "0");
       const chapterHeading = createElement(
@@ -1041,9 +1088,14 @@ export function createWorkGallery(
         createElement("span", "work-chapter-number", chapterNumber),
         chapterHeading,
       );
-      projectSection.paragraphs.forEach((paragraph) =>
-        appendParagraph(chapterCopy, paragraph),
+      /** Blank paragraphs render nothing, so the copy flag follows what was rendered. */
+      const chapterProse = createElement("div", "work-chapter-prose");
+      (projectSection.paragraphs || []).forEach((paragraph) =>
+        appendParagraph(chapterProse, paragraph),
       );
+      const hasChapterCopy = chapterProse.childElementCount > 0;
+      chapterSection.dataset.hasCopy = String(hasChapterCopy);
+      if (hasChapterCopy) chapterCopy.append(chapterProse);
       chapterSection.append(chapterCopy);
       if (projectSection.images?.length || projectSection.videos?.length) {
         const chapterEvidence = createElement("div", "work-chapter-evidence");
@@ -1085,6 +1137,8 @@ export function createWorkGallery(
         const project = findProject(
           projectIdsByWorkIcon[projectButton.dataset.projectIcon],
         );
+        /** A drawing without project data keeps its markup and never opens. */
+        if (!project) return;
         projectButton.querySelector(".work-title").textContent = localizeText(
           project.title,
         );
@@ -1293,6 +1347,11 @@ export function createWorkGallery(
   backToIndexButton.addEventListener("click", returnToWorkIndex);
   workArea.querySelectorAll("[data-project-icon]").forEach((projectButton) => {
     const project = findProject(projectIdsByWorkIcon[projectButton.dataset.projectIcon]);
+    if (project?.id) {
+      projectButton.dataset.projectId = project.id;
+      const projectItem = projectButton.closest("li");
+      if (projectItem) projectItem.dataset.projectId = project.id;
+    }
     const coverVideo = project?.cover_videos?.[0];
     const previewImage = project?.index_image || project?.artworks?.[0]?.image || project?.cover_images?.[0] ||
       (coverVideo?.poster ? { src: coverVideo.poster, width: coverVideo.width, height: coverVideo.height, caption: "" } : null);

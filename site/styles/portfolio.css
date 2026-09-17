@@ -32,12 +32,24 @@
   --text-lg: 18px;
   --text-xl: 20px;
   --text-2xl: 22px;
-  --text-lead: clamp(19px, 1.7vw, 23px);
+  --text-lead: 18px;
+  --measure-reading: 540px;
+  --measure-lead: 560px;
   --text-h3: clamp(24px, 2.3vw, 32px);
   --text-h2: clamp(32px, 3.1vw, 48px);
   --text-display: clamp(44px, 4.2vw, 76px);
   --text-contact: clamp(24px, 2.7vw, 38px);
 }
+/*
+ * Breakpoints, from narrow to wide. Widths are viewport widths unless noted.
+ *   600px  phone: single-column index, stacked media, compact header
+ *   800px  narrow tablet: tighter index gaps and type
+ *   900px  index threshold: from 901px each Work entry has a fixed twelve-column slot
+ *   1140px wide index: Machinery's slot grows to five columns below this width
+ *   case-study container 620px: case studies become one column (about a 690px viewport)
+ *   case-study container 360px: chapter menu and captions tighten
+ *   height 540px: short landscape phones move the navigation into the header
+ */
 html,
 body {
   margin: 0;
@@ -90,8 +102,8 @@ body {
 /** Foundation and scene */
 #portfolio-site {
   --section-transition-progress: 0;
-  --hover-contact: 0;
-  --bloom-edge: clamp(26px, 3.33vw, 80px);
+  --navigation-hover-amount: 0;
+  --stage-gutter: clamp(26px, 3.33vw, 80px);
   position: relative;
   background: var(--color-paper);
   color: var(--color-ink);
@@ -104,7 +116,7 @@ body {
   grid-template-rows: auto minmax(0, 1fr) auto;
   min-height: 0;
   height: 100svh;
-  --reading-edge: clamp(24px, 4.5vw, 96px);
+  --panel-gutter: clamp(24px, 4.5vw, 96px);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
@@ -243,8 +255,8 @@ body {
   width: 49%;
   height: 1px;
   background: linear-gradient( to right, var(--color-muted) 0 61%, transparent 61% 66%, var(--color-muted) 66% 89%, transparent 89% 93%, var(--color-muted) 93% );
-  opacity: calc(var(--hover-contact) * 0.62);
-  transform: scaleX(calc(0.18 + var(--hover-contact) * 0.82));
+  opacity: calc(var(--navigation-hover-amount) * 0.62);
+  transform: scaleX(calc(0.18 + var(--navigation-hover-amount) * 0.82));
   transform-origin: left;
   pointer-events: none;
 }
@@ -315,7 +327,7 @@ body {
   min-height: 0;
 }
 #portfolio-site .site-footer {
-  padding: 0 var(--bloom-edge) clamp(26px, 3.5svh, 48px);
+  padding: 0 var(--stage-gutter) clamp(26px, 3.5svh, 48px);
   font-size: clamp(13px, 0.8vw, 17px);
 }
 #portfolio-site .restart-bloom-button {
@@ -450,6 +462,12 @@ body {
   right: auto;
   width: calc(100% * 845 / 610);
 }
+/* The planet window is a 300 × 178 strip; a wider frame keeps its ink at the scale of the other drawings. */
+#portfolio-site [data-project-icon="multiverse"] .work-frame {
+  left: calc(50% - 50% * 70 / 52);
+  right: auto;
+  width: calc(100% * 70 / 52);
+}
 #portfolio-site [data-project-icon="robot"] {
   --ink-duration: 1.6s;
 }
@@ -536,12 +554,12 @@ body {
   text-align: left;
 }
 #portfolio-site .work-collection-item .work-drawing {
-  width: 72px;
-  height: 84px;
+  width: 52px;
+  height: 52px;
 }
 #portfolio-site [data-project-icon="touchdesigner"] .work-drawing {
-  width: 80px;
-  height: 84px;
+  width: 56px;
+  height: 52px;
 }
 #portfolio-site .work-collection-item .work-labels {
   align-items: flex-start;
@@ -1074,10 +1092,8 @@ body {
   grid-column: 1;
   margin-bottom: 0;
 }
-#portfolio-site .work-chapter[data-chapter-layout="wide"] p {
+#portfolio-site .work-chapter[data-chapter-layout="wide"] .work-chapter-prose {
   grid-column: 2;
-}
-#portfolio-site .work-chapter[data-chapter-layout="wide"] p:first-of-type {
   grid-row: 1 / span 2;
 }
 #portfolio-site .work-chapter[data-chapter-layout="text"] {
@@ -1433,7 +1449,7 @@ body {
 /* The entry is a scene. Inside, navigation becomes a small, stable reading tool. */
 #portfolio-site .site-header {
   min-height: 96px;
-  padding: 20px var(--reading-edge) 12px;
+  padding: 20px var(--panel-gutter) 12px;
   position: relative;
   z-index: 8;
 }
@@ -1460,7 +1476,7 @@ body {
   min-width: 28px;
 }
 #portfolio-site .site-footer {
-  padding-inline: var(--reading-edge);
+  padding-inline: var(--panel-gutter);
 }
 #portfolio-site .site-footer,
 #portfolio-site .lotus-interaction,
@@ -1510,7 +1526,7 @@ body {
 #portfolio-site .content-panel,
 #portfolio-site[data-work-detail] .content-panel {
   inset: 0;
-  padding: 0 var(--reading-edge) 64px;
+  padding: 0 var(--panel-gutter) 64px;
   background: var(--color-paper);
   scrollbar-gutter: auto;
   scrollbar-width: thin;
@@ -1553,7 +1569,7 @@ body {
 /* The work itself provides the rhythm; drawings remain at the label scale. */
 #portfolio-site .work-grid {
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 64px 64px;
+  gap: 96px 32px;
   align-items: start;
 }
 #portfolio-site .work-grid > li {
@@ -1561,13 +1577,6 @@ body {
   min-width: 0;
   display: flex;
   align-items: flex-start;
-}
-#portfolio-site .work-grid > li:first-child {
-  grid-column: span 7;
-}
-#portfolio-site .work-grid > li:nth-child(2) {
-  grid-column: span 5;
-  justify-content: center;
 }
 #portfolio-site .work-item {
   --preview-height: clamp(230px, 28vw, 360px);
@@ -1603,7 +1612,7 @@ body {
   transition: opacity 220ms ease;
 }
 #portfolio-site .work-item:hover .work-preview img {
-  opacity: 0.88;
+  opacity: 0.94;
 }
 #portfolio-site .work-labels {
   align-items: flex-start;
@@ -1666,15 +1675,32 @@ body {
 #portfolio-site .work-detail p {
   font-size: var(--text-reading);
   line-height: 1.75;
-  max-width: 62ch;
+  max-width: var(--measure-reading);
   color: var(--color-text);
 }
 #portfolio-site .work-detail .work-lead {
   font-size: var(--text-lead);
-  line-height: 1.55;
-  max-width: 46ch;
+  line-height: 1.75;
+  max-width: var(--measure-lead);
   color: var(--color-ink-soft);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
+}
+#portfolio-site .work-overview p,
+#portfolio-site .work-chapter-prose p {
+  margin: 0;
+}
+#portfolio-site .work-overview p + p,
+#portfolio-site .work-chapter-prose p + p {
+  margin-top: 1.15em;
+}
+/* A status line sits between the title and the opening, so the title closes the gap. */
+#portfolio-site[data-work-detail] .panel-content:has(.work-project-status) > h2 {
+  margin-bottom: 16px;
+}
+#portfolio-site .work-detail .work-project-status {
+  margin: 0 0 28px;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
 }
 #portfolio-site .work-opening {
   gap: 40px 64px;
@@ -1685,10 +1711,10 @@ body {
   grid-template-columns: 0.9fr 1.1fr;
 }
 #portfolio-site .work-opening[data-hero-layout="poster"] .work-image-window {
-  width: min(100%, calc(560px * var(--media-ratio)));
+  width: min(100%, calc(min(58svh, 560px) * var(--media-ratio)));
 }
 #portfolio-site .work-opening[data-hero-layout="phone"] .work-figure {
-  max-width: 330px;
+  max-width: min(330px, calc(min(58svh, 560px) * var(--media-ratio)));
 }
 #portfolio-site .work-opening[data-hero-layout="landscape"],
 #portfolio-site .work-opening[data-hero-layout="installation"] {
@@ -1697,7 +1723,16 @@ body {
 #portfolio-site .work-opening[data-hero-layout="landscape"] .work-introduction,
 #portfolio-site .work-opening[data-hero-layout="installation"] .work-introduction {
   grid-template-columns: 1.5fr 0.8fr;
+  grid-template-rows: auto min-content 1fr;
   gap: 0 72px;
+}
+#portfolio-site .work-opening:is([data-hero-layout="landscape"], [data-hero-layout="installation"]) .work-overview {
+  grid-column: 1;
+  grid-row: 2 / span 2;
+}
+#portfolio-site .work-opening:is([data-hero-layout="landscape"], [data-hero-layout="installation"]) .work-tools {
+  grid-column: 2;
+  grid-row: 3;
 }
 #portfolio-site .work-detail .work-subtitle,
 #portfolio-site .work-detail .work-tools,
@@ -1729,7 +1764,7 @@ body {
   margin-bottom: 6px;
 }
 #portfolio-site .work-chapter {
-  margin-top: 88px;
+  margin-top: 96px;
   padding-top: 0;
   border-top: none;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.45fr);
@@ -1749,14 +1784,33 @@ body {
   margin: 0 0 22px;
 }
 #portfolio-site .work-chapter[data-chapter-layout="wide"] .work-chapter-copy {
-  gap: 0 44px;
+  gap: 0 64px;
+}
+#portfolio-site .work-chapter[data-chapter-layout="reverse"] {
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+}
+#portfolio-site .work-chapter[data-chapter-layout="reverse"] .work-chapter-copy {
+  grid-column: 2;
+  grid-row: 1;
+}
+#portfolio-site .work-chapter[data-chapter-layout="reverse"] .work-chapter-evidence {
+  grid-column: 1;
+  grid-row: 1;
+}
+#portfolio-site .work-chapter[data-has-copy="false"] .work-chapter-copy {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+#portfolio-site .work-chapter[data-has-copy="false"] :is(.work-chapter-number, h3) {
+  margin: 0;
 }
 #portfolio-site .work-gallery {
   gap: 28px;
 }
-#portfolio-site .work-detail[data-project-id="polar-bear"] .work-chapter:first-of-type .work-gallery {
+#portfolio-site .work-detail[data-project-id="polar-bear"] [data-chapter-id="why-a-digital-pet"] .work-gallery {
   width: 100%;
-  max-width: 520px;
+  max-width: 780px;
 }
 #portfolio-site .work-figure figcaption,
 #portfolio-site .work-video-figure figcaption {
@@ -1846,11 +1900,128 @@ body {
   justify-self: center;
 }
 #portfolio-site .work-detail[data-project-id="autonomous-vehicle"] .work-opening > .work-video-gallery {
-  max-width: none;
+  max-width: min(100%, calc(58svh * 9 / 16 * 2 + 24px));
 }
 #portfolio-site .work-detail[data-project-id="autonomous-vehicle"] .work-opening video {
   max-height: 520px;
   width: 100%;
+}
+/* Media roles follow the evidence: documents compare, concepts change scale. */
+/* The 2fr / 3fr columns are mirrored by columnSizes.concept in work-gallery.js. */
+#portfolio-site .work-gallery[data-gallery-layout="concept"] {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 40px;
+}
+#portfolio-site .work-gallery[data-gallery-layout="concept"] .work-figure + .work-figure {
+  margin-top: 56px;
+}
+#portfolio-site .work-gallery[data-gallery-layout="studies"] {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+#portfolio-site .work-gallery[data-gallery-layout="documents"] {
+  gap: 40px;
+}
+#portfolio-site .work-gallery[data-gallery-layout="hardware"] {
+  max-width: 860px;
+}
+#portfolio-site .work-gallery[data-gallery-layout="hardware"] .work-image-window {
+  width: min(100%, calc(380px * var(--media-ratio)));
+}
+#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening > .work-video-gallery {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 40px;
+}
+#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening .work-video-figure + .work-video-figure {
+  margin-top: 64px;
+}
+#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-chapter {
+  margin-top: 64px;
+}
+#portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-gallery {
+  width: min(100%, 1000px, calc(58svh * 16 / 9));
+  margin-inline: auto;
+}
+#portfolio-site .work-detail[data-project-id="machinery-structuralism"] .work-opening > .work-video-gallery {
+  width: min(100%, 1040px, calc(58svh * 16 / 9));
+  margin-inline: auto;
+}
+/* Each index position belongs to a project, so edits to the list cannot change its role. */
+@media (min-width: 901px) {
+  #portfolio-site .work-grid > [data-project-id="ai-multiverse"] {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+  }
+  #portfolio-site .work-grid > [data-project-id="machinery-structuralism"] {
+    grid-column: 9 / span 4;
+    grid-row: 1;
+    padding-top: 104px;
+  }
+  #portfolio-site .work-grid > [data-project-id="sisyphus"] {
+    grid-column: 2 / span 4;
+    grid-row: 2;
+  }
+  #portfolio-site .work-grid > [data-project-id="autonomous-vehicle"] {
+    grid-column: 7 / span 5;
+    grid-row: 2;
+    padding-top: 64px;
+  }
+  #portfolio-site .work-grid > [data-project-id="polar-bear"] {
+    grid-column: 1 / span 5;
+    grid-row: 3;
+    padding-top: 56px;
+  }
+  #portfolio-site .work-grid > [data-project-id="disaster-defender"] {
+    grid-column: 7 / span 6;
+    grid-row: 3;
+  }
+  #portfolio-site .work-collections {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 96px;
+    padding-top: 64px;
+  }
+  #portfolio-site .work-collections [data-project-id="oil-paintings"] {
+    grid-column: 2 / span 4;
+    --preview-height: 340px;
+  }
+  #portfolio-site .work-collections [data-project-id="touchdesigner"] {
+    grid-column: 7 / span 6;
+    margin-top: 48px;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] > .work-video-gallery {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 88px 32px;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(1) {
+    grid-column: 1 / span 7;
+    width: 100%;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(2) {
+    grid-column: 9 / span 4;
+    margin-top: 80px;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(3) {
+    grid-column: 2 / span 4;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(4) {
+    grid-column: 7 / span 6;
+    margin-top: 48px;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(5) {
+    grid-column: 1 / span 6;
+  }
+  #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(6) {
+    grid-column: 8 / span 5;
+    margin-top: 48px;
+  }
+}
+/* Between 901 and 1140px a four-column slot is too narrow for the Machinery title on one line. */
+@media (min-width: 901px) and (max-width: 1140px) {
+  #portfolio-site .work-grid > [data-project-id="machinery-structuralism"] {
+    grid-column: 8 / span 5;
+  }
 }
 /* Personal writing is given room without asking every heading to be expressive. */
 #portfolio-site[data-active-section="about"] .panel-content {
@@ -1967,8 +2138,8 @@ body {
   max-width: 32em;
 }
 #portfolio-site[lang|="zh"] .work-detail .work-lead {
-  font-size: var(--text-xl);
-  line-height: 1.85;
+  font-size: var(--text-reading);
+  line-height: 1.95;
   letter-spacing: 0.02em;
   max-width: 28em;
 }
@@ -1998,16 +2169,12 @@ body {
   }
   #portfolio-site[data-active-section] .main-navigation {
     top: 77px;
-    left: var(--reading-edge);
+    left: var(--panel-gutter);
     transform: none;
     gap: 28px;
   }
   #portfolio-site .work-grid {
     gap: 40px 24px;
-  }
-  #portfolio-site .work-grid > li:first-child,
-  #portfolio-site .work-grid > li:nth-child(2) {
-    grid-column: span 6;
   }
   #portfolio-site .work-title {
     font-size: var(--text-xl);
@@ -2025,7 +2192,7 @@ body {
 }
 @media (max-width: 600px) {
   #portfolio-site {
-    --reading-edge: 24px;
+    --panel-gutter: 24px;
   }
   #portfolio-site .site-header {
     padding: 18px 24px 8px;
@@ -2054,6 +2221,9 @@ body {
     font-size: 32px;
     margin: 28px 0 28px;
     line-height: 1.16;
+  }
+  #portfolio-site[data-work-detail] .panel-content:has(.work-project-status) > h2 {
+    margin-bottom: 12px;
   }
   #portfolio-site[lang|="zh"] .panel-content > h2 {
     font-size: 29px;
@@ -2101,15 +2271,8 @@ body {
   #portfolio-site .work-item[data-project-icon="rock"] {
     --preview-height: min(54svh, 400px);
   }
-  #portfolio-site .work-grid > li:nth-child(2) {
-    justify-content: flex-start;
-  }
   #portfolio-site .work-title {
     font-size: 21px;
-  }
-  #portfolio-site .work-item[data-project-icon="multiverse"] {
-    min-height: 0;
-    padding: 28px 0 0;
   }
   #portfolio-site .work-collections {
     grid-template-columns: 1fr;
@@ -2144,19 +2307,19 @@ body {
     width: min(100%, calc(420px * var(--media-ratio)));
   }
   #portfolio-site .work-opening[data-hero-layout="phone"] .work-figure {
-    max-width: 250px;
+    max-width: min(250px, calc(58svh * var(--media-ratio)));
   }
   #portfolio-site .work-detail p {
     font-size: var(--text-base);
     line-height: 1.8;
   }
   #portfolio-site .work-detail .work-lead {
-    font-size: var(--text-xl);
-    line-height: 1.6;
+    font-size: var(--text-reading);
+    line-height: 1.8;
   }
   #portfolio-site[lang|="zh"] .work-detail .work-lead {
-    font-size: 19px;
-    line-height: 1.9;
+    font-size: var(--text-base);
+    line-height: 1.95;
   }
   #portfolio-site .work-chapter {
     display: grid;
@@ -2277,6 +2440,62 @@ body {
   }
 }
 
+@media (max-width: 900px) {
+  #portfolio-site .work-gallery[data-gallery-layout="concept"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #portfolio-site .work-gallery[data-gallery-layout="concept"] .work-figure + .work-figure {
+    margin-top: 0;
+  }
+}
+@container case-study (max-width: 620px) {
+  #portfolio-site .work-opening,
+  #portfolio-site .work-opening[data-hero-layout="poster"],
+  #portfolio-site .work-opening[data-hero-layout="phone"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #portfolio-site .work-opening > .work-gallery,
+  #portfolio-site .work-opening > .work-video-gallery {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  #portfolio-site .work-opening > .work-introduction {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #portfolio-site .work-chapter,
+  #portfolio-site .work-chapter[data-chapter-layout="reverse"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #portfolio-site .work-chapter[data-chapter-layout="reverse"] .work-chapter-copy,
+  #portfolio-site .work-chapter[data-chapter-layout="reverse"] .work-chapter-evidence {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  #portfolio-site .work-chapter[data-chapter-layout="wide"] .work-chapter-copy {
+    display: block;
+  }
+  #portfolio-site .work-chapter[data-chapter-layout="wide"] h3 {
+    margin-bottom: 20px;
+  }
+  #portfolio-site .work-chapter[data-has-copy="false"] .work-chapter-copy {
+    display: flex;
+  }
+  #portfolio-site .work-chapter[data-has-copy="false"] :is(.work-chapter-number, h3) {
+    margin: 0;
+  }
+  #portfolio-site .work-gallery:is([data-gallery-layout="concept"], [data-gallery-layout="documents"], [data-gallery-layout="studies"]) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening > .work-video-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening .work-video-figure + .work-video-figure {
+    margin-top: 0;
+  }
+}
 /* Keyboard focus uses one ring everywhere; the lotus keeps it inside its own frame. */
 #portfolio-site .main-navigation button:focus-visible,
 #portfolio-site .language-switcher button:focus-visible,

@@ -136,8 +136,8 @@
         "Tianyang Wang"
       ],
       "overview": {
-        "en": "This is an online action game built around a generative AI model. Four players team up, and three of them fight one boss player, so the game is asymmetric. The monster is generated in real time from the prompts the three players choose, and that is the monster they then have to fight. The boss player plays the monster, so every round is a different, fresh experience. The game combines roguelike and party game: the randomness of a roguelike, taken to a whole new level with generative AI, while keeping the interaction of a party game, with intense interaction and plenty of trolling each other. Players can pick some really nasty traits to make the game more fun.",
-        "zh": "这是一款结合生成式 AI 模型的联机动作游戏。四名玩家组队，其中三人对抗一名 Boss 玩家，属于非对称对抗。三名玩家各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家扮演这只怪物与其他三人对抗，所以每一局都是不一样的新鲜体验。游戏把 Roguelike 和派对游戏结合在一起：Roguelike 的随机性，靠生成式 AI 推到一个全新的层次；同时又保留了派对游戏的互动性，高强度的互动和互坑都在其中。玩家可以选一些很坑人的词条，让游戏更有意思。"
+        "en": "This is an online action game built around a generative AI model. Three hunters face one boss player. The hunters choose prompts, and AI generates a monster in real time. The boss player controls that monster, and the hunters have to fight it.\n\nThe game combines the randomness of a roguelike with the interaction of a party game. Generative AI makes the monster different each round. Players can pick some really nasty traits, so there’s plenty of room to troll each other.",
+        "zh": "这是一款结合生成式 AI 模型的联机动作游戏，三名猎人对抗一名 Boss 玩家。猎人各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家操控这只怪物与他们对抗。\n\n游戏把 Roguelike 的随机性和派对游戏的互动结合在一起。AI 让每局的怪物都不一样，玩家还可以选一些很坑人的词条，在对抗中互坑，让游戏更有意思。"
       },
       "tools": [
         "Unity",
@@ -157,8 +157,8 @@
             "zh": "联机试玩"
           },
           "caption": {
-            "en": "Two players in one room: the hunter and the boss-driven monster",
-            "zh": "两名玩家联机：猎人对上 Boss 操控的怪物"
+            "en": "Current two-player online prototype: hunter versus the boss-controlled monster.",
+            "zh": "当前两人联机原型：猎人与 Boss 操控的怪物对抗。"
           },
           "duration": 30,
           "width": 1280,
@@ -210,7 +210,8 @@
               },
               "small": false
             }
-          ]
+          ],
+          "gallery_layout": "documents"
         },
         {
           "id": "concept",
@@ -241,7 +242,8 @@
               },
               "small": false
             }
-          ]
+          ],
+          "gallery_layout": "concept"
         }
       ],
       "index_subtitle": {
@@ -273,8 +275,8 @@
       },
       "collaborators": [],
       "overview": {
-        "en": "An alternate reality game. The player enters from a recruitment poster and writes to the email on it. A fictional professor assigns Python homework and mentions being out of town. The whole thing is about Camus’s absurdism. When effort no longer brings progress, players start to question the rules themselves and jump out of the box.",
-        "zh": "这是一个另类实境游戏。玩家从一张招生海报进入，给海报上的邮箱写信，一位虚构的教授会布置 Python 作业，并说自己正在外地。整个游戏讲的是加缪的荒诞主义：当努力不再换来进展，玩家开始质疑规则本身，跳出框架。"
+        "en": "The player enters from a recruitment poster and writes to the email on it. A fictional professor assigns Python homework and mentions being out of town. The whole thing is about Camus’s absurdism. When effort no longer brings progress, players start to question the rules themselves and jump out of the box.",
+        "zh": "玩家从一张招生海报进入，给海报上的邮箱写信，一位虚构的教授会布置 Python 作业，并说自己正在外地。整个游戏讲的是加缪的荒诞主义：当努力不再换来进展，玩家开始质疑规则本身，跳出框架。"
       },
       "design_question": {
         "en": "Can a digital system make absurdity something we experience?",
@@ -346,7 +348,7 @@
           },
           "paragraphs": [
             {
-              "en": "The poster was posted through public social accounts, pretending that we are promoting a coding boot camp. If you write to the email on the poster, you will receive an automatic reply. The email leaves a programming assignment. I wanted all of the flow to look very normal, so that at first glance people cannot see any difference.",
+              "en": "We shared the poster through public social accounts as if we were promoting a coding boot camp. If you write to the email on the poster, you will receive an automatic reply. The email includes a programming assignment. I wanted all of the flow to look very normal, so that at first glance people cannot see any difference.",
               "zh": "海报通过公共社交账号发布，假装在宣传一个编程训练营。给海报上的邮箱写信会收到一封自动回复，邮件里留了一份编程作业。我想让整个流程看起来都很正常，乍一看看不出任何异样。"
             }
           ],
@@ -378,7 +380,7 @@
               }
             }
           ],
-          "layout": "paired",
+          "layout": "wide",
           "gallery_layout": "invitation"
         },
         {
@@ -389,8 +391,12 @@
           },
           "paragraphs": [
             {
-              "en": "The homework is to fix a weighted average function in Python. The last test uses random inputs but insists the answer is 42, so even a correct function can fail. Because players keep getting stuck, they question whether the autograder has a problem. When they see the grading rules, they find the clue was hidden in the rules: the address of the school website. I hope at this step they realize that what they are doing is repetitive and mechanical, and if they think carefully, it is actually meaningless.",
-              "zh": "作业是修复一个 Python 加权平均函数。最后一个测试用随机输入，却硬要答案是 42，所以函数写对了也可能过不了。玩家一直卡着，就会质疑自动评分程序是不是有问题。看到打分规则之后，会发现线索就藏在规则里：学校网站的地址。我希望他们在这一步意识到，自己做的事情是重复的、机械的，再仔细想想，其实毫无意义。"
+              "en": "The homework is to fix a weighted average function in Python. The last test uses random inputs but insists the answer is 42, so even a correct function can fail.",
+              "zh": "作业是修复一个 Python 加权平均函数。最后一个测试用随机输入，却硬要答案是 42，所以函数写对了也可能过不了。"
+            },
+            {
+              "en": "Because players keep getting stuck, they question whether the autograder has a problem. When they see the grading rules, they find the clue was hidden in the rules: the address of the school website. I hope at this step they realize that what they are doing is repetitive and mechanical, and if they think carefully, it is actually meaningless.",
+              "zh": "玩家一直卡着，就会质疑自动评分程序是不是有问题。看到打分规则之后，会发现线索就藏在规则里：学校网站的地址。我希望他们在这一步意识到，自己做的事情是重复的、机械的，再仔细想想，其实毫无意义。"
             }
           ],
           "images": [
@@ -405,7 +411,7 @@
               "small": false
             }
           ],
-          "layout": "paired"
+          "layout": "reverse"
         },
         {
           "id": "clues-inside-the-school",
@@ -415,8 +421,12 @@
           },
           "paragraphs": [
             {
-              "en": "The website looks like an outdated university portal. A course is missing, and bold letters are scattered across the pages. They are the puzzle. There are two AI assistants on the website. The first talks with you like an advisor, while hinting at the meaning behind absurdism. It gives hints, and actually asks back what meaning is. In the end it still gives you the account and password.",
-              "zh": "网站做成一个过时的大学门户：有一门课缺失，各页散落着粗体字母，这些就是谜题。网站上有两个 AI 助手。第一个像顾问一样和你探讨，同时暗示荒诞主义的意义；它会给提示，其实是在反问意义是什么，最后还是会给你账号和密码。"
+              "en": "The website looks like an outdated university portal. A course is missing, and bold letters are scattered across the pages. They are the puzzle.",
+              "zh": "网站做成一个过时的大学门户：有一门课缺失，各页散落着粗体字母，这些就是谜题。"
+            },
+            {
+              "en": "There are two AI assistants on the website. The first talks with you like an advisor, while hinting at the meaning behind absurdism. It gives hints, but also asks what meaning is. In the end it still gives you the account and password.",
+              "zh": "网站上有两个 AI 助手。第一个像顾问一样和你探讨，同时暗示荒诞主义的意义；它会给提示，其实是在反问意义是什么，最后还是会给你账号和密码。"
             }
           ],
           "images": [
@@ -447,7 +457,7 @@
           },
           "paragraphs": [
             {
-              "en": "After logging in comes a conversation with the John Smith bot, the fictional professor. It does not resolve the puzzles into one answer. As the final guide and summarizer, it talks with you about absurdism and about the experience of this game. I hope players leave with a better understanding of the concept.",
+              "en": "After logging in comes a conversation with the John Smith bot, the fictional professor. It does not resolve the puzzles into one answer. It talks with you about absurdism and your experience of the game. I hope players leave with a better understanding of the concept.",
               "zh": "登录后是与 John Smith 机器人的对话，也就是那位虚构的教授。它不会把谜题归结成一个答案，而是作为最后的启发者和总结者，和你聊荒诞主义和这段游戏的体验。我希望玩家离开游戏后，对这个概念有更多理解。"
             }
           ],
@@ -615,8 +625,12 @@
           },
           "paragraphs": [
             {
-              "en": "We gave the survey first to people around us, then to strangers on the street, more than 100 people in all. Most were young people, but the ages ranged widely. What we cared about most: many people are willing to do things for the environment and care about it, but they don’t deliberately keep it up. And they find this kind of educational game especially boring. From the three options, a racing game, a recycling RPG, and a pet, we picked the polar bear, because the polar bear represents the glaciers. Glacier melting is the most direct example of the greenhouse effect. We wanted to make it as cute as possible, social, and lightweight, so players can play it every day. It should fit the Gen Z trend, not be a game that is education for the sake of education.",
-              "zh": "问卷先发给周围的人，再发给街上的陌生人，一共 100 多人，大部分是年轻人，年纪从小到大都有。最让我们在意的是，很多人愿意做环保的事，也很在意环保，但并没有很刻意地去坚持。第二是他们觉得这类教育游戏特别无聊。赛车、回收 RPG 和电子宠物三个方案里选了北极熊，因为北极熊代表冰川，冰川融化是温室效应最直接的例子。我们想把它做得尽量可爱、社交化、轻量化，让玩家每天都能玩，更符合 Z 世代的潮流，而不是一个只为了教育而教育的游戏。"
+              "en": "We gave the survey first to people around us, then to strangers on the street, more than 100 people in all. Most were young people, but the ages ranged widely. What we cared about most: many people are willing to do things for the environment and care about it, but they don’t deliberately keep it up. And they find this kind of educational game especially boring.",
+              "zh": "问卷先发给周围的人，再发给街上的陌生人，一共 100 多人，大部分是年轻人，年纪从小到大都有。最让我们在意的是，很多人愿意做环保的事，也很在意环保，但并没有很刻意地去坚持。第二是他们觉得这类教育游戏特别无聊。"
+            },
+            {
+              "en": "From the three options, a racing game, a recycling RPG, and a pet, we picked the polar bear, because the polar bear represents the glaciers. Glacier melting is the most direct example of the greenhouse effect. We wanted to make it as cute as possible, social, and lightweight, so players can play it every day. It should fit the Gen Z trend, not be a game that is education for the sake of education.",
+              "zh": "赛车、回收 RPG 和电子宠物三个方案里选了北极熊，因为北极熊代表冰川，冰川融化是温室效应最直接的例子。我们想把它做得尽量可爱、社交化、轻量化，让玩家每天都能玩，更符合 Z 世代的潮流，而不是一个只为了教育而教育的游戏。"
             }
           ],
           "images": [
@@ -631,7 +645,7 @@
               "small": false
             }
           ],
-          "layout": "paired"
+          "layout": "wide"
         },
         {
           "id": "testing-two-ways-through",
@@ -641,8 +655,12 @@
           },
           "paragraphs": [
             {
-              "en": "A and B are two flows with different button patterns, made in Figma for customization, task progress, and task history. In A you have to tap more, and the screens are hidden behind buttons. I designed B to be more intuitive. The calendar and the task records are placed directly on the screen, and the task preview has a summary. My idea was to give information to the user more directly. We first evaluated the flows inside the team, then gave them to people around us, and recorded how long the tasks took, self-ratings, and comments. B was chosen.",
-              "zh": "A 和 B 两套流程在 Figma 里做，包括装扮、任务进度和任务记录，按键模式不一样。A 的模式里需要点的操作更多，界面都被藏在按键里面了。我设计的 B 更直观：日历和任务记录直接放在页面上，任务预览里有任务概述。我的想法就是，首先要把信息更直观地给用户。测试是我们先在小组内部完成内部评价，然后再把它分发给周围的人评价，记录了完成时间、自评和评论，最后选了 B。"
+              "en": "A and B are two flows with different button patterns, made in Figma for customization, task progress, and task history. In A you have to tap more, and the screens are hidden behind buttons. I designed B to be more intuitive. The calendar and the task records are placed directly on the screen, and the task preview has a summary. My idea was to give information to the user more directly.",
+              "zh": "A 和 B 两套流程在 Figma 里做，包括装扮、任务进度和任务记录，按键模式不一样。A 的模式里需要点的操作更多，界面都被藏在按键里面了。我设计的 B 更直观：日历和任务记录直接放在页面上，任务预览里有任务概述。我的想法就是，首先要把信息更直观地给用户。"
+            },
+            {
+              "en": "We first tested the flows within the team, then with people around us, and recorded how long the tasks took, self-ratings, and comments. B was chosen.",
+              "zh": "测试是我们先在小组内部完成内部评价，然后再把它分发给周围的人评价，记录了完成时间、自评和评论，最后选了 B。"
             }
           ],
           "images": [
@@ -668,7 +686,7 @@
             }
           ],
           "layout": "wide",
-          "gallery_layout": "pair"
+          "gallery_layout": "studies"
         },
         {
           "id": "bringing-care-into-the-interface",
@@ -678,8 +696,16 @@
           },
           "paragraphs": [
             {
-              "en": "The home screen has the bear, the tasks, progress, and streaks. I designed the feeding and dress-up systems, including the inventory, the icons, the items, and the tasks. You earn coins by completing tasks, like taking the bus every day or using a reusable bag, and you confirm a task by taking a photo. In the food shop you buy food for the bear, and in the shop you buy decorations. There is also a profile page. The friends page is the social part. Others can see your polar bear, and you can show off your bear and your decorations. What I liked most was turning the concept into something real, and making a topic as educational as the environment into a game I would actually want to play.",
-              "zh": "首页有北极熊、任务、进度和连续打卡。我设计了喂养和装扮系统，包括物品栏、图标、道具和任务。金币通过完成任务来赚。任务比如说每天坐公交，或者用可重复使用的购物袋，然后通过拍照来确认完成任务。食物商店给北极熊买食物，商店买装饰，还有个人资料页。好友页是社交的一部分，让别人看到、也向别人展示自己的北极熊和装饰。做完之后我觉得最有意思的是把概念落实到行动中，把环保这么教育性的概念做进一个我真的愿意玩的游戏里。"
+              "en": "The home screen has the bear, the tasks, progress, and streaks. I designed the feeding and dress-up systems, including the inventory, the icons, the items, and the tasks. You earn coins by completing tasks, like taking the bus every day or using a reusable bag, and you confirm a task by taking a photo. In the food shop you buy food for the bear, and in the shop you buy decorations. There is also a profile page.",
+              "zh": "首页有北极熊、任务、进度和连续打卡。我设计了喂养和装扮系统，包括物品栏、图标、道具和任务。金币通过完成任务来赚。任务比如说每天坐公交，或者用可重复使用的购物袋，然后通过拍照来确认完成任务。食物商店给北极熊买食物，商店买装饰，还有个人资料页。"
+            },
+            {
+              "en": "The friends page is the social part. Others can see your polar bear, and you can show off your bear and your decorations.",
+              "zh": "好友页是社交的一部分，让别人看到、也向别人展示自己的北极熊和装饰。"
+            },
+            {
+              "en": "What I liked most was turning the concept into something real, and making a topic as educational as the environment into a game I would actually want to play.",
+              "zh": "做完之后我觉得最有意思的是把概念落实到行动中，把环保这么教育性的概念做进一个我真的愿意玩的游戏里。"
             }
           ],
           "images": [
@@ -966,7 +992,7 @@
             }
           ],
           "layout": "wide",
-          "gallery_layout": "pair"
+          "gallery_layout": "studies"
         },
         {
           "id": "keeping-the-menu-with-the-player",
@@ -992,7 +1018,7 @@
               "small": false
             }
           ],
-          "layout": "paired"
+          "layout": "reverse"
         },
         {
           "id": "making-gestures-distinct",
@@ -1109,7 +1135,7 @@
         "Michael Baluja"
       ],
       "overview": {
-        "en": "This project is to make a small car that can drive by itself. At the end the car can look at the road signs and make the corresponding action by itself, for example parking, speeding up, slowing down, and the stop sign. I was responsible for the hardware and the tracking software.",
+        "en": "We made a small car that can drive by itself. The car can respond to road signs by parking, speeding up, slowing down, or stopping. I was responsible for the hardware and the tracking software.",
         "zh": "这个项目是做一辆能自动驾驶的小车。最后小车可以根据路标自己做出相应动作，比如泊车、加速、减速，以及看到停车标志时停下。硬件和循迹软件由我负责。"
       },
       "tools": [
@@ -1129,8 +1155,12 @@
           },
           "paragraphs": [
             {
-              "en": "The car is an acrylic board. I designed it in LightBurn and laser cut it. On it there is the NVIDIA chip and a lidar, a camera, and a central VESC motor controller. We 3D printed a protective shell, to protect the NVIDIA chip and to mount the camera. The shell was modeled in Blender. We also designed its wiring and layout. We can control it remotely through a laptop, and receive real-time video. You can operate it with the arrow keys.",
-              "zh": "车身是亚克力板，我用 LightBurn 设计，再激光切割。上面有 NVIDIA 芯片、一个激光雷达、一个摄像头，以及中央的 VESC 电机控制器。我们 3D 打印了一个保护壳，用来保护 NVIDIA 芯片和安装摄像头，外壳在 Blender 里建模。我们也设计了它的走线与布局。通过笔记本可以远程操纵它，接收实时视频，用方向键就能操作。"
+              "en": "The car has an acrylic chassis. I designed it in LightBurn and laser cut it. On it there is the NVIDIA chip and a lidar, a camera, and a central VESC motor controller. We 3D printed a protective shell, to protect the NVIDIA chip and to mount the camera. The shell was modeled in Blender. We also designed its wiring and layout.",
+              "zh": "车身是亚克力板，我用 LightBurn 设计，再激光切割。上面有 NVIDIA 芯片、一个激光雷达、一个摄像头，以及中央的 VESC 电机控制器。我们 3D 打印了一个保护壳，用来保护 NVIDIA 芯片和安装摄像头，外壳在 Blender 里建模。我们也设计了它的走线与布局。"
+            },
+            {
+              "en": "We can control it remotely through a laptop, and receive real-time video. You can operate it with the arrow keys.",
+              "zh": "通过笔记本可以远程操纵它，接收实时视频，用方向键就能操作。"
             }
           ],
           "images": [
@@ -1166,8 +1196,12 @@
           },
           "paragraphs": [
             {
-              "en": "We used Donkey Car to do the 30 laps. We drove 30 laps to record its data, and trained the model on a remote server. After training, at the beginning the car did not know how to drive, because the reflection was very serious. The light on the site was very strong. What we could do was to train repeatedly at different times of the day, and use a large amount of data to resist the reflection, because the lights and the reflections are at different places at different times.",
-              "zh": "我们用 Donkey Car 开了三十圈记录数据，在远程服务器上训练模型。训练完之后，车一开始并不知道怎么跑，因为场地光线特别强，反光特别严重。我们能做的是在一天的不同时段反复训练，用大量数据来抵抗反光的干扰，因为不同时段灯光和反光落的位置也不一样。"
+              "en": "We drove 30 laps with Donkey Car to record training data, then trained the model on a remote server. After training, at the beginning the car did not know how to drive, because the reflection was very serious. The light on the site was very strong.",
+              "zh": "我们用 Donkey Car 开了三十圈记录数据，在远程服务器上训练模型。训练完之后，车一开始并不知道怎么跑，因为场地光线特别强，反光特别严重。"
+            },
+            {
+              "en": "What we could do was to train repeatedly at different times of the day, and use a large amount of data to resist the reflection, because the lights and the reflections are at different places at different times.",
+              "zh": "我们能做的是在一天的不同时段反复训练，用大量数据来抵抗反光的干扰，因为不同时段灯光和反光落的位置也不一样。"
             }
           ],
           "images": [],
@@ -1213,7 +1247,7 @@
           },
           "paragraphs": [
             {
-              "en": "Later we switched to OpenCV and responding by color, because training this way was slow and not very accurate. With color, black, white, and yellow identify the track better, and light blue marks its boundary. Above a certain horizon line, blue means parking and red means the stop sign. By recognizing the 50 and the 100 on the signs, the car decides whether to speed up or slow down.",
+              "en": "Later we switched to OpenCV to respond to colors, because training this way was slow and not very accurate. With color, black, white, and yellow identify the track better, and light blue marks its boundary. Above a certain horizon line, blue means parking and red means the stop sign. By recognizing the 50 and the 100 on the signs, the car decides whether to speed up or slow down.",
               "zh": "后来改成用 OpenCV 按颜色响应，因为一直这样训练特别慢，准确率也不高。按颜色响应时，黑色、白色和黄色能更好地识别赛道，浅蓝色是赛道的边界。特定地平线以上的蓝色是泊车标志，红色是停车标志。通过辨认路标上的 50 和 100，确认是加速还是减速。"
             }
           ],
@@ -1239,7 +1273,7 @@
               "small": false
             }
           ],
-          "layout": "paired",
+          "layout": "reverse",
           "gallery_layout": "pair"
         }
       ],
@@ -1428,7 +1462,7 @@
               "small": false
             }
           ],
-          "layout": "paired"
+          "layout": "reverse"
         },
         {
           "id": "testing-the-parts-and-the-journey",
@@ -1883,8 +1917,8 @@
       "zh": "构思、绘画、程序与装置制作"
     },
     "overview": {
-      "en": "This work is an installation that combines projection and oil painting. On the wall are four self-portraits, all of the same subject, which is my face. The camera points at the most abstract one, the one made of lines. YOLO and CLIP detect what the camera can see, but they cannot detect that the painting is a face, my face. The audience, with the context given by the other three paintings and their own past experience, can see that it is a face.",
-      "zh": "这个作品是一个结合投影和油画的装置。墙上是我的四张自画像，画的都是同一个主题，就是我的脸。摄像头对着的是其中最抽象、用线条表示的那一张，YOLO 和 CLIP 检测摄像头看到的东西，但它们检测不出画上是一张脸，是我的脸。观众结合另外三张画给的语境，加上自己过往的经历，却能看出那是一张脸。"
+      "en": "This work is an installation that combines projection and oil painting. On the wall are four self-portraits, all of the same subject, which is my face. The camera points at the most abstract one, the one made of lines. YOLO and CLIP detect what the camera can see, but they cannot detect that the painting is a face, my face.\n\nThe audience, with the context given by the other three paintings and their own past experience, can see that it is a face.",
+      "zh": "这个作品是一个结合投影和油画的装置。墙上是我的四张自画像，画的都是同一个主题，就是我的脸。摄像头对着的是其中最抽象、用线条表示的那一张，YOLO 和 CLIP 检测摄像头看到的东西，但它们检测不出画上是一张脸，是我的脸。\n\n观众结合另外三张画给的语境，加上自己过往的经历，却能看出那是一张脸。"
     },
     "links": [
       {
@@ -1906,8 +1940,12 @@
         },
         "paragraphs": [
           {
-            "en": "The machine itself does not have the social structure or the shared memory that humans have. The three ways of seeing: first, you only see its shape; second, through your past social experience and memory you judge that this is a person; third, if you are my close friend, you know this person is me. Machinery structuralism gives structuralism a more contemporary definition: the meaning that exists between humans, AI, and machines, and the relations between us and images, and between computers and images.",
-            "zh": "机器本身是没有记忆的，没有社会结构，也没有像人类一样的共同记忆。三种看的区别：第一，你只看到形状；第二，你通过过去的社会经验和记忆，判断出这是一个人；第三，如果你是我的好朋友，你会知道这个人是我。机械结构主义想给结构主义一个更当代的定义：人、AI 和机械之间彼此存在的意义，以及我们与图像、电脑与图像之间的关系。"
+            "en": "The machine itself does not have the social structure or the shared memory that humans have. There are three ways of seeing it: first, you only see its shape; second, through your past social experience and memory you judge that this is a person; third, if you are my close friend, you know this person is me.",
+            "zh": "机器本身是没有记忆的，没有社会结构，也没有像人类一样的共同记忆。三种看的区别：第一，你只看到形状；第二，你通过过去的社会经验和记忆，判断出这是一个人；第三，如果你是我的好朋友，你会知道这个人是我。"
+          },
+          {
+            "en": "Machinery structuralism gives structuralism a more contemporary definition: the meaning that exists between humans, AI, and machines, and the relations between us and images, and between computers and images.",
+            "zh": "机械结构主义想给结构主义一个更当代的定义：人、AI 和机械之间彼此存在的意义，以及我们与图像、电脑与图像之间的关系。"
           }
         ],
         "layout": "wide",
@@ -1959,7 +1997,7 @@
             "zh": "影片是用一句描述面孔的话生成图像，Aperture 里的十八个小格分别对应每个词的生成过程。我希望用它展示机器对视觉的理解，以及和人类理解图片的区别。"
           }
         ],
-        "layout": "paired",
+        "layout": "reverse",
         "images": [],
         "videos": [
           {
@@ -1988,11 +2026,15 @@
         },
         "paragraphs": [
           {
-            "en": "The projection is a realistic face dissolving into abstraction, so a concrete face appears in the abstract painting, simulating how generative AI turns the latent space of a diffusion model into an image. The other projection shows the confidence score. The latent space is the shared memory of the machines: they understand the face in the noise, but not the face in the abstract lines. Jim Campbell’s work made me notice that light is also a part of the image.",
-            "zh": "投影是一张写实的脸溶解成抽象，于是抽象画中浮现出一个具象的人脸，模拟生成式 AI 在扩散模型里从潜空间变成图片的样子。另一个投影展示置信度分数。潜空间是机器自己的共同记忆：它们能理解噪点中的人脸，却理解不了抽象线条里的人脸。Jim Campbell 的作品让我留意，光如何影响我们辨认一幅图像。"
+            "en": "The projection is a realistic face dissolving into abstraction, so a concrete face appears in the abstract painting, simulating how generative AI turns the latent space of a diffusion model into an image. The other projection shows the confidence score.",
+            "zh": "投影是一张写实的脸溶解成抽象，于是抽象画中浮现出一个具象的人脸，模拟生成式 AI 在扩散模型里从潜空间变成图片的样子。另一个投影展示置信度分数。"
           },
           {
-            "en": "When installing, finding the balance between the painting and the projection was hard: too bright and the projection cannot be seen, too dark and the painting cannot be seen. The projected text was also too small.",
+            "en": "The latent space is the shared memory of the machines: they understand the face in the noise, but not the face in the abstract lines. Jim Campbell’s work made me notice that light is also a part of the image.",
+            "zh": "潜空间是机器自己的共同记忆：它们能理解噪点中的人脸，却理解不了抽象线条里的人脸。Jim Campbell 的作品让我留意，光如何影响我们辨认一幅图像。"
+          },
+          {
+            "en": "During installation, finding the balance between the painting and the projection was hard: too bright and the projection cannot be seen, too dark and the painting cannot be seen. The projected text was also too small.",
             "zh": "布展时，画与投影的平衡很难找：太亮投影看不到，太暗画看不到。投影的文字也太小。"
           }
         ],

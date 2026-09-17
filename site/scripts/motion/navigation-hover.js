@@ -1,5 +1,5 @@
-import { getPulse, relaxSpring } from "./easing.js?v=55b24ef37b4f";
-import { navigationHoverSettings } from "./settings.js?v=55b24ef37b4f";
+import { getPulse, relaxSpring } from "./easing.js?v=34242333640d";
+import { navigationHoverSettings } from "./settings.js?v=34242333640d";
 
 /**
  * Dwell timing and restrained spring responses for the three home navigation
@@ -178,7 +178,7 @@ export function createNavigationHover({ portfolioRoot, reducedMotionPreference }
     }
     const contactOpacityValue = state.contact.toFixed(4);
     if (contactOpacityValue !== state.contactOpacityValue) {
-      portfolioRoot.style.setProperty("--hover-contact", contactOpacityValue);
+      portfolioRoot.style.setProperty("--navigation-hover-amount", contactOpacityValue);
       state.contactOpacityValue = contactOpacityValue;
     }
   }
