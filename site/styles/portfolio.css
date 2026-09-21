@@ -1939,9 +1939,25 @@ body {
 #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-chapter {
   margin-top: 64px;
 }
-#portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-gallery {
+#portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-gallery,
+#portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-video-gallery {
   width: min(100%, 1000px, calc(58svh * 16 / 9));
   margin-inline: auto;
+}
+/* The square medical-room recording takes a study's place beside the interaction flow. */
+#portfolio-site .work-detail[data-project-id="disaster-defender"] [data-chapter-id="building-the-first-interactions"] .work-chapter-evidence {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+#portfolio-site .work-detail[data-project-id="disaster-defender"] [data-chapter-id="building-the-first-interactions"] .work-gallery {
+  grid-template-columns: minmax(0, 1fr);
+}
+#portfolio-site .work-detail[data-project-id="disaster-defender"] [data-chapter-id="building-the-first-interactions"] .work-video-gallery {
+  order: -1;
+  max-width: none;
+  margin: 0;
 }
 #portfolio-site .work-detail[data-project-id="machinery-structuralism"] .work-opening > .work-video-gallery {
   width: min(100%, 1040px, calc(58svh * 16 / 9));
@@ -2494,6 +2510,10 @@ body {
   }
   #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening .work-video-figure + .work-video-figure {
     margin-top: 0;
+  }
+  #portfolio-site .work-detail[data-project-id="disaster-defender"] [data-chapter-id="building-the-first-interactions"] .work-chapter-evidence {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
   }
 }
 /* Keyboard focus uses one ring everywhere; the lotus keeps it inside its own frame. */

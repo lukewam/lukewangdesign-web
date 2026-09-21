@@ -355,8 +355,8 @@
           "images": [
             {
               "src": "assets/portfolio/page-04-image-01.png",
-              "width": 1556,
-              "height": 2074,
+              "width": 1728,
+              "height": 2304,
               "caption": {
                 "en": "Leet Code Academy recruitment poster",
                 "zh": "Leet Code Academy 招生海报"
@@ -666,8 +666,8 @@
           "images": [
             {
               "src": "assets/portfolio/page-09-image-01.png",
-              "width": 1197,
-              "height": 422,
+              "width": 2620,
+              "height": 924,
               "caption": {
                 "en": "Task browsing low-fidelity wireframes",
                 "zh": "任务浏览线框图"
@@ -676,8 +676,8 @@
             },
             {
               "src": "assets/portfolio/page-09-image-02.png",
-              "width": 952,
-              "height": 659,
+              "width": 1330,
+              "height": 924,
               "caption": {
                 "en": "Task history and calendar low-fidelity wireframes",
                 "zh": "任务记录与日历线框图"
@@ -971,16 +971,6 @@
           ],
           "images": [
             {
-              "src": "assets/portfolio/page-12-image-04.png",
-              "width": 1002,
-              "height": 911,
-              "caption": {
-                "en": "Medical room interaction prototype",
-                "zh": "医疗室交互原型"
-              },
-              "small": false
-            },
-            {
               "src": "assets/portfolio/page-12-image-03.png",
               "width": 1600,
               "height": 669,
@@ -992,7 +982,20 @@
             }
           ],
           "layout": "wide",
-          "gallery_layout": "studies"
+          "gallery_layout": "studies",
+          "videos": [
+            {
+              "src": "assets/films/disaster-defender-medical-room.mp4",
+              "poster": "assets/films/disaster-defender-medical-room-poster.jpg",
+              "title": {
+                "en": "Medical room interaction prototype",
+                "zh": "医疗室交互原型"
+              },
+              "duration": 38,
+              "width": 1024,
+              "height": 1024
+            }
+          ]
         },
         {
           "id": "keeping-the-menu-with-the-player",
@@ -1045,8 +1048,8 @@
             },
             {
               "src": "assets/portfolio/page-13-image-03.png",
-              "width": 928,
-              "height": 517,
+              "width": 1080,
+              "height": 608,
               "caption": {
                 "en": "Hand tracking virtual keyboard gameplay",
                 "zh": "通过手部追踪操作虚拟键盘"
@@ -1061,13 +1064,26 @@
       "cover_images": [
         {
           "src": "assets/portfolio/page-11-image-01.png",
-          "width": 930,
-          "height": 523,
+          "width": 1080,
+          "height": 608,
           "caption": {
             "en": "Disaster Defender urban rescue gameplay",
             "zh": "《灾难守护者》城市救援场景"
           },
           "small": false
+        }
+      ],
+      "cover_videos": [
+        {
+          "src": "assets/films/disaster-defender-rescue.mp4",
+          "poster": "assets/films/disaster-defender-rescue-poster.jpg",
+          "title": {
+            "en": "Disaster Defender urban rescue gameplay",
+            "zh": "《灾难守护者》城市救援场景"
+          },
+          "duration": 65,
+          "width": 1080,
+          "height": 608
         }
       ],
       "design_question": {
@@ -1166,8 +1182,8 @@
           "images": [
             {
               "src": "assets/portfolio/page-15-image-03.jpg",
-              "width": 2420,
-              "height": 1815,
+              "width": 4032,
+              "height": 3024,
               "caption": {
                 "en": "Vehicle electronics and wiring assembly",
                 "zh": "电子部件与接线"
@@ -1176,8 +1192,8 @@
             },
             {
               "src": "assets/portfolio/autonomous-vehicle/camera-and-front-sensor.jpeg",
-              "width": 768,
-              "height": 1024,
+              "width": 1536,
+              "height": 2048,
               "caption": {
                 "en": "Front sensor mounting and cable routing",
                 "zh": "前置传感器的固定与走线"
@@ -1286,8 +1302,8 @@
       "process_images": [
         {
           "src": "assets/portfolio/autonomous-vehicle/laser-cut-acrylic-platform.jpeg",
-          "width": 1024,
-          "height": 768,
+          "width": 4032,
+          "height": 3024,
           "caption": {
             "en": "The laser-cut acrylic platform before fitting the electronics",
             "zh": "安装电子部件前的激光切割亚克力平台"

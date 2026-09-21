@@ -63,6 +63,34 @@
       }
     ]
   },
+  "assets/films/disaster-defender-medical-room-poster.jpg": {
+    "width": 1024,
+    "height": 1024,
+    "sources": [
+      {
+        "src": "assets/optimized/films/disaster-defender-medical-room-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/disaster-defender-medical-room-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/disaster-defender-rescue-poster.jpg": {
+    "width": 1080,
+    "height": 608,
+    "sources": [
+      {
+        "src": "assets/optimized/films/disaster-defender-rescue-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/disaster-defender-rescue-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
   "assets/films/machinery-installation-poster.jpg": {
     "width": 1920,
     "height": 1080,
@@ -338,22 +366,26 @@
     ]
   },
   "assets/portfolio/autonomous-vehicle/camera-and-front-sensor.jpeg": {
-    "width": 768,
-    "height": 1024,
+    "width": 1536,
+    "height": 2048,
     "sources": [
       {
         "src": "assets/optimized/portfolio/autonomous-vehicle/camera-and-front-sensor-480.webp",
         "width": 480
       },
       {
-        "src": "assets/optimized/portfolio/autonomous-vehicle/camera-and-front-sensor-768.webp",
-        "width": 768
+        "src": "assets/optimized/portfolio/autonomous-vehicle/camera-and-front-sensor-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/autonomous-vehicle/camera-and-front-sensor-1440.webp",
+        "width": 1440
       }
     ]
   },
   "assets/portfolio/autonomous-vehicle/laser-cut-acrylic-platform.jpeg": {
-    "width": 1024,
-    "height": 768,
+    "width": 4032,
+    "height": 3024,
     "sources": [
       {
         "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-480.webp",
@@ -362,6 +394,14 @@
       {
         "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-960.webp",
         "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-2000.webp",
+        "width": 2000
       }
     ]
   },
@@ -444,8 +484,8 @@
     ]
   },
   "assets/portfolio/page-04-image-01.png": {
-    "width": 1556,
-    "height": 2074,
+    "width": 1728,
+    "height": 2304,
     "sources": [
       {
         "src": "assets/optimized/portfolio/page-04-image-01-480.webp",
@@ -732,8 +772,8 @@
     ]
   },
   "assets/portfolio/page-09-image-01.png": {
-    "width": 1197,
-    "height": 422,
+    "width": 2620,
+    "height": 924,
     "sources": [
       {
         "src": "assets/optimized/portfolio/page-09-image-01-480.webp",
@@ -742,20 +782,32 @@
       {
         "src": "assets/optimized/portfolio/page-09-image-01-960.webp",
         "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/page-09-image-01-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/page-09-image-01-2000.webp",
+        "width": 2000
       }
     ]
   },
   "assets/portfolio/page-09-image-02.png": {
-    "width": 952,
-    "height": 659,
+    "width": 1330,
+    "height": 924,
     "sources": [
       {
         "src": "assets/optimized/portfolio/page-09-image-02-480.webp",
         "width": 480
       },
       {
-        "src": "assets/optimized/portfolio/page-09-image-02-952.webp",
-        "width": 952
+        "src": "assets/optimized/portfolio/page-09-image-02-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/page-09-image-02-1330.webp",
+        "width": 1330
       }
     ]
   },
@@ -908,16 +960,16 @@
     ]
   },
   "assets/portfolio/page-11-image-01.png": {
-    "width": 930,
-    "height": 523,
+    "width": 1080,
+    "height": 608,
     "sources": [
       {
         "src": "assets/optimized/portfolio/page-11-image-01-480.webp",
         "width": 480
       },
       {
-        "src": "assets/optimized/portfolio/page-11-image-01-930.webp",
-        "width": 930
+        "src": "assets/optimized/portfolio/page-11-image-01-960.webp",
+        "width": 960
       }
     ]
   },
@@ -975,20 +1027,6 @@
       }
     ]
   },
-  "assets/portfolio/page-12-image-04.png": {
-    "width": 1002,
-    "height": 911,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/page-12-image-04-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/page-12-image-04-960.webp",
-        "width": 960
-      }
-    ]
-  },
   "assets/portfolio/page-13-image-01.png": {
     "width": 1927,
     "height": 1669,
@@ -1030,16 +1068,16 @@
     ]
   },
   "assets/portfolio/page-13-image-03.png": {
-    "width": 928,
-    "height": 517,
+    "width": 1080,
+    "height": 608,
     "sources": [
       {
         "src": "assets/optimized/portfolio/page-13-image-03-480.webp",
         "width": 480
       },
       {
-        "src": "assets/optimized/portfolio/page-13-image-03-928.webp",
-        "width": 928
+        "src": "assets/optimized/portfolio/page-13-image-03-960.webp",
+        "width": 960
       }
     ]
   },
@@ -1054,8 +1092,8 @@
     ]
   },
   "assets/portfolio/page-15-image-03.jpg": {
-    "width": 2420,
-    "height": 1815,
+    "width": 4032,
+    "height": 3024,
     "sources": [
       {
         "src": "assets/optimized/portfolio/page-15-image-03-480.webp",
