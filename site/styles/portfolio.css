@@ -1203,6 +1203,13 @@ body {
   font-size: var(--text-md);
   margin: 8px 0 20px;
 }
+/* Earlier footage sits flush left on the opening's 7 : 5 grid, above the archive thumbnails. */
+#portfolio-site .work-process .work-video-gallery[data-gallery-layout] {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 40px;
+  max-width: none;
+  margin: 8px 0 0;
+}
 #portfolio-site .work-credits {
   display: grid;
   grid-template-columns: 80px 1fr;
@@ -1929,15 +1936,20 @@ body {
 #portfolio-site .work-gallery[data-gallery-layout="hardware"] .work-image-window {
   width: min(100%, calc(380px * var(--media-ratio)));
 }
-#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening > .work-video-gallery {
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-video-gallery {
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: 40px;
 }
-#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening .work-video-figure + .work-video-figure {
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-video-figure + .work-video-figure {
   margin-top: 64px;
 }
-#portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-chapter {
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter {
   margin-top: 64px;
+}
+/* A lone flowchart or sketch takes the opening's 7 : 5 grid and lines up with the first video. */
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter .work-gallery[data-gallery-layout="single"] {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 40px;
 }
 #portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-gallery,
 #portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-video-gallery {
@@ -1965,7 +1977,7 @@ body {
 }
 /* Each index position belongs to a project, so edits to the list cannot change its role. */
 @media (min-width: 901px) {
-  #portfolio-site .work-grid > [data-project-id="ai-multiverse"] {
+  #portfolio-site .work-grid > [data-project-id="bound-to-ruin"] {
     grid-column: 1 / span 7;
     grid-row: 1;
   }
@@ -2504,12 +2516,16 @@ body {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
   }
-  #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening > .work-video-gallery {
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-video-gallery {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
   }
-  #portfolio-site .work-detail[data-project-id="ai-multiverse"] .work-opening .work-video-figure + .work-video-figure {
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-video-figure + .work-video-figure {
     margin-top: 0;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter .work-gallery[data-gallery-layout="single"],
+  #portfolio-site .work-process .work-video-gallery[data-gallery-layout] {
+    grid-template-columns: minmax(0, 1fr);
   }
   #portfolio-site .work-detail[data-project-id="disaster-defender"] [data-chapter-id="building-the-first-interactions"] .work-chapter-evidence {
     grid-template-columns: minmax(0, 1fr);

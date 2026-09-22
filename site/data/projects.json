@@ -108,10 +108,10 @@
       ]
     },
     {
-      "id": "ai-multiverse",
+      "id": "bound-to-ruin",
       "title": {
-        "en": "AI Multiverse",
-        "zh": "AI Multiverse"
+        "en": "Bound to Ruin",
+        "zh": "灾厄合伙人"
       },
       "subtitle": {
         "en": "In development",
@@ -136,8 +136,8 @@
         "Tianyang Wang"
       ],
       "overview": {
-        "en": "This is an online action game built around a generative AI model. Three hunters face one boss player. The hunters choose prompts, and AI generates a monster in real time. The boss player controls that monster, and the hunters have to fight it.\n\nThe game combines the randomness of a roguelike with the interaction of a party game. Generative AI makes the monster different each round. Players can pick some really nasty traits, so there’s plenty of room to troll each other.",
-        "zh": "这是一款结合生成式 AI 模型的联机动作游戏，三名猎人对抗一名 Boss 玩家。猎人各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家操控这只怪物与他们对抗。\n\n游戏把 Roguelike 的随机性和派对游戏的互动结合在一起。AI 让每局的怪物都不一样，玩家还可以选一些很坑人的词条，在对抗中互坑，让游戏更有意思。"
+        "en": "This is an online action game built around a generative AI model. Three hunters face one boss player. The hunters choose prompts, and AI generates a monster in real time. The boss player controls that monster, and the hunters have to fight it.\n\nThe game combines the randomness of a roguelike with the interaction of a party game. Generative AI makes the monster different each round. Players can pick some really nasty traits, so there’s plenty of room to troll each other.\n\nRight now, the 3v1 PvP is done, the 3-player PvE is done, and the single-player offline boss fight is done. It’s adapted for MacBook, iPad and controllers.",
+        "zh": "这是一款结合生成式 AI 模型的联机动作游戏，三名猎人对抗一名 Boss 玩家。猎人各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家操控这只怪物与他们对抗。\n\n游戏把 Roguelike 的随机性和派对游戏的互动结合在一起。AI 让每局的怪物都不一样，玩家还可以选一些很坑人的词条，在对抗中互坑，让游戏更有意思。\n\n现在 3v1 的 PvP 已经完成，三人 PvE 完成，单人单机 Boss 战完成，适配 MacBook、iPad 和手柄。"
       },
       "tools": [
         "Unity",
@@ -150,23 +150,141 @@
       "cover_images": [],
       "cover_videos": [
         {
-          "src": "assets/films/ai-multiverse-playtest.mp4",
-          "poster": "assets/films/ai-multiverse-playtest-poster.jpg",
+          "src": "assets/films/bound-to-ruin-pve-battle.mp4",
+          "poster": "assets/films/bound-to-ruin-pve-battle-poster.jpg",
           "title": {
-            "en": "Online playtest",
-            "zh": "联机试玩"
+            "en": "Solo boss fight",
+            "zh": "单人单机 Boss 战"
           },
           "caption": {
-            "en": "Current two-player online prototype: hunter versus the boss-controlled monster.",
-            "zh": "当前两人联机原型：猎人与 Boss 操控的怪物对抗。"
+            "en": "One hunter against the boss, offline.",
+            "zh": "一名猎人对抗 Boss，无需联网。"
           },
-          "duration": 30,
+          "duration": 65.2,
           "width": 1280,
-          "height": 720
+          "height": 682
         },
         {
-          "src": "assets/films/ai-multiverse-arena.mp4",
-          "poster": "assets/films/ai-multiverse-arena-poster.jpg",
+          "src": "assets/films/bound-to-ruin-online-battle.mp4",
+          "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
+          "title": {
+            "en": "Online battle",
+            "zh": "联机对战"
+          },
+          "caption": {
+            "en": "Two players online: first as the boss, then as a hunter.",
+            "zh": "两名玩家联机：先操控 Boss，再换成猎人。"
+          },
+          "duration": 287.7,
+          "width": 1280,
+          "height": 678
+        }
+      ],
+      "sections": [
+        {
+          "id": "flowchart",
+          "title": {
+            "en": "Flowchart",
+            "zh": "流程图"
+          },
+          "layout": "wide",
+          "paragraphs": [],
+          "images": [
+            {
+              "src": "assets/portfolio/bound-to-ruin/gameplay-flowchart-v5.png",
+              "width": 2112,
+              "height": 1632,
+              "caption": {
+                "en": "Gameplay flow, V5",
+                "zh": "玩法流程，V5"
+              },
+              "small": false
+            }
+          ]
+        },
+        {
+          "id": "character",
+          "title": {
+            "en": "Character",
+            "zh": "角色"
+          },
+          "layout": "wide",
+          "paragraphs": [],
+          "images": [
+            {
+              "src": "assets/portfolio/bound-to-ruin/astronaut-sketch.png",
+              "width": 2732,
+              "height": 2048,
+              "caption": {
+                "en": "Astronaut concept",
+                "zh": "宇航员概念"
+              },
+              "small": false
+            }
+          ]
+        },
+        {
+          "id": "landscape",
+          "title": {
+            "en": "Landscape",
+            "zh": "场景"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "I bought a lot of ready-made assets online and directed the AI myself. After more than a dozen rounds of fixing and tuning, I finally got a high-precision map.",
+              "zh": "我大量购买网上现成的素材，自己指挥 AI，经过十几轮的修改和调优，最后实现了高精度地图。"
+            }
+          ],
+          "images": [
+            {
+              "src": "assets/portfolio/bound-to-ruin/map-concept-starwell-oasis.png",
+              "width": 1672,
+              "height": 941,
+              "caption": {
+                "en": "Starwell Oasis, concept for the current map",
+                "zh": "星井绿洲，现在这张地图的概念图"
+              },
+              "small": false
+            },
+            {
+              "src": "assets/portfolio/bound-to-ruin/map-concept-tidegrown-quarter.png",
+              "width": 1672,
+              "height": 941,
+              "caption": {
+                "en": "Tidegrown Quarter",
+                "zh": "潮生街区"
+              },
+              "small": false
+            },
+            {
+              "src": "assets/portfolio/bound-to-ruin/map-concept-cloudroot-cloister.png",
+              "width": 1672,
+              "height": 941,
+              "caption": {
+                "en": "Cloudroot Cloister",
+                "zh": "云根悬圃"
+              },
+              "small": false
+            },
+            {
+              "src": "assets/portfolio/bound-to-ruin/map-concept-ember-tide-archive.png",
+              "width": 1672,
+              "height": 941,
+              "caption": {
+                "en": "Ember Tide Archive",
+                "zh": "熔潮圣库"
+              },
+              "small": false
+            }
+          ],
+          "gallery_layout": "documents"
+        }
+      ],
+      "process_videos": [
+        {
+          "src": "assets/films/bound-to-ruin-arena.mp4",
+          "poster": "assets/films/bound-to-ruin-arena-poster.jpg",
           "title": {
             "en": "Arena demo",
             "zh": "场地演示"
@@ -180,70 +298,16 @@
           "height": 720
         }
       ],
-      "sections": [
+      "process_images": [
         {
-          "id": "flowcharts",
-          "title": {
-            "en": "Flowcharts",
-            "zh": "流程图"
+          "src": "assets/portfolio/bound-to-ruin/mvp-flowchart-v5.png",
+          "width": 2112,
+          "height": 1632,
+          "caption": {
+            "en": "MVP order, V5",
+            "zh": "MVP 开发顺序，V5"
           },
-          "layout": "wide",
-          "paragraphs": [],
-          "images": [
-            {
-              "src": "assets/portfolio/ai-multiverse/gameplay-flowchart-v5.png",
-              "width": 2112,
-              "height": 1632,
-              "caption": {
-                "en": "Gameplay flow, V5",
-                "zh": "玩法流程，V5"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/ai-multiverse/mvp-flowchart-v5.png",
-              "width": 2112,
-              "height": 1632,
-              "caption": {
-                "en": "MVP order, V5",
-                "zh": "MVP 开发顺序，V5"
-              },
-              "small": false
-            }
-          ],
-          "gallery_layout": "documents"
-        },
-        {
-          "id": "concept",
-          "title": {
-            "en": "Concept art",
-            "zh": "概念图"
-          },
-          "layout": "wide",
-          "paragraphs": [],
-          "images": [
-            {
-              "src": "assets/portfolio/ai-multiverse/astronaut-sketch.png",
-              "width": 2732,
-              "height": 2048,
-              "caption": {
-                "en": "Astronaut concept",
-                "zh": "宇航员概念"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/ai-multiverse/arena-concept.png",
-              "width": 1672,
-              "height": 941,
-              "caption": {
-                "en": "Arena concept",
-                "zh": "场地概念图"
-              },
-              "small": false
-            }
-          ],
-          "gallery_layout": "concept"
+          "small": false
         }
       ],
       "index_subtitle": {

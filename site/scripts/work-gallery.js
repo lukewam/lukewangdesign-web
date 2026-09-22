@@ -294,10 +294,12 @@ export function createWorkGallery(
     controller: "disaster-defender",
     car: "autonomous-vehicle",
     robot: "zoo-navigator",
-    multiverse: "ai-multiverse",
+    multiverse: "bound-to-ruin",
     brush: "oil-paintings",
     touchdesigner: "touchdesigner",
   };
+  /** Links published under a project's working title, such as those in sent résumés, keep opening it. */
+  const renamedProjectIds = { "ai-multiverse": "bound-to-ruin" };
   const completeProjectOrder = [
     ...workArea.querySelectorAll("[data-project-icon]"),
   ].map(
@@ -920,16 +922,26 @@ export function createWorkGallery(
     parentElement.append(materialsSection);
   }
 
-  /** Adds supporting documentation behind a native disclosure control. */
-  function appendProcessImages(projectData) {
-    if (!projectData.process_images?.length && !projectData.process_note)
-      return;
-    const processDetails = createElement("details", "work-process");
+  /** Adds supporting documentation and earlier footage behind a native disclosure control. */
+  function appendProcessNotes(projectData) {
+    const videoCount = projectData.process_videos?.length || 0;
     const imageCount = projectData.process_images?.length || 0;
-    const summaryLabel =
+    if (!videoCount && !imageCount && !projectData.process_note) return;
+    const processDetails = createElement("details", "work-process");
+    const videoLabel =
       activeLanguage === "zh"
-        ? `过程记录 · ${imageCount} 张`
-        : `Process notes · ${imageCount} ${imageCount === 1 ? "image" : "images"}`;
+        ? `${videoCount} 段视频`
+        : `${videoCount} ${videoCount === 1 ? "video" : "videos"}`;
+    const imageLabel =
+      activeLanguage === "zh"
+        ? `${imageCount} 张`
+        : `${imageCount} ${imageCount === 1 ? "image" : "images"}`;
+    /** Image-only notes keep their count even at zero; footage is named only when present. */
+    const summaryLabel = [
+      activeLanguage === "zh" ? "过程记录" : "Process notes",
+      ...(videoCount ? [videoLabel] : []),
+      ...(videoCount && !imageCount ? [] : [imageLabel]),
+    ].join(" · ");
     processDetails.append(createElement("summary", "", summaryLabel));
     if (projectData.process_note)
       appendParagraph(
@@ -937,7 +949,13 @@ export function createWorkGallery(
         projectData.process_note,
         "work-process-note",
       );
+    appendVideoGallery(processDetails, projectData.process_videos);
     appendImageGallery(processDetails, projectData.process_images, "archive");
+    /** Folding the notes away also stops their footage. */
+    processDetails.addEventListener("toggle", () => {
+      if (!processDetails.open)
+        processDetails.querySelectorAll("video").forEach((video) => video.pause());
+    });
     projectDetail.append(processDetails);
   }
 
@@ -1115,7 +1133,7 @@ export function createWorkGallery(
       chapterHeadings.set(projectSection.id, chapterHeading);
       projectDetail.append(chapterSection);
     });
-    appendProcessImages(projectData);
+    appendProcessNotes(projectData);
     appendDetailFooter(projectData);
   }
 
@@ -1204,10 +1222,11 @@ export function createWorkGallery(
 
   /**
    * Open a known case study; stale or misspelled links return to the work index.
-   * @param {string} projectId Requested project identifier.
+   * @param {string} requestedProjectId Requested project identifier, current or former.
    * @returns {boolean} Whether the requested project exists.
    */
-  function openProject(projectId) {
+  function openProject(requestedProjectId) {
+    const projectId = renamedProjectIds[requestedProjectId] || requestedProjectId;
     if (!findProject(projectId)) {
       returnToWorkIndex();
       return false;
