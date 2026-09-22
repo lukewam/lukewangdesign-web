@@ -35,20 +35,6 @@
       }
     ]
   },
-  "assets/films/bound-to-ruin-arena-poster.jpg": {
-    "width": 1280,
-    "height": 720,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-arena-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-arena-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
   "assets/films/bound-to-ruin-online-battle-poster.jpg": {
     "width": 1280,
     "height": 678,
@@ -59,6 +45,20 @@
       },
       {
         "src": "assets/optimized/films/bound-to-ruin-online-battle-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-online-playtest-poster.jpg": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-online-playtest-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-online-playtest-poster-960.webp",
         "width": 960
       }
     ]

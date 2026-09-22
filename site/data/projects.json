@@ -283,17 +283,17 @@
       ],
       "process_videos": [
         {
-          "src": "assets/films/bound-to-ruin-arena.mp4",
-          "poster": "assets/films/bound-to-ruin-arena-poster.jpg",
+          "src": "assets/films/bound-to-ruin-online-playtest.mp4",
+          "poster": "assets/films/bound-to-ruin-online-playtest-poster.jpg",
           "title": {
-            "en": "Arena demo",
-            "zh": "场地演示"
+            "en": "Online playtest",
+            "zh": "联机试玩"
           },
           "caption": {
-            "en": "Golden Ring Arena in Unity",
-            "zh": "Unity 里的 Golden Ring Arena"
+            "en": "Early two-player online prototype: hunter versus the boss-controlled monster.",
+            "zh": "早期两人联机原型：猎人与 Boss 操控的怪物对抗。"
           },
-          "duration": 29.9,
+          "duration": 30,
           "width": 1280,
           "height": 720
         }
