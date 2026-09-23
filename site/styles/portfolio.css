@@ -943,6 +943,7 @@ body {
   color: var(--color-muted);
 }
 #portfolio-site .work-gallery[data-gallery-layout="hero"],
+#portfolio-site .work-gallery[data-gallery-layout="diagram"],
 #portfolio-site .work-gallery[data-gallery-layout="single"] {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -1936,20 +1937,83 @@ body {
 #portfolio-site .work-gallery[data-gallery-layout="hardware"] .work-image-window {
   width: min(100%, calc(380px * var(--media-ratio)));
 }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-video-gallery {
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 40px;
+/* Bound to Ruin: play first, then rules, the hand-drawn character, and the world. */
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening {
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: 48px;
+  margin-bottom: 0;
 }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-video-figure + .work-video-figure {
-  margin-top: 64px;
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-lead {
+  font-size: var(--text-reading);
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta {
+  grid-template-columns: 1fr 1fr;
+  margin-top: 28px;
 }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter {
-  margin-top: 64px;
+  margin-top: clamp(72px, 8vw, 112px);
 }
-/* A lone flowchart or sketch takes the opening's 7 : 5 grid and lines up with the first video. */
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter .work-gallery[data-gallery-layout="single"] {
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 40px;
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="online-play"] {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: 48px;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="online-play"] .work-video-gallery {
+  max-width: none;
+  margin: 0;
+}
+/* Dense rules need a larger reading surface than an illustration. */
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="flowchart"] {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 8fr);
+  gap: 48px;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="flowchart"] .work-chapter-evidence {
+  width: min(100%, 880px);
+  justify-self: end;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="character"] {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+  gap: 48px;
+  align-items: start;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="character"] .work-chapter-evidence {
+  width: min(100%, 720px);
+  justify-self: end;
+}
+/* The selected map gets a full view; three alternatives stay close as one study. */
+#portfolio-site .work-gallery[data-gallery-layout="worlds"] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 36px 28px;
+}
+#portfolio-site .work-gallery[data-gallery-layout="worlds"] .work-figure:first-child {
+  grid-column: 1 / -1;
+  width: min(100%, 960px);
+  justify-self: end;
+  margin-bottom: 12px;
+}
+@container case-study (max-width: 900px) {
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="flowchart"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr);
+    gap: 0 32px;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-overview {
+    grid-row: 1 / span 2;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta {
+    display: block;
+    margin-top: 0;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta > div + div {
+    margin-top: 14px;
+  }
 }
 #portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-gallery,
 #portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-video-gallery {
@@ -2516,16 +2580,27 @@ body {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
   }
-  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-video-gallery {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 28px;
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction {
+    display: block;
   }
-  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-video-figure + .work-video-figure {
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta {
+    display: grid;
+    margin-top: 24px;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta > div + div {
     margin-top: 0;
   }
-  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter .work-gallery[data-gallery-layout="single"],
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+  #portfolio-site .work-gallery[data-gallery-layout="worlds"],
   #portfolio-site .work-process .work-video-gallery[data-gallery-layout] {
     grid-template-columns: minmax(0, 1fr);
+  }
+  #portfolio-site .work-gallery[data-gallery-layout="worlds"] .work-figure:first-child {
+    margin-bottom: 0;
   }
   #portfolio-site .work-detail[data-project-id="disaster-defender"] [data-chapter-id="building-the-first-interactions"] .work-chapter-evidence {
     grid-template-columns: minmax(0, 1fr);

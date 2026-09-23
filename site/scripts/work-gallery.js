@@ -190,6 +190,18 @@ export function createWorkGallery(
       ["(max-width: 690px)", "calc(100vw - 48px)"],
       [null, "min(600px, calc(45.5vw - 14px))"],
     ],
+    worlds: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      [null, "min(400px, calc(30.3vw - 19px))"],
+    ],
+    worldLead: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      [null, "min(960px, 91vw)"],
+    ],
+    diagram: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      [null, "min(880px, 91vw)"],
+    ],
     studies: [
       ["(max-width: 690px)", "calc(100vw - 48px)"],
       [null, "min(600px, calc(45.5vw - 14px))"],
@@ -694,7 +706,9 @@ export function createWorkGallery(
         createImageWindow(
           galleryImage,
           galleryLayout === "hero",
-          perColumnSizes
+          galleryLayout === "worlds" && imageIndex === 0
+            ? imageSizes.worldLead
+            : perColumnSizes
             ? perColumnSizes[imageIndex % perColumnSizes.length]
             : resolvedSizes,
         ),

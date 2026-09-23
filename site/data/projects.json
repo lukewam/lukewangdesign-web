@@ -136,8 +136,8 @@
         "Tianyang Wang"
       ],
       "overview": {
-        "en": "This is an online action game built around a generative AI model. Three hunters face one boss player. The hunters choose prompts, and AI generates a monster in real time. The boss player controls that monster, and the hunters have to fight it.\n\nThe game combines the randomness of a roguelike with the interaction of a party game. Generative AI makes the monster different each round. Players can pick some really nasty traits, so there’s plenty of room to troll each other.\n\nRight now, the 3v1 PvP is done, the 3-player PvE is done, and the single-player offline boss fight is done. It’s adapted for MacBook, iPad and controllers.",
-        "zh": "这是一款结合生成式 AI 模型的联机动作游戏，三名猎人对抗一名 Boss 玩家。猎人各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家操控这只怪物与他们对抗。\n\n游戏把 Roguelike 的随机性和派对游戏的互动结合在一起。AI 让每局的怪物都不一样，玩家还可以选一些很坑人的词条，在对抗中互坑，让游戏更有意思。\n\n现在 3v1 的 PvP 已经完成，三人 PvE 完成，单人单机 Boss 战完成，适配 MacBook、iPad 和手柄。"
+        "en": "This is an online action game built around a generative AI model. Three hunters face one boss player. The hunters choose prompts, and AI generates a monster in real time. The boss player controls that monster, and the hunters have to fight it.\n\nThe game combines the randomness of a roguelike with the interaction of a party game. Generative AI makes the monster different each round. Players can pick some really nasty traits, so there’s plenty of room to troll each other.",
+        "zh": "这是一款结合生成式 AI 模型的联机动作游戏，三名猎人对抗一名 Boss 玩家。猎人各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家操控这只怪物与他们对抗。\n\n游戏把 Roguelike 的随机性和派对游戏的互动结合在一起。AI 让每局的怪物都不一样，玩家还可以选一些很坑人的词条，在对抗中互坑，让游戏更有意思。"
       },
       "tools": [
         "Unity",
@@ -146,7 +146,7 @@
         "Node.js"
       ],
       "links": [],
-      "hero_layout": "installation",
+      "hero_layout": "game",
       "cover_images": [],
       "cover_videos": [
         {
@@ -163,31 +163,48 @@
           "duration": 65.2,
           "width": 1280,
           "height": 682
-        },
-        {
-          "src": "assets/films/bound-to-ruin-online-battle.mp4",
-          "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
-          "title": {
-            "en": "Online battle",
-            "zh": "联机对战"
-          },
-          "caption": {
-            "en": "Two players online: first as the boss, then as a hunter.",
-            "zh": "两名玩家联机：先操控 Boss，再换成猎人。"
-          },
-          "duration": 287.7,
-          "width": 1280,
-          "height": 678
         }
       ],
       "sections": [
         {
+          "id": "online-play",
+          "title": {
+            "en": "Online play",
+            "zh": "联机对战"
+          },
+          "layout": "paired",
+          "paragraphs": [
+            {
+              "en": "Right now, the 3v1 PvP is done, the 3-player PvE is done, and the single-player offline boss fight is done. It’s adapted for MacBook, iPad and controllers.",
+              "zh": "现在 3v1 的 PvP 已经完成，三人 PvE 完成，单人单机 Boss 战完成，适配 MacBook、iPad 和手柄。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "assets/films/bound-to-ruin-online-battle.mp4",
+              "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
+              "title": {
+                "en": "Online battle",
+                "zh": "联机对战"
+              },
+              "caption": {
+                "en": "Two players online: first as the boss, then as a hunter.",
+                "zh": "两名玩家联机：先操控 Boss，再换成猎人。"
+              },
+              "duration": 287.7,
+              "width": 1280,
+              "height": 678
+            }
+          ]
+        },
+        {
           "id": "flowchart",
           "title": {
-            "en": "Flowchart",
-            "zh": "流程图"
+            "en": "Gameplay",
+            "zh": "玩法"
           },
-          "layout": "wide",
+          "layout": "paired",
+          "gallery_layout": "diagram",
           "paragraphs": [],
           "images": [
             {
@@ -208,7 +225,7 @@
             "en": "Character",
             "zh": "角色"
           },
-          "layout": "wide",
+          "layout": "paired",
           "paragraphs": [],
           "images": [
             {
@@ -252,8 +269,8 @@
               "width": 1672,
               "height": 941,
               "caption": {
-                "en": "Tidegrown Quarter",
-                "zh": "潮生街区"
+                "en": "Tidegrown Quarter · alternate concept",
+                "zh": "潮生街区 · 备选概念"
               },
               "small": false
             },
@@ -262,8 +279,8 @@
               "width": 1672,
               "height": 941,
               "caption": {
-                "en": "Cloudroot Cloister",
-                "zh": "云根悬圃"
+                "en": "Cloudroot Cloister · alternate concept",
+                "zh": "云根悬圃 · 备选概念"
               },
               "small": false
             },
@@ -272,13 +289,13 @@
               "width": 1672,
               "height": 941,
               "caption": {
-                "en": "Ember Tide Archive",
-                "zh": "熔潮圣库"
+                "en": "Ember Tide Archive · alternate concept",
+                "zh": "熔潮圣库 · 备选概念"
               },
               "small": false
             }
           ],
-          "gallery_layout": "documents"
+          "gallery_layout": "worlds"
         }
       ],
       "process_videos": [
