@@ -835,7 +835,7 @@
         {
           "src": "assets/portfolio/page-08-image-01.png",
           "width": 979,
-          "height": 1221,
+          "height": 1159,
           "caption": {
             "en": "Team PlanetFlip research survey",
             "zh": "PlanetFlip 团队调研问卷"
@@ -875,7 +875,7 @@
         {
           "src": "assets/portfolio/page-09-image-03.png",
           "width": 2880,
-          "height": 1800,
+          "height": 1638,
           "caption": {
             "en": "Figma bear customization prototype overview",
             "zh": "北极熊装扮原型（Figma）"
@@ -883,7 +883,7 @@
           "small": false,
           "crop": {
             "x": 726,
-            "y": 452,
+            "y": 290,
             "width": 1004,
             "height": 478
           }
@@ -891,7 +891,7 @@
         {
           "src": "assets/portfolio/page-09-image-04.png",
           "width": 2880,
-          "height": 1800,
+          "height": 1638,
           "caption": {
             "en": "Figma customization variants and task prototypes",
             "zh": "装扮方案与任务原型（Figma）"
@@ -899,7 +899,7 @@
           "small": false,
           "crop": {
             "x": 695,
-            "y": 645,
+            "y": 483,
             "width": 1510,
             "height": 480
           }
@@ -907,7 +907,7 @@
         {
           "src": "assets/portfolio/page-09-image-05.png",
           "width": 2880,
-          "height": 1800,
+          "height": 1638,
           "caption": {
             "en": "Figma task browsing variants",
             "zh": "任务浏览方案（Figma）"
@@ -915,7 +915,7 @@
           "small": false,
           "crop": {
             "x": 936,
-            "y": 440,
+            "y": 278,
             "width": 1296,
             "height": 426
           }
@@ -923,7 +923,7 @@
         {
           "src": "assets/portfolio/page-09-image-06.png",
           "width": 2880,
-          "height": 1800,
+          "height": 1638,
           "caption": {
             "en": "Figma task history and profile prototypes",
             "zh": "任务记录与个人资料原型（Figma）"
@@ -931,7 +931,7 @@
           "small": false,
           "crop": {
             "x": 822,
-            "y": 516,
+            "y": 354,
             "width": 652,
             "height": 432
           }
