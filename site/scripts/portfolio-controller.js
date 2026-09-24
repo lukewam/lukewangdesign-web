@@ -1,17 +1,17 @@
-import { createWorkGallery } from "./work-gallery.js?v=afdccfffcfb1";
-import { translations } from "./translations.js?v=afdccfffcfb1";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=afdccfffcfb1";
+import { createWorkGallery } from "./work-gallery.js?v=5b57841055b8";
+import { translations } from "./translations.js?v=5b57841055b8";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=5b57841055b8";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=afdccfffcfb1";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=afdccfffcfb1";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=afdccfffcfb1";
+} from "./motion/section-transition.js?v=5b57841055b8";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=5b57841055b8";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=5b57841055b8";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=afdccfffcfb1";
+} from "./motion/settings.js?v=5b57841055b8";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
@@ -683,6 +683,17 @@ export function initializePortfolio(
     if (!painter.hasDrawingContext()) return;
     if (!lotusRenderer) {
       painter.paintUnavailable(translations[currentLanguage].flowerUnavailable);
+      return;
+    }
+    /**
+     * A settled section covers the flower completely, so its frames are skipped
+     * until the return home begins; the panel's own media then has the renderer.
+     */
+    if (
+      state.targetAmount === 1 &&
+      !state.isClosing &&
+      state.slideProgress >= 0.999
+    ) {
       return;
     }
     const hasHoverCue = Boolean(navigationHover.state.activeSection);

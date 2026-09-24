@@ -1999,8 +1999,11 @@ body {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
   }
+  /* The base grid still sends the introduction to a second column; in one column it must follow the video. */
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction {
     display: grid;
+    grid-column: 1;
+    grid-row: 2;
     grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr);
     gap: 0 32px;
   }
