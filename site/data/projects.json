@@ -114,12 +114,12 @@
         "zh": "灾厄合伙人"
       },
       "subtitle": {
-        "en": "In development",
-        "zh": "开发中"
+        "en": "A monster shaped by shared choices.",
+        "zh": "共同选择，一起面对。"
       },
       "status": {
-        "en": "In development",
-        "zh": "开发中"
+        "en": "In development · September 2026",
+        "zh": "开发中 · 2026 年 9 月"
       },
       "date_range": {
         "start": "2026-09",
@@ -136,12 +136,13 @@
         "Tianyang Wang"
       ],
       "overview": {
-        "en": "This is an online action game built around a generative AI model. Three hunters face one boss player. The hunters choose prompts, and AI generates a monster in real time. The boss player controls that monster, and the hunters have to fight it.\n\nThe game combines the randomness of a roguelike with the interaction of a party game. Generative AI makes the monster different each round. Players can pick some really nasty traits, so there’s plenty of room to troll each other.",
-        "zh": "这是一款结合生成式 AI 模型的联机动作游戏，三名猎人对抗一名 Boss 玩家。猎人各自选择提示词，AI 据此实时生成怪物，再由 Boss 玩家操控这只怪物与他们对抗。\n\n游戏把 Roguelike 的随机性和派对游戏的互动结合在一起。AI 让每局的怪物都不一样，玩家还可以选一些很坑人的词条，在对抗中互坑，让游戏更有意思。"
+        "en": "An action-game prototype built around a question: what if players had to fight the monster they designed together?\n\nThe current work brings Tripo generation, local rig refinement and Unity combat experiments into the same project.",
+        "zh": "如果玩家必须面对自己一起设计的怪物，会怎样？这是《灾厄合伙人》正在探索的动作游戏原型。\n\n当前进展集中在 Tripo 生成、本地骨骼微调，以及 Unity 中的战斗实验。"
       },
       "tools": [
         "Unity",
         "C#",
+        "Tripo API",
         "Blender",
         "Node.js"
       ],
@@ -167,138 +168,121 @@
       ],
       "sections": [
         {
-          "id": "online-play",
+          "id": "tripo-pipeline",
           "title": {
-            "en": "Online play",
-            "zh": "联机对战"
+            "en": "Three traits. One creature.",
+            "zh": "三个词条，一只怪物。"
           },
           "layout": "paired",
           "paragraphs": [
             {
-              "en": "Right now, the 3v1 PvP is done, the 3-player PvE is done, and the single-player offline boss fight is done. It’s adapted for MacBook, iPad and controllers.",
-              "zh": "现在 3v1 的 PvP 已经完成，三人 PvE 完成，单人单机 Boss 战完成，适配 MacBook、iPad 和手柄。"
+              "en": "Three chosen traits become a constrained creature brief. A local tool calls the Tripo API, tracks the task and prepares the model for rigging and animation.",
+              "zh": "三个选定词条组成受约束的造型描述。本地工坊调用 Tripo API、跟踪任务，再将模型送入绑定与动作流程。"
+            },
+            {
+              "en": "The workshop is working; generation for a shared game room is still being connected.",
+              "zh": "生成工坊已跑通；每个游戏房间共享一次生成的流程仍在接入。"
             }
           ],
           "videos": [
             {
-              "src": "assets/films/bound-to-ruin-online-battle.mp4",
-              "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
+              "src": "assets/films/bound-to-ruin-tripo-workshop-en.mp4",
+              "poster": "assets/films/bound-to-ruin-tripo-workshop-en-poster.jpg",
               "title": {
-                "en": "Online battle",
-                "zh": "联机对战"
+                "en": "Inside the generation workshop",
+                "zh": "生成工坊"
               },
               "caption": {
-                "en": "Two players online: first as the boss, then as a hunter.",
-                "zh": "两名玩家联机：先操控 Boss，再换成猎人。"
+                "en": "Recorded tool interaction · English · excerpt",
+                "zh": "工坊真实操作录像 · 英文 · 节选"
               },
-              "duration": 287.7,
-              "width": 1280,
-              "height": 678
+              "duration": 16,
+              "width": 960,
+              "height": 984
             }
           ]
         },
         {
-          "id": "flowchart",
+          "id": "rig-refinement",
           "title": {
-            "en": "Gameplay",
-            "zh": "玩法"
-          },
-          "layout": "paired",
-          "gallery_layout": "diagram",
-          "paragraphs": [],
-          "images": [
-            {
-              "src": "assets/portfolio/bound-to-ruin/gameplay-flowchart-v5.png",
-              "width": 2112,
-              "height": 1632,
-              "caption": {
-                "en": "Gameplay flow, V5",
-                "zh": "玩法流程，V5"
-              },
-              "small": false
-            }
-          ]
-        },
-        {
-          "id": "character",
-          "title": {
-            "en": "Character",
-            "zh": "角色"
-          },
-          "layout": "paired",
-          "paragraphs": [],
-          "images": [
-            {
-              "src": "assets/portfolio/bound-to-ruin/astronaut-sketch.png",
-              "width": 2732,
-              "height": 2048,
-              "caption": {
-                "en": "Astronaut concept",
-                "zh": "宇航员概念"
-              },
-              "small": false
-            }
-          ]
-        },
-        {
-          "id": "landscape",
-          "title": {
-            "en": "Landscape",
-            "zh": "场景"
+            "en": "Refining the rig.",
+            "zh": "骨骼微调。"
           },
           "layout": "wide",
           "paragraphs": [
             {
-              "en": "I bought a lot of ready-made assets online and directed the AI myself. After more than a dozen rounds of fixing and tuning, I finally got a high-precision map.",
-              "zh": "我大量购买网上现成的素材，自己指挥 AI，经过十几轮的修改和调优，最后实现了高精度地图。"
+              "en": "The generated rig had 41 bones and no finger joints. I added 30 finger bones, kept the original hand mesh, and calibrated the palm, bending axes and thumb opposition.",
+              "zh": "生成骨架原有 41 根骨骼，没有指骨。我补入 30 根指骨，保留原生手部网格，并校准掌面、弯曲轴与拇指对掌。"
+            },
+            {
+              "en": "The grip is now inspectable. A tight fist still stretches the mesh; shoulder weights and contact remain in progress.",
+              "zh": "现在可以逐个检查抓握姿势。握拳仍会拉伸局部网格，肩部权重与接触效果还在打磨。"
             }
           ],
-          "images": [
+          "videos": [
             {
-              "src": "assets/portfolio/bound-to-ruin/map-concept-starwell-oasis.png",
-              "width": 1672,
-              "height": 941,
-              "caption": {
-                "en": "Starwell Oasis, concept for the current map",
-                "zh": "星井绿洲，现在这张地图的概念图"
+              "src": "assets/films/bound-to-ruin-rig-refinement-en.mp4",
+              "poster": "assets/films/bound-to-ruin-rig-refinement-en-poster.jpg",
+              "title": {
+                "en": "Rig refinement · September study",
+                "zh": "骨骼微调 · 九月记录"
               },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/bound-to-ruin/map-concept-tidegrown-quarter.png",
-              "width": 1672,
-              "height": 941,
               "caption": {
-                "en": "Tidegrown Quarter · alternate concept",
-                "zh": "潮生街区 · 备选概念"
+                "en": "New 24-second asset recording · English · diagnostic poses",
+                "zh": "新录制的 24 秒资产展示 · 英文 · 诊断姿势"
               },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/bound-to-ruin/map-concept-cloudroot-cloister.png",
-              "width": 1672,
-              "height": 941,
-              "caption": {
-                "en": "Cloudroot Cloister · alternate concept",
-                "zh": "云根悬圃 · 备选概念"
-              },
-              "small": false
-            },
-            {
-              "src": "assets/portfolio/bound-to-ruin/map-concept-ember-tide-archive.png",
-              "width": 1672,
-              "height": 941,
-              "caption": {
-                "en": "Ember Tide Archive · alternate concept",
-                "zh": "熔潮圣库 · 备选概念"
-              },
-              "small": false
+              "duration": 24,
+              "width": 1600,
+              "height": 900
             }
-          ],
-          "gallery_layout": "worlds"
+          ]
+        },
+        {
+          "id": "next-playtest",
+          "title": {
+            "en": "Make the choices matter.",
+            "zh": "让选择改变打法。"
+          },
+          "layout": "text",
+          "paragraphs": [
+            {
+              "en": "The latest combat experiment lets a hunter lure a charging boss onto ice it created, opening a counterattack. Next: test whether players can read that cause and effect—and want another round.",
+              "zh": "最新战斗实验让猎人诱导冲锋 Boss 踩上它自己留下的冰面，制造反击机会。下一步要验证：玩家能否读懂这层因果，并想再玩一局。"
+            }
+          ]
         }
       ],
       "process_videos": [
+        {
+          "src": "assets/films/bound-to-ruin-generated-trial-en.mp4",
+          "poster": "assets/films/bound-to-ruin-generated-trial-en-poster.jpg",
+          "title": {
+            "en": "A generated creature, in Unity",
+            "zh": "生成怪物进入 Unity"
+          },
+          "caption": {
+            "en": "Earlier playable trial · English · excerpt",
+            "zh": "已有试玩版本 · 英文 · 节选"
+          },
+          "duration": 18,
+          "width": 1280,
+          "height": 804
+        },
+        {
+          "src": "assets/films/bound-to-ruin-online-battle.mp4",
+          "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
+          "title": {
+            "en": "Online battle",
+            "zh": "联机对战"
+          },
+          "caption": {
+            "en": "Two players online: first as the boss, then as a hunter.",
+            "zh": "两名玩家联机：先操控 Boss，再换成猎人。"
+          },
+          "duration": 287.7,
+          "width": 1280,
+          "height": 678
+        },
         {
           "src": "assets/films/bound-to-ruin-online-playtest.mp4",
           "poster": "assets/films/bound-to-ruin-online-playtest-poster.jpg",
@@ -317,6 +301,66 @@
       ],
       "process_images": [
         {
+          "src": "assets/portfolio/bound-to-ruin/astronaut-sketch.png",
+          "width": 2732,
+          "height": 2048,
+          "caption": {
+            "en": "Astronaut concept",
+            "zh": "宇航员概念"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/bound-to-ruin/map-concept-starwell-oasis.png",
+          "width": 1672,
+          "height": 941,
+          "caption": {
+            "en": "Starwell Oasis, concept for the current map",
+            "zh": "星井绿洲，现在这张地图的概念图"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/bound-to-ruin/map-concept-tidegrown-quarter.png",
+          "width": 1672,
+          "height": 941,
+          "caption": {
+            "en": "Tidegrown Quarter · alternate concept",
+            "zh": "潮生街区 · 备选概念"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/bound-to-ruin/map-concept-cloudroot-cloister.png",
+          "width": 1672,
+          "height": 941,
+          "caption": {
+            "en": "Cloudroot Cloister · alternate concept",
+            "zh": "云根悬圃 · 备选概念"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/bound-to-ruin/map-concept-ember-tide-archive.png",
+          "width": 1672,
+          "height": 941,
+          "caption": {
+            "en": "Ember Tide Archive · alternate concept",
+            "zh": "熔潮圣库 · 备选概念"
+          },
+          "small": false
+        },
+        {
+          "src": "assets/portfolio/bound-to-ruin/gameplay-flowchart-v5.png",
+          "width": 2112,
+          "height": 1632,
+          "caption": {
+            "en": "Gameplay flow, V5",
+            "zh": "玩法流程，V5"
+          },
+          "small": false
+        },
+        {
           "src": "assets/portfolio/bound-to-ruin/mvp-flowchart-v5.png",
           "width": 2112,
           "height": 1632,
@@ -330,6 +374,10 @@
       "index_subtitle": {
         "en": "AI Model-Driven Game",
         "zh": "AI 模型驱动游戏"
+      },
+      "process_note": {
+        "en": "Earlier playtests, sketches and world studies. These record the development process, not the completion of the latest generation pipeline. Starwell Oasis remains the current map direction; the other landscapes are alternatives.",
+        "zh": "早期试玩、草图与场景研究，记录开发过程，不代表最新生成流程已经完成。星井绿洲仍是当前地图方向，其他场景是备选概念。"
       }
     },
     {

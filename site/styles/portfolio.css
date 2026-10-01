@@ -1937,7 +1937,7 @@ body {
 #portfolio-site .work-gallery[data-gallery-layout="hardware"] .work-image-window {
   width: min(100%, calc(380px * var(--media-ratio)));
 }
-/* Bound to Ruin: play first, then rules, the hand-drawn character, and the world. */
+/* Bound to Ruin: a brief work-in-progress entry, with earlier studies folded away. */
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening {
   grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
   gap: 48px;
@@ -1952,6 +1952,50 @@ body {
 }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter {
   margin-top: clamp(72px, 8vw, 112px);
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-subtitle {
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  max-width: 20ch;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="tripo-pipeline"] {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 7vw, 112px);
+  align-items: center;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="tripo-pipeline"] .work-chapter-evidence {
+  max-width: 460px;
+  width: 100%;
+  justify-self: end;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="rig-refinement"] .work-chapter-copy {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 0 64px;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="rig-refinement"] .work-chapter-number {
+  grid-column: 1;
+  grid-row: 1;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="rig-refinement"] h3 {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="rig-refinement"] .work-chapter-prose {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="rig-refinement"] .work-video-gallery {
+  max-width: 1120px;
+  margin-left: auto;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="next-playtest"] {
+  max-width: 960px;
+  margin: 64px 0 0 auto;
+}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-process {
+  margin-top: 64px;
 }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="online-play"] {
   grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
@@ -2008,14 +2052,38 @@ body {
     gap: 0 32px;
   }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-overview {
-    grid-row: 1 / span 2;
+    grid-column: 1;
+    grid-row: 2;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-subtitle {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-tools {
+    grid-column: 1;
+    grid-row: 3;
   }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta {
     display: block;
     margin-top: 0;
+    grid-column: 2;
+    grid-row: 1 / span 3;
   }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta > div + div {
     margin-top: 14px;
+  }
+}
+@container case-study (max-width: 620px) {
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="rig-refinement"] .work-chapter-copy {
+    display: block;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="tripo-pipeline"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="tripo-pipeline"] .work-chapter-evidence {
+    justify-self: start;
+    max-width: 380px;
   }
 }
 #portfolio-site .work-detail[data-project-id="disaster-defender"] .work-opening > .work-gallery,

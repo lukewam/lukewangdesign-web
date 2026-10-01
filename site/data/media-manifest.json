@@ -35,6 +35,20 @@
       }
     ]
   },
+  "assets/films/bound-to-ruin-generated-trial-en-poster.jpg": {
+    "width": 1280,
+    "height": 804,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-generated-trial-en-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-generated-trial-en-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
   "assets/films/bound-to-ruin-online-battle-poster.jpg": {
     "width": 1280,
     "height": 678,
@@ -73,6 +87,38 @@
       },
       {
         "src": "assets/optimized/films/bound-to-ruin-pve-battle-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-rig-refinement-en-poster.jpg": {
+    "width": 1600,
+    "height": 900,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-rig-refinement-en-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-rig-refinement-en-poster-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-rig-refinement-en-poster-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-tripo-workshop-en-poster.jpg": {
+    "width": 960,
+    "height": 984,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-tripo-workshop-en-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-tripo-workshop-en-poster-960.webp",
         "width": 960
       }
     ]
