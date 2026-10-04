@@ -1,17 +1,18 @@
-import { createWorkGallery } from "./work-gallery.js?v=0bf5e8cde4c6";
-import { translations } from "./translations.js?v=0bf5e8cde4c6";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=0bf5e8cde4c6";
+import { createWorkGallery } from "./work-gallery.js?v=be9a516a93a7";
+import { translations } from "./translations.js?v=be9a516a93a7";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=be9a516a93a7";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=0bf5e8cde4c6";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=0bf5e8cde4c6";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=0bf5e8cde4c6";
+} from "./motion/section-transition.js?v=be9a516a93a7";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=be9a516a93a7";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=be9a516a93a7";
+import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=be9a516a93a7";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=0bf5e8cde4c6";
+} from "./motion/settings.js?v=be9a516a93a7";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
@@ -22,7 +23,7 @@ import {
  * @param {Object} dragonflyRenderer - Dragonfly controller with draw, resize, launch, and returnHome methods.
  * @param {Object} portfolioData - Content supplied to the work gallery.
  * @param {Object} [mediaManifest={}] - Size variants of the project images, keyed by original path.
- * @returns {void}
+ * @returns {{setLotusRenderer: Function}} Upgrade graphics without restarting navigation.
  */
 export function initializePortfolio(
   portfolioRoot,
@@ -59,6 +60,33 @@ export function initializePortfolio(
     portfolioRoot,
     reducedMotionPreference,
   });
+  const fallbackRenderer = createLotusFallbackRenderer();
+  let isLotusLoadComplete = Boolean(lotusRenderer);
+  let graphicsWaitingSeconds = 0;
+  let flowerMode = !painter.hasDrawingContext() ? "image" : lotusRenderer ? "webgl" : "fallback";
+  portfolioRoot.dataset.flowerMode = flowerMode;
+
+  /** Labels describe the controls that are actually available in each graphics mode. */
+  function updateFlowerControls() {
+    const copy = translations[currentLanguage];
+    const isAnimated = flowerMode === "webgl" || flowerMode === "fallback-motion";
+    portfolioRoot.querySelector(".site-message").textContent = flowerMode === "fallback" ? copy.fallbackHint : copy.hint;
+    replayButton.textContent = isAnimated ? copy.replay : copy.resetColors;
+    replayButton.hidden = flowerMode === "image";
+    flowerSurface.tabIndex = flowerMode === "image" ? -1 : 0;
+    flowerSurface.setAttribute("aria-label", flowerMode === "webgl" ? copy[bloomClock.isPlaying ? "pause" : "play"] : flowerMode === "fallback-motion" ? copy[bloomClock.isPlaying ? "fallbackPause" : "fallbackPlay"] : flowerMode === "fallback" ? copy.fallbackControl : copy.fallbackImage);
+    if (isAnimated) flowerSurface.setAttribute("aria-pressed", String(!bloomClock.isPlaying));
+    else flowerSurface.removeAttribute("aria-pressed");
+    const imageLabel = flowerMode === "webgl" ? copy.image : isAnimated ? copy.fallbackMotionImage : copy.fallbackImage;
+    flowerCanvas.setAttribute("aria-label", imageLabel);
+    flowerCanvas.textContent = imageLabel;
+  }
+  function setFlowerMode(mode) {
+    if (flowerMode === mode) return;
+    flowerMode = mode;
+    portfolioRoot.dataset.flowerMode = mode;
+    updateFlowerControls();
+  }
   const transition = createSectionTransition({
     reducedMotionPreference,
     bloomClock,
@@ -400,19 +428,10 @@ export function initializePortfolio(
       .forEach((sectionButton) => {
         sectionButton.textContent = copy[sectionButton.dataset.navigationSection];
       });
-    portfolioRoot.querySelector(".site-message").textContent =
-      painter.hasDrawingContext() ? copy.hint : copy.flowerUnavailable;
-    replayButton.textContent = copy.replay;
+    updateFlowerControls();
     const returnButton = portfolioRoot.querySelector(".panel-close-button");
     returnButton.textContent = copy.close;
     returnButton.setAttribute("aria-label", copy.close);
-    flowerSurface.setAttribute(
-      "aria-label",
-      copy[bloomClock.isPlaying ? "pause" : "play"],
-    );
-    flowerSurface.setAttribute("aria-pressed", String(!bloomClock.isPlaying));
-    flowerCanvas.setAttribute("aria-label", copy.image);
-    flowerCanvas.textContent = copy.image;
     if (selectedSection) {
       const panelHeading = sectionPanel.querySelector("h2");
       panelHeading.lang = portfolioRoot.lang;
@@ -619,6 +638,7 @@ export function initializePortfolio(
     }
   });
   flowerSurface.addEventListener("click", () => {
+    if (flowerMode !== "webgl" && flowerMode !== "fallback-motion") return;
     bloomClock.pausedProgress = bloomClock.isPlaying
       ? getBloomProgress(bloomClock.loopSeconds)
       : bloomClock.pausedProgress;
@@ -626,6 +646,10 @@ export function initializePortfolio(
     setPortfolioLanguage(currentLanguage);
   });
   replayButton.addEventListener("click", () => {
+    if (flowerMode !== "webgl" && flowerMode !== "fallback-motion") {
+      painter.resetPointer();
+      return;
+    }
     bloomClock.loopSeconds = 0;
     bloomClock.pausedProgress = 0;
     bloomClock.isPlaying = true;
@@ -680,11 +704,16 @@ export function initializePortfolio(
     }
     updateSectionTransition(sceneDeltaSeconds, elapsedFrameSeconds);
     painter.slide(state.slideProgress);
-    if (!painter.hasDrawingContext()) return;
-    if (!lotusRenderer) {
-      painter.paintUnavailable(translations[currentLanguage].flowerUnavailable);
+    if (!painter.hasDrawingContext()) {
+      portfolioRoot.removeAttribute("data-flower-frame");
+      setFlowerMode("image");
       return;
     }
+    const activeRenderer = lotusRenderer && lotusRenderer.isAvailable?.() !== false ? lotusRenderer : fallbackRenderer;
+    graphicsWaitingSeconds = activeRenderer === fallbackRenderer ? graphicsWaitingSeconds + elapsedFrameSeconds : 0;
+    // Briefly allow the normal GPU load, then animate even while a request is stalled.
+    if (activeRenderer === fallbackRenderer && (isLotusLoadComplete || graphicsWaitingSeconds >= 1)) fallbackRenderer.ensureMotion();
+    setFlowerMode(activeRenderer === fallbackRenderer ? fallbackRenderer.isAnimated() ? "fallback-motion" : "fallback" : "webgl");
     /**
      * A settled section covers the flower completely, so its frames are skipped
      * until the return home begins; the panel's own media then has the renderer.
@@ -697,8 +726,8 @@ export function initializePortfolio(
       return;
     }
     const hasHoverCue = Boolean(navigationHover.state.activeSection);
-    const wasRendered = painter.paint({
-      lotusRenderer,
+    const frame = {
+      lotusRenderer: activeRenderer,
       bloomProgress: state.bloomProgress,
       travelMotion: {
         fold:
@@ -720,10 +749,13 @@ export function initializePortfolio(
         state.targetAmount !== 1 && state.slideProgress <= 0.001 && !hasHoverCue,
       sceneDeltaSeconds,
       motionSeconds,
-    });
-    if (!wasRendered) {
-      /** A broken renderer is retired rather than retried every frame. */
-      lotusRenderer = null;
+    };
+    if (!painter.paint(frame)) {
+      /** Keep a lost context for restoration, but retire a permanently broken renderer. */
+      if (lotusRenderer?.isAvailable?.() !== false) lotusRenderer = null;
+      fallbackRenderer.ensureMotion();
+      setFlowerMode(fallbackRenderer.isAnimated() ? "fallback-motion" : "fallback");
+      painter.paint({ ...frame, lotusRenderer: fallbackRenderer });
     }
   }
   painter.resize();
@@ -774,4 +806,10 @@ export function initializePortfolio(
     router.restore();
   });
   requestAnimationFrame(drawFrame);
+  return {
+    setLotusRenderer(renderer) {
+      lotusRenderer = renderer;
+      isLotusLoadComplete = true;
+    },
+  };
 }

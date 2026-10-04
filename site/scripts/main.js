@@ -1,6 +1,6 @@
-import { createLotusRenderer } from "./scene/lotus-renderer.js?v=0bf5e8cde4c6";
-import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=0bf5e8cde4c6";
-import { initializePortfolio } from "./portfolio-controller.js?v=0bf5e8cde4c6";
+import { createLotusRenderer } from "./scene/lotus-renderer.js?v=be9a516a93a7";
+import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=be9a516a93a7";
+import { initializePortfolio } from "./portfolio-controller.js?v=be9a516a93a7";
 
 /**
  * Load a local resource relative to this module, including on a repository subpath.
@@ -28,9 +28,9 @@ async function loadResource(relativePath, responseFormat = "text") {
 async function loadLotusRenderer() {
   try {
     const [lotusModel, vertexShader, fragmentShader] = await Promise.all([
-      loadResource("../assets/models/lotus.json?v=0bf5e8cde4c6", "json"),
-      loadResource("../assets/shaders/lotus.vert?v=0bf5e8cde4c6"),
-      loadResource("../assets/shaders/lotus.frag?v=0bf5e8cde4c6"),
+      loadResource("../assets/models/lotus.json?v=be9a516a93a7", "json"),
+      loadResource("../assets/shaders/lotus.vert?v=be9a516a93a7"),
+      loadResource("../assets/shaders/lotus.frag?v=be9a516a93a7"),
     ]);
     return createLotusRenderer(lotusModel, vertexShader, fragmentShader);
   } catch (error) {
@@ -47,7 +47,7 @@ async function loadLotusRenderer() {
 async function loadDragonflyRenderer(portfolioRoot) {
   try {
     const modelBuffer = await loadResource(
-      "../assets/models/dragonfly.bin?v=0bf5e8cde4c6",
+      "../assets/models/dragonfly.bin?v=be9a516a93a7",
       "arrayBuffer",
     );
     const modelBytes = new Uint8Array(modelBuffer);
@@ -66,24 +66,26 @@ async function loadDragonflyRenderer(portfolioRoot) {
 /** Load project content and optional scene assets, then connect the controls. */
 async function startPortfolio() {
   const portfolioRoot = document.querySelector("#portfolio-site");
-  const [portfolioData, mediaManifest, lotusRenderer, dragonflyRenderer] =
+  const lotusReady = loadLotusRenderer();
+  const [portfolioData, mediaManifest, dragonflyRenderer] =
     await Promise.all([
-      loadResource("../data/projects.json?v=0bf5e8cde4c6", "json"),
+      loadResource("../data/projects.json?v=be9a516a93a7", "json"),
       /** Size variants are an enhancement; the original images remain available. */
-      loadResource("../data/media-manifest.json?v=0bf5e8cde4c6", "json").catch((error) => {
+      loadResource("../data/media-manifest.json?v=be9a516a93a7", "json").catch((error) => {
         console.warn("Image size variants could not load.", error);
         return {};
       }),
-      loadLotusRenderer(),
       loadDragonflyRenderer(portfolioRoot),
     ]);
-  initializePortfolio(
+  const controller = initializePortfolio(
     portfolioRoot,
-    lotusRenderer,
+    null,
     dragonflyRenderer,
     portfolioData,
     mediaManifest,
   );
+  // A slow model or shader must not delay navigation or the interactive fallback.
+  lotusReady.then((renderer) => controller.setLotusRenderer(renderer));
 }
 
 /** Replace unavailable controls with a retry action and a direct contact link. */

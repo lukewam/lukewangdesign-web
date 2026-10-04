@@ -1,5 +1,5 @@
-import { clampRange, deterministicNoise } from "../motion/easing.js?v=0bf5e8cde4c6";
-import { lotusSceneSettings } from "../motion/settings.js?v=0bf5e8cde4c6";
+import { clampRange, deterministicNoise } from "../motion/easing.js?v=be9a516a93a7";
+import { lotusSceneSettings } from "../motion/settings.js?v=be9a516a93a7";
 
 /**
  * Paint the rendered lotus as ASCII characters on the paper canvas and keep
@@ -18,7 +18,26 @@ export function createLotusPainter({
   reducedMotionPreference,
 }) {
   const settings = lotusSceneSettings;
-  const drawingContext = flowerCanvas.getContext("2d", { alpha: false });
+  let drawingContext = null;
+  try {
+    drawingContext = flowerCanvas.getContext("2d", { alpha: false });
+  } catch (error) {
+    flowerCanvas.dataset.graphicsError = String(error?.message || error);
+  }
+  const fallbackImage = portfolioRoot.querySelector(".lotus-fallback");
+  let isContextLost = false;
+  function hasDrawingContext() {
+    return Boolean(drawingContext) && !isContextLost && !drawingContext.isContextLost?.();
+  }
+  flowerCanvas.addEventListener("contextlost", (event) => {
+    event.preventDefault();
+    isContextLost = true;
+    portfolioRoot.removeAttribute("data-flower-frame");
+  });
+  flowerCanvas.addEventListener("contextrestored", () => {
+    isContextLost = false;
+    requestResize();
+  });
   let canvasWidth = 1;
   let canvasHeight = 1;
   let isResizePending = true;
@@ -49,7 +68,16 @@ export function createLotusPainter({
     const surfaceBounds = flowerSurface.getBoundingClientRect();
     canvasWidth = Math.max(1, surfaceBounds.width);
     canvasHeight = Math.max(1, surfaceBounds.height);
-    if (!drawingContext) return;
+    const { placement } = settings;
+    const scale = Math.min(canvasWidth / placement.widthDivisor, canvasHeight / placement.heightDivisor);
+    const centerY = portfolioRoot.clientWidth <= settings.slide.mobileMaxWidth ? placement.narrowCenterY : placement.centerY;
+    if (fallbackImage) {
+      fallbackImage.style.width = `${scale * 4}px`;
+      fallbackImage.style.height = `${scale * 4.4}px`;
+      fallbackImage.style.left = `${canvasWidth * placement.centerX - scale * 2.04}px`;
+      fallbackImage.style.top = `${canvasHeight * centerY - scale * 1.936}px`;
+    }
+    if (!hasDrawingContext()) return;
     const pixelRatio = Math.min(
       window.devicePixelRatio || 1,
       settings.maximumPixelRatio,
@@ -195,22 +223,7 @@ export function createLotusPainter({
         ? settings.slide.mobileFraction
         : settings.slide.desktopFraction;
     flowerCanvas.style.transform = `translate3d(${canvasWidth * slideProgress * fraction}px,0,0)`;
-  }
-
-  /**
-   * Paint the paper and a notice when the flower graphics are unavailable.
-   * @param {string} noticeText - Localized notice.
-   * @returns {void}
-   */
-  function paintUnavailable(noticeText) {
-    if (!drawingContext) return;
-    drawingContext.globalAlpha = 1;
-    drawingContext.fillStyle = settings.paperColor;
-    drawingContext.fillRect(0, 0, canvasWidth, canvasHeight);
-    drawingContext.fillStyle = settings.fallbackTextColor;
-    drawingContext.font = "15px Arial";
-    drawingContext.textAlign = "center";
-    drawingContext.fillText(noticeText, canvasWidth / 2, canvasHeight / 2);
+    if (fallbackImage) fallbackImage.style.transform = flowerCanvas.style.transform;
   }
 
   /**
@@ -234,10 +247,10 @@ export function createLotusPainter({
     sceneDeltaSeconds,
     motionSeconds,
   }) {
-    if (!drawingContext) return true;
-    drawingContext.globalAlpha = 1;
-    drawingContext.fillStyle = settings.paperColor;
-    drawingContext.fillRect(0, 0, canvasWidth, canvasHeight);
+    if (!hasDrawingContext()) {
+      portfolioRoot.removeAttribute("data-flower-frame");
+      return true;
+    }
     const isPointerActive = pointerState.isActive && isPointerFollowing;
     const followAmount = isFlowerResting
       ? 1 - Math.exp(-sceneDeltaSeconds * settings.pointer.followRate)
@@ -271,11 +284,18 @@ export function createLotusPainter({
         settings.highlight,
         travelMotion,
       );
+      if (!renderedPixels || renderedPixels.length !== columnCount * rowCount * 16) {
+        throw new Error("The flower renderer returned an incomplete frame.");
+      }
     } catch (renderError) {
       /** A failed graphics frame must not interrupt navigation or retry a broken renderer forever. */
       flowerCanvas.dataset.graphicsError = String(renderError?.message || renderError);
       return false;
     }
+    // Only replace a displayed frame once its successor has rendered successfully.
+    drawingContext.globalAlpha = 1;
+    drawingContext.fillStyle = settings.paperColor;
+    drawingContext.fillRect(0, 0, canvasWidth, canvasHeight);
     const { heat } = settings;
     const heatDecayFactor = Math.exp(-sceneDeltaSeconds * heat.decayRate);
     const brushRadius = Math.min(heat.brushRadiusMaximum, canvasWidth * heat.brushRadiusFraction);
@@ -358,7 +378,7 @@ export function createLotusPainter({
             character = "1";
           }
           drawingContext.fillText(character, canvasX, canvasY);
-          if (isPointerActive && !isKeyboardPointer) {
+          if (isPointerActive && (!isKeyboardPointer || lotusRenderer.isFallback)) {
             const pointerDistance = Math.hypot(canvasX - pointerState.x, canvasY - pointerState.y);
             if (pointerDistance < brushRadius) {
               characterHeat[characterIndex] = Math.max(
@@ -404,11 +424,12 @@ export function createLotusPainter({
       );
     }
     drawingContext.globalAlpha = 1;
+    portfolioRoot.setAttribute("data-flower-frame", "");
     return true;
   }
 
   return {
-    hasDrawingContext: () => Boolean(drawingContext),
+    hasDrawingContext,
     resize,
     requestResize,
     resizeIfPending,
@@ -419,7 +440,6 @@ export function createLotusPainter({
     nudgePointer,
     isPointerActive: () => pointerState.isActive,
     slide,
-    paintUnavailable,
     paint,
   };
 }

@@ -73,6 +73,7 @@ export function createLotusRenderer(
     }
   });
   return {
+    isAvailable: () => !webglContext.isContextLost() && Boolean(sceneRenderer),
     /** Keep the last valid frame while the browser restores its graphics context. */
     render(...renderParameters) {
       const [columnCount, rowCount] = renderParameters;
