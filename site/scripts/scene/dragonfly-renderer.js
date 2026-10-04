@@ -91,7 +91,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   let flightElapsedSeconds = 0;
   let wingPhaseRadians = 0;
   let queuedSection = null;
-  let activeSection = "work";
   let lastFootPosition = null;
   let previousPose = {
     rollRadians: -0.66,
@@ -333,7 +332,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       : "work";
     queuedSection = null;
     if (prefersReducedMotion) {
-      activeSection = nextSection;
       flightMode = "section-rest";
       flightElapsedSeconds = 0;
       previousAttention = takeoffAttention = 0;
@@ -348,8 +346,12 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       queuedSection = nextSection;
       return;
     }
-    activeSection = nextSection;
-    launchPosition = getBoundedFlightOrigin(getNavigationPerch());
+    // The navigation moves into the header as the section opens.
+    // Depart from that new perch so the short path stays above the artwork.
+    launchPosition = flightMode === "rest"
+      ? getNavigationPerch()
+      : getBoundedFlightOrigin(getTitlePerch());
+    launchPosition[1] = Math.min(launchPosition[1], getTitlePerch()[1] - 24);
     takeoffPose = {
       ...previousPose,
     };
@@ -366,6 +368,9 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   function returnHome(prefersReducedMotion = false, delaySeconds = 0) {
     resetAttention();
     queuedSection = null;
+    // Hidden section cues return directly; never fly out of a case study or phone page.
+    prefersReducedMotion ||= stageElement.getBoundingClientRect().width <= 600 ||
+      Boolean(portfolioRoot.hasAttribute?.("data-work-detail"));
     if (flightMode === "rest") {
       return;
     }
@@ -443,9 +448,16 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       flightMode = queuedSection ? "section-rest" : "rest";
       queuedSection = null;
     }
+    const isSectionView = Boolean(portfolioRoot.hasAttribute?.("data-active-section"));
+    if (isSectionView && (stageElement.getBoundingClientRect().width <= 600 ||
+        portfolioRoot.hasAttribute?.("data-work-detail"))) {
+      flightMode = "section-rest";
+      queuedSection = null;
+      resetAttention();
+      return;
+    }
     let wingActivity = 0;
     let wingFoldAmount = 1;
-    let travelProgress = 0;
     let rollRadians = -0.66;
     let yawRadians = 1.3;
     let footPosition = getNavigationPerch();
@@ -552,19 +564,12 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       const targetPerch = isReturningHome
         ? getNavigationPerch()
         : getTitlePerch();
-      const flightDuration = isReturningHome
-        ? 1.15
-        : activeSection === "about"
-          ? 2.48
-          : activeSection === "contact"
-            ? 2.22
-            : 1.92;
-      const approachEndTime = flightDuration - 0.46;
+      const flightDuration = isReturningHome ? 1.15 : 0.95;
+      const approachEndTime = flightDuration - (isReturningHome ? 0.46 : 0.30);
       const landingProgress = smoothStep((flightTime - approachEndTime) / 0.28);
       const settlingProgress = smoothStep(
         (flightTime - (flightDuration - 0.19)) / 0.19,
       );
-      const takeoffRise = Math.min(36, Math.max(17, launchPosition[1] - 90));
       const approachPosition = [targetPerch[0] - 3, targetPerch[1] - 23];
       const arcTop = Math.max(
         84,
@@ -629,169 +634,30 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
           takeoffProgress = 1 - takeoffPose.wingFoldAmount;
           legTuckProgress = 1 - takeoffPose.wingFoldAmount;
         }
-      } else if (activeSection === "about") {
-        /** A compact exploratory orbit, a brief hover, and a measured approach. */
-        const liftProgress = smoothStep((flightTime - 0.12) / 0.19);
-        const orbitProgress = clampUnitInterval((flightTime - 0.31) / 0.88);
-        const orbitAngle = 2 * Math.PI * smoothStep(orbitProgress);
-        const orbitFloor = Math.min(
-          startPosition[1],
-          stageWidth <= 600 ? 46 : 96,
-        );
-        const orbitRise = Math.min(
-          takeoffRise,
-          Math.max(0, (startPosition[1] - orbitFloor) * 0.35),
-        );
-        const orbitRadiusX = Math.min(
-          34,
-          Math.max(14, (startPosition[0] - 20) * 0.2),
-        );
-        const orbitRadiusY = Math.min(
-          19,
-          Math.max(3, (startPosition[1] - orbitRise - orbitFloor) / 2),
-        );
-        const orbitEndPosition = [
-          startPosition[0],
-          startPosition[1] - orbitRise,
-        ];
-        footPosition = [
-          startPosition[0] + orbitRadiusX * Math.sin(orbitAngle),
-          startPosition[1] -
-            orbitRise * liftProgress +
-            orbitRadiusY * (Math.cos(orbitAngle) - 1),
-        ];
-        if (flightTime > 0.24) {
-          const horizontalDerivative = orbitRadiusX * Math.cos(orbitAngle);
-          const verticalDerivative = -orbitRadiusY * Math.sin(orbitAngle);
-          yawRadians = 1.3 * Math.tanh(horizontalDerivative / 8);
-          rollRadians =
-            0.38 *
-            Math.tanh(
-              verticalDerivative / (Math.abs(horizontalDerivative) + 8),
-            ) *
-            Math.tanh(horizontalDerivative / 8);
-          rollRadians = interpolate(
-            -0.66,
-            rollRadians,
-            smoothStep((flightTime - 0.24) / 0.13),
-          );
-        }
-        if (flightTime > 1.31) {
-          const approachProgress = smoothStep(
-            (flightTime - 1.31) / (approachEndTime - 1.31),
-          );
-          const firstControlPoint = [orbitEndPosition[0] + 38, arcTop];
-          const secondControlPoint = [approachPosition[0] - 38, arcTop];
-          footPosition = getBezierPoint(
-            orbitEndPosition,
-            firstControlPoint,
-            secondControlPoint,
-            approachPosition,
-            approachProgress,
-          );
-          alignToBezierTangent(
-            orbitEndPosition,
-            firstControlPoint,
-            secondControlPoint,
-            approachPosition,
-            approachProgress,
-          );
-        }
-      } else if (activeSection === "contact") {
-        /**
-         * A restrained head/thorax enquiry precedes a high, outward arc that
-         * curls back to the title.
-         */
-        const probeAmount = Math.sin(
-          Math.PI * clampUnitInterval(flightTime / 0.33),
-        );
-        posePitchRadians = 0.032 * probeAmount;
-        takeoffProgress = smoothStep((flightTime - 0.17) / 0.16);
-        legTuckProgress = smoothStep((flightTime - 0.3) / 0.15);
+      } else {
+        // One shallow arc through the heading's whitespace, with no orbit or hover.
         const approachProgress = smoothStep(
-          (flightTime - 0.3) / (approachEndTime - 0.3),
+          (flightTime - 0.08) / (approachEndTime - 0.08),
         );
         const firstControlPoint = [
-          Math.min(stageWidth - 86, startPosition[0] + 105),
-          arcTop - 22,
+          interpolate(startPosition[0], approachPosition[0], 0.30),
+          Math.max(32, Math.min(startPosition[1], approachPosition[1]) - 22),
         ];
         const secondControlPoint = [
-          Math.min(
-            stageWidth - 68,
-            Math.max(startPosition[0], approachPosition[0]) + 140,
-          ),
-          arcTop - 34,
+          interpolate(startPosition[0], approachPosition[0], 0.78),
+          approachPosition[1] - 20,
         ];
         footPosition = getBezierPoint(
-          startPosition,
-          firstControlPoint,
-          secondControlPoint,
-          approachPosition,
-          approachProgress,
+          startPosition, firstControlPoint, secondControlPoint,
+          approachPosition, approachProgress,
         );
         alignToBezierTangent(
-          startPosition,
-          firstControlPoint,
-          secondControlPoint,
-          approachPosition,
-          approachProgress,
+          startPosition, firstControlPoint, secondControlPoint,
+          approachPosition, approachProgress,
         );
-        const turningProgress = smoothStep((flightTime - 0.29) / 0.21);
-        rollRadians = interpolate(-0.66, rollRadians, turningProgress);
-        yawRadians = interpolate(1.3, yawRadians, turningProgress);
-      } else {
-        /**
-         * Work has a sharper lift and a small left dart before banking toward
-         * the title; the two other entries keep their own timing and outline.
-         */
-        const liftProgress = smoothStep((flightTime - 0.11) / 0.22);
-        const dartProgress = smoothStep((flightTime - 0.32) / 0.25);
-        const dartWidth = Math.min(
-          38,
-          Math.max(8, (startPosition[0] - 34) * 0.2),
-        );
-        const dartEndPosition = [
-          startPosition[0] - dartWidth,
-          startPosition[1] - takeoffRise,
-        ];
-        footPosition = [
-          startPosition[0] - dartWidth * dartProgress,
-          startPosition[1] - takeoffRise * liftProgress,
-        ];
-        rollRadians = interpolate(
-          -0.66,
-          0.1,
-          smoothStep((flightTime - 0.15) / 0.33),
-        );
-        yawRadians = interpolate(
-          1.3,
-          -1.3,
-          smoothStep((flightTime - 0.24) / 0.3),
-        );
-        if (flightTime > 0.57) {
-          const approachProgress = smoothStep(
-            (flightTime - 0.57) / (approachEndTime - 0.57),
-          );
-          const firstControlPoint = [
-            Math.max(42, dartEndPosition[0] - 16),
-            arcTop,
-          ];
-          const secondControlPoint = [approachPosition[0] - 48, arcTop];
-          footPosition = getBezierPoint(
-            dartEndPosition,
-            firstControlPoint,
-            secondControlPoint,
-            approachPosition,
-            approachProgress,
-          );
-          alignToBezierTangent(
-            dartEndPosition,
-            firstControlPoint,
-            secondControlPoint,
-            approachPosition,
-            approachProgress,
-          );
-        }
+        const turningProgress = smoothStep(flightTime / 0.20);
+        rollRadians = interpolate(takeoffPose.rollRadians, rollRadians, turningProgress);
+        yawRadians = interpolate(takeoffPose.yawRadians, yawRadians, turningProgress);
       }
       wingActivity = takeoffProgress * (1 - settlingProgress);
       wingFoldAmount = 1 - wingActivity;
@@ -856,14 +722,21 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       stageWidth <= 600 ? 55 : 76,
       Math.max(28, (homePerch[0] - 7) / 1.27),
     );
+    const sectionScale = flightMode === "section-rest"
+      ? 0.8
+      : flightMode === "out"
+        ? interpolate(1, 0.8, smoothStep(flightElapsedSeconds / 0.95))
+        : flightMode === "in"
+          ? interpolate(0.8, 1, smoothStep(flightElapsedSeconds / 1.15))
+          : 1;
     const modelScale =
       Math.min(
         homeModelScale,
         Math.max(14, (footPosition[0] - 7) / 1.32),
         Math.max(14, (stageWidth - footPosition[0] - 7) / 1.32),
       ) *
-      (1 - 0.1 * travelProgress);
-    const breathingOffset = prefersReducedMotion
+      sectionScale;
+    const breathingOffset = prefersReducedMotion || flightMode === "section-rest"
       ? 0
       : Math.sin(elapsedSeconds * 1.35);
     const modelOrigin = [
@@ -893,13 +766,13 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     const idleCycleTime = elapsedSeconds % 4.8;
     const idlePulse =
       !prefersReducedMotion &&
-      (flightMode === "rest" || flightMode === "section-rest") &&
+      flightMode === "rest" &&
       idleCycleTime < 1.1
         ? Math.sin((idleCycleTime / 1.1) * Math.PI) *
           Math.exp(-idleCycleTime * 0.7)
         : 0;
     const idleMotionAmount =
-      (flightMode === "rest" || flightMode === "section-rest") &&
+      flightMode === "rest" &&
       !prefersReducedMotion
         ? 1
         : 0;

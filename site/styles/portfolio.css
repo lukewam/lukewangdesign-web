@@ -1516,11 +1516,20 @@ body {
   overflow: hidden;
 }
 #portfolio-site[data-active-section] .lotus-interaction,
-#portfolio-site[data-active-section] .dragonfly-canvas {
+#portfolio-site[data-active-section="work"][data-work-detail] .dragonfly-canvas {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 120ms ease, visibility 0s;
+}
+/* The desktop cue rests on the section title; phone sections stay still. */
+@media (max-width: 600px) {
+  #portfolio-site[data-active-section] .dragonfly-canvas {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: none;
+  }
 }
 #portfolio-site[data-active-section] .site-header {
   min-height: 84px;

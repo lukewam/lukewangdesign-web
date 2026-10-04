@@ -1,18 +1,18 @@
-import { createWorkGallery } from "./work-gallery.js?v=be9a516a93a7";
-import { translations } from "./translations.js?v=be9a516a93a7";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=be9a516a93a7";
+import { createWorkGallery } from "./work-gallery.js?v=551263ba3757";
+import { translations } from "./translations.js?v=551263ba3757";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=551263ba3757";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=be9a516a93a7";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=be9a516a93a7";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=be9a516a93a7";
-import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=be9a516a93a7";
+} from "./motion/section-transition.js?v=551263ba3757";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=551263ba3757";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=551263ba3757";
+import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=551263ba3757";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=be9a516a93a7";
+} from "./motion/settings.js?v=551263ba3757";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
@@ -112,16 +112,12 @@ export function initializePortfolio(
       mediaManifest,
       language: () => currentLanguage,
       shouldAnimate: () => !router.isRestoring(),
-      onChange: (hasProjectDetail) => {
+      onChange: () => {
         if (selectedSection !== "work") return;
         panelEnterAnimation?.cancel();
         panelEnterAnimation = null;
-        dragonflyRenderer.launch(
-          "work",
-          reducedMotionPreference.matches ||
-            router.isRestoring() ||
-            !hasProjectDetail,
-        );
+        // Detail pages hide the cue; returning to the index restores a still perch.
+        dragonflyRenderer.launch("work", true);
         router.synchronize();
         updateDocumentTitle();
       },
