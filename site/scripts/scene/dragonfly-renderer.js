@@ -346,12 +346,8 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       queuedSection = nextSection;
       return;
     }
-    // The navigation moves into the header as the section opens.
-    // Depart from that new perch so the short path stays above the artwork.
-    launchPosition = flightMode === "rest"
-      ? getNavigationPerch()
-      : getBoundedFlightOrigin(getTitlePerch());
-    launchPosition[1] = Math.min(launchPosition[1], getTitlePerch()[1] - 24);
+    // Navigation has moved, but takeoff must retain the insect's visible position.
+    launchPosition = getBoundedFlightOrigin(getNavigationPerch());
     takeoffPose = {
       ...previousPose,
     };
@@ -635,7 +631,7 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
           legTuckProgress = 1 - takeoffPose.wingFoldAmount;
         }
       } else {
-        // One shallow arc through the heading's whitespace, with no orbit or hover.
+        // One direct arc to the heading, with no orbit or hover.
         const approachProgress = smoothStep(
           (flightTime - 0.08) / (approachEndTime - 0.08),
         );

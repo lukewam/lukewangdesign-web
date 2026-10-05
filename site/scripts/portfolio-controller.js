@@ -1,18 +1,18 @@
-import { createWorkGallery } from "./work-gallery.js?v=551263ba3757";
-import { translations } from "./translations.js?v=551263ba3757";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=551263ba3757";
+import { createWorkGallery } from "./work-gallery.js?v=6d397200d29c";
+import { translations } from "./translations.js?v=6d397200d29c";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=6d397200d29c";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=551263ba3757";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=551263ba3757";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=551263ba3757";
-import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=551263ba3757";
+} from "./motion/section-transition.js?v=6d397200d29c";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=6d397200d29c";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=6d397200d29c";
+import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=6d397200d29c";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=551263ba3757";
+} from "./motion/settings.js?v=6d397200d29c";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
@@ -229,6 +229,11 @@ export function initializePortfolio(
     portfolioRoot.dataset.activeSection = nextSection;
     setPortfolioLanguage(currentLanguage);
     transition.state.revealProgress = 1;
+    // Capture the last visible perch before the compact navigation is drawn.
+    dragonflyRenderer.launch(
+      nextSection,
+      reducedMotionPreference.matches || router.isRestoring(),
+    );
     updateSectionTransition(0);
     if (!reducedMotionPreference.matches && !router.isRestoring()) {
       const { panelEnter } = sectionTransitionSettings;
@@ -250,10 +255,6 @@ export function initializePortfolio(
         },
       );
     }
-    dragonflyRenderer.launch(
-      nextSection,
-      reducedMotionPreference.matches || router.isRestoring(),
-    );
     updateNavigationHover(0);
     portfolioRoot.querySelector(".panel-close-button").focus({
       preventScroll: true,
