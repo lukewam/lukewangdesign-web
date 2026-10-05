@@ -1,5 +1,5 @@
-import { clampRange, deterministicNoise } from "../motion/easing.js?v=6d397200d29c";
-import { lotusSceneSettings } from "../motion/settings.js?v=6d397200d29c";
+import { clampRange, deterministicNoise } from "../motion/easing.js?v=369d26343c4a";
+import { lotusSceneSettings } from "../motion/settings.js?v=369d26343c4a";
 
 /**
  * Paint the rendered lotus as ASCII characters on the paper canvas and keep
@@ -68,15 +68,7 @@ export function createLotusPainter({
     const surfaceBounds = flowerSurface.getBoundingClientRect();
     canvasWidth = Math.max(1, surfaceBounds.width);
     canvasHeight = Math.max(1, surfaceBounds.height);
-    const { placement } = settings;
-    const scale = Math.min(canvasWidth / placement.widthDivisor, canvasHeight / placement.heightDivisor);
-    const centerY = portfolioRoot.clientWidth <= settings.slide.mobileMaxWidth ? placement.narrowCenterY : placement.centerY;
-    if (fallbackImage) {
-      fallbackImage.style.width = `${scale * 4}px`;
-      fallbackImage.style.height = `${scale * 4.4}px`;
-      fallbackImage.style.left = `${canvasWidth * placement.centerX - scale * 2.04}px`;
-      fallbackImage.style.top = `${canvasHeight * centerY - scale * 1.936}px`;
-    }
+    // The still image is placed by CSS so it matches before this script runs.
     if (!hasDrawingContext()) return;
     const pixelRatio = Math.min(
       window.devicePixelRatio || 1,

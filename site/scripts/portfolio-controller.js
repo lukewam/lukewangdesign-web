@@ -1,18 +1,18 @@
-import { createWorkGallery } from "./work-gallery.js?v=6d397200d29c";
-import { translations } from "./translations.js?v=6d397200d29c";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=6d397200d29c";
+import { createWorkGallery } from "./work-gallery.js?v=369d26343c4a";
+import { translations } from "./translations.js?v=369d26343c4a";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=369d26343c4a";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=6d397200d29c";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=6d397200d29c";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=6d397200d29c";
-import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=6d397200d29c";
+} from "./motion/section-transition.js?v=369d26343c4a";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=369d26343c4a";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=369d26343c4a";
+import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=369d26343c4a";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=6d397200d29c";
+} from "./motion/settings.js?v=369d26343c4a";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
@@ -63,23 +63,49 @@ export function initializePortfolio(
   const fallbackRenderer = createLotusFallbackRenderer();
   let isLotusLoadComplete = Boolean(lotusRenderer);
   let graphicsWaitingSeconds = 0;
-  let flowerMode = !painter.hasDrawingContext() ? "image" : lotusRenderer ? "webgl" : "fallback";
+  /**
+   * "loading" paints the baked flower while the model or its motion may still
+   * arrive; it keeps the animated copy so the first visit does not flash the
+   * still-flower hint before the real flower takes over.
+   */
+  let flowerMode = !painter.hasDrawingContext() ? "image" : lotusRenderer ? "webgl" : "loading";
   portfolioRoot.dataset.flowerMode = flowerMode;
+
+  /** Whether the bloom loop can be paused and restarted in the current mode. */
+  function hasBloomControls() {
+    return flowerMode !== "fallback" && flowerMode !== "image";
+  }
 
   /** Labels describe the controls that are actually available in each graphics mode. */
   function updateFlowerControls() {
     const copy = translations[currentLanguage];
-    const isAnimated = flowerMode === "webgl" || flowerMode === "fallback-motion";
+    const isAnimated = hasBloomControls();
     portfolioRoot.querySelector(".site-message").textContent = flowerMode === "fallback" ? copy.fallbackHint : copy.hint;
     replayButton.textContent = isAnimated ? copy.replay : copy.resetColors;
     replayButton.hidden = flowerMode === "image";
     flowerSurface.tabIndex = flowerMode === "image" ? -1 : 0;
-    flowerSurface.setAttribute("aria-label", flowerMode === "webgl" ? copy[bloomClock.isPlaying ? "pause" : "play"] : flowerMode === "fallback-motion" ? copy[bloomClock.isPlaying ? "fallbackPause" : "fallbackPlay"] : flowerMode === "fallback" ? copy.fallbackControl : copy.fallbackImage);
+    const controlLabel =
+      flowerMode === "webgl"
+        ? copy[bloomClock.isPlaying ? "pause" : "play"]
+        : isAnimated
+          ? copy[bloomClock.isPlaying ? "fallbackPause" : "fallbackPlay"]
+          : flowerMode === "fallback"
+            ? copy.fallbackControl
+            : copy.fallbackImage;
+    flowerSurface.setAttribute("aria-label", controlLabel);
     if (isAnimated) flowerSurface.setAttribute("aria-pressed", String(!bloomClock.isPlaying));
     else flowerSurface.removeAttribute("aria-pressed");
     const imageLabel = flowerMode === "webgl" ? copy.image : isAnimated ? copy.fallbackMotionImage : copy.fallbackImage;
     flowerCanvas.setAttribute("aria-label", imageLabel);
     flowerCanvas.textContent = imageLabel;
+  }
+  /** The baked flower stays in "loading" until it animates or nothing better can arrive. */
+  function getFallbackMode() {
+    if (fallbackRenderer.isAnimated()) return "fallback-motion";
+    const isWaitingForGraphics =
+      (!isLotusLoadComplete && graphicsWaitingSeconds < 1) ||
+      fallbackRenderer.isLoadingMotion();
+    return isWaitingForGraphics ? "loading" : "fallback";
   }
   function setFlowerMode(mode) {
     if (flowerMode === mode) return;
@@ -635,7 +661,7 @@ export function initializePortfolio(
     }
   });
   flowerSurface.addEventListener("click", () => {
-    if (flowerMode !== "webgl" && flowerMode !== "fallback-motion") return;
+    if (!hasBloomControls()) return;
     bloomClock.pausedProgress = bloomClock.isPlaying
       ? getBloomProgress(bloomClock.loopSeconds)
       : bloomClock.pausedProgress;
@@ -643,7 +669,7 @@ export function initializePortfolio(
     setPortfolioLanguage(currentLanguage);
   });
   replayButton.addEventListener("click", () => {
-    if (flowerMode !== "webgl" && flowerMode !== "fallback-motion") {
+    if (!hasBloomControls()) {
       painter.resetPointer();
       return;
     }
@@ -710,7 +736,7 @@ export function initializePortfolio(
     graphicsWaitingSeconds = activeRenderer === fallbackRenderer ? graphicsWaitingSeconds + elapsedFrameSeconds : 0;
     // Briefly allow the normal GPU load, then animate even while a request is stalled.
     if (activeRenderer === fallbackRenderer && (isLotusLoadComplete || graphicsWaitingSeconds >= 1)) fallbackRenderer.ensureMotion();
-    setFlowerMode(activeRenderer === fallbackRenderer ? fallbackRenderer.isAnimated() ? "fallback-motion" : "fallback" : "webgl");
+    setFlowerMode(activeRenderer === fallbackRenderer ? getFallbackMode() : "webgl");
     /**
      * A settled section covers the flower completely, so its frames are skipped
      * until the return home begins; the panel's own media then has the renderer.
@@ -751,7 +777,7 @@ export function initializePortfolio(
       /** Keep a lost context for restoration, but retire a permanently broken renderer. */
       if (lotusRenderer?.isAvailable?.() !== false) lotusRenderer = null;
       fallbackRenderer.ensureMotion();
-      setFlowerMode(fallbackRenderer.isAnimated() ? "fallback-motion" : "fallback");
+      setFlowerMode(getFallbackMode());
       painter.paint({ ...frame, lotusRenderer: fallbackRenderer });
     }
   }

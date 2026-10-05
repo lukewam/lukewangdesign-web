@@ -90,7 +90,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   let flightMode = "rest";
   let flightElapsedSeconds = 0;
   let wingPhaseRadians = 0;
-  let queuedSection = null;
   let lastFootPosition = null;
   let previousPose = {
     rollRadians: -0.66,
@@ -104,6 +103,13 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
   };
   let previousAttention = 0;
   let takeoffAttention = 0;
+  /** A section change only moves the perched insect; other flights rescale from takeoff. */
+  let isSectionHop = false;
+  let flightSeconds = 0.95;
+  let takeoffScale = 1;
+  let previousSectionScale = 1;
+  /** A cue hidden by a narrow stage, a case study or scrolling reappears perched. */
+  let isCueHidden = false;
   let proximityAmount = 0;
   let proximityDwellSeconds = 0;
   let isPointerNear = false;
@@ -316,7 +322,8 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     return originPosition;
   }
   /**
-   * Start the section's flight, or replace its destination while a flight finishes.
+   * Fly to the open section's heading. A flight already in the air turns from
+   * where it is, so a fast change of section never jumps to a moved perch.
    * @param {'work'|'about'|'contact'|boolean} [nextSection='work'] - Destination, or a reduced-motion flag for Work.
    * @param {boolean} [prefersReducedMotion=false] - Move directly to the title perch.
    * @returns {void}
@@ -325,29 +332,37 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     resetAttention();
     if (typeof nextSection === "boolean") {
       prefersReducedMotion = nextSection;
-      nextSection = "work";
     }
-    nextSection = ["work", "about", "contact"].includes(nextSection)
-      ? nextSection
-      : "work";
-    queuedSection = null;
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || (flightMode === "section-rest" && isCueHidden)) {
       flightMode = "section-rest";
       flightElapsedSeconds = 0;
       previousAttention = takeoffAttention = 0;
       lastFootPosition = getTitlePerch();
       return;
     }
-    if (flightMode === "out" || flightMode === "in") {
-      /**
-       * Fast navigation changes replace the queued destination; the insect
-       * finishes its current continuous path before presenting the new cue.
-       */
-      queuedSection = nextSection;
-      return;
-    }
     // Navigation has moved, but takeoff must retain the insect's visible position.
     launchPosition = getBoundedFlightOrigin(getNavigationPerch());
+    // Between sections the perched insect hops to the new heading at its resting size.
+    isSectionHop =
+      flightMode === "section-rest" || (flightMode === "out" && isSectionHop);
+    takeoffScale =
+      flightMode === "section-rest"
+        ? 0.8
+        : flightMode === "rest"
+          ? 1
+          : previousSectionScale;
+    const titlePerch = getTitlePerch();
+    flightSeconds = isSectionHop
+      ? Math.min(
+          0.9,
+          0.55 +
+            Math.hypot(
+              titlePerch[0] - launchPosition[0],
+              titlePerch[1] - launchPosition[1],
+            ) /
+              700,
+        )
+      : 0.95;
     takeoffPose = {
       ...previousPose,
     };
@@ -363,7 +378,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
    */
   function returnHome(prefersReducedMotion = false, delaySeconds = 0) {
     resetAttention();
-    queuedSection = null;
     // Hidden section cues return directly; never fly out of a case study or phone page.
     prefersReducedMotion ||= stageElement.getBoundingClientRect().width <= 600 ||
       Boolean(portfolioRoot.hasAttribute?.("data-work-detail"));
@@ -378,6 +392,10 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       ...previousPose,
     };
     takeoffAttention = prefersReducedMotion ? 0 : previousAttention;
+    // An interrupted flight returns from the size it had reached.
+    takeoffScale = flightMode === "section-rest" ? 0.8 : previousSectionScale;
+    isSectionHop = false;
+    flightSeconds = 1.15;
     flightMode = prefersReducedMotion ? "rest" : "in";
     flightElapsedSeconds = prefersReducedMotion
       ? 0
@@ -409,6 +427,9 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     .flatMap((side) => [-1, 0, 1].map((index) =>
       projectPoint(side * 0.032, -0.3, -0.03 + index * 0.055, -0.66, 1.3)))
     .reduce((lowest, foot) => foot[1] > lowest[1] ? foot : lowest);
+  // The folded, resting insect reaches 1.16 model units left of its foot; the
+  // extra margin covers raster rounding. Open wings in flight keep 1.32.
+  const restingLeftReach = 1.18;
   /**
    * Advance the flight and draw its opaque body and translucent wing layers.
    * @param {number} elapsedSeconds - Animation clock used for breathing and wing motion.
@@ -438,17 +459,15 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     drawingContext.clearRect(0, 0, stageWidth, stageHeight);
     if (prefersReducedMotion && flightMode === "out") {
       flightMode = "section-rest";
-      queuedSection = null;
     }
     if (prefersReducedMotion && flightMode === "in") {
-      flightMode = queuedSection ? "section-rest" : "rest";
-      queuedSection = null;
+      flightMode = "rest";
     }
     const isSectionView = Boolean(portfolioRoot.hasAttribute?.("data-active-section"));
     if (isSectionView && (stageElement.getBoundingClientRect().width <= 600 ||
         portfolioRoot.hasAttribute?.("data-work-detail"))) {
       flightMode = "section-rest";
-      queuedSection = null;
+      isCueHidden = true;
       resetAttention();
       return;
     }
@@ -554,26 +573,39 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
         Math.tanh(verticalDerivative / (Math.abs(horizontalDerivative) + 20)) *
         Math.tanh(horizontalDerivative / 24);
     }
+    /** One for folded resting wings, zero for the margin that open wings need. */
+    let perchedAmount = flightMode === "section-rest" ? 1 : 0;
     if (flightMode === "out" || flightMode === "in") {
       const isReturningHome = flightMode === "in";
       const flightTime = Math.max(0, flightElapsedSeconds);
       const targetPerch = isReturningHome
         ? getNavigationPerch()
         : getTitlePerch();
-      const flightDuration = isReturningHome ? 1.15 : 0.95;
-      const approachEndTime = flightDuration - (isReturningHome ? 0.46 : 0.30);
+      const flightDuration = flightSeconds;
+      const approachEndTime =
+        flightDuration - (isReturningHome ? 0.46 : isSectionHop ? 0.24 : 0.3);
       const landingProgress = smoothStep((flightTime - approachEndTime) / 0.28);
       const settlingProgress = smoothStep(
         (flightTime - (flightDuration - 0.19)) / 0.19,
       );
-      const approachPosition = [targetPerch[0] - 3, targetPerch[1] - 23];
+      // A hop settles from just above the new heading; longer flights descend onto it.
+      const approachPosition = isSectionHop
+        ? [targetPerch[0] - 1, targetPerch[1] - 8]
+        : [targetPerch[0] - 3, targetPerch[1] - 23];
       const arcTop = Math.max(
         84,
         Math.min(launchPosition[1], targetPerch[1]) - 76,
       );
       const startPosition = launchPosition.slice();
-      let takeoffProgress = smoothStep(flightTime / 0.15);
-      let legTuckProgress = smoothStep((flightTime - 0.12) / 0.16);
+      // A flight that begins in the air keeps its open wings and tucked legs.
+      let takeoffProgress = Math.max(
+        1 - takeoffPose.wingFoldAmount,
+        smoothStep(flightTime / 0.15),
+      );
+      let legTuckProgress = Math.max(
+        1 - takeoffPose.wingFoldAmount,
+        smoothStep((flightTime - 0.12) / 0.16),
+      );
       if (isReturningHome) {
         /**
          * Return from the actual current foot point, including an interrupted
@@ -615,14 +647,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
           yawRadians,
           turningProgress,
         );
-        takeoffProgress = Math.max(
-          1 - takeoffPose.wingFoldAmount,
-          takeoffProgress,
-        );
-        legTuckProgress = Math.max(
-          1 - takeoffPose.wingFoldAmount,
-          legTuckProgress,
-        );
         if (flightElapsedSeconds < 0) {
           footPosition = startPosition;
           rollRadians = takeoffPose.rollRadians;
@@ -630,6 +654,34 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
           takeoffProgress = 1 - takeoffPose.wingFoldAmount;
           legTuckProgress = 1 - takeoffPose.wingFoldAmount;
         }
+      } else if (isSectionHop) {
+        // A low hop onto the new heading keeps the resting profile instead of facing the viewer.
+        const hopProgress = smoothStep(
+          (flightTime - 0.05) / (approachEndTime - 0.05),
+        );
+        const hopLift = Math.min(
+          16,
+          6 +
+            0.08 *
+              Math.hypot(
+                approachPosition[0] - startPosition[0],
+                approachPosition[1] - startPosition[1],
+              ),
+        );
+        const firstControlPoint = [
+          interpolate(startPosition[0], approachPosition[0], 0.3),
+          Math.min(startPosition[1], approachPosition[1]) - hopLift,
+        ];
+        const secondControlPoint = [
+          interpolate(startPosition[0], approachPosition[0], 0.75),
+          approachPosition[1] - hopLift * 0.5,
+        ];
+        footPosition = getBezierPoint(
+          startPosition, firstControlPoint, secondControlPoint,
+          approachPosition, hopProgress,
+        );
+        rollRadians = takeoffPose.rollRadians;
+        yawRadians = takeoffPose.yawRadians;
       } else {
         // One direct arc to the heading, with no orbit or hover.
         const approachProgress = smoothStep(
@@ -660,6 +712,11 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
       legTuckAmount =
         legTuckProgress *
         (1 - smoothStep((flightTime - (approachEndTime - 0.15)) / 0.39));
+      perchedAmount = isSectionHop
+        ? 1
+        : isReturningHome
+          ? 1 - takeoffProgress
+          : settlingProgress;
       if (flightTime >= approachEndTime) {
         footPosition = [
           interpolate(approachPosition[0], targetPerch[0], landingProgress),
@@ -696,11 +753,6 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
           yawRadians,
           wingFoldAmount,
         };
-        if (queuedSection) {
-          const nextQueuedSection = queuedSection;
-          queuedSection = null;
-          launch(nextQueuedSection, prefersReducedMotion);
-        }
       }
     }
     lastFootPosition = footPosition.slice();
@@ -712,29 +764,39 @@ export function createDragonflyRenderer(portfolioRoot, modelBytes) {
     const scrollVisibility =
       flightMode === "section-rest" ? getTitleVisibility() : 1;
     if (scrollVisibility <= 0) {
+      isCueHidden = true;
       return;
     }
+    isCueHidden = false;
     const homeModelScale = Math.min(
       stageWidth <= 600 ? 55 : 76,
       Math.max(28, (homePerch[0] - 7) / 1.27),
     );
-    const sectionScale = flightMode === "section-rest"
-      ? 0.8
-      : flightMode === "out"
-        ? interpolate(1, 0.8, smoothStep(flightElapsedSeconds / 0.95))
-        : flightMode === "in"
-          ? interpolate(0.8, 1, smoothStep(flightElapsedSeconds / 1.15))
+    // Each flight changes size from the size it actually had at takeoff.
+    const sectionScale =
+      flightMode === "section-rest"
+        ? 0.8
+        : flightMode === "out" || flightMode === "in"
+          ? interpolate(
+              takeoffScale,
+              flightMode === "out" ? 0.8 : 1,
+              smoothStep(Math.max(0, flightElapsedSeconds) / flightSeconds),
+            )
           : 1;
-    const modelScale =
-      Math.min(
-        homeModelScale,
-        Math.max(14, (footPosition[0] - 7) / 1.32),
-        Math.max(14, (stageWidth - footPosition[0] - 7) / 1.32),
-      ) *
-      sectionScale;
-    const breathingOffset = prefersReducedMotion || flightMode === "section-rest"
-      ? 0
-      : Math.sin(elapsedSeconds * 1.35);
+    previousSectionScale = sectionScale;
+    // Folded wings reach less far left, so a perched cue can keep its size beside a narrow gutter.
+    const leftReach = interpolate(1.32, restingLeftReach, perchedAmount);
+    const modelScale = Math.min(
+      homeModelScale * sectionScale,
+      Math.max(14, (footPosition[0] - 7) / leftReach),
+      Math.max(14, (stageWidth - footPosition[0] - 7) / 1.32),
+    );
+    const breathingOffset =
+      prefersReducedMotion ||
+      flightMode === "section-rest" ||
+      (flightMode === "out" && isSectionHop)
+        ? 0
+        : Math.sin(elapsedSeconds * 1.35);
     const modelOrigin = [
       footPosition[0] - projectedFootContact[0] * modelScale,
       footPosition[1] - projectedFootContact[1] * modelScale,

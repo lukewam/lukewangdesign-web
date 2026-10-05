@@ -189,14 +189,29 @@ body {
 #portfolio-site[data-flower-frame] .lotus-interaction canvas {
   opacity: 1;
 }
+/*
+ * Matches lotusSceneSettings.placement before any script runs: the baked
+ * 800 × 880 view holds the flower centre at 51% × 44% and is 4 model scales
+ * wide, and the canvas uses scale = min(width / 3.48, height / 4.4). A box
+ * 4 / 3.48 of the surface width, contained and aligned on that centre,
+ * reproduces both cases.
+ */
 #portfolio-site .lotus-fallback {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  left: -7.621%;
+  width: 114.943%;
   height: 100%;
   max-width: none;
   object-fit: contain;
+  object-position: 51% 44%;
   pointer-events: none;
+}
+@media (max-width: 600px) {
+  /* narrowCenterY 0.56 lowers the flower below the stacked navigation. */
+  #portfolio-site .lotus-fallback {
+    top: 12%;
+  }
 }
 #portfolio-site[data-flower-frame] .lotus-fallback {
   visibility: hidden;

@@ -1,8 +1,8 @@
-import { lotusFallbackData } from "./lotus-fallback-data.js?v=6d397200d29c";
+import { lotusFallbackData } from "./lotus-fallback-data.js?v=369d26343c4a";
 
 /** Replay baked poses of the real model without a GPU or image decoding. */
 export function createLotusFallbackRenderer({
-  loadMotion = () => import("./lotus-fallback-motion.js?v=6d397200d29c"),
+  loadMotion = () => import("./lotus-fallback-motion.js?v=369d26343c4a"),
 } = {}) {
   const data = lotusFallbackData;
   const encoded = atob(data.runs);
@@ -21,9 +21,12 @@ export function createLotusFallbackRenderer({
   let pixels;
   let motion = null;
   let motionRequest = null;
+  let hasMotionFailed = false;
   return {
     isFallback: true,
     isAnimated: () => Boolean(motion),
+    /** True while requested motion may still arrive. */
+    isLoadingMotion: () => Boolean(motionRequest) && !motion && !hasMotionFailed,
     /** Motion is optional and only requested after a graphics failure. */
     ensureMotion() {
       if (!motionRequest)
@@ -54,7 +57,10 @@ export function createLotusFallbackRenderer({
             cachedKey = "";
             return true;
           })
-          .catch(() => false);
+          .catch(() => {
+            hasMotionFailed = true;
+            return false;
+          });
       return motionRequest;
     },
     render(
