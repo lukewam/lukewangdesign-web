@@ -1253,6 +1253,9 @@ body {
 #portfolio-site .work-detail .work-credits p {
   color: var(--color-muted);
 }
+#portfolio-site .work-detail .work-credit-details p + p {
+  margin-top: 12px;
+}
 #portfolio-site .work-detail-footer {
   display: flex;
   align-items: baseline;
@@ -2620,55 +2623,37 @@ body {
   }
 }
 
-/* Bound to Ruin — October: a quiet visual sequence, current work before archive. */
+/* Bound to Ruin: the new world on the cover; gameplay carries the case study. */
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  align-items: start;
+  gap: clamp(32px, 4vw, 64px);
   margin-bottom: 0;
 }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-gallery {
   width: 100%;
   max-width: none;
 }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction {
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-  gap: 16px clamp(32px, 8vw, 128px);
-}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction { display: block; }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-subtitle {
-  grid-column: 1;
-  grid-row: 1;
-  font-size: clamp(24px, 2.8vw, 36px);
+  font-size: clamp(24px, 2.6vw, 34px);
   line-height: 1.2;
   letter-spacing: -0.035em;
   color: var(--color-ink);
   max-width: 22ch;
-  margin: 0;
+  margin: 0 0 22px;
 }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-overview {
-  grid-column: 1;
-  grid-row: 2;
-  max-width: 54ch;
-}
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-lead {
-  font-size: var(--text-reading);
-}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening .work-lead { font-size: var(--text-reading); }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  display: block;
-  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 26px 0 0;
+  gap: 18px;
 }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta > div + div { margin-top: 18px; }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-tools {
-  grid-column: 2;
-  grid-row: 3;
-  margin: 0;
-}
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter {
-  margin-top: clamp(80px, 9vw, 128px);
-}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta > div + div { margin: 0; }
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-tools { margin-top: 16px; }
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter { margin-top: clamp(72px, 8vw, 110px); }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter[data-chapter-layout="wide"] .work-chapter-copy {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -2677,30 +2662,26 @@ body {
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter[data-chapter-layout="wide"] .work-chapter-number { grid-column: 1; grid-row: 1; }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter[data-chapter-layout="wide"] h3 { grid-column: 1; grid-row: 2; align-self: start; }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter[data-chapter-layout="wide"] .work-chapter-prose { grid-column: 2; grid-row: 1 / 3; }
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter .work-video-gallery { width: 100%; max-width: none; margin: 0; }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="ember-tide"] .work-gallery { gap: 24px; }
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="heavy-creature"] .work-video-gallery {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-}
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="shared-choices"] {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(40px, 8vw, 128px);
-}
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="shared-choices"] .work-chapter-evidence {
-  width: min(100%, 440px);
-  justify-self: end;
-}
-#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="in-progress"] {
-  max-width: 860px;
-  margin-inline: auto;
-  border-top: 1px solid var(--color-line);
-  padding-top: 32px;
-}
+#portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="monster-forge"] .work-gallery { width: min(100%, 1000px); margin-inline: auto; }
 #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-process { margin-top: 56px; }
+@container case-study (max-width: 900px) {
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening { grid-template-columns: 1fr; gap: 28px; }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction {
+    display: grid;
+    grid-column: 1;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 16px 32px;
+  }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-subtitle { grid-column: 1; grid-row: 1; margin: 0; }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-overview { grid-column: 1; grid-row: 2; }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta { display: block; grid-column: 2; grid-row: 1 / 3; margin: 0; }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta > div + div { margin-top: 18px; }
+  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-introduction > .work-tools { grid-column: 2; grid-row: 3; margin: 0; }
+}
 @container case-study (max-width: 620px) {
-  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening { gap: 28px; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-opening > .work-introduction { display: block; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-overview { margin-top: 18px; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-meta { display: grid; grid-template-columns: 1fr 1fr; margin-top: 26px; gap: 20px; }
@@ -2709,6 +2690,4 @@ body {
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter { margin-top: 64px; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-chapter[data-chapter-layout="wide"] .work-chapter-copy { display: block; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="ember-tide"] .work-gallery { grid-template-columns: 1fr; gap: 28px; }
-  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="shared-choices"] { grid-template-columns: 1fr; gap: 28px; }
-  #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="shared-choices"] .work-chapter-evidence { justify-self: center; }
 }

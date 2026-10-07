@@ -114,8 +114,8 @@
         "zh": "灾厄合伙人"
       },
       "subtitle": {
-        "en": "Create together. Face the consequences.",
-        "zh": "共同创造，一起承担。"
+        "en": "Fight the monster. Or be the monster.",
+        "zh": "对抗怪物，也可以成为怪物。"
       },
       "status": {
         "en": "In development · October 2026",
@@ -129,15 +129,15 @@
         }
       },
       "role": {
-        "en": "Game design, art direction & development",
-        "zh": "游戏设计、美术方向与开发"
+        "en": "Project lead, design & development",
+        "zh": "项目主导、设计与开发"
       },
       "collaborators": [
         "Tianyang Wang"
       ],
       "overview": {
-        "en": "What if the monster you fought was shaped by everyone in the room? An action-game prototype exploring shared creature creation, unpredictable encounters and the worlds that hold them.",
-        "zh": "如果你要面对的怪物，来自在场每个人的选择？这个动作游戏原型探索共同创造怪物、难以预料的遭遇，以及承载它们的世界。"
+        "en": "A multiplayer action game where three hunters face one player-controlled boss. Each hunter chooses a trait; their combined choices shape an AI-generated monster. Help your friends—or make the fight harder.\n\nTianyang Wang designed and created the original boss, Thorncage Marquis, and selected the battle music. I handle all other design and development.",
+        "zh": "一款三名猎人对抗一名首领玩家的联机动作游戏。猎人各选一个词条，共同决定 AI 生成的怪物。你可以帮助朋友，也可以让战斗变得更难。\n\nTianyang Wang 负责初始首领「棘笼侯爵」的设计与制作，以及战斗音乐选曲；其余设计与开发全部由我完成。"
       },
       "tools": [
         "Unity",
@@ -147,7 +147,7 @@
         "Node.js"
       ],
       "links": [],
-      "hero_layout": "landscape",
+      "hero_layout": "game",
       "cover_images": [
         {
           "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-overview.jpg",
@@ -162,17 +162,167 @@
       "cover_videos": [],
       "sections": [
         {
+          "id": "play-as-hunter",
+          "title": {
+            "en": "Play as a hunter.",
+            "zh": "先从猎人开始。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Keep your distance, read the boss’s attacks and find a chance to strike. This solo playtest shows the core combat before another player takes control of the monster.",
+              "zh": "保持距离，判断首领的攻击，寻找反击机会。这段单人实战先展示基础战斗，再进入由另一位玩家操控怪物的联机对抗。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "assets/films/bound-to-ruin-pve-battle.mp4",
+              "poster": "assets/films/bound-to-ruin-pve-battle-poster.jpg",
+              "title": {
+                "en": "Play as a hunter",
+                "zh": "扮演猎人"
+              },
+              "caption": {
+                "en": "Solo boss fight · gameplay recording · original boss by Tianyang Wang",
+                "zh": "单人首领战 · 实际游玩录像 · 初始首领由 Tianyang Wang 设计制作"
+              },
+              "duration": 65.2,
+              "width": 1280,
+              "height": 682
+            }
+          ]
+        },
+        {
+          "id": "online-play",
+          "title": {
+            "en": "Take the other side.",
+            "zh": "换一边，成为首领。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "In the online prototype, one player controls the monster while the other hunts it. This recording switches between both roles, showing how the same encounter feels from each side.",
+              "zh": "在联机原型里，一位玩家操控怪物，另一位扮演猎人。这段录像切换了双方视角，展示同一场对抗的两种体验。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "assets/films/bound-to-ruin-online-battle.mp4",
+              "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
+              "title": {
+                "en": "Hunter vs. player-controlled boss",
+                "zh": "猎人对抗玩家操控的首领"
+              },
+              "caption": {
+                "en": "Two-player online gameplay · both perspectives · silent",
+                "zh": "双人联机实战 · 双方视角 · 无声"
+              },
+              "duration": 287.7,
+              "width": 1280,
+              "height": 678
+            }
+          ]
+        },
+        {
+          "id": "monster-forge",
+          "title": {
+            "en": "Choose together. Reveal together.",
+            "zh": "各自选择，一起揭晓。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Choose one of three traits, lock it in, then reveal the group’s choices. The shared recipe shapes the next monster. This UI study makes each player’s contribution visible before the fight.",
+              "zh": "从三个词条中选一个并锁定，再一起揭晓。共同组成的配方决定下一只怪物。这张 UI 研究图让每位玩家的贡献在战斗前清楚可见。"
+            }
+          ],
+          "images": [
+            {
+              "src": "assets/portfolio/bound-to-ruin/monster-forge-ui-en.jpg",
+              "width": 1440,
+              "height": 900,
+              "caption": {
+                "en": "Monster Forge · English UI mockup / prototype state",
+                "zh": "怪物熔炉 · 英文 UI mockup／原型界面"
+              }
+            }
+          ],
+          "gallery_layout": "single"
+        },
+        {
+          "id": "creature-generation",
+          "title": {
+            "en": "From generated form to moving creature.",
+            "zh": "从生成外形，到动起来的怪物。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "The latest film follows a generated creature through its mesh, skeleton, movement and an in-scene encounter. It shows the current production pipeline; live generation for every shared round is still being connected.",
+              "zh": "最新短片依次展示生成模型、骨架、动作与场景内遭遇。它梳理当前制作流程；每轮共享实时生成仍在接入。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "assets/films/bound-to-ruin-creature-progress.mp4",
+              "poster": "assets/films/bound-to-ruin-creature-progress-poster.jpg",
+              "title": {
+                "en": "Creature-generation progress",
+                "zh": "怪物生成进展"
+              },
+              "caption": {
+                "en": "Current prototype · edited asset and NPC demonstration · no text",
+                "zh": "当前原型 · 模型与 NPC 演示剪辑 · 无文字"
+              },
+              "duration": 35.4,
+              "width": 1920,
+              "height": 1080
+            }
+          ]
+        },
+        {
+          "id": "combat-directions",
+          "title": {
+            "en": "Different creatures. Different encounters.",
+            "zh": "不同的怪物，不同的对抗。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "A fast slashing creature, an ice-lava giant and an arc caster explore three combat identities. This effects mockup shows the intended variety; the attacks and effects are authored studies, not automatically generated skills.",
+              "zh": "快斩型怪物、冰熔岩巨人和放电施法怪，探索三种战斗性格。这段效果 mockup 展示期望的差异；动作与特效是制作的研究内容，并非自动生成的技能。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "assets/films/bound-to-ruin-creature-directions.mp4",
+              "poster": "assets/films/bound-to-ruin-creature-directions-poster.jpg",
+              "title": {
+                "en": "Three creature directions",
+                "zh": "三种怪物方向"
+              },
+              "caption": {
+                "en": "Combat / VFX mockup · future direction",
+                "zh": "战斗与特效 mockup · 未来方向"
+              },
+              "duration": 30.8,
+              "width": 1920,
+              "height": 1080
+            }
+          ]
+        },
+        {
           "id": "ember-tide",
           "title": {
-            "en": "A world shaped by scale.",
-            "zh": "让尺度塑造世界。"
+            "en": "A new place to face them.",
+            "zh": "让新的遭遇有处发生。"
           },
           "layout": "wide",
           "gallery_layout": "default",
           "paragraphs": [
             {
-              "en": "A fallen bronze head anchors the courtyard. Pale stone paths cross dark volcanic cliffs; bridges and stairs connect the ruins above the sea. I shaped the modular environment around this contrast and a continuous route.",
-              "zh": "倒落的青铜巨首成为庭院中心。浅色石径跨过深色火山崖，桥梁与阶梯将海上遗迹连在一起。我围绕这种材质对比与连续通路，组织模块化场景。"
+              "en": "Ember Tide Archive is the new environment direction: a fallen bronze head, pale stone paths and bridges over volcanic cliffs. The latest map is a separate playable preview, still being brought into the main game.",
+              "zh": "熔潮圣库是新的场景方向：倒落的青铜巨首、浅色石径与跨越火山崖的桥梁。最新地图目前是独立可玩预览，仍在接入主游戏。"
             }
           ],
           "images": [
@@ -195,119 +345,53 @@
               }
             }
           ]
-        },
-        {
-          "id": "heavy-creature",
-          "title": {
-            "en": "Give the creature weight.",
-            "zh": "让巨物有重量。"
-          },
-          "layout": "wide",
-          "paragraphs": [
-            {
-              "en": "The selected giant now loads into the heavy-boss encounter. A slower anticipation, falling stone and an expanding dust wave make its stomp legible. The clip below is an in-scene motion study; deformation and combat feel are still being refined.",
-              "zh": "选定的巨怪已接入重装首领战。蓄势、落石与扩散尘浪，让重踏的重量更容易被读懂。下方是实际场景中的动作研究；变形与实战手感仍在打磨。"
-            }
-          ],
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-heavy-stomp.mp4",
-              "poster": "assets/films/bound-to-ruin-heavy-stomp-poster.jpg",
-              "width": 1920,
-              "height": 1080,
-              "duration": 4,
-              "loop": true,
-              "title": {
-                "en": "Heavy stomp",
-                "zh": "重踏"
-              },
-              "caption": {
-                "en": "Unity motion study · 4-second loop",
-                "zh": "Unity 动作研究 · 4 秒循环"
-              }
-            }
-          ]
-        },
-        {
-          "id": "shared-choices",
-          "title": {
-            "en": "Choices become behavior.",
-            "zh": "让选择改变打法。"
-          },
-          "layout": "paired",
-          "paragraphs": [
-            {
-              "en": "Three player-chosen traits form a creature brief. The Tripo workshop generates the model; authored rules now bias combat toward pursuit, siege or heavy impact. The goal is a new shared creature each round.",
-              "zh": "玩家选择的三个词条组成怪物描述。Tripo 工坊生成模型，已编写的规则让战斗偏向追击、围攻或重击。目标是让每一轮都出现共同创造的新怪物。"
-            },
-            {
-              "en": "The current test uses a bundled model. Shared per-round generation is still in progress.",
-              "zh": "当前测试使用预置模型，每轮共享生成仍在接入。"
-            }
-          ],
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-tripo-workshop-en.mp4",
-              "poster": "assets/films/bound-to-ruin-tripo-workshop-en-poster.jpg",
-              "title": {
-                "en": "Generation workshop",
-                "zh": "生成工坊"
-              },
-              "caption": {
-                "en": "Recorded tool interaction · September 2026",
-                "zh": "真实工坊操作 · 2026 年 9 月"
-              },
-              "duration": 16,
-              "width": 960,
-              "height": 984
-            }
-          ]
-        },
-        {
-          "id": "in-progress",
-          "title": {
-            "en": "Still taking shape.",
-            "zh": "仍在成形。"
-          },
-          "layout": "text",
-          "paragraphs": [
-            {
-              "en": "The environment is a separate playable preview. Bringing it into the main game, refining animation and testing encounters with players are the next steps.",
-              "zh": "场景目前是独立可玩预览。下一步是接入主游戏、打磨动画，并与玩家一起检验战斗体验。"
-            }
-          ]
         }
       ],
       "process_videos": [
         {
-          "src": "assets/films/bound-to-ruin-pve-battle.mp4",
-          "poster": "assets/films/bound-to-ruin-pve-battle-poster.jpg",
-          "title": {
-            "en": "Solo combat prototype",
-            "zh": "单人战斗原型"
-          },
-          "caption": {
-            "en": "Earlier gameplay recording · September 2026",
-            "zh": "早期实战录像 · 2026 年 9 月"
-          },
-          "duration": 65.2,
-          "width": 1280,
-          "height": 682
-        },
-        {
           "src": "assets/films/bound-to-ruin-online-playtest.mp4",
           "poster": "assets/films/bound-to-ruin-online-playtest-poster.jpg",
           "title": {
-            "en": "Two-player prototype",
-            "zh": "双人联机原型"
+            "en": "Online playtest",
+            "zh": "联机试玩"
           },
           "caption": {
-            "en": "Earlier online playtest · September 2026",
-            "zh": "早期联机试玩 · 2026 年 9 月"
+            "en": "Early two-player gameplay prototype",
+            "zh": "早期双人联机游玩原型"
           },
           "duration": 30,
           "width": 1280,
           "height": 720
+        },
+        {
+          "src": "assets/films/bound-to-ruin-generated-trial-en.mp4",
+          "poster": "assets/films/bound-to-ruin-generated-trial-en-poster.jpg",
+          "title": {
+            "en": "A generated creature, in Unity",
+            "zh": "生成怪物进入 Unity"
+          },
+          "caption": {
+            "en": "Earlier generated-creature gameplay trial",
+            "zh": "较早的生成怪物实机试玩"
+          },
+          "duration": 18,
+          "width": 1280,
+          "height": 804
+        },
+        {
+          "src": "assets/films/bound-to-ruin-tripo-workshop-en.mp4",
+          "poster": "assets/films/bound-to-ruin-tripo-workshop-en-poster.jpg",
+          "title": {
+            "en": "Inside the generation workshop",
+            "zh": "生成工坊"
+          },
+          "caption": {
+            "en": "Earlier generation-workshop recording",
+            "zh": "较早的生成工坊录像"
+          },
+          "duration": 16,
+          "width": 960,
+          "height": 984
         }
       ],
       "process_images": [],
@@ -316,9 +400,19 @@
         "zh": "AI 模型驱动游戏"
       },
       "process_note": {
-        "en": "Two earlier tests of the core encounter: fighting the boss, and letting another player control it.",
-        "zh": "两段早期记录：对抗首领，以及由另一位玩家操控首领。"
-      }
+        "en": "More prototype footage: the first online playtest, an earlier generated-creature trial and the generation workshop.",
+        "zh": "更多原型录像：早期联机试玩、生成怪物实机试验与生成工坊。"
+      },
+      "credits": [
+        {
+          "en": "Luke Wang — All other project work: concept, game design and systems, hunter character, environments, UI, networking, AI creature generation, development and integration.",
+          "zh": "Luke Wang — 除下述两项外的全部项目工作：项目概念、玩法与系统、猎人角色、场景地图、UI、联机、AI 怪物生成、开发与整合。"
+        },
+        {
+          "en": "Tianyang Wang — Original boss, Thorncage Marquis: design and creation. Battle music selection, using Suno-generated music.",
+          "zh": "Tianyang Wang — 初始首领「棘笼侯爵」的设计与制作；战斗音乐选曲（Suno 生成音乐）。"
+        }
+      ]
     },
     {
       "id": "sisyphus",

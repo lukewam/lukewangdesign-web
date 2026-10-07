@@ -975,19 +975,24 @@ export function createWorkGallery(
 
   /** Appends index navigation and the next complete project. */
   function appendDetailFooter(projectData) {
-    if (projectData.collaborators?.length) {
+    if (projectData.credits?.length || projectData.collaborators?.length) {
       const collaboratorCredits = createElement("div", "work-credits");
       collaboratorCredits.append(
         createElement(
           "span",
           "",
-          activeLanguage === "zh" ? "合作者" : "Collaborators",
+          projectData.credits?.length
+            ? activeLanguage === "zh" ? "制作分工" : "Project credits"
+            : activeLanguage === "zh" ? "合作者" : "Collaborators",
         ),
       );
-      appendParagraph(
-        collaboratorCredits,
-        projectData.collaborators.join(", "),
-      );
+      const creditDetails = createElement("div", "work-credit-details");
+      if (projectData.credits?.length) {
+        projectData.credits.forEach((credit) => appendParagraph(creditDetails, credit));
+      } else {
+        appendParagraph(creditDetails, projectData.collaborators.join(", "));
+      }
+      collaboratorCredits.append(creditDetails);
       projectDetail.append(collaboratorCredits);
     }
     const detailFooter = createElement("footer", "work-detail-footer");

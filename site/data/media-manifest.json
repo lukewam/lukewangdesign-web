@@ -35,21 +35,67 @@
       }
     ]
   },
-  "assets/films/bound-to-ruin-heavy-stomp-poster.jpg": {
+  "assets/films/bound-to-ruin-creature-directions-poster.jpg": {
     "width": 1920,
     "height": 1080,
     "sources": [
       {
-        "src": "assets/optimized/films/bound-to-ruin-heavy-stomp-poster-480.webp",
+        "src": "assets/optimized/films/bound-to-ruin-creature-directions-poster-480.webp",
         "width": 480
       },
       {
-        "src": "assets/optimized/films/bound-to-ruin-heavy-stomp-poster-960.webp",
+        "src": "assets/optimized/films/bound-to-ruin-creature-directions-poster-960.webp",
         "width": 960
       },
       {
-        "src": "assets/optimized/films/bound-to-ruin-heavy-stomp-poster-1440.webp",
+        "src": "assets/optimized/films/bound-to-ruin-creature-directions-poster-1440.webp",
         "width": 1440
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-creature-progress-poster.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-creature-progress-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-creature-progress-poster-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-creature-progress-poster-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-generated-trial-en-poster.jpg": {
+    "width": 1280,
+    "height": 804,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-generated-trial-en-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-generated-trial-en-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-online-battle-poster.jpg": {
+    "width": 1280,
+    "height": 678,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-online-battle-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-online-battle-poster-960.webp",
+        "width": 960
       }
     ]
   },
@@ -403,6 +449,24 @@
       },
       {
         "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-overview-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/bound-to-ruin/monster-forge-ui-en.jpg": {
+    "width": 1440,
+    "height": 900,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/monster-forge-ui-en-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/monster-forge-ui-en-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/monster-forge-ui-en-1440.webp",
         "width": 1440
       }
     ]
