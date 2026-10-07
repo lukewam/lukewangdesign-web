@@ -136,8 +136,8 @@
         "Tianyang Wang"
       ],
       "overview": {
-        "en": "A multiplayer action game where three hunters face one player-controlled boss. Each hunter chooses a trait; their combined choices shape an AI-generated monster. Help your friends—or make the fight harder.\n\nTianyang Wang designed and created the original boss, Thorncage Marquis, and selected the battle music. I handle all other design and development.",
-        "zh": "一款三名猎人对抗一名首领玩家的联机动作游戏。猎人各选一个词条，共同决定 AI 生成的怪物。你可以帮助朋友，也可以让战斗变得更难。\n\nTianyang Wang 负责初始首领「棘笼侯爵」的设计与制作，以及战斗音乐选曲；其余设计与开发全部由我完成。"
+        "en": "Three hunters face one player-controlled boss. Each hunter chooses a trait; their combined choices shape an AI-generated monster. Help your friends—or make the fight harder.",
+        "zh": "三名猎人，对抗一名首领玩家。猎人各选一个词条，共同决定 AI 生成的怪物。你可以帮助朋友，也可以让战斗变得更难。"
       },
       "tools": [
         "Unity",
@@ -170,8 +170,8 @@
           "layout": "wide",
           "paragraphs": [
             {
-              "en": "Keep your distance, read the boss’s attacks and find a chance to strike. This solo playtest shows the core combat before another player takes control of the monster.",
-              "zh": "保持距离，判断首领的攻击，寻找反击机会。这段单人实战先展示基础战斗，再进入由另一位玩家操控怪物的联机对抗。"
+              "en": "Keep your distance, read the boss’s attacks, then find a chance to strike. A solo playtest of the core combat.",
+              "zh": "保持距离，判断首领的攻击，寻找反击机会。先从这段单人实战了解基础战斗。"
             }
           ],
           "videos": [
@@ -179,18 +179,22 @@
               "src": "assets/films/bound-to-ruin-pve-battle.mp4",
               "poster": "assets/films/bound-to-ruin-pve-battle-poster.jpg",
               "title": {
-                "en": "Play as a hunter",
-                "zh": "扮演猎人"
+                "en": "Solo encounter",
+                "zh": "单人首领战"
               },
               "caption": {
-                "en": "Solo boss fight · gameplay recording · original boss by Tianyang Wang",
-                "zh": "单人首领战 · 实际游玩录像 · 初始首领由 Tianyang Wang 设计制作"
+                "en": "Gameplay · original boss by Tianyang Wang",
+                "zh": "实际游玩 · 初始首领由 Tianyang Wang 设计制作"
               },
               "duration": 65.2,
               "width": 1280,
               "height": 682
             }
-          ]
+          ],
+          "eyebrow": {
+            "en": "Gameplay",
+            "zh": "游玩实录"
+          }
         },
         {
           "id": "online-play",
@@ -201,8 +205,8 @@
           "layout": "wide",
           "paragraphs": [
             {
-              "en": "In the online prototype, one player controls the monster while the other hunts it. This recording switches between both roles, showing how the same encounter feels from each side.",
-              "zh": "在联机原型里，一位玩家操控怪物，另一位扮演猎人。这段录像切换了双方视角，展示同一场对抗的两种体验。"
+              "en": "One player hunts; the other controls the boss. This online playtest switches between both perspectives.",
+              "zh": "一位玩家扮演猎人，另一位操控首领。这段联机实战切换双方视角，展示两种体验。"
             }
           ],
           "videos": [
@@ -221,19 +225,23 @@
               "width": 1280,
               "height": 678
             }
-          ]
+          ],
+          "eyebrow": {
+            "en": "Online play",
+            "zh": "联机实战"
+          }
         },
         {
           "id": "monster-forge",
           "title": {
-            "en": "Choose together. Reveal together.",
-            "zh": "各自选择，一起揭晓。"
+            "en": "Choose one. Reveal together.",
+            "zh": "各选一个，一起揭晓。"
           },
-          "layout": "wide",
+          "layout": "paired",
           "paragraphs": [
             {
-              "en": "Choose one of three traits, lock it in, then reveal the group’s choices. The shared recipe shapes the next monster. This UI study makes each player’s contribution visible before the fight.",
-              "zh": "从三个词条中选一个并锁定，再一起揭晓。共同组成的配方决定下一只怪物。这张 UI 研究图让每位玩家的贡献在战斗前清楚可见。"
+              "en": "Choose one of three traits, then reveal everyone’s choices. The interface traces each contribution into a shared monster recipe.",
+              "zh": "从三个词条中选一个，再一起揭晓。界面把每个人的选择带入共同的怪物配方，让贡献清楚可见。"
             }
           ],
           "images": [
@@ -247,19 +255,23 @@
               }
             }
           ],
-          "gallery_layout": "single"
+          "gallery_layout": "single",
+          "eyebrow": {
+            "en": "Interface study",
+            "zh": "界面研究"
+          }
         },
         {
           "id": "creature-generation",
           "title": {
-            "en": "From generated form to moving creature.",
-            "zh": "从生成外形，到动起来的怪物。"
+            "en": "From form to motion.",
+            "zh": "从外形，到动作。"
           },
-          "layout": "wide",
+          "layout": "paired",
           "paragraphs": [
             {
-              "en": "The latest film follows a generated creature through its mesh, skeleton, movement and an in-scene encounter. It shows the current production pipeline; live generation for every shared round is still being connected.",
-              "zh": "最新短片依次展示生成模型、骨架、动作与场景内遭遇。它梳理当前制作流程；每轮共享实时生成仍在接入。"
+              "en": "Generated mesh, skeleton, movement, then an in-scene encounter. The current production pipeline, with shared per-round generation still being connected.",
+              "zh": "生成模型、骨架、动作，再到场景内遭遇。短片展示当前制作流程，每轮共享实时生成仍在接入。"
             }
           ],
           "videos": [
@@ -271,26 +283,30 @@
                 "zh": "怪物生成进展"
               },
               "caption": {
-                "en": "Current prototype · edited asset and NPC demonstration · no text",
-                "zh": "当前原型 · 模型与 NPC 演示剪辑 · 无文字"
+                "en": "Edited prototype footage · model, rig and NPC encounter",
+                "zh": "原型演示剪辑 · 模型、骨架与 NPC 遭遇"
               },
               "duration": 35.4,
               "width": 1920,
               "height": 1080
             }
-          ]
+          ],
+          "eyebrow": {
+            "en": "Creature pipeline",
+            "zh": "怪物制作"
+          }
         },
         {
           "id": "combat-directions",
           "title": {
-            "en": "Different creatures. Different encounters.",
-            "zh": "不同的怪物，不同的对抗。"
+            "en": "Three ways to fight.",
+            "zh": "三种战斗性格。"
           },
-          "layout": "wide",
+          "layout": "paired",
           "paragraphs": [
             {
-              "en": "A fast slashing creature, an ice-lava giant and an arc caster explore three combat identities. This effects mockup shows the intended variety; the attacks and effects are authored studies, not automatically generated skills.",
-              "zh": "快斩型怪物、冰熔岩巨人和放电施法怪，探索三种战斗性格。这段效果 mockup 展示期望的差异；动作与特效是制作的研究内容，并非自动生成的技能。"
+              "en": "Fast slashes, ice and lava, electric arcs. Three authored combat studies explore how creature traits could change a fight.",
+              "zh": "快斩、冰与熔岩、电弧。三组制作的战斗研究，探索怪物词条如何改变一场对抗。"
             }
           ],
           "videos": [
@@ -302,27 +318,31 @@
                 "zh": "三种怪物方向"
               },
               "caption": {
-                "en": "Combat / VFX mockup · future direction",
-                "zh": "战斗与特效 mockup · 未来方向"
+                "en": "Combat / VFX mockup · authored effects, not generated skills",
+                "zh": "战斗与特效 mockup · 人工编排效果，非自动生成技能"
               },
               "duration": 30.8,
               "width": 1920,
               "height": 1080
             }
-          ]
+          ],
+          "eyebrow": {
+            "en": "Combat mockup",
+            "zh": "战斗效果研究"
+          }
         },
         {
           "id": "ember-tide",
           "title": {
-            "en": "A new place to face them.",
-            "zh": "让新的遭遇有处发生。"
+            "en": "Ember Tide Archive.",
+            "zh": "熔潮圣库。"
           },
           "layout": "wide",
           "gallery_layout": "default",
           "paragraphs": [
             {
-              "en": "Ember Tide Archive is the new environment direction: a fallen bronze head, pale stone paths and bridges over volcanic cliffs. The latest map is a separate playable preview, still being brought into the main game.",
-              "zh": "熔潮圣库是新的场景方向：倒落的青铜巨首、浅色石径与跨越火山崖的桥梁。最新地图目前是独立可玩预览，仍在接入主游戏。"
+              "en": "Weathered bronze, pale stone and bridges over volcanic cliffs. The new world is a separate playable preview, still being brought into the main game.",
+              "zh": "风化青铜、浅色石材，以及跨越火山崖的桥梁。新地图目前是独立可玩预览，仍在接入主游戏。"
             }
           ],
           "images": [
@@ -344,7 +364,11 @@
                 "zh": "从桥下看穿行的路径。"
               }
             }
-          ]
+          ],
+          "eyebrow": {
+            "en": "Environment",
+            "zh": "场景探索"
+          }
         }
       ],
       "process_videos": [
@@ -412,7 +436,22 @@
           "en": "Tianyang Wang — Original boss, Thorncage Marquis: design and creation. Battle music selection, using Suno-generated music.",
           "zh": "Tianyang Wang — 初始首领「棘笼侯爵」的设计与制作；战斗音乐选曲（Suno 生成音乐）。"
         }
-      ]
+      ],
+      "attribution": {
+        "en": "Tianyang Wang: original boss design and creation, and battle music selection. All other design and development: Luke Wang.",
+        "zh": "Tianyang Wang：初始首领的设计与制作、战斗音乐选曲。其余设计与开发全部由 Luke Wang 完成。"
+      },
+      "opening_link": {
+        "chapter": "play-as-hunter",
+        "label": {
+          "en": "Watch gameplay ↓",
+          "zh": "观看实战 ↓"
+        },
+        "detail": {
+          "en": "1:05 · Solo boss fight",
+          "zh": "1:05 · 单人首领战"
+        }
+      }
     },
     {
       "id": "sisyphus",

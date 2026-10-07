@@ -1083,15 +1083,33 @@ export function createWorkGallery(
     const projectOpening = createElement("div", "work-opening");
     projectOpening.dataset.heroLayout = projectData.hero_layout || "object";
     const projectIntroduction = createElement("div", "work-introduction");
+    const introductionStory = projectData.opening_link
+      ? createElement("div", "work-introduction-story") : projectIntroduction;
+    const introductionDetails = projectData.opening_link
+      ? createElement("div", "work-introduction-details") : projectIntroduction;
     if (projectData.subtitle && localizeText(projectData.subtitle).trim() !== projectStatus)
       appendParagraph(
-        projectIntroduction,
+        introductionStory,
         projectData.subtitle,
         "work-subtitle",
       );
-    appendOverview(projectIntroduction, projectData.overview);
-    appendProjectMetadata(projectIntroduction, projectData);
-    appendProjectMaterials(projectData, projectIntroduction);
+    appendOverview(introductionStory, projectData.overview);
+    const openingChapter = projectData.opening_link;
+    if (openingChapter && projectData.sections?.some(section => section.id === openingChapter.chapter)) {
+      const openingLink = createElement("button", "work-opening-link");
+      openingLink.type = "button";
+      openingLink.append(
+        createElement("span", "", localizeText(openingChapter.label)),
+        createElement("span", "work-opening-link-detail", localizeText(openingChapter.detail)),
+      );
+      openingLink.addEventListener("click", () => navigateToChapter(openingChapter.chapter));
+      introductionStory.append(openingLink);
+    }
+    appendProjectMetadata(introductionDetails, projectData);
+    if (projectData.attribution)
+      appendParagraph(introductionDetails, projectData.attribution, "work-attribution");
+    appendProjectMaterials(projectData, introductionDetails);
+    if (projectData.opening_link) projectIntroduction.append(introductionStory, introductionDetails);
     if (projectData.cover_videos?.length) {
       appendVideoGallery(projectOpening, projectData.cover_videos);
     } else {
@@ -1122,7 +1140,9 @@ export function createWorkGallery(
       chapterHeading.tabIndex = -1;
       chapterSection.setAttribute("aria-labelledby", chapterHeading.id);
       chapterCopy.append(
-        createElement("span", "work-chapter-number", chapterNumber),
+        createElement("span", "work-chapter-number", projectSection.eyebrow
+          ? `${chapterNumber} / ${localizeText(projectSection.eyebrow)}`
+          : chapterNumber),
         chapterHeading,
       );
       /** Blank paragraphs render nothing, so the copy flag follows what was rendered. */
