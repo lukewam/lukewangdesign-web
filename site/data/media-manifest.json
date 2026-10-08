@@ -99,6 +99,78 @@
       }
     ]
   },
+  "assets/films/bound-to-ruin-map-style-comparison-r6-mobile-poster.jpg": {
+    "width": 960,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-mobile-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-mobile-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-map-style-comparison-r6-poster.jpg": {
+    "width": 2560,
+    "height": 720,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-2000.webp",
+        "width": 2000
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster.jpg": {
+    "width": 960,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-monster-style-comparison-r6-poster.jpg": {
+    "width": 2560,
+    "height": 720,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-2000.webp",
+        "width": 2000
+      }
+    ]
+  },
   "assets/films/bound-to-ruin-online-battle-poster.jpg": {
     "width": 1280,
     "height": 678,
@@ -137,6 +209,20 @@
       },
       {
         "src": "assets/optimized/films/bound-to-ruin-pve-battle-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
+  "assets/films/bound-to-ruin-r6-walkthrough-poster.jpg": {
+    "width": 1280,
+    "height": 720,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-r6-walkthrough-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-r6-walkthrough-poster-960.webp",
         "width": 960
       }
     ]
@@ -431,6 +517,28 @@
       }
     ]
   },
+  "assets/portfolio/bound-to-ruin/coastal-temple-r6-panorama.jpg": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-2000.webp",
+        "width": 2000
+      }
+    ]
+  },
   "assets/portfolio/bound-to-ruin/ember-tide-v14-courtyard.jpg": {
     "width": 1440,
     "height": 1000,
@@ -482,6 +590,28 @@
       {
         "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-overview-1440.webp",
         "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/bound-to-ruin/ember-tide-v14-panorama.jpg": {
+    "width": 2400,
+    "height": 1350,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-2000.webp",
+        "width": 2000
       }
     ]
   },

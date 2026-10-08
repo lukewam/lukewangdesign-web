@@ -294,7 +294,8 @@
           "eyebrow": {
             "en": "Creature pipeline",
             "zh": "怪物制作"
-          }
+          },
+          "spread": "creature-studies"
         },
         {
           "id": "combat-directions",
@@ -329,84 +330,138 @@
           "eyebrow": {
             "en": "Combat mockup",
             "zh": "战斗效果研究"
-          }
+          },
+          "spread": "creature-studies"
         },
         {
           "id": "ember-tide",
           "title": {
-            "en": "One setting. Two visual directions.",
-            "zh": "同一场景，两种风格。"
+            "en": "One world, two ways of seeing.",
+            "zh": "同一世界，两种观看方式。"
           },
           "layout": "wide",
           "gallery_layout": "default",
           "paragraphs": [
             {
-              "en": "The coastal temples, bridges and bronze head connect both studies. Ember Tide explores weathered surfaces and atmospheric depth; the new low-poly version uses broad facets, quieter colour and clearer silhouettes. Both are standalone Unity environment previews.",
-              "zh": "海岸神殿、桥梁与青铜头像，连接两种美术探索。熔潮圣库强调风化材质与空间氛围；新的 low poly 版本以大块面、克制配色和清晰轮廓重新表达。两者均为独立 Unity 场景预览。"
+              "en": "Low poly R6 builds the coast from broad facets and clear silhouettes. V14 explores carved stone, weathered bronze and richer surface detail. Compare their light, scale and atmosphere along two camera tours.",
+              "zh": "Low poly R6 用大块面与清晰轮廓构建海岸；V14 则探索雕刻石材、风化青铜与更丰富的材质细节。跟随两条镜头路线，比较光影、尺度与氛围。"
             }
           ],
           "images": [
             {
-              "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-overview.jpg",
-              "width": 1600,
-              "height": 1000,
+              "src": "assets/portfolio/bound-to-ruin/coastal-temple-r6-panorama.jpg",
+              "width": 2400,
+              "height": 1350,
+              "label": {
+                "en": "Low poly · R6",
+                "zh": "Low poly · R6"
+              },
               "caption": {
-                "en": "Ember Tide Archive / Detailed materials — carved stone, weathered bronze, atmospheric light.",
-                "zh": "熔潮圣库／细节材质方向 — 雕刻石材、风化青铜与氛围光影。"
+                "en": "Faceted cliffs, warm stone and a flowing lava gorge.",
+                "zh": "多面峭壁、暖色石材与流动的熔岩峡谷。"
               }
             },
             {
-              "src": "assets/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview.jpg",
-              "width": 1600,
-              "height": 1000,
+              "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-panorama.jpg",
+              "width": 2400,
+              "height": 1350,
+              "label": {
+                "en": "Detailed · V14",
+                "zh": "细节材质 · V14"
+              },
               "caption": {
-                "en": "Coastal Temple / Low-poly study — broad planes, pale stone, faceted teal water.",
-                "zh": "海岸神殿／Low poly 实验 — 大块面、浅色石材与多边形青绿海面。"
+                "en": "Carved surfaces, weathered ruins and reflective water.",
+                "zh": "雕刻表面、风化遗迹与反射水面。"
               }
             }
           ],
           "eyebrow": {
-            "en": "Environment · Style comparison",
-            "zh": "场景探索 · 风格对比"
-          }
-        },
-        {
-          "id": "lowpoly-coast",
-          "title": {
-            "en": "A lighter coastal world.",
-            "zh": "更轻盈的海岸世界。"
+            "en": "Environment / Style comparison",
+            "zh": "场景探索 / 风格对比"
           },
-          "eyebrow": {
-            "en": "Low-poly environment · October 2026",
-            "zh": "Low poly 场景 · 2026 年 10 月"
-          },
-          "layout": "paired",
-          "paragraphs": [
-            {
-              "en": "Eight modular assets, each developed from three views with Tripo, are assembled into twin island temples. A shared palette and animated polygonal sea bring the scene together. An independent art study; main-game integration is pending.",
-              "zh": "8 个模块分别通过三视图与 Tripo 制作，再组合成双岛神殿。统一色板与动态多边形海面串联整个场景。这是独立美术实验，尚未接入主游戏。"
-            }
-          ],
+          "media_order": "video-first",
           "videos": [
             {
-              "src": "assets/films/bound-to-ruin-lowpoly-coast.mp4",
-              "poster": "assets/films/bound-to-ruin-lowpoly-coast-poster.jpg",
-              "width": 1280,
-              "height": 800,
-              "duration": 6,
+              "src": "assets/films/bound-to-ruin-map-style-comparison-r6.mp4",
+              "poster": "assets/films/bound-to-ruin-map-style-comparison-r6-poster.jpg",
+              "width": 2560,
+              "height": 720,
+              "duration": 48,
               "title": {
-                "en": "Faceted sea, in motion",
-                "zh": "流动的多边形海面"
+                "en": "Two coastal worlds, side by side",
+                "zh": "并行穿行，两种海岸"
               },
               "caption": {
-                "en": "Unity runtime capture · environment study · silent",
-                "zh": "Unity 实机录制 · 场景美术实验 · 无声"
+                "en": "Unity camera tours · independent environment studies · silent",
+                "zh": "Unity 场景镜头漫游 · 独立美术实验 · 无声"
+              },
+              "comparison_labels": [
+                {
+                  "en": "Low poly · R6",
+                  "zh": "Low poly · R6"
+                },
+                {
+                  "en": "Detailed · V14",
+                  "zh": "细节材质 · V14"
+                }
+              ],
+              "mobile": {
+                "src": "assets/films/bound-to-ruin-map-style-comparison-r6-mobile.mp4",
+                "poster": "assets/films/bound-to-ruin-map-style-comparison-r6-mobile-poster.jpg",
+                "width": 960,
+                "height": 1080
               }
             }
           ]
         }
       ],
       "process_videos": [
+        {
+          "src": "assets/films/bound-to-ruin-monster-style-comparison-r6.mp4",
+          "poster": "assets/films/bound-to-ruin-monster-style-comparison-r6-poster.jpg",
+          "width": 2560,
+          "height": 720,
+          "duration": 24,
+          "title": {
+            "en": "Creatures in both worlds",
+            "zh": "两种世界中的怪物"
+          },
+          "caption": {
+            "en": "Staged model and motion comparison · existing walk animations · no combat",
+            "zh": "模型与动作的场景摆拍对比 · 现有行走动画 · 非战斗实录"
+          },
+          "comparison_labels": [
+            {
+              "en": "Low poly · R6",
+              "zh": "Low poly · R6"
+            },
+            {
+              "en": "Detailed · V14",
+              "zh": "细节材质 · V14"
+            }
+          ],
+          "mobile": {
+            "src": "assets/films/bound-to-ruin-monster-style-comparison-r6-mobile.mp4",
+            "poster": "assets/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster.jpg",
+            "width": 960,
+            "height": 1080
+          }
+        },
+        {
+          "src": "assets/films/bound-to-ruin-r6-walkthrough.mp4",
+          "poster": "assets/films/bound-to-ruin-r6-walkthrough-poster.jpg",
+          "width": 1280,
+          "height": 720,
+          "duration": 28,
+          "title": {
+            "en": "Coastal Temple / R6",
+            "zh": "海岸神殿 / R6"
+          },
+          "caption": {
+            "en": "Fresh Unity runtime capture · automated traversal · edited excerpts",
+            "zh": "重新录制 Unity 实机画面 · 自动行走 · 片段剪辑"
+          }
+        },
         {
           "src": "assets/films/bound-to-ruin-online-playtest.mp4",
           "poster": "assets/films/bound-to-ruin-online-playtest-poster.jpg",
@@ -478,8 +533,8 @@
         "zh": "AI 模型驱动游戏"
       },
       "process_note": {
-        "en": "Earlier prototype films and two additional views of the detailed Ember Tide environment.",
-        "zh": "早期原型录像，以及细节材质版熔潮圣库的两张补充视角。"
+        "en": "Staged creature comparisons, a fresh R6 walk, earlier prototypes and additional V14 views. The environment studies remain separate from the core gameplay above.",
+        "zh": "补充怪物场景对比、新录 R6 行走、早期原型与 V14 视角。场景美术实验，和上方的核心游玩实录分别展示。"
       },
       "credits": [
         {

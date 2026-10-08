@@ -162,6 +162,13 @@ export function createWorkGallery(
   const reducedMotionPreference = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
   );
+  const narrowVideoPreference = window.matchMedia("(max-width: 600px)");
+  const responsiveVideos = new Set();
+  narrowVideoPreference.addEventListener?.("change", () => {
+    responsiveVideos.forEach(({ video, data, labels }) => {
+      if (video.isConnected) setVideoPresentation(video, data, labels);
+    });
+  });
   contentHeading.tabIndex = -1;
   const mediaManifest = galleryCallbacks.mediaManifest || {};
   /**
@@ -688,6 +695,8 @@ export function createWorkGallery(
       const { visibleArea } = resolveImageGeometry(galleryImage);
       const { width: visibleWidth, height: visibleHeight } = visibleArea;
       const imageFigure = createElement("figure", "work-figure");
+      if (galleryImage.label)
+        imageFigure.append(createElement("div", "work-media-label", localizeText(galleryImage.label)));
       imageFigure.style.setProperty("--media-ratio", String(visibleWidth / visibleHeight));
       imageFigure.classList.toggle(
         "is-portrait",
@@ -726,6 +735,26 @@ export function createWorkGallery(
     parentElement.append(imageGallery);
   }
 
+  /** Use the stacked edit on narrow screens so both environments remain readable. */
+  function setVideoPresentation(video, data, labels) {
+    const stacked = Boolean(data.mobile && narrowVideoPreference.matches);
+    const media = stacked ? data.mobile : data;
+    video.src = media.src;
+    if (media.poster) video.poster = media.poster;
+    if (media.width) video.width = media.width;
+    if (media.height) video.height = media.height;
+    if (media.width && media.height) video.style.aspectRatio = `${media.width} / ${media.height}`;
+    if (labels) {
+      labels.dataset.comparisonLayout = stacked ? "stacked" : "side-by-side";
+      labels.replaceChildren(...data.comparison_labels.map((label, index) => {
+        const position = activeLanguage === "zh"
+          ? (stacked ? ["上", "下"] : ["左", "右"])[index]
+          : (stacked ? ["Top", "Bottom"] : ["Left", "Right"])[index];
+        return createElement("span", "", `${position} / ${localizeText(label)}`);
+      }));
+    }
+  }
+
   /** Adds native video controls and keeps playback within the active case study. */
   function appendVideoGallery(parentElement, videoSources) {
     if (!videoSources?.length) return;
@@ -741,12 +770,11 @@ export function createWorkGallery(
     videoSources.forEach((videoData) => {
       const videoFigure = createElement("figure", "work-video-figure");
       const videoElement = document.createElement("video");
-      videoElement.src = videoData.src;
-      if (videoData.poster) videoElement.poster = videoData.poster;
-      if (videoData.width) videoElement.width = videoData.width;
-      if (videoData.height) videoElement.height = videoData.height;
-      if (videoData.width && videoData.height)
-        videoElement.style.aspectRatio = `${videoData.width} / ${videoData.height}`;
+      const comparisonLabels = videoData.comparison_labels
+        ? createElement("div", "work-comparison-labels") : null;
+      if (comparisonLabels) videoFigure.append(comparisonLabels);
+      setVideoPresentation(videoElement, videoData, comparisonLabels);
+      if (videoData.mobile) responsiveVideos.add({ video: videoElement, data: videoData, labels: comparisonLabels });
       videoElement.controls = true;
       videoElement.loop = Boolean(videoData.loop);
       videoElement.playsInline = true;
@@ -1027,6 +1055,7 @@ export function createWorkGallery(
 
   /** Rebuilds the current case study in the selected language. */
   function renderProjectDetail(projectData) {
+    responsiveVideos.clear();
     pauseVideos();
     releasePerspectiveWindows(projectDetail);
     closeImageDialog(false);
@@ -1125,6 +1154,8 @@ export function createWorkGallery(
     projectOpening.append(projectIntroduction);
     projectDetail.append(projectOpening);
 
+    let currentSpread = null;
+    let currentSpreadName = null;
     (projectData.sections || []).forEach((projectSection, sectionIndex) => {
       const chapterSection = createElement("section", "work-chapter");
       chapterSection.dataset.chapterLayout = projectSection.layout || "paired";
@@ -1156,12 +1187,15 @@ export function createWorkGallery(
       chapterSection.append(chapterCopy);
       if (projectSection.images?.length || projectSection.videos?.length) {
         const chapterEvidence = createElement("div", "work-chapter-evidence");
+        if (projectSection.media_order === "video-first")
+          appendVideoGallery(chapterEvidence, projectSection.videos);
         appendImageGallery(
           chapterEvidence,
           projectSection.images,
           projectSection.gallery_layout || "default",
         );
-        appendVideoGallery(chapterEvidence, projectSection.videos);
+        if (projectSection.media_order !== "video-first")
+          appendVideoGallery(chapterEvidence, projectSection.videos);
         chapterSection.append(chapterEvidence);
       }
       appendChapterLink(
@@ -1170,7 +1204,17 @@ export function createWorkGallery(
         localizeText(projectSection.title),
       );
       chapterHeadings.set(projectSection.id, chapterHeading);
-      projectDetail.append(chapterSection);
+      if (projectSection.spread) {
+        if (currentSpreadName !== projectSection.spread) {
+          currentSpread = createElement("div", "work-chapter-spread");
+          currentSpreadName = projectSection.spread;
+          projectDetail.append(currentSpread);
+        }
+        currentSpread.append(chapterSection);
+      } else {
+        currentSpreadName = null;
+        projectDetail.append(chapterSection);
+      }
     });
     appendProcessNotes(projectData);
     appendDetailFooter(projectData);
