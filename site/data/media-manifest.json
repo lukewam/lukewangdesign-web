@@ -85,6 +85,20 @@
       }
     ]
   },
+  "assets/films/bound-to-ruin-lowpoly-coast-poster.jpg": {
+    "width": 1280,
+    "height": 800,
+    "sources": [
+      {
+        "src": "assets/optimized/films/bound-to-ruin-lowpoly-coast-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/bound-to-ruin-lowpoly-coast-poster-960.webp",
+        "width": 960
+      }
+    ]
+  },
   "assets/films/bound-to-ruin-online-battle-poster.jpg": {
     "width": 1280,
     "height": 678,
@@ -396,6 +410,24 @@
       {
         "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-2000.webp",
         "width": 2000
+      }
+    ]
+  },
+  "assets/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview.jpg": {
+    "width": 1600,
+    "height": 1000,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview-1440.webp",
+        "width": 1440
       }
     ]
   },

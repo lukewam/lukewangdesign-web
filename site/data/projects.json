@@ -334,41 +334,76 @@
         {
           "id": "ember-tide",
           "title": {
-            "en": "Ember Tide Archive.",
-            "zh": "熔潮圣库。"
+            "en": "One setting. Two visual directions.",
+            "zh": "同一场景，两种风格。"
           },
           "layout": "wide",
           "gallery_layout": "default",
           "paragraphs": [
             {
-              "en": "Weathered bronze, pale stone and bridges over volcanic cliffs. The new world is a separate playable preview, still being brought into the main game.",
-              "zh": "风化青铜、浅色石材，以及跨越火山崖的桥梁。新地图目前是独立可玩预览，仍在接入主游戏。"
+              "en": "The coastal temples, bridges and bronze head connect both studies. Ember Tide explores weathered surfaces and atmospheric depth; the new low-poly version uses broad facets, quieter colour and clearer silhouettes. Both are standalone Unity environment previews.",
+              "zh": "海岸神殿、桥梁与青铜头像，连接两种美术探索。熔潮圣库强调风化材质与空间氛围；新的 low poly 版本以大块面、克制配色和清晰轮廓重新表达。两者均为独立 Unity 场景预览。"
             }
           ],
           "images": [
             {
-              "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-courtyard.jpg",
-              "width": 1440,
+              "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-overview.jpg",
+              "width": 1600,
               "height": 1000,
               "caption": {
-                "en": "Carved stone, weathered bronze.",
-                "zh": "雕刻石材与风化青铜。"
+                "en": "Ember Tide Archive / Detailed materials — carved stone, weathered bronze, atmospheric light.",
+                "zh": "熔潮圣库／细节材质方向 — 雕刻石材、风化青铜与氛围光影。"
               }
             },
             {
-              "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-gorge.jpg",
-              "width": 1440,
+              "src": "assets/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview.jpg",
+              "width": 1600,
               "height": 1000,
               "caption": {
-                "en": "The crossing, seen from below.",
-                "zh": "从桥下看穿行的路径。"
+                "en": "Coastal Temple / Low-poly study — broad planes, pale stone, faceted teal water.",
+                "zh": "海岸神殿／Low poly 实验 — 大块面、浅色石材与多边形青绿海面。"
               }
             }
           ],
           "eyebrow": {
-            "en": "Environment",
-            "zh": "场景探索"
+            "en": "Environment · Style comparison",
+            "zh": "场景探索 · 风格对比"
           }
+        },
+        {
+          "id": "lowpoly-coast",
+          "title": {
+            "en": "A lighter coastal world.",
+            "zh": "更轻盈的海岸世界。"
+          },
+          "eyebrow": {
+            "en": "Low-poly environment · October 2026",
+            "zh": "Low poly 场景 · 2026 年 10 月"
+          },
+          "layout": "paired",
+          "paragraphs": [
+            {
+              "en": "Eight modular assets, each developed from three views with Tripo, are assembled into twin island temples. A shared palette and animated polygonal sea bring the scene together. An independent art study; main-game integration is pending.",
+              "zh": "8 个模块分别通过三视图与 Tripo 制作，再组合成双岛神殿。统一色板与动态多边形海面串联整个场景。这是独立美术实验，尚未接入主游戏。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "assets/films/bound-to-ruin-lowpoly-coast.mp4",
+              "poster": "assets/films/bound-to-ruin-lowpoly-coast-poster.jpg",
+              "width": 1280,
+              "height": 800,
+              "duration": 6,
+              "title": {
+                "en": "Faceted sea, in motion",
+                "zh": "流动的多边形海面"
+              },
+              "caption": {
+                "en": "Unity runtime capture · environment study · silent",
+                "zh": "Unity 实机录制 · 场景美术实验 · 无声"
+              }
+            }
+          ]
         }
       ],
       "process_videos": [
@@ -418,14 +453,33 @@
           "height": 984
         }
       ],
-      "process_images": [],
+      "process_images": [
+        {
+          "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-courtyard.jpg",
+          "width": 1440,
+          "height": 1000,
+          "caption": {
+            "en": "Carved stone, weathered bronze.",
+            "zh": "雕刻石材与风化青铜。"
+          }
+        },
+        {
+          "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-gorge.jpg",
+          "width": 1440,
+          "height": 1000,
+          "caption": {
+            "en": "The crossing, seen from below.",
+            "zh": "从桥下看穿行的路径。"
+          }
+        }
+      ],
       "index_subtitle": {
         "en": "AI Model-Driven Game",
         "zh": "AI 模型驱动游戏"
       },
       "process_note": {
-        "en": "More prototype footage: the first online playtest, an earlier generated-creature trial and the generation workshop.",
-        "zh": "更多原型录像：早期联机试玩、生成怪物实机试验与生成工坊。"
+        "en": "Earlier prototype films and two additional views of the detailed Ember Tide environment.",
+        "zh": "早期原型录像，以及细节材质版熔潮圣库的两张补充视角。"
       },
       "credits": [
         {
