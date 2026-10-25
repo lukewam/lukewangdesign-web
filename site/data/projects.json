@@ -589,8 +589,8 @@
       },
       "collaborators": [],
       "overview": {
-        "en": "My first interactive cinematic game, in progress. A sperm whale sinks to the deep-sea floor, and for seventy years her body feeds and shelters the life around it. She did not choose how she would be used, and neither do we: where our work and everything we leave ends up is not ours to decide, and most of it goes to strangers. You are a deep-sea crab living on what she left, watching her death and, in time, becoming part of it. The world is a dream, and every change of scene is a metaphor. She is not our kind, but no death can be avoided.",
-        "zh": "我的第一部互动电影式作品，制作中。一头抹香鲸沉入深海，她的身体成了海底七十年的食物与家。她没有选择自己怎样被用掉，我们也一样：做过的事、留下的东西最后去了哪里，由不得自己，大多给了陌生人。你是一只靠她活下来的深海蟹，旁观这场死亡，也终将成为它的一部分。世界以梦核为底，每一次画面转换都是隐喻。她不是我们的同类，但所有的死亡都无法避免。"
+        "en": "This is my first try at an interactive film, and it is still being made. A sperm whale sinks to the deep-sea floor, and for seventy years her body feeds and shelters the life around it. She did not choose how she would be used, and neither do we: where our work and everything we leave ends up is not ours to decide, and most of it goes to strangers. You are a deep-sea crab living on what she left, watching her death and, in time, becoming part of it. The world is a dream, and every change of scene is a metaphor. She is not our kind, but no death can be avoided.",
+        "zh": "这是我第一次尝试做互动电影，还在制作中。一头抹香鲸沉入深海，她的身体成了海底七十年的食物与家。她没有选择自己怎样被用掉，我们也一样：做过的事、留下的东西最后去了哪里，由不得自己，大多给了陌生人。你是一只靠她活下来的深海蟹，旁观这场死亡，也终将成为它的一部分。世界以梦核为底，每一次画面转换都是隐喻。她不是我们的同类，但所有的死亡都无法避免。"
       },
       "tools": [
         "Unity",
@@ -624,10 +624,183 @@
           "height": 804
         }
       ],
-      "sections": [],
+      "sections": [
+        {
+          "id": "stages",
+          "eyebrow": {
+            "en": "Stages",
+            "zh": "章节"
+          },
+          "title": {
+            "en": "Seven chapters, seventy years.",
+            "zh": "七章，七十年。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Each chapter wakes the same crab, and a black card with the time is all that tells you how long it has been. Before she dies the deep is dark and awake. After, everything feels like a dream, and the colours shift chapter by chapter with whatever is growing on her.",
+              "zh": "每一章醒来的都是同一只蟹，过了多久，只靠一张黑底字卡告诉你。她死之前，海底是暗的，醒着的；她死之后，一切都像在做梦，颜色也跟着她身上长出来的东西，一章一章地变。"
+            }
+          ],
+          "gallery_layout": "quad",
+          "images": [
+            {
+              "src": "assets/portfolio/undertone/stage-0-prologue.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "Prologue · 1,250 m",
+                "zh": "序章 · 1,250 米"
+              },
+              "caption": {
+                "en": "She passes overhead, outlined only by the plankton she stirs.",
+                "zh": "她从头顶游过，只有被她惊动的浮游生物，勾出一个轮廓。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-1-fall.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "The Fall · Day 0",
+                "zh": "坠落 · 第 0 天"
+              },
+              "caption": {
+                "en": "She comes down from above, already dead.",
+                "zh": "她从上面沉下来，已经死了。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-2-feast.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "The Feast · Month 3",
+                "zh": "盛宴 · 第 3 个月"
+              },
+              "caption": {
+                "en": "Other crabs walk in with you.",
+                "zh": "别的蟹也来了，和你往同一个方向走。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-3-bone-flowers.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "Bone Flowers · Year 2",
+                "zh": "骨花 · 第 2 年"
+              },
+              "caption": {
+                "en": "Her spine is a street of towers, red with bone-eating worms.",
+                "zh": "脊椎骨一节节立着，像一条街，上面长满红色的食骨蠕虫。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-4-white-mat.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "The White Mat · Year 7",
+                "zh": "白毯 · 第 7 年"
+              },
+              "caption": {
+                "en": "Bacteria live on what still seeps from the bone.",
+                "zh": "白色的菌毯盖住了骨头，靠里面渗出来的东西活着。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-5-garden.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "The Lightless Garden · Year 25",
+                "zh": "无光花园 · 第 25 年"
+              },
+              "caption": {
+                "en": "The most colour of all, growing on her skull.",
+                "zh": "颜色最多的一章，全长在她的头骨上。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-6-year-70.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "Epilogue · Year 70",
+                "zh": "终章 · 第 70 年"
+              },
+              "caption": {
+                "en": "Little is left of her, and the crab is old among its empty shells.",
+                "zh": "她剩下的不多了，蟹也老了，身边是自己一次次蜕下的壳。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/stage-7-surface.jpg",
+              "width": 1920,
+              "height": 1080,
+              "label": {
+                "en": "The Surface",
+                "zh": "海面"
+              },
+              "caption": {
+                "en": "A family of her clan lifts a newborn to its first breath.",
+                "zh": "和她同一个声族的一家，正把刚出生的幼鲸托出水面，换第一口气。"
+              }
+            }
+          ]
+        },
+        {
+          "id": "how-it-plays",
+          "eyebrow": {
+            "en": "Gameplay",
+            "zh": "玩法"
+          },
+          "title": {
+            "en": "Follow the hagfish.",
+            "zh": "跟着盲鳗走。"
+          },
+          "layout": "paired",
+          "paragraphs": [
+            {
+              "en": "The camera sits low, about where a crab's eyes would be. There is no map and no arrows. To find her, follow the hagfish; they always get there first.",
+              "zh": "镜头压得很低，差不多就在蟹眼睛的高度。游戏里没有地图，也没有箭头。想找到她，就跟着盲鳗走，它们总比你先到。"
+            },
+            {
+              "en": "Now and then a bone gives off a faint glow. Touch it and the screen dims while you hear her as she was: breathing at the surface, her family's codas, a calf being born. Find all six and the last coda picks up an extra voice.",
+              "zh": "骨头上偶尔会亮起一点微光。走过去碰一下，画面暗下来，耳边是她活着时的声音：在海面换气，家人之间的 coda，一头幼鲸出生。六段都找到，最后那段 coda 会多出一个声部。"
+            },
+            {
+              "en": "Each chapter there is one more empty shell lying in the mud. The game never says whose.",
+              "zh": "每过一章，泥地上就多一只蜕下的空壳。是谁的，游戏不说。"
+            }
+          ],
+          "images": [
+            {
+              "src": "assets/portfolio/undertone/play-objective.jpg",
+              "width": 1920,
+              "height": 1080,
+              "caption": {
+                "en": "In game. Each chapter opens by telling you where to go.",
+                "zh": "实机画面。每章开头会告诉你往哪儿走。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/play-echo.jpg",
+              "width": 1920,
+              "height": 1080,
+              "caption": {
+                "en": "In game. An echo, her coda spreading across the floor in rings.",
+                "zh": "实机画面。回声响起，她的 coda 一圈圈在海底散开。"
+              }
+            }
+          ],
+          "gallery_layout": "single"
+        }
+      ],
       "index_subtitle": {
         "en": "Interactive Cinematic Game",
-        "zh": "互动电影式游戏"
+        "zh": "互动电影游戏"
       },
       "attribution": {
         "en": "Whale sounds are public-domain NOAA recordings. Music generated with ElevenLabs.",

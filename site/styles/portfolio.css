@@ -2780,3 +2780,19 @@ body {
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="ember-tide"] .work-gallery { grid-template-columns: 1fr; gap: 30px; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-credit-details { grid-template-columns: 1fr; gap: 18px; }
 }
+/* Undertone's stages read as a strip of stills: each label, picture and caption lines up across its row,
+   so a label that wraps on a narrow screen does not push its picture below its neighbour's. */
+#portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="stages"] .work-gallery { row-gap: 32px; }
+#portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="stages"] .work-figure {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+}
+#portfolio-site .work-detail[data-project-id="undertone"] .work-media-label {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  margin-bottom: 8px;
+  align-self: end;
+}

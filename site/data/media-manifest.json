@@ -1541,6 +1541,186 @@
       }
     ]
   },
+  "assets/portfolio/undertone/play-echo.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/play-echo-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/play-echo-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/play-echo-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/play-objective.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/play-objective-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/play-objective-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/play-objective-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-0-prologue.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-0-prologue-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-0-prologue-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-0-prologue-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-1-fall.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-1-fall-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-1-fall-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-1-fall-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-2-feast.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-2-feast-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-2-feast-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-2-feast-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-3-bone-flowers.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-3-bone-flowers-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-3-bone-flowers-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-3-bone-flowers-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-4-white-mat.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-4-white-mat-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-4-white-mat-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-4-white-mat-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-5-garden.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-5-garden-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-5-garden-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-5-garden-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-6-year-70.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-6-year-70-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-6-year-70-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-6-year-70-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/stage-7-surface.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-7-surface-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-7-surface-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/stage-7-surface-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "assets/portfolio/undertone/undertone-cover.jpg": {
     "width": 1600,
     "height": 2000,

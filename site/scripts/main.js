@@ -1,6 +1,6 @@
-import { createLotusRenderer } from "./scene/lotus-renderer.js?v=8bbdaf8a9d24";
-import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=8bbdaf8a9d24";
-import { initializePortfolio } from "./portfolio-controller.js?v=8bbdaf8a9d24";
+import { createLotusRenderer } from "./scene/lotus-renderer.js?v=fd6831e6a43e";
+import { createDragonflyRenderer } from "./scene/dragonfly-renderer.js?v=fd6831e6a43e";
+import { initializePortfolio } from "./portfolio-controller.js?v=fd6831e6a43e";
 
 /**
  * Load a local resource relative to this module, including on a repository subpath.
@@ -28,9 +28,9 @@ async function loadResource(relativePath, responseFormat = "text") {
 async function loadLotusRenderer() {
   try {
     const [lotusModel, vertexShader, fragmentShader] = await Promise.all([
-      loadResource("../assets/models/lotus.json?v=8bbdaf8a9d24", "json"),
-      loadResource("../assets/shaders/lotus.vert?v=8bbdaf8a9d24"),
-      loadResource("../assets/shaders/lotus.frag?v=8bbdaf8a9d24"),
+      loadResource("../assets/models/lotus.json?v=fd6831e6a43e", "json"),
+      loadResource("../assets/shaders/lotus.vert?v=fd6831e6a43e"),
+      loadResource("../assets/shaders/lotus.frag?v=fd6831e6a43e"),
     ]);
     return createLotusRenderer(lotusModel, vertexShader, fragmentShader);
   } catch (error) {
@@ -47,7 +47,7 @@ async function loadLotusRenderer() {
 async function loadDragonflyRenderer(portfolioRoot) {
   try {
     const modelBuffer = await loadResource(
-      "../assets/models/dragonfly.bin?v=8bbdaf8a9d24",
+      "../assets/models/dragonfly.bin?v=fd6831e6a43e",
       "arrayBuffer",
     );
     const modelBytes = new Uint8Array(modelBuffer);
@@ -69,9 +69,9 @@ async function startPortfolio() {
   const lotusReady = loadLotusRenderer();
   const [portfolioData, mediaManifest, dragonflyRenderer] =
     await Promise.all([
-      loadResource("../data/projects.json?v=8bbdaf8a9d24", "json"),
+      loadResource("../data/projects.json?v=fd6831e6a43e", "json"),
       /** Size variants are an enhancement; the original images remain available. */
-      loadResource("../data/media-manifest.json?v=8bbdaf8a9d24", "json").catch((error) => {
+      loadResource("../data/media-manifest.json?v=fd6831e6a43e", "json").catch((error) => {
         console.warn("Image size variants could not load.", error);
         return {};
       }),
