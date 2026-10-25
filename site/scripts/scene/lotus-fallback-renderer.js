@@ -1,8 +1,8 @@
-import { lotusFallbackData } from "./lotus-fallback-data.js?v=f8be619a0e70";
+import { lotusFallbackData } from "./lotus-fallback-data.js?v=8bbdaf8a9d24";
 
 /** Replay baked poses of the real model without a GPU or image decoding. */
 export function createLotusFallbackRenderer({
-  loadMotion = () => import("./lotus-fallback-motion.js?v=f8be619a0e70"),
+  loadMotion = () => import("./lotus-fallback-motion.js?v=8bbdaf8a9d24"),
 } = {}) {
   const data = lotusFallbackData;
   const encoded = atob(data.runs);

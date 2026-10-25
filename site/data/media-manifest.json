@@ -85,20 +85,6 @@
       }
     ]
   },
-  "assets/films/bound-to-ruin-lowpoly-coast-poster.jpg": {
-    "width": 1280,
-    "height": 800,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-lowpoly-coast-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-lowpoly-coast-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
   "assets/films/bound-to-ruin-map-style-comparison-r6-mobile-poster.jpg": {
     "width": 960,
     "height": 1080,
@@ -301,6 +287,28 @@
       }
     ]
   },
+  "assets/films/undertone-trailer-poster.jpg": {
+    "width": 2560,
+    "height": 1072,
+    "sources": [
+      {
+        "src": "assets/optimized/films/undertone-trailer-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/films/undertone-trailer-poster-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/films/undertone-trailer-poster-1440.webp",
+        "width": 1440
+      },
+      {
+        "src": "assets/optimized/films/undertone-trailer-poster-2000.webp",
+        "width": 2000
+      }
+    ]
+  },
   "assets/films/vehicle-indoor-drive-poster.jpg": {
     "width": 1080,
     "height": 1920,
@@ -496,24 +504,6 @@
       {
         "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-2000.webp",
         "width": 2000
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview.jpg": {
-    "width": 1600,
-    "height": 1000,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-lowpoly-overview-1440.webp",
-        "width": 1440
       }
     ]
   },
@@ -1551,6 +1541,24 @@
       }
     ]
   },
+  "assets/portfolio/undertone/undertone-cover.jpg": {
+    "width": 1600,
+    "height": 2000,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/undertone-cover-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/undertone-cover-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/undertone-cover-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "assets/touchdesigner/study-01.jpg": {
     "width": 1280,
     "height": 720,
@@ -1771,6 +1779,34 @@
       },
       {
         "src": "assets/optimized/work-icons/eye-1-320.webp",
+        "width": 320
+      }
+    ]
+  },
+  "assets/work-icons/fish-0.png": {
+    "width": 664,
+    "height": 400,
+    "sources": [
+      {
+        "src": "assets/optimized/work-icons/fish-0-160.webp",
+        "width": 160
+      },
+      {
+        "src": "assets/optimized/work-icons/fish-0-320.webp",
+        "width": 320
+      }
+    ]
+  },
+  "assets/work-icons/fish-1.png": {
+    "width": 664,
+    "height": 400,
+    "sources": [
+      {
+        "src": "assets/optimized/work-icons/fish-1-160.webp",
+        "width": 160
+      },
+      {
+        "src": "assets/optimized/work-icons/fish-1-320.webp",
         "width": 320
       }
     ]

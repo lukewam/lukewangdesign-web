@@ -563,6 +563,78 @@
       }
     },
     {
+      "id": "undertone",
+      "title": {
+        "en": "Undertone",
+        "zh": "余音"
+      },
+      "subtitle": {
+        "en": "What we leave behind goes to strangers.",
+        "zh": "我们留下的，都给了陌生人。"
+      },
+      "status": {
+        "en": "Ongoing · October 2026",
+        "zh": "进行中 · 2026 年 10 月"
+      },
+      "date_range": {
+        "start": "2026-10",
+        "label": {
+          "en": "October 2026 – ongoing",
+          "zh": "2026 年 10 月至今"
+        }
+      },
+      "role": {
+        "en": "Story, art direction, design & development",
+        "zh": "故事、美术指导、设计与开发"
+      },
+      "collaborators": [],
+      "overview": {
+        "en": "My first interactive cinematic game, in progress. A sperm whale sinks to the deep-sea floor, and for seventy years her body feeds and shelters the life around it. She did not choose how she would be used, and neither do we: where our work and everything we leave ends up is not ours to decide, and most of it goes to strangers. You are a deep-sea crab living on what she left, watching her death and, in time, becoming part of it. The world is a dream, and every change of scene is a metaphor. She is not our kind, but no death can be avoided.",
+        "zh": "我的第一部互动电影式作品，制作中。一头抹香鲸沉入深海，她的身体成了海底七十年的食物与家。她没有选择自己怎样被用掉，我们也一样：做过的事、留下的东西最后去了哪里，由不得自己，大多给了陌生人。你是一只靠她活下来的深海蟹，旁观这场死亡，也终将成为它的一部分。世界以梦核为底，每一次画面转换都是隐喻。她不是我们的同类，但所有的死亡都无法避免。"
+      },
+      "tools": [
+        "Unity",
+        "C#",
+        "Tripo",
+        "ElevenLabs"
+      ],
+      "links": [],
+      "hero_layout": "installation",
+      "index_image": {
+        "src": "assets/portfolio/undertone/undertone-cover.jpg",
+        "width": 1600,
+        "height": 2000,
+        "caption": ""
+      },
+      "cover_images": [],
+      "cover_videos": [
+        {
+          "src": "assets/films/undertone-trailer.mp4",
+          "poster": "assets/films/undertone-trailer-poster.jpg",
+          "title": {
+            "en": "Trailer",
+            "zh": "预告片"
+          },
+          "caption": {
+            "en": "In-engine footage · work in progress",
+            "zh": "引擎内实机画面 · 制作中"
+          },
+          "duration": 61.1,
+          "width": 1920,
+          "height": 804
+        }
+      ],
+      "sections": [],
+      "index_subtitle": {
+        "en": "Interactive Cinematic Game",
+        "zh": "互动电影式游戏"
+      },
+      "attribution": {
+        "en": "Whale sounds are public-domain NOAA recordings. Music generated with ElevenLabs.",
+        "zh": "鲸的声音来自 NOAA 公有领域录音；音乐由 ElevenLabs 生成。"
+      }
+    },
+    {
       "id": "sisyphus",
       "title": {
         "en": "The Myth of Sisyphus",

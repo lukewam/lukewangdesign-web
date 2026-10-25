@@ -314,6 +314,7 @@ export function createWorkGallery(
     car: "autonomous-vehicle",
     robot: "zoo-navigator",
     multiverse: "bound-to-ruin",
+    fish: "undertone",
     brush: "oil-paintings",
     touchdesigner: "touchdesigner",
   };

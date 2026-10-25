@@ -488,6 +488,9 @@ body {
 #portfolio-site [data-project-icon="car"] {
   --ink-duration: 1.4s;
 }
+#portfolio-site [data-project-icon="fish"] {
+  --ink-duration: 2.4s;
+}
 /** Center the shared 610px car body; its 845px canvas also leaves room for exhaust. */
 #portfolio-site [data-project-icon="car"] .work-frame {
   left: calc(50% - 100% * 524 / 610);
@@ -1643,7 +1646,8 @@ body {
   width: min(100%, calc(var(--preview-height) * var(--preview-ratio, 1.6)));
   text-decoration: none;
 }
-#portfolio-site .work-item[data-project-icon="rock"] {
+/* Portrait previews get more height, so their label column stays wide enough for title, subtitle and status. */
+#portfolio-site .work-item:is([data-project-icon="rock"], [data-project-icon="fish"]) {
   --preview-height: clamp(300px, 33vw, 430px);
 }
 #portfolio-site .work-preview {
@@ -1775,22 +1779,33 @@ body {
 #portfolio-site .work-opening[data-hero-layout="landscape"] .work-introduction,
 #portfolio-site .work-opening[data-hero-layout="installation"] .work-introduction {
   grid-template-columns: 1.5fr 0.8fr;
-  grid-template-rows: auto min-content 1fr;
+  /* meta, tools and an optional credit stack in the right column; the last row takes the slack beside a long overview */
+  grid-template-rows: auto min-content min-content 1fr;
   gap: 0 72px;
 }
 #portfolio-site .work-opening:is([data-hero-layout="landscape"], [data-hero-layout="installation"]) .work-overview {
   grid-column: 1;
-  grid-row: 2 / span 2;
+  grid-row: 2 / span 3;
 }
 #portfolio-site .work-opening:is([data-hero-layout="landscape"], [data-hero-layout="installation"]) .work-tools {
   grid-column: 2;
   grid-row: 3;
 }
+/* A short credit line belongs with the facts beside the overview, not with the story. */
+#portfolio-site .work-opening:is([data-hero-layout="landscape"], [data-hero-layout="installation"]) .work-attribution {
+  grid-column: 2;
+  grid-row: 4;
+}
 #portfolio-site .work-detail .work-subtitle,
 #portfolio-site .work-detail .work-tools,
+#portfolio-site .work-detail .work-attribution,
 #portfolio-site .work-meta {
   font-size: var(--text-sm);
   line-height: 1.65;
+}
+#portfolio-site .work-detail .work-attribution {
+  color: var(--color-muted);
+  margin-top: 12px;
 }
 #portfolio-site .work-detail .work-subtitle {
   margin-bottom: 16px;
@@ -2022,28 +2037,33 @@ body {
     grid-column: 1 / span 7;
     grid-row: 1;
   }
-  #portfolio-site .work-grid > [data-project-id="machinery-structuralism"] {
+  #portfolio-site .work-grid > [data-project-id="undertone"] {
     grid-column: 9 / span 4;
     grid-row: 1;
-    padding-top: 104px;
+    padding-top: 40px;
   }
   #portfolio-site .work-grid > [data-project-id="sisyphus"] {
     grid-column: 2 / span 4;
     grid-row: 2;
   }
-  #portfolio-site .work-grid > [data-project-id="autonomous-vehicle"] {
+  #portfolio-site .work-grid > [data-project-id="machinery-structuralism"] {
     grid-column: 7 / span 5;
     grid-row: 2;
-    padding-top: 64px;
+    padding-top: 104px;
   }
-  #portfolio-site .work-grid > [data-project-id="polar-bear"] {
+  #portfolio-site .work-grid > [data-project-id="autonomous-vehicle"] {
     grid-column: 1 / span 5;
     grid-row: 3;
-    padding-top: 56px;
+    padding-top: 24px;
+  }
+  #portfolio-site .work-grid > [data-project-id="polar-bear"] {
+    grid-column: 7 / span 5;
+    grid-row: 3;
+    padding-top: 88px;
   }
   #portfolio-site .work-grid > [data-project-id="disaster-defender"] {
-    grid-column: 7 / span 6;
-    grid-row: 3;
+    grid-column: 3 / span 6;
+    grid-row: 4;
   }
   #portfolio-site .work-collections {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -2084,12 +2104,6 @@ body {
   #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(6) {
     grid-column: 8 / span 5;
     margin-top: 48px;
-  }
-}
-/* Between 901 and 1140px a four-column slot is too narrow for the Machinery title on one line. */
-@media (min-width: 901px) and (max-width: 1140px) {
-  #portfolio-site .work-grid > [data-project-id="machinery-structuralism"] {
-    grid-column: 8 / span 5;
   }
 }
 /* Personal writing is given room without asking every heading to be expressive. */
@@ -2337,7 +2351,7 @@ body {
     --preview-height: min(54svh, 380px);
     gap: 14px 12px;
   }
-  #portfolio-site .work-item[data-project-icon="rock"] {
+  #portfolio-site .work-item:is([data-project-icon="rock"], [data-project-icon="fish"]) {
     --preview-height: min(54svh, 400px);
   }
   #portfolio-site .work-title {
