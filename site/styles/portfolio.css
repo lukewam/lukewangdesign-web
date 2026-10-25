@@ -2072,7 +2072,7 @@ body {
     padding-top: 56px;
   }
   #portfolio-site .work-grid > [data-project-id="disaster-defender"] {
-    grid-column: 3 / span 6;
+    grid-column: 1 / span 6;
     grid-row: 4;
   }
   #portfolio-site .work-collections {
@@ -2114,6 +2114,24 @@ body {
   #portfolio-site .work-detail[data-project-id="touchdesigner"] .work-video-figure:nth-child(6) {
     grid-column: 8 / span 5;
     margin-top: 48px;
+  }
+}
+/* The three earlier applied projects close the index as one group. Their original
+   image proportions set the stagger; the captions share a resting line. */
+@media (min-width: 1200px) {
+  #portfolio-site .work-grid > :is([data-project-id="autonomous-vehicle"], [data-project-id="polar-bear"], [data-project-id="disaster-defender"]) {
+    grid-row: 3;
+    padding-top: 0;
+    align-self: end;
+  }
+  #portfolio-site .work-grid > [data-project-id="autonomous-vehicle"] {
+    grid-column: 1 / span 4;
+  }
+  #portfolio-site .work-grid > [data-project-id="polar-bear"] {
+    grid-column: 5 / span 4;
+  }
+  #portfolio-site .work-grid > [data-project-id="disaster-defender"] {
+    grid-column: 9 / span 4;
   }
 }
 /* Personal writing is given room without asking every heading to be expressive. */
