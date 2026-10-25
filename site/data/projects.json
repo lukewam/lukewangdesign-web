@@ -589,8 +589,8 @@
       },
       "collaborators": [],
       "overview": {
-        "en": "This is my first try at an interactive film, and it is still being made. A sperm whale sinks to the deep-sea floor, and for seventy years her body feeds and shelters the life around it. She did not choose how she would be used, and neither do we: where our work and everything we leave ends up is not ours to decide, and most of it goes to strangers. You are a deep-sea crab living on what she left, watching her death and, in time, becoming part of it. The world is a dream, and every change of scene is a metaphor. She is not our kind, but no death can be avoided.",
-        "zh": "这是我第一次尝试做互动电影，还在制作中。一头抹香鲸沉入深海，她的身体成了海底七十年的食物与家。她没有选择自己怎样被用掉，我们也一样：做过的事、留下的东西最后去了哪里，由不得自己，大多给了陌生人。你是一只靠她活下来的深海蟹，旁观这场死亡，也终将成为它的一部分。世界以梦核为底，每一次画面转换都是隐喻。她不是我们的同类，但所有的死亡都无法避免。"
+        "en": "This is my first try at an interactive film, and it is still being made. A sperm whale sinks to the deep-sea floor, and for seventy years her body feeds and shelters the life around it. She did not choose how she would be used, and neither do we: where our work and everything we leave ends up is not ours to decide, and most of it goes to strangers.\n\nYou are a deep-sea crab living on what she left, watching her death and, in time, becoming part of it. The world is a dream, and every change of scene is a metaphor. She is not our kind, but no death can be avoided.",
+        "zh": "这是我第一次尝试做互动电影，还在制作中。一头抹香鲸沉入深海，她的身体成了海底七十年的食物与家。她没有选择自己怎样被用掉，我们也一样：做过的事、留下的东西最后去了哪里，由不得自己，大多给了陌生人。\n\n你是一只靠她活下来的深海蟹，旁观这场死亡，也终将成为它的一部分。世界以梦核为底，每一次画面转换都是隐喻。她不是我们的同类，但所有的死亡都无法避免。"
       },
       "tools": [
         "Unity",
@@ -642,7 +642,7 @@
               "zh": "每一章醒来的都是同一只蟹，过了多久，只靠一张黑底字卡告诉你。她死之前，海底是暗的，醒着的；她死之后，一切都像在做梦，颜色也跟着她身上长出来的东西，一章一章地变。"
             }
           ],
-          "gallery_layout": "quad",
+          "gallery_layout": "sequence",
           "images": [
             {
               "src": "assets/portfolio/undertone/stage-0-prologue.jpg",

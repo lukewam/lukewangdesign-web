@@ -197,6 +197,10 @@ export function createWorkGallery(
       ["(max-width: 690px)", "calc(100vw - 48px)"],
       [null, "min(600px, calc(45.5vw - 14px))"],
     ],
+    sequence: [
+      ["(max-width: 690px)", "calc(100vw - 48px)"],
+      [null, "min(560px, calc(45.5vw - 20px))"],
+    ],
     worlds: [
       ["(max-width: 690px)", "calc(100vw - 48px)"],
       [null, "min(400px, calc(30.3vw - 19px))"],
@@ -707,9 +711,11 @@ export function createWorkGallery(
       const imageButton = createElement("button", "work-image-button");
       imageButton.type = "button";
       imageButton.setAttribute("aria-haspopup", "dialog");
+      const imageDescription = [localizeText(galleryImage.label), localizeText(galleryImage.caption)]
+        .filter(Boolean).join(". ");
       imageButton.setAttribute(
         "aria-label",
-        `${localizeText(galleryImage.caption)}${activeLanguage === "zh" ? "，放大查看" : ", enlarge image"}`,
+        `${imageDescription}${activeLanguage === "zh" ? "，放大查看" : ", enlarge image"}`,
       );
       const perColumnSizes = sizeEntries ? null : columnSizes[galleryLayout];
       imageButton.append(
