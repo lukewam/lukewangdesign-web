@@ -1,5 +1,5 @@
-import { getPulse, relaxSpring } from "./easing.js?v=889e61dd47ba";
-import { navigationHoverSettings } from "./settings.js?v=889e61dd47ba";
+import { getPulse, relaxSpring } from "./easing.js?v=815edc61ddcf";
+import { navigationHoverSettings } from "./settings.js?v=815edc61ddcf";
 
 /**
  * Dwell timing and restrained spring responses for the three home navigation
