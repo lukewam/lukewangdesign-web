@@ -1,18 +1,18 @@
-import { createWorkGallery } from "./work-gallery.js?v=dc0e5e7bb0db";
-import { translations } from "./translations.js?v=dc0e5e7bb0db";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=dc0e5e7bb0db";
+import { createWorkGallery } from "./work-gallery.js?v=889e61dd47ba";
+import { translations } from "./translations.js?v=889e61dd47ba";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=889e61dd47ba";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=dc0e5e7bb0db";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=dc0e5e7bb0db";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=dc0e5e7bb0db";
-import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=dc0e5e7bb0db";
+} from "./motion/section-transition.js?v=889e61dd47ba";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=889e61dd47ba";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=889e61dd47ba";
+import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=889e61dd47ba";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=dc0e5e7bb0db";
+} from "./motion/settings.js?v=889e61dd47ba";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
@@ -473,8 +473,11 @@ export function initializePortfolio(
         '[data-contact-label="emailLabel"]',
       ).textContent = copy.emailLabel;
       sectionPanel
-        .querySelector(".contact-profile")
+        .querySelector('[data-contact-profile="linkedin"]')
         .setAttribute("aria-label", copy.linkedinLabel);
+      sectionPanel
+        .querySelector('[data-contact-profile="instagram"]')
+        .setAttribute("aria-label", copy.instagramLabel);
       sectionPanel
         .querySelector(".work-grid")
         .setAttribute("aria-label", copy.projectsLabel);

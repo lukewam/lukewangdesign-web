@@ -1541,6 +1541,42 @@
       }
     ]
   },
+  "assets/portfolio/undertone/motion-fall.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/motion-fall-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/motion-fall-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/motion-fall-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
+  "assets/portfolio/undertone/motion-flukes.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/portfolio/undertone/motion-flukes-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/motion-flukes-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/portfolio/undertone/motion-flukes-1440.webp",
+        "width": 1440
+      }
+    ]
+  },
   "assets/portfolio/undertone/play-echo.jpg": {
     "width": 1920,
     "height": 1080,

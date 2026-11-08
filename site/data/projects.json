@@ -573,8 +573,8 @@
         "zh": "我们留下的，都给了陌生人。"
       },
       "status": {
-        "en": "In development · October 2026",
-        "zh": "开发中 · 2026 年 10 月"
+        "en": "In development · November 2026",
+        "zh": "开发中 · 2026 年 11 月"
       },
       "date_range": {
         "start": "2026-10",
@@ -619,7 +619,7 @@
             "en": "In-engine footage · work in progress",
             "zh": "引擎内实机画面 · 制作中"
           },
-          "duration": 61.1,
+          "duration": 60.0,
           "width": 1920,
           "height": 804
         }
@@ -638,8 +638,8 @@
           "layout": "wide",
           "paragraphs": [
             {
-              "en": "Each chapter wakes the same crab, and a black card with the time is all that tells you how long it has been. Before she dies the deep is dark and awake. After, everything feels like a dream, and the colours shift chapter by chapter with whatever is growing on her.",
-              "zh": "每一章醒来的都是同一只蟹，过了多久，只靠一张黑底字卡告诉你。她死之前，海底是暗的，醒着的；她死之后，一切都像在做梦，颜色也跟着她身上长出来的东西，一章一章地变。"
+              "en": "Each chapter wakes the same crab, and a black card with the time is all that tells you how long it has been. Before she dies the deep is dark and awake. After, everything feels like a dream, and the colours shift chapter by chapter with whatever is growing on her. The stills below hold one spot for all seventy years: the same stone, the same lens.",
+              "zh": "每一章醒来的都是同一只蟹，过了多久，只靠一张黑底字卡告诉你。她死之前，海底是暗的，醒着的；她死之后，一切都像在做梦，颜色也跟着她身上长出来的东西，一章一章地变。下面这些画面都停在同一个位置：同一块石头，同一个镜头，从头到尾七十年。"
             }
           ],
           "gallery_layout": "sequence",
@@ -653,8 +653,8 @@
                 "zh": "序章 · 1,250 米"
               },
               "caption": {
-                "en": "She passes overhead, outlined only by the plankton she stirs.",
-                "zh": "她从头顶游过，只有被她惊动的浮游生物，勾出一个轮廓。"
+                "en": "She goes by behind the crab, too big for the frame.",
+                "zh": "她从蟹身后经过，大得放不进画框。"
               }
             },
             {
@@ -666,8 +666,8 @@
                 "zh": "坠落 · 第 0 天"
               },
               "caption": {
-                "en": "She comes down from above, already dead.",
-                "zh": "她从上面沉下来，已经死了。"
+                "en": "She has come down, already dead.",
+                "zh": "她沉了下来，已经死了。"
               }
             },
             {
@@ -679,8 +679,8 @@
                 "zh": "盛宴 · 第 3 个月"
               },
               "caption": {
-                "en": "Other crabs walk in with you.",
-                "zh": "别的蟹也来了，和你往同一个方向走。"
+                "en": "Three months later, everything that eats has found her.",
+                "zh": "三个月后，能吃的都找到了她。"
               }
             },
             {
@@ -692,8 +692,8 @@
                 "zh": "骨花 · 第 2 年"
               },
               "caption": {
-                "en": "Her spine is a street of towers, red with bone-eating worms.",
-                "zh": "脊椎骨一节节立着，像一条街，上面长满红色的食骨蠕虫。"
+                "en": "Only bone is left, her jaw arched beside the skull.",
+                "zh": "只剩下骨头，下颌拱在头骨旁。"
               }
             },
             {
@@ -718,8 +718,8 @@
                 "zh": "无光花园 · 第 25 年"
               },
               "caption": {
-                "en": "The most colour of all, growing on her skull.",
-                "zh": "颜色最多的一章，全长在她的头骨上。"
+                "en": "The most colour of all, growing on what is left of her.",
+                "zh": "颜色最多的一章，都长在她剩下的东西上。"
               }
             },
             {
@@ -731,8 +731,8 @@
                 "zh": "终章 · 第 70 年"
               },
               "caption": {
-                "en": "Little is left of her, and the crab is old among its empty shells.",
-                "zh": "她剩下的不多了，蟹也老了，身边是自己一次次蜕下的壳。"
+                "en": "Little is left of her.",
+                "zh": "她剩下的不多了。"
               }
             },
             {
@@ -767,8 +767,8 @@
               "zh": "镜头压得很低，差不多就在蟹眼睛的高度。游戏里没有地图，也没有箭头。想找到她，就跟着盲鳗走，它们总比你先到。"
             },
             {
-              "en": "Now and then a bone gives off a faint glow. Touch it and the screen dims while you hear her as she was: breathing at the surface, her family's codas, a calf being born. Find all six and the last coda picks up an extra voice.",
-              "zh": "骨头上偶尔会亮起一点微光。走过去碰一下，画面暗下来，耳边是她活着时的声音：在海面换气，家人之间的 coda，一头幼鲸出生。六段都找到，最后那段 coda 会多出一个声部。"
+              "en": "Before she dies you hear her long before you see her: her clicks carry from far off and come closer. After, some of her bones still hold a sound. Find one and you hear her as she was: breathing at the surface, her family’s codas.",
+              "zh": "她死之前，你总是先听到她，再看到她：咔嗒声从很远的地方传来，越来越近。她死之后，有些骨头里还留着声音。找到了，就能听到她活着时的样子：在海面换气，家人之间的 coda。"
             },
             {
               "en": "Each chapter there is one more empty shell lying in the mud. The game never says whose.",
@@ -796,6 +796,45 @@
             }
           ],
           "gallery_layout": "single"
+        },
+        {
+          "id": "motion",
+          "eyebrow": {
+            "en": "Motion",
+            "zh": "动作"
+          },
+          "title": {
+            "en": "Moving as they do.",
+            "zh": "照它们本来的样子动。"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Every animal here moves the way it does in footage and tagging studies. She beats her tail once every few seconds and rolls onto her side to feed. Rattails drift nose-down. The crab walks a little off its line, stops often, and keeps its claws folded.",
+              "zh": "这里的每种动物，都照录像和标记研究里的样子动。她几秒才摆一次尾，觅食时会翻到侧面；鼠尾鳕头朝下慢慢漂；蟹走路时身子略微斜着向前，常常停下，螯一直收着。"
+            }
+          ],
+          "images": [
+            {
+              "src": "assets/portfolio/undertone/motion-flukes.jpg",
+              "width": 1920,
+              "height": 1080,
+              "caption": {
+                "en": "In engine. She passes over the crab.",
+                "zh": "引擎内画面。她从蟹的头顶游过。"
+              }
+            },
+            {
+              "src": "assets/portfolio/undertone/motion-fall.jpg",
+              "width": 1920,
+              "height": 1080,
+              "caption": {
+                "en": "In engine. The fall, the only time she is seen whole.",
+                "zh": "引擎内画面。下沉，全作唯一一次看到她的全身。"
+              }
+            }
+          ],
+          "gallery_layout": "pair"
         }
       ],
       "index_subtitle": {

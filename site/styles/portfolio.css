@@ -38,7 +38,7 @@
   --text-h3: clamp(24px, 2.3vw, 32px);
   --text-h2: clamp(32px, 3.1vw, 48px);
   --text-display: clamp(44px, 4.2vw, 76px);
-  --text-contact: clamp(24px, 2.7vw, 38px);
+  --text-contact: clamp(22px, 2.1vw, 26px);
 }
 /*
  * Breakpoints, from narrow to wide. Widths are viewport widths unless noted.
@@ -615,16 +615,18 @@ body {
 /** Contact */
 #portfolio-site .contact-details {
   display: grid;
-  gap: clamp(32px, 4svh, 52px);
-  max-width: 720px;
-  margin: clamp(28px, 4svh, 52px) 0 0;
-  padding: 0 0 30px;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 40px 72px;
+  max-width: 680px;
+  margin: 44px 0 0;
+  padding: 0;
 }
 #portfolio-site .contact-entry dt {
   color: var(--color-muted);
   letter-spacing: 0.04em;
 }
 #portfolio-site .contact-entry dd {
+  min-width: 0;
   margin: 0;
 }
 #portfolio-site .contact-entry a {
@@ -634,7 +636,7 @@ body {
   color: var(--color-ink);
   line-height: 1.45;
   overflow-wrap: anywhere;
-  text-decoration: underline;
+  text-decoration: none;
   text-decoration-color: var(--color-line-strong);
   text-decoration-thickness: 1px;
   text-underline-offset: 7px;
@@ -643,6 +645,7 @@ body {
 #portfolio-site .contact-entry a:is(:hover,
 :focus-visible) {
   color: var(--color-ink-hover);
+  text-decoration: underline;
   text-decoration-color: currentColor;
 }
 #portfolio-site .contact-entry a:focus-visible {
@@ -2172,15 +2175,17 @@ body {
 #portfolio-site[data-active-section="contact"] .panel-toolbar {
   max-width: 1080px;
 }
-#portfolio-site .contact-details {
-  margin-top: 56px;
-}
 #portfolio-site .contact-entry {
-  margin-bottom: 42px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+#portfolio-site .contact-entry:first-child {
+  grid-column: 1 / -1;
 }
 #portfolio-site .contact-entry dt {
   font-size: var(--text-sm);
-  margin-bottom: 12px;
+  margin: 0 0 8px;
 }
 #portfolio-site .contact-entry a {
   font-size: var(--text-contact);
@@ -2188,7 +2193,7 @@ body {
   letter-spacing: -0.025em;
 }
 #portfolio-site .contact-entry .contact-profile {
-  font-size: 21px;
+  font-size: var(--text-2xl);
 }
 /* An unobtrusive sequence control preserves the original opening location. */
 #portfolio-site .work-lightbox {
@@ -2497,10 +2502,15 @@ body {
     line-height: 2;
   }
   #portfolio-site .contact-details {
-    margin-top: 44px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
   }
-  #portfolio-site .contact-entry a {
-    font-size: clamp(20px, 5.7vw, 27px);
+  #portfolio-site .contact-entry:first-child {
+    margin-bottom: 8px;
+  }
+  #portfolio-site .contact-entry a,
+  #portfolio-site .contact-entry .contact-profile {
+    font-size: 21px;
     overflow-wrap: anywhere;
   }
   #portfolio-site .work-detail-footer {
@@ -2645,20 +2655,20 @@ body {
 }
 /* A short line of context above the contact links. */
 #portfolio-site .content-panel .contact-note {
-  margin: 48px 0 0;
+  margin: 24px 0 0;
   max-width: 44ch;
   font-size: var(--text-reading);
   line-height: 1.7;
   color: var(--color-text);
 }
 #portfolio-site .content-panel .contact-note + .contact-details {
-  margin-top: 40px;
+  margin-top: 44px;
 }
 @media (max-width: 600px) {
   /* The canvas keeps its full height on phones; the painter lowers the flower's
      resting point instead so the petals clear the three navigation words. */
   #portfolio-site .content-panel .contact-note {
-    margin-top: 36px;
+    margin-top: 24px;
   }
   #portfolio-site .content-panel .contact-note + .contact-details {
     margin-top: 32px;
@@ -2808,12 +2818,12 @@ body {
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] [data-chapter-id="ember-tide"] .work-gallery { grid-template-columns: 1fr; gap: 30px; }
   #portfolio-site .work-detail[data-project-id="bound-to-ruin"] .work-credit-details { grid-template-columns: 1fr; gap: 18px; }
 }
-/* A film first, then a measured sequence of years. The pictures supply the texture. */
+/* The film opens the story; equal frames hold time still, then movement closes it. */
 #portfolio-site .panel-content:has(.work-detail[data-project-id="undertone"]:not([hidden])) {
   max-width: 1160px;
 }
 #portfolio-site .work-detail[data-project-id="undertone"] .work-opening {
-  gap: 44px;
+  gap: 52px;
   margin-bottom: 0;
 }
 #portfolio-site .work-detail[data-project-id="undertone"] .work-opening .work-introduction {
@@ -2826,15 +2836,25 @@ body {
   margin-bottom: 24px;
 }
 #portfolio-site .work-detail[data-project-id="undertone"] .work-chapter {
-  margin-top: 112px;
+  margin-top: clamp(88px, 9vw, 112px);
+  gap: 36px 56px;
 }
-#portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="stages"] .work-chapter-copy {
+#portfolio-site .work-detail[data-project-id="undertone"] .work-chapter[data-chapter-layout="wide"] .work-chapter-copy {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: 40px;
 }
+#portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="how-it-plays"] {
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+}
+#portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="how-it-plays"] .work-chapter-copy {
+  max-width: 38ch;
+}
+#portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="motion"] .work-gallery {
+  gap: 40px;
+}
 #portfolio-site .work-gallery[data-gallery-layout="sequence"] {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 52px 40px;
+  gap: 48px 40px;
 }
 #portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="stages"] .work-figure {
   display: grid;
@@ -2861,6 +2881,17 @@ body {
   }
   #portfolio-site .work-detail[data-project-id="undertone"] .work-chapter {
     margin-top: 68px;
+    gap: 28px;
+  }
+  #portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="how-it-plays"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="how-it-plays"] .work-chapter-copy {
+    max-width: none;
+  }
+  #portfolio-site .work-detail[data-project-id="undertone"] [data-chapter-id="motion"] .work-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
   }
   #portfolio-site .work-gallery[data-gallery-layout="sequence"] {
     grid-template-columns: minmax(0, 1fr);

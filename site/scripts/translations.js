@@ -24,6 +24,7 @@ export const translations = {
     close: "Close",
     emailLabel: "Email",
     linkedinLabel: "Luke Wang on LinkedIn (opens in a new tab)",
+    instagramLabel: "@lukewarm.beer on Instagram (opens in a new tab)",
     contactNote: "Currently based in Brooklyn, New York.",
     /** English reads as five ordinary paragraphs; the closing sentences belong to their subjects. */
     aboutBlocks: [
@@ -79,6 +80,7 @@ export const translations = {
     close: "关闭",
     emailLabel: "邮箱",
     linkedinLabel: "Luke Wang 的 LinkedIn 主页（在新标签页打开）",
+    instagramLabel: "@lukewarm.beer 的 Instagram 主页（在新标签页打开）",
     contactNote: "目前住在纽约布鲁克林。",
     /** 中文恢复普通段落，结句接回所属的绘画和互动段落。 */
     aboutBlocks: [
