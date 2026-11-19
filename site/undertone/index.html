@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UNDERTONE</title>
+<meta name="description" content="A short interactive film by Luke Wang. A deep-sea crab outlives the fall of a sperm whale. Play it in the browser.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<!-- The page around the Web build (Assets/WebGLTemplates/Undertone): two cards before the game, in the game's own black,
+     typefaces (Resources/Fonts), sizes (the 1920 x 1080 grid of Hud.cs) and fades.
+       1. the title: the wordmark and BEGIN, nothing else
+       2. after BEGIN, while the game finishes loading, the notice: headphones, the dark, how long, the controls
+     The game downloads from the moment the page opens, so the notice is usually all the waiting there is. A click is
+     needed anyway: browsers start sound only after one, and the game's opening music starts on black. -->
+<style>
+  @font-face { font-family: "UT Title"; src: url("fonts/Title.ttf") format("truetype"); font-weight: 200; font-display: block; }
+  @font-face { font-family: "UT Mono"; src: url("fonts/Mono.ttf") format("truetype"); font-weight: 300; font-display: block; }
+  :root {
+    /* one pixel of the game's 1920 x 1080 HUD (CanvasScaler, match 0.5): the mean of the two scales */
+    --u: calc((100vw / 1920 + 100vh / 1080) / 2);
+    --bg: #000;
+    --ink: #fff;
+  }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; }
+  body { -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+  #unity-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; background: #000; outline: none; }
+
+  /* the two voices of the game's cards */
+  .title { font-family: "UT Title", "Futura", "Century Gothic", sans-serif; font-weight: 200; text-transform: uppercase; }
+  .mono { font-family: "UT Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-weight: 300; text-transform: uppercase; }
+
+  .card {
+    position: fixed; inset: 0; z-index: 2; box-sizing: border-box; background: var(--bg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    padding: 16px;
+  }
+  .card[hidden], .card.gone { display: none; }
+
+  /* everything arrives and leaves by fading, as Hud.FadeGroup does */
+  .fade { opacity: 0; transition: opacity 1.2s ease-in-out; }
+  .fade.on { opacity: 1; }
+  .card.leaving .fade, .card.leaving .fade.on { opacity: 0; }
+
+  /* ---- the title: the wordmark as the game draws it (Title voice, 68 at 1080, tracked 0.32 em, each letter fainter) */
+  .mark { margin: 0; font-size: max(30px, calc(68 * var(--u))); line-height: 1; letter-spacing: 0.32em; margin-right: -0.32em; white-space: nowrap; }
+  .mark span { opacity: 0; transition: opacity 2s ease-in-out; }
+  .card.leaving .mark span { opacity: 0 !important; transition-duration: 1.2s; }
+
+  button { appearance: none; background: none; border: 0; padding: 0; color: inherit; cursor: pointer; font: inherit; text-transform: inherit; }
+  button:focus-visible { outline: none; }
+  /* BEGIN is a menu item of the game: Title voice, 24 at 1080, tracked 0.42 em, 0.42 at rest and 1 when chosen */
+  #begin { margin-top: calc(110 * var(--u)); font-size: max(16px, calc(24 * var(--u))); letter-spacing: 0.42em; margin-right: -0.42em; padding: 14px 10px; color: rgba(255, 255, 255, 0.42); }
+  #begin.on { animation: breathe 3.6s ease-in-out infinite; }
+  #begin:hover, #begin:focus-visible { animation: none; color: rgba(255, 255, 255, 1); }
+  @keyframes breathe { 0%, 100% { color: rgba(255, 255, 255, 0.42); } 50% { color: rgba(255, 255, 255, 0.95); } }
+
+  #message { max-width: 34em; margin: calc(80 * var(--u)) 0 0; font-family: "UT Mono", ui-monospace, monospace; font-weight: 300; font-size: max(12px, calc(17 * var(--u))); line-height: 1.8; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.6); }
+  #message[hidden] { display: none; }
+
+  /* ---- the notice, while the game finishes loading */
+  .bring { margin: 0; font-size: max(13px, calc(26 * var(--u))); letter-spacing: 0.22em; margin-right: -0.22em; color: rgba(255, 255, 255, 0.9); line-height: 2.4; }
+  .keys { margin: calc(76 * var(--u)) 0 0; font-size: max(10px, calc(15 * var(--u))); letter-spacing: 0.22em; margin-right: -0.22em; color: rgba(255, 255, 255, 0.4); line-height: 2.4; }
+  .keys b { font-weight: 300; color: rgba(255, 255, 255, 0.7); }
+  .keys .gap, .get .gap { display: inline-block; width: 2.4em; }
+  /* the desktop builds, offered under the controls */
+  .get { margin: calc(40 * var(--u)) 0 0; font-size: max(10px, calc(15 * var(--u))); letter-spacing: 0.22em; margin-right: -0.22em; color: rgba(255, 255, 255, 0.4); line-height: 2.4; }
+  .get a { color: rgba(255, 255, 255, 0.75); text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, 0.25); padding-bottom: 2px; transition: color 0.4s ease, border-color 0.4s ease; }
+  .get a:hover, .get a:focus-visible { color: #fff; border-color: #fff; outline: none; }
+  .get .sep { color: rgba(255, 255, 255, 0.3); padding: 0 0.9em; }
+  .loading { position: absolute; left: 0; right: 0; bottom: calc(110 * var(--u)); display: flex; flex-direction: column; align-items: center; gap: calc(18 * var(--u)); }
+  .bar { width: calc(240 * var(--u)); min-width: 140px; height: 1px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: rgba(255, 255, 255, 0.7); transition: width 0.3s linear; }
+  #note { font-size: max(10px, calc(14 * var(--u))); letter-spacing: 0.22em; margin-right: -0.22em; color: rgba(255, 255, 255, 0.35); min-height: 1.4em; }
+  #noticeError { max-width: 34em; margin: calc(60 * var(--u)) 0 0; font-family: "UT Mono", ui-monospace, monospace; font-size: max(12px, calc(17 * var(--u))); line-height: 1.8; color: rgba(255, 255, 255, 0.6); }
+  #noticeError[hidden] { display: none; }
+
+  /* ---- the way back, and full screen: faint, and over the game only while the free mouse moves */
+  .corner { position: fixed; z-index: 3; top: 18px; font-size: 11px; letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.3); text-decoration: none; padding: 6px; transition: color 0.6s ease-in-out, opacity 1.2s ease-in-out; }
+  .corner:hover, .corner:focus-visible { color: #fff; outline: none; }
+  #back { left: 16px; }
+  #full { right: 16px; display: none; }
+  body.playing #full { display: block; }
+  body.playing .corner, body.begun .corner { opacity: 0; pointer-events: none; }
+  body.playing.unlocked.awake .corner { opacity: 1; pointer-events: auto; }
+
+  /* ---- a phone cannot walk the crab: it gets the trailer instead of a dead end */
+  #phone { display: none; flex-direction: column; align-items: center; gap: 22px; width: 100%; margin-top: 48px; }
+  body.touch #phone { display: flex; }
+  body.touch #title { justify-content: flex-start; overflow-y: auto; padding-top: 96px; }
+  body.touch #begin { display: none; }
+  #trailer { display: block; width: min(100%, 720px); aspect-ratio: 1920 / 804; background: #000; }
+  .row { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+  .row button { font-family: "UT Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.42); padding: 8px 4px; }
+  .row button:hover { color: #fff; }
+
+  @media (max-width: 700px) {
+    .keys .gap { display: block; height: 0; }
+    #full { display: none !important; }
+  }
+  /* a phone on its side: the trailer has to leave room for the words and buttons under it */
+  @media (max-height: 520px) and (orientation: landscape) {
+    body.touch #title { padding-top: 48px; }
+    body.touch #phone { margin-top: 20px; gap: 14px; }
+    body.touch #trailer { width: auto; height: 52vh; max-width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fade, .mark span { transition: none !important; }
+    #begin.on { animation: none; color: rgba(255, 255, 255, 0.85); }
+  }
+</style>
+</head>
+<body>
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+
+  <a class="corner mono fade" id="back" href="/#work/undertone">← Luke Wang</a>
+  <button class="corner mono" id="full" type="button">Full screen</button>
+
+  <main class="card" id="title">
+    <h1 class="mark title" aria-label="Undertone"></h1>
+    <button id="begin" class="title fade" type="button">Begin</button>
+    <p id="message" class="fade" hidden></p>
+    <div id="phone" class="fade"></div>
+  </main>
+
+  <section class="card" id="notice" hidden aria-live="polite">
+    <p class="bring mono fade">Headphones on<br>Lights off<br>About <span id="minutes">20</span> minutes</p>
+    <p class="keys mono fade"><b>W A S D</b> walk<span class="gap"></span><b>Mouse</b> look<span class="gap"></span><b>Scroll</b> distance<span class="gap"></span><b>Tab</b> what to do<span class="gap"></span><b>Esc</b> pause<span class="gap"></span>or a gamepad</p>
+    <p class="get mono fade">For the best of it, download it<span class="gap"></span><a href="https://github.com/lukewam/lukewangdesign-web/releases/download/undertone/UNDERTONE-Windows.zip">Windows</a><span class="sep">·</span><a href="https://github.com/lukewam/lukewangdesign-web/releases/download/undertone/UNDERTONE-Mac.zip">Mac</a></p>
+    <p id="noticeError" hidden></p>
+    <div class="loading fade"><div class="bar" aria-hidden="true"><i></i></div><div id="note" class="mono"></div></div>
+  </section>
+
+  <script>
+  // every AudioContext the game makes, so the page can start its sound once BEGIN has been clicked (a context made
+  // after that click, if the game was still loading, would otherwise wait for another one)
+  (function () {
+    var C = window.AudioContext || window.webkitAudioContext;
+    window.UNDERTONE_CONTEXTS = [];
+    if (!C) return;
+    // Safari only lets a context start inside the click: if BEGIN comes before the game has made its context, the
+    // page makes one in the click (UNDERTONE_UNLOCK) and hands it to the game when it asks for its first
+    var early = null;
+    window.UNDERTONE_UNLOCK = function () {
+      window.UNDERTONE_CONTEXTS.forEach(function (c) { if (c.state === "suspended") c.resume().catch(function () {}); });
+      if (!window.UNDERTONE_CONTEXTS.length && !early) { try { early = new C(); early.resume().catch(function () {}); } catch (e) { early = null; } }
+    };
+    function Made(o) {
+      var c = early || new C(o); early = null;
+      window.UNDERTONE_CONTEXTS.push(c);
+      if (window.UNDERTONE_WATER && window.UNDERTONE_WATER.prefetch) window.UNDERTONE_WATER.prefetch(c);
+      return c;
+    }
+    Made.prototype = C.prototype;
+    window.AudioContext = Made;
+    if (window.webkitAudioContext) window.webkitAudioContext = Made;
+  })();
+  </script>
+  <script src="tap.js?v=5fdaa798f971"></script>
+  <script src="water.js?v=5fdaa798f971"></script>
+  <script src="Build/9ea3d059e8571d4a16ca1c7686526772.loader.js?v=5fdaa798f971"></script>
+  <script>
+  (function () {
+    "use strict";
+    var body = document.body, canvas = document.getElementById("unity-canvas");
+    var title = document.getElementById("title"), notice = document.getElementById("notice");
+    var begin = document.getElementById("begin"), message = document.getElementById("message");
+    var fill = document.querySelector(".bar i"), note = document.getElementById("note");
+    var noticeError = document.getElementById("noticeError"), full = document.getElementById("full");
+    var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var FADE = reduced ? 0 : 1200, NOTICE_MIN = reduced ? 2500 : 5500;
+    var instance = null, progress = 0, failed = null, begun = false, noticeAt = 0;
+    function later(ms, f) { return setTimeout(f, reduced ? 0 : ms); }
+    function on(el) { el.classList.add("on"); }
+
+    // Unattended test runs (webtest/run.mjs): ?args= passes the game's command line (-trailer, -autoplay ...), and
+    // ?capture= names a server on this computer that receives the pictures and sound the game saves (Capture.cs).
+    // Neither is used by a visitor; capture only ever goes to this computer.
+    var query = new URLSearchParams(location.search);
+    // only on this computer: on the public page a stray ?args= would skip the cards and leave a black screen
+    var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    var args = local ? (query.get("args") || "").split(/\s+/).filter(Boolean) : [];
+    var testRun = args.length > 0;   // decided here: Unity's loader adds its own entries to the arguments it is given
+    var capture = local ? query.get("capture") : null;
+    if (capture && !/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(capture)) capture = null;
+    window.UNDERTONE_PENDING = 0;
+    window.UNDERTONE_SAVE = function (name, bytes) {
+      if (!capture) return;
+      window.UNDERTONE_PENDING++;
+      fetch(capture + "/save?path=" + encodeURIComponent(name), { method: "POST", body: bytes })
+        .catch(function (e) { console.log("[capture] failed " + e); })
+        .then(function () { window.UNDERTONE_PENDING--; });
+    };
+
+    // ---------------------------------------------------------------- 1. the title
+    var mark = title.querySelector(".mark"), word = "UNDERTONE", letters = [];
+    for (var i = 0; i < word.length; i++) {
+      var s = document.createElement("span");
+      s.textContent = word[i];
+      s.setAttribute("aria-hidden", "true");
+      s.dataset.alpha = (1 - (0.82 * i) / (word.length - 1)).toFixed(3);
+      mark.appendChild(s); letters.push(s);
+    }
+    function arrive() {
+      // the wordmark letter by letter, each fainter than the one before (the tail of a note), then BEGIN
+      letters.forEach(function (s, k) { later(600 + k * 180, function () { s.style.opacity = s.dataset.alpha; }); });
+      later(600 + word.length * 180 + 900, function () {
+        on(begin); on(document.getElementById("back"));
+        if (!message.hidden) on(message);
+        on(document.getElementById("phone"));
+        begin.focus({ preventScroll: true });
+      });
+    }
+    // the typefaces first, so nothing arrives in a stand-in face
+    var fontsReady = document.fonts && document.fonts.load
+      ? Promise.race([document.fonts.load('200 20px "UT Title"').catch(function () {}), new Promise(function (r) { setTimeout(r, 1500); })])
+      : Promise.resolve();
+    fontsReady.then(function () { if (!testRun) arrive(); });
+
+    function webgl2() {
+      try { return !!document.createElement("canvas").getContext("webgl2"); } catch (e) { return false; }
+    }
+
+    // ---------------------------------------------------------------- loading, from the start, out of sight
+    function load() {
+      createUnityInstance(canvas, {
+        arguments: args.slice(),
+        dataUrl: "Build/de6b23ad3b4f249a69caad4de00f0d6c.data.unityweb",
+        frameworkUrl: "Build/edbeb47f8116fa39efdffb5d6e65c2bf.framework.js.unityweb",
+        codeUrl: "Build/161edb24d77f7091764756dd4706bbf1.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Luke Wang",
+        productName: "UNDERTONE",
+        productVersion: "0.1.0",
+        // the screen's own pixels, as the desktop build draws; the game softens its own picture (Director.WebQuality)
+        // only if a machine cannot keep up
+        devicePixelRatio: window.devicePixelRatio || 1,
+        showBanner: function (msg, type) { if (type === "error") fail(msg); },
+        // a refused mouse capture (asked again too soon after Esc, or in an embedded frame) is harmless: the next click
+        // asks again. Without this, Unity answers it with an alert box over the film.
+        errorHandler: function (msg) { return /pointer ?lock/i.test(String(msg)); },
+      }, function (p) {
+        progress = p; showProgress();
+      }).then(function (u) {
+        instance = u;
+        window.UNDERTONE_INSTANCE = u;
+        progress = 1; showProgress();
+        // a test run plays itself: no cards
+        if (testRun) { body.classList.add("playing"); title.classList.add("gone"); return; }
+        maybeGo();
+      }).catch(function (msg) { fail(String(msg)); });
+    }
+    function showProgress() {
+      fill.style.width = Math.round(progress * 100) + "%";
+      note.textContent = progress < 1 ? "Loading " + Math.round(progress * 100) + "%" : (instance && !gameReady ? "Loading" : "");
+    }
+    function fail(msg) {
+      failed = msg;
+      var text = "The film did not start. " + msg;
+      // after BEGIN the way back has to show again: nothing else on the notice can be clicked
+      if (begun) { noticeError.textContent = text; noticeError.hidden = false; body.classList.remove("begun"); on(document.getElementById("back")); }
+      else { message.textContent = text; message.hidden = false; on(message); }
+    }
+
+    // ---------------------------------------------------------------- full screen
+    function enterFull() {
+      var el = document.documentElement;
+      var req = el.requestFullscreen || el.webkitRequestFullscreen;
+      if (req) { try { var r = req.call(el); if (r && r.catch) r.catch(function () {}); } catch (e) {} }
+    }
+    function isFull() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+    function syncFull() { full.textContent = isFull() ? "Exit full screen" : "Full screen"; }
+    full.addEventListener("click", function () {
+      if (isFull()) { var x = (document.exitFullscreen || document.webkitExitFullscreen).call(document); if (x && x.catch) x.catch(function () {}); }
+      else enterFull();
+      canvas.focus();
+    });
+    document.addEventListener("fullscreenchange", syncFull);
+    document.addEventListener("webkitfullscreenchange", syncFull);
+
+    // ---------------------------------------------------------------- 2. BEGIN: the title fades, the notice, the game
+    begin.addEventListener("click", function () {
+      if (begun || failed) return;
+      begun = true;
+      // sound may only start inside this click on some browsers: wake the game's context now, or make it one
+      if (window.UNDERTONE_UNLOCK) window.UNDERTONE_UNLOCK();
+      enterFull();
+      body.classList.add("begun");
+      begin.classList.remove("on"); begin.style.color = "#fff";
+      title.classList.add("leaving");
+      later(FADE + 300, function () {
+        title.classList.add("gone");
+        notice.hidden = false;
+        noticeAt = Date.now();
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          notice.querySelectorAll(".fade").forEach(function (el, k) { later(k * 350, function () { on(el); }); });
+        }); });
+        setTimeout(maybeGo, NOTICE_MIN);   // a plain timer: later() is instant with reduced motion
+      });
+    });
+    // a click or a key once the game is ready leaves the notice early (not a click on a download: that only downloads)
+    notice.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("a")) return; if (instance && gameReady && Date.now() - noticeAt > 1500) go(); });
+    notice.querySelectorAll(".get a").forEach(function (a) { a.target = "_blank"; a.rel = "noopener"; });
+    document.addEventListener("keydown", function (e) {
+      // Tab moves to the download links, and a key on one of them is for the link
+      // only Enter or Space, as the game's own cards take them (not Tab, Esc, Alt, F11)
+      if (e.key !== "Enter" && e.key !== " ") return;
+      if (document.activeElement && document.activeElement.closest && document.activeElement.closest(".get")) return;
+      if (begun && instance && gameReady && noticeAt && Date.now() - noticeAt > 1500) go();
+    });
+
+    // the game says when its sounds are decoded (WebAudio.Preload -> UT_Ready): the notice stays until then
+    var going = false, gameReady = false;
+    window.UNDERTONE_READY = function () { gameReady = true; showProgress(); maybeGo(); };
+    function maybeGo() {
+      if (!begun || !instance || !gameReady || !noticeAt) return;
+      var left = NOTICE_MIN - (Date.now() - noticeAt);
+      if (left > 0) { setTimeout(maybeGo, left + 20); return; }
+      go();
+    }
+    function go() {
+      if (going) return;
+      going = true;
+      notice.classList.add("leaving");
+      // the notice fades to black, a beat of black, then the game: its music starts on black, before the first word
+      later(FADE + 600, function () {
+        notice.classList.add("gone");
+        body.classList.add("playing", "unlocked");
+        (window.UNDERTONE_CONTEXTS || []).forEach(function (c) { if (c.state === "suspended") c.resume().catch(function () {}); });
+        canvas.focus();
+        instance.SendMessage("UNDERTONE", "WebBegin");
+      });
+    }
+
+    // Esc frees the mouse before the game ever sees the key: tell the game, which pauses as Esc would
+    document.addEventListener("pointerlockchange", function () {
+      var locked = document.pointerLockElement === canvas;
+      body.classList.toggle("unlocked", !locked);
+      if (instance) instance.SendMessage("UNDERTONE", "WebLock", locked ? 1 : 0);
+    });
+
+    var sleep = 0;
+    document.addEventListener("mousemove", function () {
+      if (!body.classList.contains("playing") || document.pointerLockElement) return;
+      body.classList.add("awake");
+      clearTimeout(sleep);
+      sleep = setTimeout(function () { body.classList.remove("awake"); }, 2500);
+    });
+
+    canvas.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+
+    // ---------------------------------------------------------------- what this machine can do
+    var touchOnly = window.matchMedia && matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches;
+    // a phone first: it gets the trailer whatever its graphics can do
+    if (!touchOnly && !webgl2()) {
+      begin.hidden = true;
+      message.textContent = "This browser cannot draw the film: it needs WebGL 2. A current Chrome, Edge, Firefox or Safari on a computer can.";
+      message.hidden = false;
+    } else if (touchOnly) {
+      // ~57 MB the phone cannot use: the trailer, and a way to carry the link to a computer
+      body.classList.add("touch");
+      var phone = document.getElementById("phone");
+      var text = document.createElement("p");
+      text.id = "phoneText"; text.className = "mono";
+      text.style.cssText = "max-width:34em;margin:0;font-size:13px;line-height:1.8;letter-spacing:0.04em;text-transform:none;color:rgba(255,255,255,0.6)";
+      text.textContent = "UNDERTONE is walked with a keyboard and mouse, or a gamepad. Here is the trailer. Open this page on a computer to play.";
+      var film = document.createElement("video");
+      film.id = "trailer"; film.controls = true; film.playsInline = true; film.preload = "metadata";
+      film.poster = "/assets/films/undertone-trailer-poster.jpg";
+      film.src = "/assets/films/undertone-trailer.mp4";
+      film.addEventListener("error", function () { film.remove(); });
+      var row = document.createElement("div");
+      row.className = "row";
+      var share = document.createElement("button");
+      share.type = "button"; share.className = "mono";
+      share.textContent = navigator.share ? "Send the link" : "Copy the link";
+      share.addEventListener("click", function () {
+        var url = location.href.split("#")[0];
+        if (navigator.share) { navigator.share({ title: "UNDERTONE", url: url }).catch(function () {}); return; }
+        if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { share.textContent = "Copied"; }, function () {});
+      });
+      var anyway = document.createElement("button");
+      anyway.type = "button"; anyway.className = "mono"; anyway.textContent = "Load anyway";
+      anyway.addEventListener("click", function () {
+        body.classList.remove("touch"); phone.style.display = "none";
+        load();
+        on(begin);
+      });
+      row.append(share, anyway);
+      phone.append(film, text, row);
+    } else {
+      load();
+    }
+  })();
+  </script>
+</body>
+</html>

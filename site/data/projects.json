@@ -595,7 +595,15 @@
         "Tripo",
         "ElevenLabs"
       ],
-      "links": [],
+      "links": [
+        {
+          "label": {
+            "en": "Play it in the browser",
+            "zh": "在浏览器里玩"
+          },
+          "url": "undertone/"
+        }
+      ],
       "hero_layout": "installation",
       "index_image": {
         "src": "assets/portfolio/undertone/undertone-cover.jpg",
