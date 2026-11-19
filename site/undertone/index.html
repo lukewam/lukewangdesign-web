@@ -9,8 +9,9 @@
 <meta name="color-scheme" content="dark">
 <!-- The page around the Web build (Assets/WebGLTemplates/Undertone): two cards before the game, in the game's own black,
      typefaces (Resources/Fonts), sizes (the 1920 x 1080 grid of Hud.cs) and fades.
-       1. the title: the wordmark and BEGIN, nothing else
-       2. after BEGIN, while the game finishes loading, the notice: headphones, the dark, how long, the controls
+       1. the title: the wordmark, one line on what it is, Play (the one bright thing), the download (quiet, but
+          there from the start), the whale partly in the frame
+       2. after Play, while the game finishes loading, the notice: headphones, the dark, how long, the controls
      The game downloads from the moment the page opens, so the notice is usually all the waiting there is. A click is
      needed anyway: browsers start sound only after one, and the game's opening music starts on black. -->
 <style>
@@ -21,7 +22,13 @@
     --u: calc((100vw / 1920 + 100vh / 1080) / 2);
     --bg: #000;
     --ink: #fff;
+    /* the title's warmer dark and bone-white words: lacquer, not glare. 0.68 and 0.6 of the ink stay above 6:1 on it */
+    --warm: #0b0a09;
+    --bone: #efe9df;
+    --ink-2: rgba(239, 233, 223, 0.68);
+    --ink-3: rgba(239, 233, 223, 0.42);
   }
+  #title { --ink: var(--bone); color: var(--ink); }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden; }
   body { -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
   #unity-canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; display: block; background: #000; outline: none; }
@@ -42,20 +49,45 @@
   .fade.on { opacity: 1; }
   .card.leaving .fade, .card.leaving .fade.on { opacity: 0; }
 
-  /* ---- the title: the wordmark as the game draws it (Title voice, 68 at 1080, tracked 0.32 em, each letter fainter) */
-  .mark { margin: 0; font-size: max(30px, calc(68 * var(--u))); line-height: 1; letter-spacing: 0.32em; margin-right: -0.32em; white-space: nowrap; }
+  /* ---- the title, laid out after wabi-sabi and the tea room (webtest/report/README.md, "The start page"):
+     fukinsei, not the centre: one column on a left edge at about a tenth of the width, everything aligned to it;
+     ma: the empty space between the words and the two things to do leads to them, it does not hide them;
+     miegakure: the whale only partly in the frame, in the dark (Tanizaki), on the right;
+     one thing brightest (the tokonoma's single flower): Play. The download is the quiet second line, never hidden.
+     Both are there from the first second, nothing pulses, and every small word holds 6:1 contrast or more. */
+  #title { --left: max(24px, calc(200 * var(--u))); align-items: flex-start; text-align: left; padding: 0 24px 0 var(--left); background: var(--warm); transition: background-color 1.2s ease-in-out; }
+  #title.leaving { background: var(--bg); }
+  .column { position: relative; z-index: 1; width: min(100%, max(320px, calc(820 * var(--u)))); }
+  .scene {
+    position: absolute; inset: 0 0 0 30%; z-index: 0; pointer-events: none;
+    background: url("scene.jpg") 42% 0 / cover no-repeat;
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 42%); mask-image: linear-gradient(to right, transparent 0, #000 42%);
+    transition-duration: 2.6s;
+  }
+  .scene.on { opacity: 0.92; animation: drift 48s ease-in-out infinite alternate; }
+  .card.leaving .scene { transition-duration: 1.2s; }
+  #title .column .fade { transition-duration: 0.9s; }
+  @keyframes drift { from { transform: scale(1.035); } to { transform: scale(1) translateX(-0.8%); } }
+
+  /* the wordmark as the game draws it (Title voice, 68 at 1080, tracked 0.32 em, each letter fainter: the tail of a note) */
+  .mark { margin: 0; font-size: max(30px, calc(68 * var(--u))); line-height: 1; letter-spacing: 0.32em; white-space: nowrap; }
   .mark span { opacity: 0; transition: opacity 2s ease-in-out; }
   .card.leaving .mark span { opacity: 0 !important; transition-duration: 1.2s; }
+  .about { margin: calc(44 * var(--u)) 0 0; max-width: 27em; font-family: "UT Mono", ui-monospace, monospace; font-weight: 300; font-size: max(13px, calc(18 * var(--u))); line-height: 1.75; letter-spacing: 0.02em; color: var(--ink-2); }
 
   button { appearance: none; background: none; border: 0; padding: 0; color: inherit; cursor: pointer; font: inherit; text-transform: inherit; }
-  button:focus-visible { outline: none; }
-  /* BEGIN is a menu item of the game: Title voice, 24 at 1080, tracked 0.42 em, 0.42 at rest and 1 when chosen */
-  #begin { margin-top: calc(110 * var(--u)); font-size: max(16px, calc(24 * var(--u))); letter-spacing: 0.42em; margin-right: -0.42em; padding: 14px 10px; color: rgba(255, 255, 255, 0.42); }
-  #begin.on { animation: breathe 3.6s ease-in-out infinite; }
-  #begin:hover, #begin:focus-visible { animation: none; color: rgba(255, 255, 255, 1); }
-  @keyframes breathe { 0%, 100% { color: rgba(255, 255, 255, 0.42); } 50% { color: rgba(255, 255, 255, 0.95); } }
+  /* Play: the one bright thing, a word over a hairline that draws in once and brightens to the ink when chosen */
+  .act { margin-top: calc(150 * var(--u)); }
+  #begin { position: relative; display: inline-block; font-size: max(17px, calc(30 * var(--u))); letter-spacing: 0.3em; padding: 12px 0 18px; color: var(--ink); text-align: left; }
+  #begin::after { content: ""; position: absolute; left: 0; right: 0.3em; bottom: 6px; height: 1px; background: var(--ink); opacity: 0.45; transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(.2, .6, .2, 1) 0.4s, opacity 0.5s ease; }
+  .act.on #begin::after { transform: scaleX(1); }
+  #begin:hover::after, #begin:focus-visible::after { opacity: 1; }
+  #begin:focus-visible { outline: 1px solid rgba(239, 233, 223, 0.55); outline-offset: 8px; }
+  #begin:focus:not(:focus-visible) { outline: none; }
+  .need { margin: calc(14 * var(--u)) 0 0; font-size: max(10.5px, calc(15 * var(--u))); letter-spacing: 0.22em; line-height: 2; color: var(--ink-2); }
+  .need .sep, .get .sep { color: var(--ink-3); padding: 0 0.8em; }
 
-  #message { max-width: 34em; margin: calc(80 * var(--u)) 0 0; font-family: "UT Mono", ui-monospace, monospace; font-weight: 300; font-size: max(12px, calc(17 * var(--u))); line-height: 1.8; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.6); }
+  #message { max-width: 34em; margin: calc(60 * var(--u)) 0 0; font-family: "UT Mono", ui-monospace, monospace; font-weight: 300; font-size: max(12px, calc(17 * var(--u))); line-height: 1.8; letter-spacing: 0.04em; color: var(--ink-2); }
   #message[hidden] { display: none; }
 
   /* ---- the notice, while the game finishes loading */
@@ -63,11 +95,11 @@
   .keys { margin: calc(76 * var(--u)) 0 0; font-size: max(10px, calc(15 * var(--u))); letter-spacing: 0.22em; margin-right: -0.22em; color: rgba(255, 255, 255, 0.4); line-height: 2.4; }
   .keys b { font-weight: 300; color: rgba(255, 255, 255, 0.7); }
   .keys .gap, .get .gap { display: inline-block; width: 2.4em; }
-  /* the desktop builds, offered under the controls */
-  .get { margin: calc(40 * var(--u)) 0 0; font-size: max(10px, calc(15 * var(--u))); letter-spacing: 0.22em; margin-right: -0.22em; color: rgba(255, 255, 255, 0.4); line-height: 2.4; }
-  .get a { color: rgba(255, 255, 255, 0.75); text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, 0.25); padding-bottom: 2px; transition: color 0.4s ease, border-color 0.4s ease; }
-  .get a:hover, .get a:focus-visible { color: #fff; border-color: #fff; outline: none; }
-  .get .sep { color: rgba(255, 255, 255, 0.3); padding: 0 0.9em; }
+  /* the desktop builds: the title's second line, quieter than Play, there from the start */
+  .get { margin: calc(56 * var(--u)) 0 0; font-size: max(10.5px, calc(15 * var(--u))); letter-spacing: 0.22em; color: var(--ink-2); line-height: 2.2; }
+  .get a { display: inline-block; padding: 4px 0 2px; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink-3); transition: border-color 0.4s ease; }
+  .get a:hover, .get a:focus-visible { border-color: var(--ink); outline: none; }
+  .get a:focus-visible { outline: 1px solid rgba(239, 233, 223, 0.55); outline-offset: 6px; }
   .loading { position: absolute; left: 0; right: 0; bottom: calc(110 * var(--u)); display: flex; flex-direction: column; align-items: center; gap: calc(18 * var(--u)); }
   .bar { width: calc(240 * var(--u)); min-width: 140px; height: 1px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
   .bar i { display: block; height: 100%; width: 0; background: rgba(255, 255, 255, 0.7); transition: width 0.3s linear; }
@@ -76,8 +108,9 @@
   #noticeError[hidden] { display: none; }
 
   /* ---- the way back, and full screen: faint, and over the game only while the free mouse moves */
-  .corner { position: fixed; z-index: 3; top: 18px; font-size: 11px; letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.3); text-decoration: none; padding: 6px; transition: color 0.6s ease-in-out, opacity 1.2s ease-in-out; }
-  .corner:hover, .corner:focus-visible { color: #fff; outline: none; }
+  .corner { position: fixed; z-index: 3; top: 18px; font-size: 11px; letter-spacing: 0.22em; color: rgba(239, 233, 223, 0.55); text-decoration: none; padding: 6px; transition: color 0.6s ease-in-out, opacity 1.2s ease-in-out; }
+  .corner:hover, .corner:focus-visible { color: #fff; }
+  .corner:focus-visible { outline: 1px solid rgba(239, 233, 223, 0.55); outline-offset: 2px; }
   #back { left: 16px; }
   #full { right: 16px; display: none; }
   body.playing #full { display: block; }
@@ -85,17 +118,24 @@
   body.playing.unlocked.awake .corner { opacity: 1; pointer-events: auto; }
 
   /* ---- a phone cannot walk the crab: it gets the trailer instead of a dead end */
-  #phone { display: none; flex-direction: column; align-items: center; gap: 22px; width: 100%; margin-top: 48px; }
+  #phone { display: none; flex-direction: column; align-items: flex-start; gap: 22px; width: 100%; margin-top: 40px; }
   body.touch #phone { display: flex; }
-  body.touch #title { justify-content: flex-start; overflow-y: auto; padding-top: 96px; }
-  body.touch #begin { display: none; }
+  body.touch #title { justify-content: flex-start; overflow-y: auto; padding: 88px 24px 48px; }
+  body.touch .act, body.touch .get, body.touch .scene { display: none; }
   #trailer { display: block; width: min(100%, 720px); aspect-ratio: 1920 / 804; background: #000; }
-  .row { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
-  .row button { font-family: "UT Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.22em; color: rgba(255, 255, 255, 0.42); padding: 8px 4px; }
-  .row button:hover { color: #fff; }
+  .row { display: flex; gap: 28px; justify-content: flex-start; flex-wrap: wrap; }
+  .row button { font-family: "UT Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: 0.22em; color: var(--ink); padding: 10px 0; border-bottom: 1px solid var(--ink-3); }
+  .row button:hover, .row button:focus-visible { border-color: var(--ink); outline: none; }
 
+  /* a narrow window: the scene stays behind the column, dimmer, so the words keep their contrast */
+  @media (max-width: 900px) {
+    .scene { inset: 0; -webkit-mask-image: linear-gradient(to bottom, #000 0, transparent 75%); mask-image: linear-gradient(to bottom, #000 0, transparent 75%); }
+    .scene.on { opacity: 0.4; }
+    .act { margin-top: 64px; }
+  }
   @media (max-width: 700px) {
     .keys .gap { display: block; height: 0; }
+    .need .sep { display: block; height: 0; overflow: hidden; padding: 0; }
     #full { display: none !important; }
   }
   /* a phone on its side: the trailer has to leave room for the words and buttons under it */
@@ -105,8 +145,8 @@
     body.touch #trailer { width: auto; height: 52vh; max-width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .fade, .mark span { transition: none !important; }
-    #begin.on { animation: none; color: rgba(255, 255, 255, 0.85); }
+    .fade, .mark span, #begin::after { transition: none !important; }
+    .scene.on { animation: none; }
   }
 </style>
 </head>
@@ -117,16 +157,23 @@
   <button class="corner mono" id="full" type="button">Full screen</button>
 
   <main class="card" id="title">
-    <h1 class="mark title" aria-label="Undertone"></h1>
-    <button id="begin" class="title fade" type="button">Begin</button>
-    <p id="message" class="fade" hidden></p>
-    <div id="phone" class="fade"></div>
+    <div class="scene fade" aria-hidden="true"></div>
+    <div class="column">
+      <h1 class="mark title" aria-label="Undertone"></h1>
+      <p class="about fade">A short interactive film. A deep-sea crab outlives the fall of a sperm whale.</p>
+      <div class="act fade">
+        <button id="begin" class="title" type="button">Play in the browser</button>
+        <p class="need mono">About 20 minutes<span class="sep">·</span>Headphones<span class="sep">·</span>Keyboard and mouse</p>
+      </div>
+      <p class="get mono fade">For the best of it, download it<span class="gap"></span><a href="https://github.com/lukewam/lukewangdesign-web/releases/download/undertone/UNDERTONE-Windows.zip">Windows</a><span class="sep">·</span><a href="https://github.com/lukewam/lukewangdesign-web/releases/download/undertone/UNDERTONE-Mac.zip">Mac</a></p>
+      <p id="message" class="fade" hidden></p>
+      <div id="phone" class="fade"></div>
+    </div>
   </main>
 
   <section class="card" id="notice" hidden aria-live="polite">
     <p class="bring mono fade">Headphones on<br>Lights off<br>About <span id="minutes">20</span> minutes</p>
     <p class="keys mono fade"><b>W A S D</b> walk<span class="gap"></span><b>Mouse</b> look<span class="gap"></span><b>Scroll</b> distance<span class="gap"></span><b>Tab</b> what to do<span class="gap"></span><b>Esc</b> pause<span class="gap"></span>or a gamepad</p>
-    <p class="get mono fade">For the best of it, download it<span class="gap"></span><a href="https://github.com/lukewam/lukewangdesign-web/releases/download/undertone/UNDERTONE-Windows.zip">Windows</a><span class="sep">·</span><a href="https://github.com/lukewam/lukewangdesign-web/releases/download/undertone/UNDERTONE-Mac.zip">Mac</a></p>
     <p id="noticeError" hidden></p>
     <div class="loading fade"><div class="bar" aria-hidden="true"><i></i></div><div id="note" class="mono"></div></div>
   </section>
@@ -156,9 +203,9 @@
     if (window.webkitAudioContext) window.webkitAudioContext = Made;
   })();
   </script>
-  <script src="tap.js?v=5fdaa798f971"></script>
-  <script src="water.js?v=5fdaa798f971"></script>
-  <script src="Build/9ea3d059e8571d4a16ca1c7686526772.loader.js?v=5fdaa798f971"></script>
+  <script src="tap.js?v=58da1fd18be9"></script>
+  <script src="water.js?v=58da1fd18be9"></script>
+  <script src="Build/9ea3d059e8571d4a16ca1c7686526772.loader.js?v=58da1fd18be9"></script>
   <script>
   (function () {
     "use strict";
@@ -167,6 +214,16 @@
     var begin = document.getElementById("begin"), message = document.getElementById("message");
     var fill = document.querySelector(".bar i"), note = document.getElementById("note");
     var noticeError = document.getElementById("noticeError"), full = document.getElementById("full");
+    // Unity's player takes every key on the page from the moment it has loaded (about a second in), Tab included: on
+    // the cards no one could Tab to Play or the downloads, nor press Enter on them. Until the film plays, Tab, and Enter
+    // or Space on a link or button, stay the page's (registered before Unity's own listeners, so this runs first).
+    ["keydown", "keypress", "keyup"].forEach(function (type) {
+      window.addEventListener(type, function (e) {
+        if (body.classList.contains("playing")) return;
+        var el = document.activeElement, onControl = el && el !== body && /^(A|BUTTON)$/.test(el.tagName);
+        if (e.key === "Tab" || ((e.key === "Enter" || e.key === " ") && onControl)) e.stopImmediatePropagation();
+      }, true);
+    });
     var reduced = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     var FADE = reduced ? 0 : 1200, NOTICE_MIN = reduced ? 2500 : 5500;
     var instance = null, progress = 0, failed = null, begun = false, noticeAt = 0;
@@ -202,13 +259,15 @@
       mark.appendChild(s); letters.push(s);
     }
     function arrive() {
-      // the wordmark letter by letter, each fainter than the one before (the tail of a note), then BEGIN
+      // the scene, and the wordmark letter by letter, each fainter than the one before (the tail of a note). What
+      // there is to do arrives with them, not after them: a visitor decides in the first seconds
+      on(title.querySelector(".scene"));
       letters.forEach(function (s, k) { later(600 + k * 180, function () { s.style.opacity = s.dataset.alpha; }); });
-      later(600 + word.length * 180 + 900, function () {
-        on(begin); on(document.getElementById("back"));
+      [".about", ".act", ".get"].forEach(function (sel, k) { later(700 + k * 220, function () { on(title.querySelector(sel)); }); });
+      later(1400, function () {
+        on(document.getElementById("back"));
         if (!message.hidden) on(message);
         on(document.getElementById("phone"));
-        begin.focus({ preventScroll: true });
       });
     }
     // the typefaces first, so nothing arrives in a stand-in face
@@ -300,12 +359,18 @@
     });
     // a click or a key once the game is ready leaves the notice early (not a click on a download: that only downloads)
     notice.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("a")) return; if (instance && gameReady && Date.now() - noticeAt > 1500) go(); });
-    notice.querySelectorAll(".get a").forEach(function (a) { a.target = "_blank"; a.rel = "noopener"; });
+    document.querySelectorAll(".get a").forEach(function (a) { a.target = "_blank"; a.rel = "noopener"; });
+    var act = title.querySelector(".act");
     document.addEventListener("keydown", function (e) {
       // Tab moves to the download links, and a key on one of them is for the link
       // only Enter or Space, as the game's own cards take them (not Tab, Esc, Alt, F11)
       if (e.key !== "Enter" && e.key !== " ") return;
       if (document.activeElement && document.activeElement.closest && document.activeElement.closest(".get")) return;
+      // on the title, with nothing chosen, Enter or Space plays (Play is not focused at load: a focus ring on arrival
+      // would read as a box around it)
+      if (!begun && !act.hidden && act.classList.contains("on") && (!document.activeElement || document.activeElement === document.body)) {
+        e.preventDefault(); begin.click(); return;
+      }
       if (begun && instance && gameReady && noticeAt && Date.now() - noticeAt > 1500) go();
     });
 
@@ -353,7 +418,7 @@
     var touchOnly = window.matchMedia && matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches;
     // a phone first: it gets the trailer whatever its graphics can do
     if (!touchOnly && !webgl2()) {
-      begin.hidden = true;
+      title.querySelector(".act").hidden = true;   // the download stays: the desktop builds need no WebGL
       message.textContent = "This browser cannot draw the film: it needs WebGL 2. A current Chrome, Edge, Firefox or Safari on a computer can.";
       message.hidden = false;
     } else if (touchOnly) {

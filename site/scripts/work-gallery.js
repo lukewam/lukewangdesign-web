@@ -888,7 +888,13 @@ export function createWorkGallery(
         projectTools.map(localizeText).join(" · "),
         "work-tools",
       );
-    (projectData.links || []).forEach((linkData) => {
+  }
+
+  /** A project's own links (play it, download it, visit it) under its title, in view before the hero, not after the credits. */
+  function appendProjectActions(parentElement, projectData) {
+    if (!projectData.links?.length) return;
+    const projectActions = createElement("div", "work-actions");
+    projectData.links.forEach((linkData) => {
       const projectLink = createElement(
         "a",
         "work-project-link",
@@ -897,8 +903,9 @@ export function createWorkGallery(
       projectLink.href = linkData.url;
       projectLink.target = "_blank";
       projectLink.rel = "noopener noreferrer";
-      parentElement.append(projectLink);
+      projectActions.append(projectLink);
     });
+    parentElement.append(projectActions);
   }
 
   /**
@@ -1159,6 +1166,7 @@ export function createWorkGallery(
       );
     }
     projectOpening.append(projectIntroduction);
+    appendProjectActions(projectDetail, projectData);
     projectDetail.append(projectOpening);
 
     let currentSpread = null;

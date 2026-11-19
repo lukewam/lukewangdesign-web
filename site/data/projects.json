@@ -602,6 +602,13 @@
             "zh": "在浏览器里玩"
           },
           "url": "undertone/"
+        },
+        {
+          "label": {
+            "en": "Download for Windows or Mac",
+            "zh": "下载 Windows 或 Mac 版"
+          },
+          "url": "https://github.com/lukewam/lukewangdesign-web/releases/tag/undertone"
         }
       ],
       "hero_layout": "installation",
