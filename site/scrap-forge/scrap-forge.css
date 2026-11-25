@@ -1,0 +1,217 @@
+/*
+ * Scrap Forge (锻造之王): a rehearsal of the game's Steam page.
+ * Layout follows the site's paper and ink and a small set of rules measured on quiet Japanese craft sites:
+ * small light type, a narrow column, long gaps, unequal picture-and-text pairs, square untouched media,
+ * dense facts gathered at the end in small type. The page itself brings no colour and one movement at a time;
+ * the game's footage brings the rest.
+ */
+@import url("../assets/fonts/noto-sans-sc/font-face.css");
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("../assets/fonts/InstrumentSans-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+:root {
+  --paper: #f5f3ee;
+  --tray: #efece5;
+  --ink: #272923;
+  --ink-2: #4e5249;
+  --ink-3: #62655d;
+  --line: #dcded5;
+  --focus: #686f5b;
+  --edge: clamp(20px, 4.5vw, 65px);
+  --gutter: 30px;
+  --gap-s: 32px;
+  --gap-m: 72px;
+  --gap-l: clamp(120px, 22vh, 220px);
+  --measure: 620px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); color-scheme: light; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-2);
+  font-family: "Instrument Sans", "Helvetica Neue", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+html[lang="zh-CN"] body {
+  font-family: "Instrument Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16.5px;
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+}
+html[lang="en"] { --measure: 620px; }
+html[lang="zh-CN"] { --measure: 660px; }
+/* One language at a time. English is what a browser without scripts sees. */
+html[lang="en"] .zh, html[lang="zh-CN"] .en { display: none !important; }
+a { color: var(--ink); text-decoration-color: var(--line); text-underline-offset: 0.2em; text-decoration-thickness: 1px; transition: color 0.2s ease, text-decoration-color 0.2s ease; }
+a:hover { text-decoration-color: var(--ink-3); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+h1, h2, h3, p, dl, dd, ol, ul, figure { margin: 0; padding: 0; }
+ol, ul { list-style: none; }
+img, video { display: block; width: 100%; height: auto; border-radius: 0; background: var(--tray); }
+
+/* ---- the thin line at the top ---- */
+.top {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 26px var(--edge) 0; font-size: 13px; color: var(--ink-3);
+}
+.top a { text-decoration: none; color: var(--ink-3); }
+.top a:hover { color: var(--ink); }
+.lang { display: flex; gap: 14px; }
+.lang button {
+  font: inherit; color: var(--ink-3); background: none; border: 0; padding: 4px 0; cursor: pointer;
+  border-bottom: 1px solid transparent; transition: color 0.2s ease, border-color 0.2s ease;
+}
+.lang button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink-3); }
+
+/* ---- labels, headings, running text ---- */
+.label {
+  display: block; font-size: 12px; line-height: 1.5; color: var(--ink-3);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+}
+.label.zh { letter-spacing: 0.1em; font-size: 13px; text-transform: none; }
+h1 { font-size: clamp(34px, 3.1vw, 44px); line-height: 1.14; font-weight: 500; color: var(--ink); letter-spacing: -0.03em; }
+h2 { font-size: clamp(24px, 2.1vw, 30px); line-height: 1.25; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+h3 { font-size: 17px; line-height: 1.5; font-weight: 500; color: var(--ink); }
+html[lang="zh-CN"] h1, html[lang="zh-CN"] h2 { letter-spacing: 0.02em; }
+.prose { max-width: var(--measure); }
+.prose p + p { margin-top: 1.1em; }
+.small, figcaption { font-size: 13px; line-height: 1.65; color: var(--ink-3); }
+html[lang="zh-CN"] .small, html[lang="zh-CN"] figcaption { line-height: 1.8; }
+figcaption { margin-top: 14px; max-width: 46em; }
+
+/* ---- a section: media keeps the narrow page edge, words sit further in ---- */
+section { padding: 0 var(--edge); margin-top: var(--gap-l); }
+.indent { margin-left: clamp(0px, 10.5vw, 151px); }
+.band { background: var(--tray); padding-top: var(--gap-m); padding-bottom: var(--gap-m); }
+
+/* ---- first screen: a name, one sentence, one still thing that moves a little ---- */
+.hero { margin-top: clamp(56px, 12vh, 132px); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
+.hero-words { grid-column: 1 / span 4; padding-bottom: 6px; }
+.hero-words h1 { margin-bottom: 22px; }
+.hero-words .line { max-width: 22em; color: var(--ink-2); }
+.hero-facts { margin-top: 34px; }
+.hero-media { grid-column: 6 / span 7; position: relative; }
+/* The one break from the grid: the four characters of the title, set upright beside the picture (Chinese only). */
+.upright { display: none; }
+html[lang="zh-CN"] .upright {
+  display: block; position: absolute; right: calc(100% + 22px); top: 0; writing-mode: vertical-rl;
+  font-size: 28px; line-height: 1; letter-spacing: 0.34em; color: var(--ink); font-weight: 400; white-space: nowrap;
+}
+html[lang="zh-CN"] .hero-words h1 { font-size: 20px; letter-spacing: 0.02em; color: var(--ink-3); font-weight: 400; }
+/* Wide screens show the Chinese name upright; it stays in the heading for anyone not looking at the page. */
+.zh-main { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.zh-sub { display: block; }
+.rehearsal { margin-top: var(--gap-m); max-width: 46em; }
+.contents { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 13px; }
+.contents a { color: var(--ink-3); text-decoration: none; }
+.contents a:hover { color: var(--ink); }
+
+/* ---- film: inset, started by a line of words, never by itself ---- */
+.film { position: relative; }
+.film video { aspect-ratio: 16 / 9; object-fit: cover; background: #252922; }
+.play {
+  margin-top: 14px; font: inherit; font-size: 13px; color: var(--ink); background: none; border: 0; padding: 0; cursor: pointer;
+  border-bottom: 1px solid var(--ink-3);
+}
+.play:hover { border-bottom-color: var(--ink); }
+
+/* ---- screenshots: one wide, two side by side, one wide ---- */
+.shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gutter); }
+.shots figure.wide { grid-column: 1 / -1; }
+.shots img { aspect-ratio: 16 / 9; object-fit: cover; cursor: zoom-in; }
+.shots figcaption { margin-top: 10px; }
+
+/* ---- picture and words, seven columns to four with one left empty; sides alternate ---- */
+.pair { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; margin-top: var(--gap-m); }
+.pair:first-of-type { margin-top: 0; }
+.pair .media { grid-column: 1 / span 7; }
+.pair .words { grid-column: 9 / span 4; }
+.pair.flip .media { grid-column: 6 / span 7; grid-row: 1; }
+.pair.flip .words { grid-column: 1 / span 4; grid-row: 1; }
+.pair .words h3 { font-size: 20px; line-height: 1.35; margin-bottom: 14px; }
+.pair .words p { font-size: 15.5px; line-height: 1.7; }
+html[lang="zh-CN"] .pair .words p { font-size: 15px; line-height: 1.95; }
+.pair video { aspect-ratio: 16 / 9; object-fit: cover; }
+.count { font-variant-numeric: tabular-nums; color: var(--ink-3); font-size: 12px; letter-spacing: 0.12em; display: block; margin-bottom: 10px; }
+
+/* ---- the appendix: everything a store page must say, small and close together ---- */
+.appendix { font-size: 13px; line-height: 1.65; }
+html[lang="zh-CN"] .appendix { font-size: 13.5px; line-height: 1.85; }
+.appendix h2 { margin-bottom: var(--gap-s); }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px var(--gutter); max-width: 1040px; }
+.features { counter-reset: f; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px var(--gutter); max-width: 1040px; }
+.features li { display: grid; grid-template-columns: 2.6em 1fr; }
+.features li::before { counter-increment: f; content: counter(f, decimal-leading-zero); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.features b { font-weight: 500; color: var(--ink); display: block; }
+.facts { border-top: 1px solid var(--line); padding-top: 14px; }
+.facts > div { display: grid; grid-template-columns: 10.5em 1fr; padding: 5px 0; }
+.facts dt { color: var(--ink-3); }
+.facts dd { color: var(--ink); }
+.appendix h3 { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); font-weight: 400; margin-bottom: 14px; }
+html[lang="zh-CN"] .appendix h3 { letter-spacing: 0.1em; text-transform: none; font-size: 13.5px; }
+.disclosure { max-width: var(--measure); font-size: 14px; line-height: 1.7; color: var(--ink-2); }
+html[lang="zh-CN"] .disclosure { line-height: 1.9; }
+.disclosure p + p { margin-top: 1em; }
+.disclosure b { font-weight: 500; color: var(--ink); }
+
+/* ---- how it was made: a column of prose with pictures let in ---- */
+.made h2 { margin-bottom: var(--gap-s); }
+.made .chapter { margin-top: var(--gap-m); }
+.made .chapter:first-of-type { margin-top: 0; }
+.made .chapter h3 { font-size: 20px; line-height: 1.35; margin-bottom: 16px; }
+.made figure { margin-top: var(--gap-s); max-width: 928px; }
+.made figure.narrow { max-width: 620px; }
+.names { margin-top: 26px; border-top: 1px solid var(--line); padding-top: 12px; max-width: 760px; font-size: 13.5px; line-height: 1.6; }
+.names li { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); column-gap: 26px; padding: 6px 0; }
+.names .recipe { color: var(--ink-3); }
+.names .name { color: var(--ink); }
+.names .name i { font-style: normal; color: var(--ink-3); }
+.todo li { padding-left: 1.3em; position: relative; }
+.todo li::before { content: "·"; position: absolute; left: 0.3em; color: var(--ink-3); }
+.todo li + li { margin-top: 0.5em; }
+
+/* ---- the end ---- */
+footer { padding: var(--gap-l) var(--edge) 64px; font-size: 13px; color: var(--ink-3); }
+footer a { color: var(--ink-3); }
+
+/* ---- a picture opened to look at ---- */
+.viewer { position: fixed; inset: 0; background: rgb(39 41 35 / 94%); display: none; align-items: center; justify-content: center; padding: 3vmin; z-index: 10; cursor: zoom-out; }
+.viewer.open { display: flex; }
+.viewer img { width: auto; height: auto; max-width: 100%; max-height: 100%; background: none; }
+
+/* ---- things come in once, slowly; nothing else moves ---- */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 1.4s var(--ease), transform 1.4s var(--ease); }
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* ---- narrow screens: one column, the upright title lies down again ---- */
+@media (max-width: 900px) {
+  .hero { display: block; margin-top: 44px; }
+  .hero-media { margin-top: 40px; }
+  html[lang="zh-CN"] .upright { display: none; }
+  html[lang="zh-CN"] .hero-words h1 { font-size: 32px; color: var(--ink); font-weight: 500; letter-spacing: 0.08em; }
+  .zh-main { position: static; width: auto; height: auto; overflow: visible; clip-path: none; display: block; }
+  .zh-sub { font-size: 15px; font-weight: 400; color: var(--ink-3); letter-spacing: 0; margin-top: 8px; }
+  .indent { margin-left: 0; }
+  .pair, .pair.flip { display: block; }
+  .pair .words { margin-top: 22px; }
+  .cols, .features { grid-template-columns: 1fr; }
+  .names li { grid-template-columns: 1fr; }
+  :root { --gap-m: 56px; --gap-l: 110px; }
+}
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .shots { grid-template-columns: 1fr; }
+  .facts > div { grid-template-columns: 8.5em 1fr; }
+}

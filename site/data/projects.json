@@ -146,7 +146,15 @@
         "Blender",
         "Node.js"
       ],
-      "links": [],
+      "links": [
+        {
+          "label": {
+            "en": "Scrap Forge, the game I am making now: a Steam page rehearsal",
+            "zh": "我现在在做的《锻造之王》：一次 Steam 页面预演"
+          },
+          "url": "scrap-forge/"
+        }
+      ],
       "hero_layout": "game",
       "cover_images": [
         {

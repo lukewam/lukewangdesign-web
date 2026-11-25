@@ -1,18 +1,18 @@
-import { createWorkGallery } from "./work-gallery.js?v=58da1fd18be9";
-import { translations } from "./translations.js?v=58da1fd18be9";
-import { createPortfolioRouter } from "./portfolio-routes.js?v=58da1fd18be9";
+import { createWorkGallery } from "./work-gallery.js?v=9fecd0f5a70e";
+import { translations } from "./translations.js?v=9fecd0f5a70e";
+import { createPortfolioRouter } from "./portfolio-routes.js?v=9fecd0f5a70e";
 import {
   createSectionTransition,
   getBloomProgress,
-} from "./motion/section-transition.js?v=58da1fd18be9";
-import { createNavigationHover } from "./motion/navigation-hover.js?v=58da1fd18be9";
-import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=58da1fd18be9";
-import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=58da1fd18be9";
+} from "./motion/section-transition.js?v=9fecd0f5a70e";
+import { createNavigationHover } from "./motion/navigation-hover.js?v=9fecd0f5a70e";
+import { createLotusPainter } from "./scene/lotus-ascii-painter.js?v=9fecd0f5a70e";
+import { createLotusFallbackRenderer } from "./scene/lotus-fallback-renderer.js?v=9fecd0f5a70e";
 import {
   bloomSettings,
   lotusSceneSettings,
   sectionTransitionSettings,
-} from "./motion/settings.js?v=58da1fd18be9";
+} from "./motion/settings.js?v=9fecd0f5a70e";
 
 /**
  * Connect the portfolio navigation, translations, and animated canvas renderers.
