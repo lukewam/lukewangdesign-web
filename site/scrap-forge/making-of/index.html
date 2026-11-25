@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" class="no-js" data-title-en="Scrap Forge — how it is made · Luke Wang" data-title-zh="锻造之王：它是怎么做的 · Luke Wang">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ee" />
+    <title>Scrap Forge — how it is made · Luke Wang</title>
+    <meta name="description" content="How Scrap Forge (锻造之王) is made: who does what, a small language model at the anvil, one rule for the look, and the checks that stand in for testers." />
+    <link rel="canonical" href="https://lukewangdesign.com/scrap-forge/making-of/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Luke Wang" />
+    <meta property="og:title" content="Scrap Forge — how it is made · Luke Wang" />
+    <meta property="og:description" content="How Scrap Forge (锻造之王) is made: who does what, a small language model at the anvil, one rule for the look, and the checks that stand in for testers." />
+    <meta property="og:url" content="https://lukewangdesign.com/scrap-forge/making-of/" />
+    <meta property="og:image" content="https://lukewangdesign.com/scrap-forge/media/social-v2.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="../scrap-forge.css?v=e91774a8c4a6" />
+  </head>
+  <body class="sub">
+    <header class="top">
+      <a href="../../#work/scrap-forge"><span class="en">← Scrap Forge</span><span class="zh" lang="zh-Hans">← 锻造之王</span></a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false" lang="zh-Hans">中文</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="made" id="made">
+        <span class="label en reveal">How it is made</span>
+        <span class="label zh reveal" lang="zh-Hans">它是怎么做的</span>
+        <div class="indent">
+          <h2 class="en reveal">One person directing, and a lot of machines.</h2>
+          <h2 class="zh reveal" lang="zh-Hans">一个人拿主意，很多机器干活。</h2>
+
+          <div class="chapter reveal">
+            <div class="prose">
+              <p class="en">The first map of Scrap Forge was started on 6 November 2026. I direct the game; I do not write its code. What follows is the AI disclosure at full length: who does what, where a model runs inside the game, and what I did about everything looking generated.</p>
+              <p class="zh" lang="zh-Hans">《锻造之王》的第一张地图是 2026 年 11 月 6 日开工的。我负责拿主意，代码不是我写的。下面是 AI 说明的完整版：谁在做什么，游戏里哪个地方跑着一个模型，以及“看起来全是生成的”这件事我是怎么处理的。</p>
+            </div>
+          </div>
+
+          <div class="chapter reveal">
+            <h3 class="en">Who does what</h3><h3 class="zh" lang="zh-Hans">谁在做什么</h3>
+            <div class="prose">
+              <p class="en">The code is written by coding agents, Claude Code and Codex, working in the same Unity project: 344 C# files so far. I play each build and say what is wrong with it, usually in a sentence or two, and choose when they bring me options. The agents also wrote the Blender scripts that clean and rig the models, the bots that play the game so its numbers can be tuned, and the checks every build has to pass.</p>
+              <p class="zh" lang="zh-Hans">代码由编程代理来写，Claude Code 和 Codex 在同一个 Unity 工程里干活，到现在是 344 个 C# 文件。我玩每一个版本，说哪里不对，通常就一两句话；它们拿出几个方案的时候，由我来挑。清理模型和绑骨用的 Blender 脚本、替我试玩好调数值的机器人、每次构建都必须通过的检查，也都是它们写的。</p>
+              <p class="en">The models come from Tripo. Each one starts as a concept picture, always in three views (a rule I made after a batch built from single views came out badly), becomes a mesh, and then goes through scripts that weld its seams, cut it to a face budget and repaint its texture. Characters are rigged and their moves keyed by script as well.</p>
+              <p class="zh" lang="zh-Hans">模型来自 Tripo。每个模型先有概念图，而且一定是三视图（有一批只用单张图生成的模型效果很差，之后我定了这条规矩），再变成网格，然后交给脚本焊缝、按面数预算减面、重画贴图。角色的绑骨和动作也是脚本做的。</p>
+              <p class="en">The forging sounds are the one place I threw the generated version out entirely. The first ones sounded silly and had no weight, so the hammer, the hiss and the ring are now computed while you play.</p>
+              <p class="zh" lang="zh-Hans">打铁的声音是我唯一把生成版本整个扔掉的地方。最早那批听起来很蠢，没有力量感，所以现在锤声、嘶声和余响都是你玩的时候现算出来的。</p>
+            </div>
+            <figure><img src="../media/made-concept.jpg" data-full="../media/made-concept.jpg" alt="Front, side and back views of the blue otter with an orange scarf" loading="lazy" width="1774" height="887" /><figcaption><span class="en">The otter's concept sheet. Every fix to the model is checked against this picture.</span><span class="zh" lang="zh-Hans">水獭的概念图。模型的每一次修改都要和这张图对一遍。</span></figcaption></figure>
+          </div>
+
+          <div class="chapter reveal">
+            <h3 class="en">A small model at the anvil</h3><h3 class="zh" lang="zh-Hans">铁砧边上的小模型</h3>
+            <div class="prose">
+              <p class="en">When a sword takes a third, fourth or fifth thing, it stops being one of the 231 weapons that were designed in advance. It needs a name and a look. A language model of half a billion parameters, Qwen2.5-0.5B, gives it both, on the player's own processor.</p>
+              <p class="zh" lang="zh-Hans">一把剑熔进第三、第四、第五件东西之后，就不再是事先设计好的那 231 种武器之一了。它需要一个名字，也需要一个样子。这两样由一个只有五亿参数的语言模型 Qwen2.5-0.5B 来给，跑在玩家自己的处理器上。</p>
+              <p class="en">Each fusion is one question: the weapon's present name, the thing just added, and short lists to choose from. The answer names the weapon in both languages, picks two keywords and says where the new thing sits. The keywords are things the game can draw: longer, bent, rusted, frosted, hung with shells, shedding sparks. Each also carries fixed numbers, so a serrated edge always means 15% more damage. The model chooses and names. It never sets a number, and it cannot ask for anything the game cannot show.</p>
+              <p class="zh" lang="zh-Hans">每次熔合就是问它一个问题：武器现在叫什么，刚加进去的是什么，再给几张短短的候选表。它的回答要给出中英两个名字，挑两个关键词，再说新东西装在武器的哪个位置。关键词都是游戏画得出来的：加长、弯曲、生锈、结霜、挂贝壳、冒火花。每个词还带着固定的数值，比如“锯齿”永远是伤害加 15%。模型负责挑和起名，它从不决定数值，也没法要一样游戏画不出来的东西。</p>
+              <p class="en">A model this small is not dependable, and I would rather say so. Over replays of 756 questions, between 58 and 70 names in a hundred pass the checks; the rest are replaced by a name built by rule. It tends to take the first option it is offered, so the lists are turned for every roll. Its English is sometimes odd. All of these came out of the game:</p>
+              <p class="zh" lang="zh-Hans">这么小的模型并不可靠，这一点我宁愿直说。拿 756 个问题反复重放，每一百个名字里有 58 到 70 个能通过检查，其余的换成按规则拼出来的名字。它总爱选列表里的第一项，所以每次都要把列表转一转。它的英文有时很怪。下面这些都是游戏里真实出现过的：</p>
+            </div>
+            <ul class="names">
+              <li><span class="recipe"><span class="en">scrap + bottle, then a lantern</span><span class="zh" lang="zh-Hans">废铁 + 漂流瓶，再加灯笼</span></span><span class="name"><span lang="zh-Hans">灯笼钉船</span> <i>·</i> Hammered Bottle Ship</span></li>
+              <li><span class="recipe"><span class="en">the same recipe, on camera for the loop below</span><span class="zh" lang="zh-Hans">同一个配方，为下面那段循环录的这一次</span></span><span class="name"><span lang="zh-Hans">灯笼船钉</span> <i>·</i> Bottle Nail Ship</span></li>
+              <li><span class="recipe"><span class="en">barrel + lantern, then a coconut, then rope</span><span class="zh" lang="zh-Hans">木桶 + 灯笼，再加椰子、缆绳</span></span><span class="name"><span lang="zh-Hans">缠绳椰子火药桶</span> <i>·</i> Corded Coconut Firecracker</span></li>
+              <li><span class="recipe"><span class="en">the same recipe, rolled again</span><span class="zh" lang="zh-Hans">同一个配方，再来一次</span></span><span class="name"><span lang="zh-Hans">波浪椰香火药桶</span> <i>·</i> Wave Coco Powder</span></li>
+              <li><span class="recipe"><span class="en">and again</span><span class="zh" lang="zh-Hans">再来一次</span></span><span class="name"><span lang="zh-Hans">缠椰子火药桶</span> <i>·</i> Cocoa Powder Bottle</span></li>
+              <li><span class="recipe"><span class="en">scrap + rope, then a lantern</span><span class="zh" lang="zh-Hans">废铁 + 缆绳，再加灯笼</span></span><span class="name"><span lang="zh-Hans">发光捆废铁</span> <i>·</i> Flame Wrapped Scrap</span></li>
+              <li><span class="recipe"><span class="en">rope + lantern, then a bottle</span><span class="zh" lang="zh-Hans">缆绳 + 灯笼，再加漂流瓶</span></span><span class="name"><span lang="zh-Hans">贝壳灯绳</span> <i>·</i> Sea Shell Lamp</span></li>
+              <li><span class="recipe"><span class="en">coconut + rope, then scrap twice (keyword: rusted)</span><span class="zh" lang="zh-Hans">椰子 + 缆绳，再加两次废铁（关键词：生锈）</span></span><span class="name"><span lang="zh-Hans">生锈椰棕绳</span> <i>·</i> Sparkle Coconut Rope</span></li>
+              <li><span class="recipe"><span class="en">Cloudtop: old pick + yak wool, then a gourd</span><span class="zh" lang="zh-Hans">云顶：旧矿镐 + 牦牛毛团，再加雪水葫芦</span></span><span class="name"><span lang="zh-Hans">雪绒花葫芦绳镐</span> <i>·</i> Snowflake Glued Climbing</span></li>
+              <li><span class="recipe"><span class="en">Cloudtop: two lumps of sulphur, then an old pick</span><span class="zh" lang="zh-Hans">云顶：两块硫磺，再加旧矿镐</span></span><span class="name"><span lang="zh-Hans">碎石硫磺</span> <i>·</i> Squelched Sulphur Lumps</span></li>
+            </ul>
+            <div class="prose" style="margin-top: 26px">
+              <p class="en">On the development PC the model starts in one to four seconds and answers in about half a second. I have no numbers for slower machines yet. In a room only the host asks it, and the finished sword travels to everyone else.</p>
+              <p class="zh" lang="zh-Hans">在开发用的电脑上，模型一到四秒启动，大约半秒给出回答。更慢的机器上是什么样，我还没有数据。联机时只有房主去问它，打好的剑再发给其他人。</p>
+            </div>
+            <figure id="made-names-figure"><video data-loop muted loop playsinline preload="none" poster="../media/made-names.jpg"><source src="../media/made-names.mp4" type="video/mp4" /></video><figcaption><span class="en">A lantern goes into a Bottled Ironclad. The panel shows the fusion on offer, and a moment later the name the model gave the result: Bottle Nail Ship.</span><span class="zh" lang="zh-Hans">往瓶中铁甲舰里熔进一盏灯笼。面板先显示这次熔合，片刻之后，顶上换成模型给它起的名字：灯笼船钉（Bottle Nail Ship）。</span></figcaption></figure>
+          </div>
+
+          <div class="chapter reveal">
+            <h3 class="en">Slightly pixel</h3><h3 class="zh" lang="zh-Hans">带一点像素</h3>
+            <div class="prose">
+              <p class="en">Generated models arrive with painted textures that look generated: busy, soft, and each a little different from the next. The first island I put together from them looked crude and cluttered at once. What people call the AI look is, I think, less about tool marks than about not being able to see that anyone made a decision. So the decision had to be visible, and it had to be the same one everywhere.</p>
+              <p class="zh" lang="zh-Hans">生成的模型带着一看就是生成的贴图：又碎又糊，而且每一个都和旁边的不太一样。我用它们拼出来的第一座岛，又简陋又杂乱。大家说的“AI 味”，我觉得关键不在工具留下的痕迹，而在于看不出有人做过决定。所以这个决定得让人看得见，而且到处都得是同一个决定。</p>
+              <p class="en">The rule came from the hearth, which I liked as soon as I saw it. Scenery textures are baked down, smoothed, cut to about twenty flat colours and sampled without filtering, so every rock, crate and palm shows the same small square of paint. Weapons keep their painting, because they are what you look at. The rival smiths are redrawn on one pixel grid per body. Summons are built from cubes about three centimetres across, more pixel than anything else because they are moves and not things. Attack effects are pixel sprites drawn by code, the interface is wood and paper drawn as eight-by-eight textures, and the animals wear twenty layers of fur over a coat sampled the same blunt way. The picture itself is not pixelated. Only the materials are.</p>
+              <p class="zh" lang="zh-Hans">这条规矩是从灶台来的，我第一眼看到它就喜欢。场景的贴图先烘焙、再抹平、压到大约二十种平涂的颜色，采样时不做过滤，于是每块石头、每个箱子、每棵棕榈树上，都是同样大小的一小块颜色。武器保留原来的画法，因为它是你一直盯着看的东西。各位铁匠的贴图按身体大小各自重画在一张像素格上。召唤物用大约三厘米见方的小方块搭成，比别的都更像素，因为它们是招式，不是物件。攻击特效是代码画的像素图，界面是用 8×8 的小贴图画出来的木头和纸，动物身上的毛是二十层壳，底下的皮毛用的是同样不过滤的采样。画面本身并没有像素化，像素化的只有材质。</p>
+            </div>
+            <figure class="narrow"><img src="../media/made-texture.jpg" data-full="../media/made-texture.jpg" alt="A texture sheet shown twice: as generated on the left, reduced to flat colours on the right" loading="lazy" /><figcaption><span class="en">One texture sheet, as it was generated on the left and after the reduction on the right.</span><span class="zh" lang="zh-Hans">同一张贴图：左边是生成出来的样子，右边是压色之后。</span></figcaption></figure>
+            <figure><img src="../media/made-smiths.jpg" data-full="../media/made-smiths.jpg" alt="Concept line-up of the otter beside the rival smiths, by height" loading="lazy" /><figcaption><span class="en">The otter beside the first rival smiths, in the concept line-up I chose from.</span><span class="zh" lang="zh-Hans">水獭和最早几位铁匠的身高对比，这是当时让我挑方案的概念图。</span></figcaption></figure>
+          </div>
+
+          <div class="chapter reveal">
+            <h3 class="en">Checks, proofs and bots</h3><h3 class="zh" lang="zh-Hans">检查、取证和机器人</h3>
+            <div class="prose">
+              <p class="en">Nobody on this project is a tester, so the game tests itself. Before a build is made, its rules are played in a simulation with no picture and the results compared with numbers: twenty groups of checks, 875 of them for the contract rules alone at the last count. Fifty-six command-line flags make the finished game play one part of itself and write screenshots. Bots of several skill levels fight every smith and play whole runs, so that the numbers are roughly right before I sit down.</p>
+              <p class="zh" lang="zh-Hans">这个项目里没有测试员，所以游戏自己测自己。每次构建之前，规则先在一个没有画面的模拟里跑一遍，结果和数字逐条对照：一共二十组检查，光是合同规则这一组，最近一次就有 875 条。另有五十六个命令行开关，能让打好的游戏自己把某一段玩一遍并截图。几种水平的机器人会去挑战每一位铁匠、跑完整局，这样在我坐下来玩之前，数值已经大致靠谱。</p>
+              <p class="en">The trailer was made the same way. A recorder and a small director were added to a private copy of the game: the director plays the seats and moves the camera, the recorder films at sixty frames a second, and a script cuts the takes to the beat of the music.</p>
+              <p class="zh" lang="zh-Hans">预告片也是这样做的：在游戏的一份私有副本里加了一个录像器和一个小导演，导演操控各个座位、移动镜头，录像器按每秒 60 帧录下来，再由脚本按音乐的节拍剪。</p>
+            </div>
+          </div>
+
+          <div class="chapter reveal">
+            <h3 class="en">What is not there yet</h3><h3 class="zh" lang="zh-Hans">还没做到的</h3>
+            <ul class="prose todo">
+              <li><span class="en">There is no Steam app yet. Lobbies, 42 achievements and cloud saves are written, and have only been tried on Valve's test app.</span><span class="zh" lang="zh-Hans">还没有 Steam 应用。大厅、42 个成就和云存档都写好了，但只在 Valve 的测试应用上试过。</span></li>
+              <li><span class="en">Playing over Steam has not been tried between two real accounts.</span><span class="zh" lang="zh-Hans">通过 Steam 联机，还没有在两个真实账号之间试过。</span></li>
+              <li><span class="en">Bots are not people. Co-op, Versus, the King and the newest weapons have had little or no play by humans.</span><span class="zh" lang="zh-Hans">机器人不是人。合作、对战、王，还有最新的那批武器，几乎没有真人玩过。</span></li>
+              <li><span class="en">Nothing has been measured on a slow computer, and nothing has run on a Mac.</span><span class="zh" lang="zh-Hans">慢的电脑上没有任何实测数据，Mac 上一次都没跑过。</span></li>
+              <li><span class="en">I have not yet sat down and approved the sound by ear.</span><span class="zh" lang="zh-Hans">声音我还没有坐下来一条一条听过、点过头。</span></li>
+              <li><span class="en">Cloudtop still borrows the beach's ambience and footsteps.</span><span class="zh" lang="zh-Hans">云顶的环境声和脚步声还是借海滩的。</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p><a href="../../#work/scrap-forge"><span class="en">Back to Scrap Forge</span><span class="zh" lang="zh-Hans">回到锻造之王</span></a> · <a href="../steam-preview/"><span class="en">Steam page rehearsal</span><span class="zh" lang="zh-Hans">Steam 商店页预演</span></a></p>
+    </footer>
+
+    <div class="viewer" tabindex="-1" role="dialog" aria-label="Picture"><figure><img alt="" /><figcaption></figcaption></figure><button type="button" class="step prev" aria-label="Previous picture">←</button><button type="button" class="step next" aria-label="Next picture">→</button><span class="viewer-count" aria-live="polite"></span></div>
+    <script type="module" src="../scrap-forge.js?v=e91774a8c4a6"></script>
+  </body>
+</html>

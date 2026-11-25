@@ -2825,6 +2825,18 @@ body {
   #portfolio-site .work-detail[data-project-id="scrap-forge"] [data-chapter-id="ember-tide"] .work-gallery { grid-template-columns: 1fr; gap: 30px; }
   #portfolio-site .work-detail[data-project-id="scrap-forge"] .work-credit-details { grid-template-columns: 1fr; gap: 18px; }
 }
+/* Scrap Forge: the versus loop runs at full width like a GIF, the two other ways to fight sit under it as a pair;
+   the short board and naming loops stay smaller than the trailer. */
+#portfolio-site .work-detail[data-project-id="scrap-forge"] [data-chapter-id="three-fights"] .work-chapter-evidence { display: grid; gap: 28px; }
+#portfolio-site .work-detail[data-project-id="scrap-forge"] [data-chapter-id="three-fights"] .work-gallery { width: 100%; max-width: none; margin: 0; gap: 24px; }
+#portfolio-site .work-detail[data-project-id="scrap-forge"] :is([data-chapter-id="one-more-strike"], [data-chapter-id="small-model"]) .work-video-gallery { max-width: 800px; }
+#portfolio-site .work-detail[data-project-id="scrap-forge"] [data-chapter-id="one-rule"] .work-gallery { max-width: 880px; }
+/* On a phone the reader learns what the game is and who made it before the film. */
+@container case-study (max-width: 620px) {
+  #portfolio-site .work-detail[data-project-id="scrap-forge"] .work-opening > .work-introduction { grid-row: 1; }
+  #portfolio-site .work-detail[data-project-id="scrap-forge"] .work-opening > .work-video-gallery { grid-row: 2; }
+  #portfolio-site .work-detail[data-project-id="scrap-forge"] [data-chapter-id="three-fights"] .work-gallery { grid-template-columns: 1fr; gap: 28px; }
+}
 /* The film opens the story; equal frames hold time still, then movement closes it. */
 #portfolio-site .panel-content:has(.work-detail[data-project-id="undertone"]:not([hidden])) {
   max-width: 1160px;

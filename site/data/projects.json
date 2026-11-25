@@ -118,8 +118,8 @@
         "zh": "把海滩上的破烂打成一把剑，去挑战巨匠，或者找刚才往你炉子里乱扔东西的朋友算账。"
       },
       "status": {
-        "en": "In development · November 2026",
-        "zh": "开发中 · 2026 年 11 月"
+        "en": "In development for Windows",
+        "zh": "Windows 版开发中"
       },
       "date_range": {
         "start": "2026-11",
@@ -129,13 +129,13 @@
         }
       },
       "role": {
-        "en": "Direction and design",
-        "zh": "拿主意：方向与设计"
+        "en": "Sole developer",
+        "zh": "一人开发"
       },
       "collaborators": [],
       "overview": {
-        "en": "You are an animal blacksmith about knee high, on a beach full of questionable materials. Pick something up, hammer it into a blade, and take that blade into a duel against a smith many times your size. Bring friends to the fight, or give them a reason to fight you. One to four players online, solo, co-op and Versus.",
-        "zh": "你是一只只到别人膝盖高的动物铁匠，海滩上堆满了来路不明的材料。捡一样起来，敲成一把剑，再拿着它去跟比你大好几圈的铁匠比武。可以叫上朋友一起打，也可以让朋友有理由来打你。1–4 人联机，单人、合作与对战。"
+        "en": "A party game for one to four players online: solo, co-op and Versus.",
+        "zh": "1–4 人联机的派对游戏：单人、合作与对战。"
       },
       "tools": [
         "Unity",
@@ -149,10 +149,17 @@
       "links": [
         {
           "label": {
-            "en": "The Steam page rehearsal: trailers, screenshots and how it is made",
-            "zh": "Steam 页面预演：预告片、截图，以及它是怎么做的"
+            "en": "Steam page rehearsal",
+            "zh": "Steam 商店页预演"
           },
-          "url": "scrap-forge/"
+          "url": "scrap-forge/steam-preview/"
+        },
+        {
+          "label": {
+            "en": "How it was made",
+            "zh": "它是怎么做的"
+          },
+          "url": "scrap-forge/making-of/"
         }
       ],
       "hero_layout": "game",
@@ -166,10 +173,10 @@
             "zh": "预告片"
           },
           "caption": {
-            "en": "In-engine footage",
-            "zh": "引擎内实机画面"
+            "en": "In-engine footage; the player scenes are played by scripted seats.",
+            "zh": "引擎内实机画面；玩家之间的场面由脚本操控的角色演出。"
           },
-          "duration": 46,
+          "duration": 48,
           "width": 1920,
           "height": 1080
         }
@@ -178,7 +185,156 @@
         "en": "Forging Party Game",
         "zh": "锻造派对游戏"
       },
-      "sections": []
+      "sections": [
+        {
+          "id": "one-more-strike",
+          "title": {
+            "en": "One more strike?",
+            "zh": "再敲一锤？"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Every point you open on the anvil tells you how many flaws are next to it. Stop and fight with what you have, or strike once more for a better sword, and maybe break it.",
+              "zh": "铁砧上每敲开一点，就知道旁边藏着几处暗伤。见好就收，拿着它去比武；或者再赌一锤，换一把更好的，也可能把它敲碎。"
+            }
+          ],
+          "images": [],
+          "videos": [
+            {
+              "src": "scrap-forge/media/loop-strike.mp4",
+              "poster": "scrap-forge/media/loop-strike.jpg",
+              "title": {
+                "en": "The strike board",
+                "zh": "敲击盘"
+              },
+              "duration": 4,
+              "loop": true,
+              "width": 1280,
+              "height": 720
+            }
+          ]
+        },
+        {
+          "id": "three-fights",
+          "title": {
+            "en": "One sword, three fights",
+            "zh": "一把剑，三种打法"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Fight a giant smith together, sabotage each other, or settle it after the bell.",
+              "zh": "一起打巨匠，互相使坏，或者等钟响了再算账。"
+            }
+          ],
+          "videos": [
+            {
+              "src": "scrap-forge/media/loop-crew.mp4",
+              "poster": "scrap-forge/media/loop-crew.jpg",
+              "title": {
+                "en": "Together: four against Longshanks.",
+                "zh": "合作：四只动物对上长脚。"
+              },
+              "autoplay": true,
+              "loop": true,
+              "width": 1280,
+              "height": 720
+            }
+          ],
+          "media_order": "video-first",
+          "images": [
+            {
+              "src": "scrap-forge/media/shot-06.jpg",
+              "width": 1920,
+              "height": 1080,
+              "caption": {
+                "en": "Sabotage: scrap in somebody else’s sword.",
+                "zh": "捣乱：一块废铁进了别人的剑。"
+              }
+            },
+            {
+              "src": "scrap-forge/media/shot-10.jpg",
+              "width": 1920,
+              "height": 1080,
+              "caption": {
+                "en": "Versus: everyone fights with what they made.",
+                "zh": "对战：每人拿着自己打的东西上场。"
+              }
+            }
+          ],
+          "gallery_layout": "pair"
+        },
+        {
+          "id": "one-rule",
+          "title": {
+            "en": "One rule for the island",
+            "zh": "给岛上的东西定一条规矩"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "What reads as “AI” is not seeing that anyone decided. So every piece of scenery is cut to about twenty flat colours; only the weapons keep their painting.",
+              "zh": "“AI 味”在于看不出有人做过决定。所以场景一律压到约二十种平涂色，只有武器保留原来的画法。"
+            }
+          ],
+          "images": [
+            {
+              "src": "scrap-forge/media/made-texture.jpg",
+              "width": 1600,
+              "height": 800,
+              "caption": {
+                "en": "One texture sheet: as generated, and after the reduction.",
+                "zh": "同一张贴图：生成出来的样子，和压色之后。"
+              }
+            }
+          ],
+          "gallery_layout": "single"
+        },
+        {
+          "id": "small-model",
+          "title": {
+            "en": "A small model at the anvil",
+            "zh": "铁砧边上的小模型"
+          },
+          "layout": "wide",
+          "paragraphs": [
+            {
+              "en": "Swords fused from three or more things are named by a tiny language model on the player’s own computer. It never sets a number.",
+              "zh": "熔进三件以上东西的剑，由跑在玩家自己电脑上的小语言模型起名。它从不决定数值。"
+            }
+          ],
+          "images": [],
+          "videos": [
+            {
+              "src": "scrap-forge/media/made-names.mp4",
+              "poster": "scrap-forge/media/made-names.jpg",
+              "title": {
+                "en": "“Corded Coconut Firecracker”",
+                "zh": "“缠绳椰子火药桶”"
+              },
+              "duration": 5,
+              "loop": true,
+              "width": 1280,
+              "height": 720
+            }
+          ]
+        },
+        {
+          "id": "where-it-stands",
+          "title": {
+            "en": "Where it stands",
+            "zh": "开发现状"
+          },
+          "layout": "text",
+          "paragraphs": [
+            {
+              "en": "I design, play every build and decide. AI made the models, icons, most sounds and the code; the rules, numbers, weapon designs and animation are made by hand.",
+              "zh": "我设计、试玩每个版本、拿主意。模型、图标、大部分音效和代码由 AI 参与制作；规则、数值、武器设计和动画是手工做的。"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "undertone",

@@ -1,0 +1,104 @@
+/*
+ * Scrap Forge: the Steam page rehearsal, laid out in the order a store page is read
+ * (media and capsule first, a short description, facts and tags beside them, then About, requirements and the AI disclosure).
+ * Dark and quiet so the footage carries the colour; the site's own fonts; no store branding, no buy button.
+ */
+:root {
+  --paper: #1e252d;
+  --tray: #262f39;
+  --panel: #27303a;
+  --ink: #e8edf2;
+  --ink-2: #c3ccd5;
+  --ink-3: #8f9baa;
+  --line: #36414d;
+  --focus: #a9c8e2;
+  --link: #a9c8e2;
+}
+html { color-scheme: dark; scroll-behavior: auto; }
+body.store { font-size: 15px; line-height: 1.6; }
+html[lang="zh-CN"] body.store { font-size: 15px; line-height: 1.85; }
+.store a { color: var(--link); text-decoration-color: rgb(169 200 226 / 35%); }
+.store a:hover { text-decoration-color: var(--link); }
+.store .top { max-width: 1000px; margin: 0 auto; padding: 26px 20px 0; }
+
+.store-page { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.store-title { margin-top: 36px; }
+.rehearsal-note { font-size: 13px; color: var(--ink-3); letter-spacing: 0.02em; }
+.store-title h1 { font-size: clamp(28px, 3vw, 36px); line-height: 1.2; margin-top: 6px; color: var(--ink); letter-spacing: -0.02em; }
+html[lang="zh-CN"] .store-title h1 { letter-spacing: 0.06em; }
+
+/* ---- media and capsule, about two to one ---- */
+.store-top { display: grid; grid-template-columns: minmax(0, 616fr) minmax(0, 324fr); gap: 20px; margin-top: 18px; align-items: start; }
+.store-media { min-width: 0; max-width: 100%; }
+.stage { position: relative; aspect-ratio: 16 / 9; background: #0f1317; }
+.stage .film, .stage .film video, .stage-still img { width: 100%; height: 100%; }
+.stage .film video { aspect-ratio: 16 / 9; object-fit: cover; background: #0f1317; }
+.stage-still { height: 100%; }
+.stage-still img { object-fit: cover; background: #0f1317; cursor: zoom-in; }
+.stage-still[hidden], .stage .film[hidden] { display: none; }
+.stage-note, .stage-caption { margin-top: 8px; font-size: 12.5px; line-height: 1.5; color: var(--ink-3); min-height: 1.5em; }
+.stage-still figcaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.strip { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.thumb { position: relative; flex: none; width: 116px; aspect-ratio: 16 / 9; padding: 0; border: 2px solid transparent; background: #0f1317; cursor: pointer; opacity: 0.72; transition: opacity 0.2s ease, border-color 0.2s ease; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; background: none; }
+.thumb:hover, .thumb[aria-current="true"] { opacity: 1; }
+.thumb[aria-current="true"] { border-color: var(--ink-2); }
+.thumb:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.thumb-words { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.thumb-mark { position: absolute; left: 50%; top: 50%; transform: translate(-40%, -50%); border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent rgb(255 255 255 / 90%); filter: drop-shadow(0 1px 4px rgb(0 0 0 / 60%)); }
+
+.store-side .capsule { width: 100%; aspect-ratio: 920 / 430; object-fit: cover; background: #0f1317; }
+.short { margin-top: 14px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.side-facts { margin-top: 16px; font-size: 12.5px; line-height: 1.5; }
+.side-facts > div { display: grid; grid-template-columns: 8.5em 1fr; padding: 2px 0; }
+.side-facts dt { color: var(--ink-3); }
+.side-facts dd { color: var(--link); }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 14px; }
+.tags li { font-size: 12px; line-height: 1.4; padding: 3px 8px; border-radius: 2px; background: #2e3946; color: #b3c7d9; }
+
+/* ---- where a buy box would sit ---- */
+.not-for-sale { margin-top: 28px; padding: 16px 20px; background: var(--panel); border-left: 3px solid #4b5a69; font-size: 14px; color: var(--ink-2); }
+
+/* ---- the long part of the page: About on the left, features and languages on the right ---- */
+.store-body { display: grid; grid-template-columns: minmax(0, 616fr) minmax(0, 324fr); gap: 40px; margin-top: 36px; align-items: start; }
+.store-section { margin: 0; padding: 0; }
+.store-section + .store-section { margin-top: 44px; }
+.store-section h2 { font-size: 13px; line-height: 1.4; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); padding-bottom: 7px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+html[lang="zh-CN"] .store-section h2 { letter-spacing: 0.08em; text-transform: none; font-size: 14px; }
+.store-section h3 { font-size: 15px; line-height: 1.4; font-weight: 500; color: var(--ink); margin: 24px 0 8px; }
+.store-section p { color: var(--ink-2); }
+.store-section video { aspect-ratio: 16 / 9; object-fit: cover; margin: 0 0 10px; background: #0f1317; }
+.store .facts { border-top: 0; padding-top: 0; font-size: 13.5px; }
+.store .facts > div { grid-template-columns: 9em 1fr; padding: 4px 0; border-bottom: 1px solid rgb(54 65 77 / 60%); }
+.store .disclosure { font-size: 14px; color: var(--ink-2); }
+.store .disclosure b { color: var(--ink); }
+.more { margin-top: 14px; font-size: 14px; }
+
+.features-list li { font-size: 13px; line-height: 1.45; padding: 7px 10px; background: var(--panel); color: var(--ink-2); }
+.features-list li + li { margin-top: 2px; }
+.languages { width: 100%; margin-top: 20px; border-collapse: collapse; font-size: 12.5px; color: var(--ink-2); }
+.languages caption { text-align: left; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); padding-bottom: 6px; }
+html[lang="zh-CN"] .languages caption { letter-spacing: 0.06em; text-transform: none; }
+.languages th, .languages td { padding: 5px 4px; border-bottom: 1px solid var(--line); font-weight: 400; }
+.languages thead th { color: var(--ink-3); text-align: center; }
+.languages tbody th { text-align: left; color: var(--ink-2); }
+.languages td { text-align: center; color: var(--ink); }
+.aside-note { margin-top: 8px; font-size: 12.5px; color: var(--ink-3); }
+
+.store footer { max-width: 1000px; margin: 0 auto; padding: 80px 20px 56px; }
+.store .viewer { background: rgb(12 15 19 / 94%); }
+
+/* ---- phones: the name and the one paragraph first, then the media and its strip, then the tags ---- */
+@media (max-width: 760px) {
+  .store-top { display: flex; flex-direction: column; gap: 14px; }
+  .store-side { display: contents; }
+  .store-side .capsule { display: none; }
+  .short { order: -1; margin-top: 0; font-size: 15px; }
+  .store-media { order: 0; }
+  .side-facts { order: 1; margin-top: 0; }
+  .tags { order: 2; margin-top: 0; }
+  .thumb { width: 96px; }
+  .store-body { display: block; margin-top: 28px; }
+  .store-aside { margin-top: 44px; }
+  .store .facts > div { grid-template-columns: 7.5em 1fr; }
+}

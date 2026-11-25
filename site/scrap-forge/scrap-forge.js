@@ -2,10 +2,10 @@
 const root = document.documentElement;
 root.classList.remove("no-js");
 
-// ---- language: the same choice the portfolio keeps for the tab session
+// ---- language: the same choice the portfolio keeps for the tab session; each page names itself in both languages
 const titles = {
-  en: "Scrap Forge — a Steam page rehearsal · Luke Wang",
-  zh: "锻造之王：一次 Steam 页面预演 · Luke Wang",
+  en: root.dataset.titleEn || document.title,
+  zh: root.dataset.titleZh || document.title,
 };
 function setLanguage(code, remember) {
   const zh = code === "zh";
@@ -136,6 +136,45 @@ if (viewer) {
     if (event.key === "Escape") close();
     else if (event.key === "ArrowLeft" && set.length > 1) show(at - 1);
     else if (event.key === "ArrowRight" && set.length > 1) show(at + 1);
+  });
+}
+
+// ---- the store's media: one stage, a strip of the trailer and the screenshots under it; arrows step along the strip
+const storeMedia = document.querySelector(".store-media");
+if (storeMedia) {
+  const film = storeMedia.querySelector(".film");
+  const filmVideo = film.querySelector("video");
+  const stillFigure = storeMedia.querySelector(".stage-still");
+  const stillImage = stillFigure.querySelector("img");
+  const stillWords = stillFigure.querySelector("figcaption");
+  const note = storeMedia.querySelector(".stage-note");
+  const thumbs = Array.from(storeMedia.querySelectorAll(".thumb"));
+  const noteWords = note ? note.innerHTML : "";
+  function pick(thumb) {
+    for (const other of thumbs) other.setAttribute("aria-current", String(other === thumb));
+    if (thumb.dataset.kind === "film") {
+      stillFigure.hidden = true; film.hidden = false;
+      if (note) note.innerHTML = noteWords;
+      return;
+    }
+    if (!filmVideo.paused) filmVideo.pause();
+    film.hidden = true; stillFigure.hidden = false;
+    stillImage.src = thumb.dataset.src;
+    stillImage.dataset.full = thumb.dataset.full;
+    stillImage.alt = thumb.querySelector("img").alt;
+    const words = thumb.querySelector(".thumb-words");
+    stillWords.innerHTML = words ? words.innerHTML : "";
+    if (note) note.innerHTML = words ? words.innerHTML : "";
+  }
+  for (const thumb of thumbs) thumb.addEventListener("click", () => pick(thumb));
+  storeMedia.addEventListener("keydown", (event) => {
+    const thumb = event.target.closest(".thumb");
+    if (!thumb || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+    event.preventDefault();
+    const next = thumbs[(thumbs.indexOf(thumb) + (event.key === "ArrowRight" ? 1 : -1) + thumbs.length) % thumbs.length];
+    next.focus();
+    next.scrollIntoView({ block: "nearest", inline: "nearest" });
+    pick(next);
   });
 }
 
