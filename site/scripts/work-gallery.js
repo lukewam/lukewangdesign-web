@@ -317,13 +317,13 @@ export function createWorkGallery(
     controller: "disaster-defender",
     car: "autonomous-vehicle",
     robot: "zoo-navigator",
-    multiverse: "bound-to-ruin",
+    forge: "scrap-forge",
     fish: "undertone",
     brush: "oil-paintings",
     touchdesigner: "touchdesigner",
   };
   /** Links published under a project's working title, such as those in sent résumés, keep opening it. */
-  const renamedProjectIds = { "ai-multiverse": "bound-to-ruin" };
+  const renamedProjectIds = { "ai-multiverse": "scrap-forge", "bound-to-ruin": "scrap-forge" };
   const completeProjectOrder = [
     ...workArea.querySelectorAll("[data-project-icon]"),
   ].map(

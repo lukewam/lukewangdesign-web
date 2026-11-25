@@ -1,4 +1,4 @@
-// Scrap Forge page: language, slow reveals, one moving picture at a time, a trailer started by a line of words.
+// Scrap Forge page: language, slow reveals, one moving picture at a time, a trailer started by a click on its picture.
 const root = document.documentElement;
 root.classList.remove("no-js");
 
@@ -25,7 +25,7 @@ for (const button of document.querySelectorAll(".lang button")) {
   button.addEventListener("click", () => setLanguage(button.dataset.lang, true));
 }
 
-// ---- the trailer: nothing plays until asked; the control is a line of text under the frame
+// ---- the trailer: nothing plays until asked; the whole picture is the button, then the browser's own controls take over
 function clock(seconds) {
   const whole = Math.round(seconds);
   return Math.floor(whole / 60) + ":" + String(whole % 60).padStart(2, "0");
@@ -35,18 +35,24 @@ function labelPlay(control) {
   if (!video) return;
   const zh = root.lang === "zh-CN";
   const length = Number(video.dataset.seconds || video.duration || 0);
-  const paused = video.paused || video.ended;
-  control.textContent = paused
-    ? (zh ? "播放预告片" : "Play the trailer") + (length ? " · " + clock(length) : "")
-    : (zh ? "暂停" : "Pause");
+  const words = (zh ? (video.dataset.zh || "播放预告片") : (video.dataset.en || "Play the trailer")) + (length ? " · " + clock(length) : "");
+  const label = control.querySelector(".play-words");
+  if (label) label.textContent = words; else control.textContent = words;
+  control.setAttribute("aria-label", words);
 }
 for (const control of document.querySelectorAll(".play")) {
   const video = document.getElementById(control.dataset.for);
   if (!video) continue;
+  const film = control.closest(".film");
   control.addEventListener("click", () => {
-    if (video.paused || video.ended) { stopLoops(); video.controls = true; video.play(); } else video.pause();
+    stopLoops();
+    for (const other of document.querySelectorAll(".film video")) if (other !== video && !other.paused) other.pause();
+    video.controls = true;
+    film.classList.add("is-playing");
+    video.play().catch(() => { film.classList.remove("is-playing"); video.controls = false; });
   });
-  for (const name of ["play", "pause", "ended", "loadedmetadata"]) video.addEventListener(name, () => labelPlay(control));
+  video.addEventListener("ended", () => { film.classList.remove("is-playing"); video.controls = false; video.load(); });
+  video.addEventListener("loadedmetadata", () => labelPlay(control));
 }
 
 // ---- loops: silent, and only the one nearest the middle of the window runs
@@ -54,8 +60,8 @@ const loops = Array.from(document.querySelectorAll("video[data-loop]"));
 const still = window.matchMedia("(prefers-reduced-motion: reduce)");
 function stopLoops() { for (const video of loops) video.pause(); }
 function chooseLoop() {
-  const film = document.querySelector(".film video");
-  if (still.matches || (film && !film.paused && !film.ended)) { stopLoops(); return; }
+  const filmPlaying = Array.from(document.querySelectorAll(".film video")).some((film) => !film.paused && !film.ended);
+  if (still.matches || filmPlaying) { stopLoops(); return; }
   const middle = window.innerHeight / 2;
   let best = null;
   let bestDistance = Infinity;
@@ -90,21 +96,47 @@ if ("IntersectionObserver" in window && !still.matches) {
   for (const element of document.querySelectorAll(".reveal")) element.classList.add("is-in");
 }
 
-// ---- a still opened to look at, closed by a click or Escape
+// ---- a still opened to look at, with its caption; screenshots step with the arrows; closed by a click or Escape
 const viewer = document.querySelector(".viewer");
 if (viewer) {
   const picture = viewer.querySelector("img");
+  const caption = viewer.querySelector("figcaption");
+  const count = viewer.querySelector(".viewer-count");
   let opener = null;
+  let set = [];
+  let at = 0;
+  function show(index) {
+    at = (index + set.length) % set.length;
+    const image = set[at];
+    picture.src = image.dataset.full; picture.alt = image.alt;
+    const words = image.closest("figure")?.querySelector("figcaption");
+    caption.innerHTML = words ? words.innerHTML : "";
+    if (count) count.textContent = set.length > 1 ? (at + 1) + " / " + set.length : "";
+  }
   function close() { viewer.classList.remove("open"); picture.removeAttribute("src"); if (opener) opener.focus(); opener = null; }
   for (const image of document.querySelectorAll("img[data-full]")) {
     image.tabIndex = 0;
     image.setAttribute("role", "button");
-    const open = () => { opener = image; picture.src = image.dataset.full; picture.alt = image.alt; viewer.classList.add("open"); viewer.focus(); };
+    const open = () => {
+      opener = image;
+      const tray = image.closest(".shots");
+      set = tray ? Array.from(tray.querySelectorAll("img[data-full]")) : [image];
+      viewer.classList.toggle("many", set.length > 1);
+      show(set.indexOf(image));
+      viewer.classList.add("open"); viewer.focus();
+    };
     image.addEventListener("click", open);
     image.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); open(); } });
   }
+  viewer.querySelector(".prev")?.addEventListener("click", (event) => { event.stopPropagation(); show(at - 1); });
+  viewer.querySelector(".next")?.addEventListener("click", (event) => { event.stopPropagation(); show(at + 1); });
+  picture.addEventListener("click", (event) => { if (set.length > 1) { event.stopPropagation(); show(at + 1); } });
   viewer.addEventListener("click", close);
-  viewer.addEventListener("keydown", (event) => { if (event.key === "Escape") close(); });
+  viewer.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") close();
+    else if (event.key === "ArrowLeft" && set.length > 1) show(at - 1);
+    else if (event.key === "ArrowRight" && set.length > 1) show(at + 1);
+  });
 }
 
 setLanguage(stored, false);

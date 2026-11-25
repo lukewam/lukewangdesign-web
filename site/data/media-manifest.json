@@ -35,198 +35,6 @@
       }
     ]
   },
-  "assets/films/bound-to-ruin-creature-directions-poster.jpg": {
-    "width": 1920,
-    "height": 1080,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-creature-directions-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-creature-directions-poster-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-creature-directions-poster-1440.webp",
-        "width": 1440
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-creature-progress-poster.jpg": {
-    "width": 1920,
-    "height": 1080,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-creature-progress-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-creature-progress-poster-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-creature-progress-poster-1440.webp",
-        "width": 1440
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-generated-trial-en-poster.jpg": {
-    "width": 1280,
-    "height": 804,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-generated-trial-en-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-generated-trial-en-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-map-style-comparison-r6-mobile-poster.jpg": {
-    "width": 960,
-    "height": 1080,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-mobile-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-mobile-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-map-style-comparison-r6-poster.jpg": {
-    "width": 2560,
-    "height": 720,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-1440.webp",
-        "width": 1440
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-map-style-comparison-r6-poster-2000.webp",
-        "width": 2000
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster.jpg": {
-    "width": 960,
-    "height": 1080,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-monster-style-comparison-r6-poster.jpg": {
-    "width": 2560,
-    "height": 720,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-1440.webp",
-        "width": 1440
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-monster-style-comparison-r6-poster-2000.webp",
-        "width": 2000
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-online-battle-poster.jpg": {
-    "width": 1280,
-    "height": 678,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-online-battle-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-online-battle-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-online-playtest-poster.jpg": {
-    "width": 1280,
-    "height": 720,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-online-playtest-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-online-playtest-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-pve-battle-poster.jpg": {
-    "width": 1280,
-    "height": 682,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-pve-battle-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-pve-battle-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-r6-walkthrough-poster.jpg": {
-    "width": 1280,
-    "height": 720,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-r6-walkthrough-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-r6-walkthrough-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
-  "assets/films/bound-to-ruin-tripo-workshop-en-poster.jpg": {
-    "width": 960,
-    "height": 984,
-    "sources": [
-      {
-        "src": "assets/optimized/films/bound-to-ruin-tripo-workshop-en-poster-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/films/bound-to-ruin-tripo-workshop-en-poster-960.webp",
-        "width": 960
-      }
-    ]
-  },
   "assets/films/disaster-defender-medical-room-poster.jpg": {
     "width": 1024,
     "height": 1024,
@@ -504,122 +312,6 @@
       {
         "src": "assets/optimized/portfolio/autonomous-vehicle/laser-cut-acrylic-platform-2000.webp",
         "width": 2000
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/coastal-temple-r6-panorama.jpg": {
-    "width": 2400,
-    "height": 1350,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-1440.webp",
-        "width": 1440
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/coastal-temple-r6-panorama-2000.webp",
-        "width": 2000
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/ember-tide-v14-courtyard.jpg": {
-    "width": 1440,
-    "height": 1000,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-courtyard-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-courtyard-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-courtyard-1440.webp",
-        "width": 1440
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/ember-tide-v14-gorge.jpg": {
-    "width": 1440,
-    "height": 1000,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-gorge-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-gorge-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-gorge-1440.webp",
-        "width": 1440
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/ember-tide-v14-overview.jpg": {
-    "width": 1600,
-    "height": 1000,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-overview-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-overview-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-overview-1440.webp",
-        "width": 1440
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/ember-tide-v14-panorama.jpg": {
-    "width": 2400,
-    "height": 1350,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-1440.webp",
-        "width": 1440
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/ember-tide-v14-panorama-2000.webp",
-        "width": 2000
-      }
-    ]
-  },
-  "assets/portfolio/bound-to-ruin/monster-forge-ui-en.jpg": {
-    "width": 1440,
-    "height": 900,
-    "sources": [
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/monster-forge-ui-en-480.webp",
-        "width": 480
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/monster-forge-ui-en-960.webp",
-        "width": 960
-      },
-      {
-        "src": "assets/optimized/portfolio/bound-to-ruin/monster-forge-ui-en-1440.webp",
-        "width": 1440
       }
     ]
   },
@@ -2027,6 +1719,34 @@
       }
     ]
   },
+  "assets/work-icons/forge-0.png": {
+    "width": 664,
+    "height": 400,
+    "sources": [
+      {
+        "src": "assets/optimized/work-icons/forge-0-160.webp",
+        "width": 160
+      },
+      {
+        "src": "assets/optimized/work-icons/forge-0-320.webp",
+        "width": 320
+      }
+    ]
+  },
+  "assets/work-icons/forge-1.png": {
+    "width": 664,
+    "height": 400,
+    "sources": [
+      {
+        "src": "assets/optimized/work-icons/forge-1-160.webp",
+        "width": 160
+      },
+      {
+        "src": "assets/optimized/work-icons/forge-1-320.webp",
+        "width": 320
+      }
+    ]
+  },
   "assets/work-icons/robot-0.png": {
     "width": 341,
     "height": 305,
@@ -2080,6 +1800,24 @@
       {
         "src": "assets/optimized/work-icons/rock-1-320.webp",
         "width": 320
+      }
+    ]
+  },
+  "scrap-forge/media/trailer-poster.jpg": {
+    "width": 1920,
+    "height": 1080,
+    "sources": [
+      {
+        "src": "assets/optimized/scrap-forge/media/trailer-poster-480.webp",
+        "width": 480
+      },
+      {
+        "src": "assets/optimized/scrap-forge/media/trailer-poster-960.webp",
+        "width": 960
+      },
+      {
+        "src": "assets/optimized/scrap-forge/media/trailer-poster-1440.webp",
+        "width": 1440
       }
     ]
   }

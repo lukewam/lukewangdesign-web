@@ -1,5 +1,5 @@
-import { clampRange, relaxSpring, smoothStep, smootherStep } from "./easing.js?v=9fecd0f5a70e";
-import { bloomSettings, sectionTransitionSettings } from "./settings.js?v=9fecd0f5a70e";
+import { clampRange, relaxSpring, smoothStep, smootherStep } from "./easing.js?v=bb373a87d8d3";
+import { bloomSettings, sectionTransitionSettings } from "./settings.js?v=bb373a87d8d3";
 
 /**
  * Evaluate the bloom loop, including its closed and open holds.

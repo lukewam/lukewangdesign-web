@@ -108,467 +108,77 @@
       ]
     },
     {
-      "id": "bound-to-ruin",
+      "id": "scrap-forge",
       "title": {
-        "en": "Bound to Ruin",
-        "zh": "灾厄合伙人"
+        "en": "Scrap Forge",
+        "zh": "锻造之王"
       },
       "subtitle": {
-        "en": "Fight the monster. Or be the monster.",
-        "zh": "对抗怪物，也可以成为怪物。"
+        "en": "Forge a blade from beach junk, then fight a giant blacksmith, or the friend who ruined your recipe.",
+        "zh": "把海滩上的破烂打成一把剑，去挑战巨匠，或者找刚才往你炉子里乱扔东西的朋友算账。"
       },
       "status": {
-        "en": "In development · October 2026",
-        "zh": "开发中 · 2026 年 10 月"
+        "en": "In development · November 2026",
+        "zh": "开发中 · 2026 年 11 月"
       },
       "date_range": {
-        "start": "2026-09",
+        "start": "2026-11",
         "label": {
-          "en": "September 2026 – ongoing",
-          "zh": "2026 年 9 月至今"
+          "en": "November 2026 – ongoing",
+          "zh": "2026 年 11 月至今"
         }
       },
       "role": {
-        "en": "Project lead, design & development",
-        "zh": "项目主导、设计与开发"
+        "en": "Direction and design",
+        "zh": "拿主意：方向与设计"
       },
-      "collaborators": [
-        "Tianyang Wang"
-      ],
+      "collaborators": [],
       "overview": {
-        "en": "Three hunters face one player-controlled boss. Each hunter chooses a trait; their combined choices shape an AI-generated monster. Help your friends—or make the fight harder.",
-        "zh": "三名猎人，对抗一名首领玩家。猎人各选一个词条，共同决定 AI 生成的怪物。你可以帮助朋友，也可以让战斗变得更难。"
+        "en": "You are an animal blacksmith about knee high, on a beach full of questionable materials. Pick something up, hammer it into a blade, and take that blade into a duel against a smith many times your size. Bring friends to the fight, or give them a reason to fight you. One to four players online, solo, co-op and Versus.",
+        "zh": "你是一只只到别人膝盖高的动物铁匠，海滩上堆满了来路不明的材料。捡一样起来，敲成一把剑，再拿着它去跟比你大好几圈的铁匠比武。可以叫上朋友一起打，也可以让朋友有理由来打你。1–4 人联机，单人、合作与对战。"
       },
       "tools": [
         "Unity",
         "C#",
-        "Tripo API",
+        "Claude Code",
+        "Codex",
+        "Tripo",
         "Blender",
-        "Node.js"
+        "Qwen2.5-0.5B"
       ],
       "links": [
         {
           "label": {
-            "en": "Scrap Forge, the game I am making now: a Steam page rehearsal",
-            "zh": "我现在在做的《锻造之王》：一次 Steam 页面预演"
+            "en": "The Steam page rehearsal: trailers, screenshots and how it is made",
+            "zh": "Steam 页面预演：预告片、截图，以及它是怎么做的"
           },
           "url": "scrap-forge/"
         }
       ],
       "hero_layout": "game",
-      "cover_images": [
+      "cover_images": [],
+      "cover_videos": [
         {
-          "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-overview.jpg",
-          "width": 1600,
-          "height": 1000,
-          "caption": {
-            "en": "Ember Tide Archive · latest Unity environment preview",
-            "zh": "熔潮圣库 · 最新 Unity 场景预览"
-          }
-        }
-      ],
-      "cover_videos": [],
-      "sections": [
-        {
-          "id": "play-as-hunter",
+          "src": "scrap-forge/media/trailer.mp4",
+          "poster": "scrap-forge/media/trailer-poster.jpg",
           "title": {
-            "en": "Play as a hunter.",
-            "zh": "先从猎人开始。"
-          },
-          "layout": "wide",
-          "paragraphs": [
-            {
-              "en": "Keep your distance, read the boss’s attacks, then find a chance to strike. A solo playtest of the core combat.",
-              "zh": "保持距离，判断首领的攻击，寻找反击机会。先从这段单人实战了解基础战斗。"
-            }
-          ],
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-pve-battle.mp4",
-              "poster": "assets/films/bound-to-ruin-pve-battle-poster.jpg",
-              "title": {
-                "en": "Solo encounter",
-                "zh": "单人首领战"
-              },
-              "caption": {
-                "en": "Gameplay · original boss by Tianyang Wang",
-                "zh": "实际游玩 · 初始首领由 Tianyang Wang 设计制作"
-              },
-              "duration": 65.2,
-              "width": 1280,
-              "height": 682
-            }
-          ],
-          "eyebrow": {
-            "en": "Gameplay",
-            "zh": "游玩实录"
-          }
-        },
-        {
-          "id": "online-play",
-          "title": {
-            "en": "Take the other side.",
-            "zh": "换一边，成为首领。"
-          },
-          "layout": "wide",
-          "paragraphs": [
-            {
-              "en": "One player hunts; the other controls the boss. This online playtest switches between both perspectives.",
-              "zh": "一位玩家扮演猎人，另一位操控首领。这段联机实战切换双方视角，展示两种体验。"
-            }
-          ],
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-online-battle.mp4",
-              "poster": "assets/films/bound-to-ruin-online-battle-poster.jpg",
-              "title": {
-                "en": "Hunter vs. player-controlled boss",
-                "zh": "猎人对抗玩家操控的首领"
-              },
-              "caption": {
-                "en": "Two-player online gameplay · both perspectives · silent",
-                "zh": "双人联机实战 · 双方视角 · 无声"
-              },
-              "duration": 287.7,
-              "width": 1280,
-              "height": 678
-            }
-          ],
-          "eyebrow": {
-            "en": "Online play",
-            "zh": "联机实战"
-          }
-        },
-        {
-          "id": "monster-forge",
-          "title": {
-            "en": "Choose one. Reveal together.",
-            "zh": "各选一个，一起揭晓。"
-          },
-          "layout": "paired",
-          "paragraphs": [
-            {
-              "en": "Choose one of three traits, then reveal everyone’s choices. The interface traces each contribution into a shared monster recipe.",
-              "zh": "从三个词条中选一个，再一起揭晓。界面把每个人的选择带入共同的怪物配方，让贡献清楚可见。"
-            }
-          ],
-          "images": [
-            {
-              "src": "assets/portfolio/bound-to-ruin/monster-forge-ui-en.jpg",
-              "width": 1440,
-              "height": 900,
-              "caption": {
-                "en": "Monster Forge · English UI mockup / prototype state",
-                "zh": "怪物熔炉 · 英文 UI mockup／原型界面"
-              }
-            }
-          ],
-          "gallery_layout": "single",
-          "eyebrow": {
-            "en": "Interface study",
-            "zh": "界面研究"
-          }
-        },
-        {
-          "id": "creature-generation",
-          "title": {
-            "en": "From form to motion.",
-            "zh": "从外形，到动作。"
-          },
-          "layout": "paired",
-          "paragraphs": [
-            {
-              "en": "Generated mesh, skeleton, movement, then an in-scene encounter. The current production pipeline, with shared per-round generation still being connected.",
-              "zh": "生成模型、骨架、动作，再到场景内遭遇。短片展示当前制作流程，每轮共享实时生成仍在接入。"
-            }
-          ],
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-creature-progress.mp4",
-              "poster": "assets/films/bound-to-ruin-creature-progress-poster.jpg",
-              "title": {
-                "en": "Creature-generation progress",
-                "zh": "怪物生成进展"
-              },
-              "caption": {
-                "en": "Edited prototype footage · model, rig and NPC encounter",
-                "zh": "原型演示剪辑 · 模型、骨架与 NPC 遭遇"
-              },
-              "duration": 35.4,
-              "width": 1920,
-              "height": 1080
-            }
-          ],
-          "eyebrow": {
-            "en": "Creature pipeline",
-            "zh": "怪物制作"
-          },
-          "spread": "creature-studies"
-        },
-        {
-          "id": "combat-directions",
-          "title": {
-            "en": "Three ways to fight.",
-            "zh": "三种战斗性格。"
-          },
-          "layout": "paired",
-          "paragraphs": [
-            {
-              "en": "Fast slashes, ice and lava, electric arcs. Three authored combat studies explore how creature traits could change a fight.",
-              "zh": "快斩、冰与熔岩、电弧。三组制作的战斗研究，探索怪物词条如何改变一场对抗。"
-            }
-          ],
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-creature-directions.mp4",
-              "poster": "assets/films/bound-to-ruin-creature-directions-poster.jpg",
-              "title": {
-                "en": "Three creature directions",
-                "zh": "三种怪物方向"
-              },
-              "caption": {
-                "en": "Combat / VFX mockup · authored effects, not generated skills",
-                "zh": "战斗与特效 mockup · 人工编排效果，非自动生成技能"
-              },
-              "duration": 30.8,
-              "width": 1920,
-              "height": 1080
-            }
-          ],
-          "eyebrow": {
-            "en": "Combat mockup",
-            "zh": "战斗效果研究"
-          },
-          "spread": "creature-studies"
-        },
-        {
-          "id": "ember-tide",
-          "title": {
-            "en": "One world, two ways of seeing.",
-            "zh": "同一世界，两种观看方式。"
-          },
-          "layout": "wide",
-          "gallery_layout": "default",
-          "paragraphs": [
-            {
-              "en": "Low poly R6 builds the coast from broad facets and clear silhouettes. V14 explores carved stone, weathered bronze and richer surface detail. Compare their light, scale and atmosphere along two camera tours.",
-              "zh": "Low poly R6 用大块面与清晰轮廓构建海岸；V14 则探索雕刻石材、风化青铜与更丰富的材质细节。跟随两条镜头路线，比较光影、尺度与氛围。"
-            }
-          ],
-          "images": [
-            {
-              "src": "assets/portfolio/bound-to-ruin/coastal-temple-r6-panorama.jpg",
-              "width": 2400,
-              "height": 1350,
-              "label": {
-                "en": "Low poly · R6",
-                "zh": "Low poly · R6"
-              },
-              "caption": {
-                "en": "Faceted cliffs, warm stone and a flowing lava gorge.",
-                "zh": "多面峭壁、暖色石材与流动的熔岩峡谷。"
-              }
-            },
-            {
-              "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-panorama.jpg",
-              "width": 2400,
-              "height": 1350,
-              "label": {
-                "en": "Detailed · V14",
-                "zh": "细节材质 · V14"
-              },
-              "caption": {
-                "en": "Carved surfaces, weathered ruins and reflective water.",
-                "zh": "雕刻表面、风化遗迹与反射水面。"
-              }
-            }
-          ],
-          "eyebrow": {
-            "en": "Environment / Style comparison",
-            "zh": "场景探索 / 风格对比"
-          },
-          "media_order": "video-first",
-          "videos": [
-            {
-              "src": "assets/films/bound-to-ruin-map-style-comparison-r6.mp4",
-              "poster": "assets/films/bound-to-ruin-map-style-comparison-r6-poster.jpg",
-              "width": 2560,
-              "height": 720,
-              "duration": 48,
-              "title": {
-                "en": "Two coastal worlds, side by side",
-                "zh": "并行穿行，两种海岸"
-              },
-              "caption": {
-                "en": "Unity camera tours · independent environment studies · silent",
-                "zh": "Unity 场景镜头漫游 · 独立美术实验 · 无声"
-              },
-              "comparison_labels": [
-                {
-                  "en": "Low poly · R6",
-                  "zh": "Low poly · R6"
-                },
-                {
-                  "en": "Detailed · V14",
-                  "zh": "细节材质 · V14"
-                }
-              ],
-              "mobile": {
-                "src": "assets/films/bound-to-ruin-map-style-comparison-r6-mobile.mp4",
-                "poster": "assets/films/bound-to-ruin-map-style-comparison-r6-mobile-poster.jpg",
-                "width": 960,
-                "height": 1080
-              }
-            }
-          ]
-        }
-      ],
-      "process_videos": [
-        {
-          "src": "assets/films/bound-to-ruin-monster-style-comparison-r6.mp4",
-          "poster": "assets/films/bound-to-ruin-monster-style-comparison-r6-poster.jpg",
-          "width": 2560,
-          "height": 720,
-          "duration": 24,
-          "title": {
-            "en": "Creatures in both worlds",
-            "zh": "两种世界中的怪物"
+            "en": "Trailer",
+            "zh": "预告片"
           },
           "caption": {
-            "en": "Staged model and motion comparison · existing walk animations · no combat",
-            "zh": "模型与动作的场景摆拍对比 · 现有行走动画 · 非战斗实录"
+            "en": "In-engine footage",
+            "zh": "引擎内实机画面"
           },
-          "comparison_labels": [
-            {
-              "en": "Low poly · R6",
-              "zh": "Low poly · R6"
-            },
-            {
-              "en": "Detailed · V14",
-              "zh": "细节材质 · V14"
-            }
-          ],
-          "mobile": {
-            "src": "assets/films/bound-to-ruin-monster-style-comparison-r6-mobile.mp4",
-            "poster": "assets/films/bound-to-ruin-monster-style-comparison-r6-mobile-poster.jpg",
-            "width": 960,
-            "height": 1080
-          }
-        },
-        {
-          "src": "assets/films/bound-to-ruin-r6-walkthrough.mp4",
-          "poster": "assets/films/bound-to-ruin-r6-walkthrough-poster.jpg",
-          "width": 1280,
-          "height": 720,
-          "duration": 28,
-          "title": {
-            "en": "Coastal Temple / R6",
-            "zh": "海岸神殿 / R6"
-          },
-          "caption": {
-            "en": "Fresh Unity runtime capture · automated traversal · edited excerpts",
-            "zh": "重新录制 Unity 实机画面 · 自动行走 · 片段剪辑"
-          }
-        },
-        {
-          "src": "assets/films/bound-to-ruin-online-playtest.mp4",
-          "poster": "assets/films/bound-to-ruin-online-playtest-poster.jpg",
-          "title": {
-            "en": "Online playtest",
-            "zh": "联机试玩"
-          },
-          "caption": {
-            "en": "Early two-player gameplay prototype",
-            "zh": "早期双人联机游玩原型"
-          },
-          "duration": 30,
-          "width": 1280,
-          "height": 720
-        },
-        {
-          "src": "assets/films/bound-to-ruin-generated-trial-en.mp4",
-          "poster": "assets/films/bound-to-ruin-generated-trial-en-poster.jpg",
-          "title": {
-            "en": "A generated creature, in Unity",
-            "zh": "生成怪物进入 Unity"
-          },
-          "caption": {
-            "en": "Earlier generated-creature gameplay trial",
-            "zh": "较早的生成怪物实机试玩"
-          },
-          "duration": 18,
-          "width": 1280,
-          "height": 804
-        },
-        {
-          "src": "assets/films/bound-to-ruin-tripo-workshop-en.mp4",
-          "poster": "assets/films/bound-to-ruin-tripo-workshop-en-poster.jpg",
-          "title": {
-            "en": "Inside the generation workshop",
-            "zh": "生成工坊"
-          },
-          "caption": {
-            "en": "Earlier generation-workshop recording",
-            "zh": "较早的生成工坊录像"
-          },
-          "duration": 16,
-          "width": 960,
-          "height": 984
-        }
-      ],
-      "process_images": [
-        {
-          "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-courtyard.jpg",
-          "width": 1440,
-          "height": 1000,
-          "caption": {
-            "en": "Carved stone, weathered bronze.",
-            "zh": "雕刻石材与风化青铜。"
-          }
-        },
-        {
-          "src": "assets/portfolio/bound-to-ruin/ember-tide-v14-gorge.jpg",
-          "width": 1440,
-          "height": 1000,
-          "caption": {
-            "en": "The crossing, seen from below.",
-            "zh": "从桥下看穿行的路径。"
-          }
+          "duration": 46,
+          "width": 1920,
+          "height": 1080
         }
       ],
       "index_subtitle": {
-        "en": "AI Model-Driven Game",
-        "zh": "AI 模型驱动游戏"
+        "en": "Forging Party Game",
+        "zh": "锻造派对游戏"
       },
-      "process_note": {
-        "en": "Staged creature comparisons, a fresh R6 walk, earlier prototypes and additional V14 views. The environment studies remain separate from the core gameplay above.",
-        "zh": "补充怪物场景对比、新录 R6 行走、早期原型与 V14 视角。场景美术实验，和上方的核心游玩实录分别展示。"
-      },
-      "credits": [
-        {
-          "en": "Luke Wang — All other project work: concept, game design and systems, hunter character, environments, UI, networking, AI creature generation, development and integration.",
-          "zh": "Luke Wang — 除下述两项外的全部项目工作：项目概念、玩法与系统、猎人角色、场景地图、UI、联机、AI 怪物生成、开发与整合。"
-        },
-        {
-          "en": "Tianyang Wang — Original boss, Thorncage Marquis: design and creation. Battle music selection, using Suno-generated music.",
-          "zh": "Tianyang Wang — 初始首领「棘笼侯爵」的设计与制作；战斗音乐选曲（Suno 生成音乐）。"
-        }
-      ],
-      "attribution": {
-        "en": "Tianyang Wang: original boss design and creation, and battle music selection. All other design and development: Luke Wang.",
-        "zh": "Tianyang Wang：初始首领的设计与制作、战斗音乐选曲。其余设计与开发全部由 Luke Wang 完成。"
-      },
-      "opening_link": {
-        "chapter": "play-as-hunter",
-        "label": {
-          "en": "Watch gameplay ↓",
-          "zh": "观看实战 ↓"
-        },
-        "detail": {
-          "en": "1:05 · Solo boss fight",
-          "zh": "1:05 · 单人首领战"
-        }
-      }
+      "sections": []
     },
     {
       "id": "undertone",

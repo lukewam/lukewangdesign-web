@@ -18,11 +18,11 @@
       content="Forge a blade from beach junk, then fight a giant blacksmith, or the friend who ruined your recipe."
     />
     <meta property="og:url" content="https://lukewangdesign.com/scrap-forge/" />
-    <meta property="og:image" content="https://lukewangdesign.com/scrap-forge/media/social.jpg" />
+    <meta property="og:image" content="https://lukewangdesign.com/scrap-forge/media/social-v2.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="stylesheet" href="scrap-forge.css?v=9fecd0f5a70e" />
+    <link rel="stylesheet" href="scrap-forge.css?v=bb373a87d8d3" />
   </head>
   <body>
     <header class="top">
@@ -47,7 +47,7 @@
         </div>
         <div class="hero-media">
           <span class="upright" lang="zh-Hans" aria-hidden="true">锻造之王</span>
-          <video data-loop muted loop playsinline preload="metadata" poster="media/hero.jpg" aria-label="A short silent loop from the game">
+          <video data-loop muted loop playsinline preload="metadata" poster="media/hero-loop.jpg" aria-label="A short silent loop from the game">
             <source src="media/hero-loop.mp4" type="video/mp4" />
           </video>
         </div>
@@ -58,8 +58,8 @@
         <p class="rehearsal small zh" lang="zh-Hans">这一页是游戏 Steam 页面的预演：预告片、截图、介绍，还有商店要求写清楚的那些说明，在真正上架之前先排一遍。再往下是这款游戏是怎么做出来的。现在还没有任何东西在卖。</p>
         <nav class="contents" aria-label="On this page">
           <a href="#trailer"><span class="en">Trailer</span><span class="zh" lang="zh-Hans">预告片</span></a>
-          <a href="#screenshots"><span class="en">Screenshots</span><span class="zh" lang="zh-Hans">截图</span></a>
           <a href="#about"><span class="en">About this game</span><span class="zh" lang="zh-Hans">关于这款游戏</span></a>
+          <a href="#screenshots"><span class="en">Screenshots</span><span class="zh" lang="zh-Hans">截图</span></a>
           <a href="#details"><span class="en">Details and disclosures</span><span class="zh" lang="zh-Hans">规格与说明</span></a>
           <a href="#made"><span class="en">How it is made</span><span class="zh" lang="zh-Hans">它是怎么做的</span></a>
         </nav>
@@ -69,33 +69,14 @@
       <section id="trailer">
         <span class="label en reveal">Trailer</span>
         <span class="label zh reveal" lang="zh-Hans">预告片</span>
-        <div class="film reveal">
-          <video id="trailer-film" preload="none" playsinline poster="media/trailer-poster.jpg" data-seconds="46">
+        <div class="film reveal" id="film-party">
+          <video id="trailer-film" preload="none" playsinline poster="media/trailer-poster.jpg" data-seconds="48" data-en="Play the trailer" data-zh="播放预告片">
             <source src="media/trailer.mp4" type="video/mp4" />
           </video>
-          <button class="play" type="button" data-for="trailer-film">Play the trailer</button>
+          <button class="play" type="button" data-for="trailer-film"><span class="play-mark" aria-hidden="true"></span><span class="play-words">Play the trailer</span></button>
         </div>
-        <p class="small indent en reveal" style="margin-top: 26px; max-width: 46em">Recorded inside the game at 1080p, sixty frames a second. The sound effects are what the game played during each take, and the music is the game's own battle theme, laid under the cut. The scenes between players are staged: scripted seats play the four animals the way friends would. The edit added the cuts, a closer crop on three of those scenes, and three lines of words.</p>
-        <p class="small indent zh reveal" lang="zh-Hans" style="margin-top: 26px; max-width: 46em">全部在游戏里录制，1080p、每秒 60 帧。音效是录制时游戏自己发出的，音乐是游戏里的战斗曲，剪辑时铺在下面。玩家之间打闹的几段是编排出来的：四只动物由脚本操控，照着朋友之间会怎么玩来演。后期只做了剪辑，把其中三段画面裁近了一些，加了三行字。</p>
-      </section>
-
-      <section id="screenshots">
-        <span class="label en reveal">Screenshots</span>
-        <span class="label zh reveal" lang="zh-Hans">截图</span>
-        <div class="shots" id="shots">
-          <figure class="wide reveal"><img src="media/shot-01-960.jpg" srcset="media/shot-01-960.jpg 960w, media/shot-01.jpg 1920w" sizes="(max-width: 600px) 100vw, 92vw" data-full="media/shot-01.jpg" alt="From behind a small blue otter holding a cannon: a giant smith raises her sword" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">A duel with Ironmane, the first of the rival smiths, seen as the player sees it.</span><span class="zh" lang="zh-Hans">和第一位铁匠铁鬃比武，这是玩家自己看到的画面。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-02-960.jpg" srcset="media/shot-02-960.jpg 960w, media/shot-02.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-02.jpg" alt="The otter carries a barrel over its head along the shore" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">A barrel on its way to the forge.</span><span class="zh" lang="zh-Hans">一只木桶，正在去炉子的路上。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-03-960.jpg" srcset="media/shot-03-960.jpg 960w, media/shot-03.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-03.jpg" alt="A sword on the anvil covered with a grid of numbered strike points" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">The strike board, laid over the sword&#x27;s own outline.</span><span class="zh" lang="zh-Hans">敲击点铺在剑自己的轮廓上。</span></figcaption></figure>
-          <figure class="wide reveal"><img src="media/shot-04-960.jpg" srcset="media/shot-04-960.jpg 960w, media/shot-04.jpg 1920w" sizes="(max-width: 600px) 100vw, 92vw" data-full="media/shot-04.jpg" alt="Four animals hammering at four forges by the sea" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Versus: four smiths, four anvils, one clock.</span><span class="zh" lang="zh-Hans">对战：四位铁匠，四座铁砧，一个倒计时。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-05-960.jpg" srcset="media/shot-05-960.jpg 960w, media/shot-05.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-05.jpg" alt="A red mouse swings at a blue otter standing at its anvil" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">The mouse has left its own work to see to the otter&#x27;s.</span><span class="zh" lang="zh-Hans">老鼠放下自己的活，来“关照”水獭的。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-06-960.jpg" srcset="media/shot-06-960.jpg 960w, media/shot-06.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-06.jpg" alt="A mouse stands by a rabbit&#x27;s anvil as the sword on it bursts into a new shape" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">A piece of scrap has just gone into somebody else&#x27;s sword.</span><span class="zh" lang="zh-Hans">一块废铁刚刚进了别人的剑里。</span></figcaption></figure>
-          <figure class="wide reveal"><img src="media/shot-07-960.jpg" srcset="media/shot-07-960.jpg 960w, media/shot-07.jpg 1920w" sizes="(max-width: 600px) 100vw, 92vw" data-full="media/shot-07.jpg" alt="Four small animals face a huge blue storm beast in a rocky cove" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Four against Goldhorn, who keeps the King&#x27;s door.</span><span class="zh" lang="zh-Hans">四只动物对上替王看门的金角。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-08-960.jpg" srcset="media/shot-08-960.jpg 960w, media/shot-08.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-08.jpg" alt="The otter stands with its hammer beside a red cannon far bigger than itself, resting on the anvil" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Three things later, the sword on the anvil is an Old Ship Cannon.</span><span class="zh" lang="zh-Hans">加了三样东西之后，砧上的那把剑成了一门老舰炮。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-09-960.jpg" srcset="media/shot-09-960.jpg 960w, media/shot-09.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-09.jpg" alt="The otter swings a knitted pink octopus at a giant&#x27;s boots, leaving a pink ring on the sand" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">The Yarn Octopus, one of 231 weapons, on the practice sand.</span><span class="zh" lang="zh-Hans">毛线八爪鱼，231 种武器里的一种，在沙滩上试招。</span></figcaption></figure>
-          <figure class="wide reveal"><img src="media/shot-10-960.jpg" srcset="media/shot-10-960.jpg 960w, media/shot-10.jpg 1920w" sizes="(max-width: 600px) 100vw, 92vw" data-full="media/shot-10.jpg" alt="Four animals at snow-covered forges on a mountain top above clouds" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Cloudtop, the second map, above a sea of cloud.</span><span class="zh" lang="zh-Hans">第二张地图云顶，脚下是一片云海。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-11-960.jpg" srcset="media/shot-11-960.jpg 960w, media/shot-11.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-11.jpg" alt="A badger with a small stoat on its shoulders stands over a red warning ring" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">The Anvil Twins fight as one smith.</span><span class="zh" lang="zh-Hans">锤砧两位，是当成一位铁匠来打的。</span></figcaption></figure>
-          <figure class="reveal"><img src="media/shot-12-960.jpg" srcset="media/shot-12-960.jpg 960w, media/shot-12.jpg 1920w" sizes="(max-width: 600px) 100vw, 46vw" data-full="media/shot-12.jpg" alt="Animals with oversized weapons fighting on the beach" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">After the bell, everyone fights with what came off their anvil.</span><span class="zh" lang="zh-Hans">钟响之后，每个人都拿着自己刚打出来的东西上场。</span></figcaption></figure>
-        </div>
+        <p class="small indent en reveal" style="margin-top: 26px; max-width: 46em">The film was recorded inside the game at 1080p, sixty frames a second, and cut frame by frame to its music. The sound effects are what the game played during each take; the music was generated for the film with ElevenLabs Music at a fixed tempo of 120 beats a minute, and every cut sits on its beat. The scenes between players are staged: scripted seats play the four animals the way friends would.</p>
+        <p class="small indent zh reveal" lang="zh-Hans" style="margin-top: 26px; max-width: 46em">片子在游戏里录制，1080p、每秒 60 帧，再按音乐逐帧剪。音效是录制时游戏自己发出的；音乐是用 ElevenLabs Music 为这支片单独生成的，速度固定在每分钟 120 拍，每一刀都落在拍子上。玩家之间打闹的几段是编排出来的：四只动物由脚本操控，照着朋友之间会怎么玩来演。</p>
       </section>
 
       <section id="about">
@@ -167,6 +148,26 @@
         </div>
       </section>
 
+      <section id="screenshots">
+        <span class="label en reveal">Screenshots</span>
+        <span class="label zh reveal" lang="zh-Hans">截图</span>
+        <div class="shots" id="shots">
+          <figure class="reveal"><img src="media/shot-01-960.jpg" srcset="media/shot-01-960.jpg 960w, media/shot-01.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-01.jpg" alt="Four small animals with oversized weapons fight a tall heron smith on a snowy plateau" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Four against Longshanks on Cloudtop, above the sea of cloud.</span><span class="zh" lang="zh-Hans">四只动物在云顶对上长脚，脚下是一片云海。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-02-960.jpg" srcset="media/shot-02-960.jpg 960w, media/shot-02.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-02.jpg" alt="The blue otter carries a barrel over its head along the shore" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">A barrel on its way to the forge.</span><span class="zh" lang="zh-Hans">一只木桶，正在去炉子的路上。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-03-960.jpg" srcset="media/shot-03-960.jpg 960w, media/shot-03.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-03.jpg" alt="A glowing strike board laid over a powder-keg sword, with the word Godforge" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Godforge: the strike board with every safe point opened in a row.</span><span class="zh" lang="zh-Hans">神锻：敲击盘上的安全点一口气全敲开了。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-04-960.jpg" srcset="media/shot-04-960.jpg 960w, media/shot-04.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-04.jpg" alt="Four animals at four snow-covered forges on a mountain top" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Versus on Cloudtop: four smiths, four anvils, one clock.</span><span class="zh" lang="zh-Hans">云顶对战：四位铁匠，四座铁砧，一个倒计时。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-05-960.jpg" srcset="media/shot-05-960.jpg 960w, media/shot-05.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-05.jpg" alt="A red mouse beside a blue otter at the otter&#x27;s anvil on the beach" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">The mouse has left its own work to see to the otter&#x27;s.</span><span class="zh" lang="zh-Hans">老鼠放下自己的活，来“关照”水獭的。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-06-960.jpg" srcset="media/shot-06-960.jpg 960w, media/shot-06.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-06.jpg" alt="A mouse walks away from a hedgehog&#x27;s anvil as the sword on it turns into something else" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">A piece of scrap has just gone into somebody else&#x27;s sword.</span><span class="zh" lang="zh-Hans">一块废铁刚刚进了别人的剑里。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-07-960.jpg" srcset="media/shot-07-960.jpg 960w, media/shot-07.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-07.jpg" alt="A huge blue horned smith charges four small animals on the sand" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Four against Goldhorn, who keeps the King&#x27;s door.</span><span class="zh" lang="zh-Hans">四只动物对上替王看门的金角。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-08-960.jpg" srcset="media/shot-08-960.jpg 960w, media/shot-08.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-08.jpg" alt="The otter raises its hammer beside a ship&#x27;s cannon far bigger than itself on the anvil" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Three things later, the sword on the anvil is an Old Ship Cannon.</span><span class="zh" lang="zh-Hans">加了三样东西之后，砧上的那把剑成了一门老舰炮。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-09-960.jpg" srcset="media/shot-09-960.jpg 960w, media/shot-09.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-09.jpg" alt="The otter hammers at a snowy stone forge; a weapon topped by a giant snowball stands on the anvil" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">A Cloudtop anvil, and a hammer made of a snowball.</span><span class="zh" lang="zh-Hans">云顶的铁砧上，一把雪球做的锤子。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-10-960.jpg" srcset="media/shot-10-960.jpg 960w, media/shot-10.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-10.jpg" alt="Animals with strange weapons brawl on a snowy plateau" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">After the bell, everyone fights with what came off their anvil.</span><span class="zh" lang="zh-Hans">钟响之后，每个人都拿着自己刚打出来的东西上场。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-11-960.jpg" srcset="media/shot-11-960.jpg 960w, media/shot-11.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-11.jpg" alt="A giant horned smith seen from below between the animals, with a dialogue box" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Every smith comes with a challenge, and something to say about the King.</span><span class="zh" lang="zh-Hans">每位铁匠都带着一道挑战来，也都会说起锻造之王。</span></figcaption></figure>
+          <figure class="reveal"><img src="media/shot-12-960.jpg" srcset="media/shot-12-960.jpg 960w, media/shot-12.jpg 1920w" sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw" data-full="media/shot-12.jpg" alt="A pixel picture of a pangolin smith at a seaside forge, with a dialogue box" width="1920" height="1080" loading="lazy" /><figcaption><span class="en">Day one: the teacher at the forge.</span><span class="zh" lang="zh-Hans">第一天：炉边的师傅。</span></figcaption></figure>
+        </div>
+      </section>
+
+
       <!-- 急: what a store page has to say, small and close together -->
       <section class="appendix band" id="details">
         <h2 class="en">Details and disclosures</h2><h2 class="zh" lang="zh-Hans">规格与说明</h2>
@@ -213,8 +214,8 @@
         <div style="margin-top: var(--gap-m)">
           <h3 class="en">AI-generated content</h3><h3 class="zh" lang="zh-Hans">AI 生成内容说明</h3>
           <div class="disclosure">
-            <p class="en"><b>Made with AI before you play.</b> The 3D models (scenery, weapons, the four animals and the rival smiths) begin as generated concept pictures and are turned into meshes with Tripo; scripts then weld them, cut them down, redo their textures and rig them. Item icons, achievement icons, the app icon and the story pictures are generated images cut down to one small palette. Most sound effects and the one music loop are generated with ElevenLabs and processed by script. The code, the in-game text and both languages of it were written by AI coding agents (Claude Code and Codex) working to my direction.</p>
-            <p class="zh" lang="zh-Hans"><b>你玩之前由 AI 参与制作的部分。</b>3D 模型（场景、武器、四只动物和各位铁匠）先生成概念图，再用 Tripo 转成网格，然后由脚本焊缝、减面、重做贴图、绑骨。物品图标、成就图标、应用图标和剧情插画是生成的图片，再统一压到同一套小色板上。大部分音效和唯一的一段音乐由 ElevenLabs 生成，再经脚本处理。代码、游戏内文字和中英两种语言的文本，都由 AI 编程代理（Claude Code 和 Codex）按我的要求写成。</p>
+            <p class="en"><b>Made with AI before you play.</b> The 3D models (scenery, weapons, the four animals and the rival smiths) begin as generated concept pictures and are turned into meshes with Tripo; scripts then weld them, cut them down, redo their textures and rig them. Item icons, achievement icons, the app icon and the story pictures are generated images cut down to one small palette. Most sound effects and the one music loop are generated with ElevenLabs and processed by script; so is the music of the trailer on this page. The code, the in-game text and both languages of it were written by AI coding agents (Claude Code and Codex) working to my direction.</p>
+            <p class="zh" lang="zh-Hans"><b>你玩之前由 AI 参与制作的部分。</b>3D 模型（场景、武器、四只动物和各位铁匠）先生成概念图，再用 Tripo 转成网格，然后由脚本焊缝、减面、重做贴图、绑骨。物品图标、成就图标、应用图标和剧情插画是生成的图片，再统一压到同一套小色板上。大部分音效和唯一的一段音乐由 ElevenLabs 生成，再经脚本处理；这一页预告片的音乐也是。代码、游戏内文字和中英两种语言的文本，都由 AI 编程代理（Claude Code 和 Codex）按我的要求写成。</p>
             <p class="en"><b>Made by AI while you play.</b> When a sword is fused from three or more things, a small language model (Qwen2.5-0.5B, run by llama.cpp on your own processor, with no network) gives it a name and picks two keywords for it from a fixed list. The answer has to fit a schema: a name of three to seven Chinese characters, an English name of two or three plain capitalised words, and choices from lists the game supplies. Anything else is thrown away and a name made by rule is used instead. The model cannot write free text into the game, cannot set a number and cannot invent an object.</p>
             <p class="zh" lang="zh-Hans"><b>你玩的时候由 AI 生成的部分。</b>当一把剑熔进三件以上的东西时，一个很小的语言模型（Qwen2.5-0.5B，由 llama.cpp 跑在你自己的处理器上，不联网）给它起名，并从固定的词表里挑两个关键词。回答必须符合规定的格式：三到七个汉字的中文名，两到三个首字母大写的普通英文词，其余全部从游戏给出的列表里选。不合格的回答会被丢掉，换成按规则拼出来的名字。模型不能往游戏里写任意文字，不能设定任何数值，也不能凭空造出物件。</p>
             <p class="en"><b>Not AI.</b> The forging sounds are synthesised by code from the size of the sword on the anvil. Attack effects and the interface are drawn by code. Every animation is keyed by script; there is no motion capture and no generated animation. The rules, the numbers and the 231 weapon designs are written out by hand in tables.</p>
@@ -297,8 +298,8 @@
             <div class="prose">
               <p class="en">Nobody on this project is a tester, so the game tests itself. Before a build is made, its rules are played in a simulation with no picture and the results compared with numbers: twenty groups of checks, 875 of them for the contract rules alone at the last count. Fifty-six command-line flags make the finished game play one part of itself and write screenshots. Bots of several skill levels fight every smith and play whole runs, so that the numbers are roughly right before I sit down.</p>
               <p class="zh" lang="zh-Hans">这个项目里没有测试员，所以游戏自己测自己。每次构建之前，规则先在一个没有画面的模拟里跑一遍，结果和数字逐条对照：一共二十组检查，光是合同规则这一组，最近一次就有 875 条。另有五十六个命令行开关，能让打好的游戏自己把某一段玩一遍并截图。几种水平的机器人会去挑战每一位铁匠、跑完整局，这样在我坐下来玩之前，数值已经大致靠谱。</p>
-              <p class="en">The trailer on this page was recorded the same way. A recorder and a small director were added to a private copy of the game, and the director plays the seats.</p>
-              <p class="zh" lang="zh-Hans">这一页的预告片也是这样录的：在游戏的一份私有副本里加了一个录像器和一个小导演，由导演来操控各个座位。</p>
+              <p class="en">The trailer and the cover on this page were made the same way. A recorder and a small director were added to a private copy of the game: the director plays the seats, holds a giant in place for a still, and photographs it at twice the screen size. The cover is one of those stills with the title on it; the title is the game's own logo font, enlarged only by whole pixels and coloured like hot metal.</p>
+              <p class="zh" lang="zh-Hans">这一页的预告片和封面也是这样做的：在游戏的一份私有副本里加了一个录像器和一个小导演，导演操控各个座位，需要静帧时把巨匠定在原地，再按两倍屏幕尺寸拍下来。封面就是其中一张静帧加上标题；标题用的是游戏自己的标志字体，只按整像素放大，配成烧红金属的颜色。</p>
             </div>
           </div>
 
@@ -321,7 +322,7 @@
       <p><a href="../#work"><span class="en">Back to Work</span><span class="zh" lang="zh-Hans">回到作品</span></a></p>
     </footer>
 
-    <div class="viewer" tabindex="-1" role="dialog" aria-label="Picture"><img alt="" /></div>
-    <script type="module" src="scrap-forge.js?v=9fecd0f5a70e"></script>
+    <div class="viewer" tabindex="-1" role="dialog" aria-label="Picture"><figure><img alt="" /><figcaption></figcaption></figure><button type="button" class="step prev" aria-label="Previous picture">←</button><button type="button" class="step next" aria-label="Next picture">→</button><span class="viewer-count" aria-live="polite"></span></div>
+    <script type="module" src="scrap-forge.js?v=bb373a87d8d3"></script>
   </body>
 </html>
